@@ -1,5 +1,5 @@
 # SimpleMenu
-create a menu with nested items that support assigning (template,position,dynamic,role/perm) to pages
+create a menu with nested items that support (multiLocal, template, static/dynamic, roles & permissions) pages
 
 1 - install
 - https://github.com/spatie/laravel-translatable
