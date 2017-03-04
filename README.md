@@ -42,7 +42,7 @@ protected $routeMiddleware = [
 <td>
 <pre>
 Page::create([
-  'title' +> [
+  'title' => [
     'en'  => '...',
     'fr'  => '...',
     'etc' => '...'
