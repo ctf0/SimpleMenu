@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App;
 
-class MenuController extends Controller
+trait createMenus
 {
-    protected $cache;
-
-    public function __construct()
+    /**
+     * register routes for menu pages.
+     *
+     * @return [type] [description]
+     */
+    public function createMenus()
     {
-        $this->cache = cache('menus');
-
-        view()->share('menu', $this);
-
-        foreach ($this->cache->pluck('name') as $name) {
-            $this->genNavigation($name);
+        foreach (cache('menus')->pluck('name') as $name) {
+            $this->genMenu($name);
         }
     }
 
     /**
-     * generate menu lists and assign its data.
+     * [genMenu description].
      *
      * @param [type] $name [description]
      *
      * @return [type] [description]
      */
-    public function genNavigation($name)
+    public function genMenu($name)
     {
         $viewFile = view()->exists("_partials.navigation.pages.{$name}")
         ? "_partials.navigation.pages.{$name}"
@@ -48,7 +47,7 @@ class MenuController extends Controller
      */
     public function query($name)
     {
-        return $this->cache->where('name', $name)
+        return cache('menus')->where('name', $name)
                 ->first()->pages()
                 ->whereNotNull('menu_page.order')
                 ->orderBy('menu_page.order', 'asc')
@@ -65,7 +64,7 @@ class MenuController extends Controller
      */
     public function getChilds($name, $id)
     {
-        return $this->cache->where('name', $name)
+        return cache('menus')->where('name', $name)
                 ->first()->pages()
                 ->where('menu_page.parent_id', $id)
                 ->orderBy('menu_page.child_order', 'asc')

@@ -1,9 +1,7 @@
 <?php
 
-use App\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Cache;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,15 +11,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Cache::flush();
-
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'user']);
-        Role::create(['name' => 'guest']);
-
-        Permission::create(['name' => 'access_backend']);
-        Permission::create(['name' => 'guest']);
-
-        User::first()->assignRole('admin');
-        User::first()->givePermissionTo('access_backend');
+        $this->call(PagesTableSeeder::class);
+        $this->call(MenusTableSeeder::class);
+        $this->call(MenuPagesTableSeeder::class);
+        $this->call(RolePermSeeder::class);
     }
 }

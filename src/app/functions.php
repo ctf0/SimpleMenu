@@ -28,8 +28,9 @@ if (!function_exists('slugfy')) {
     {
         $url = trim($string);
         $url = strtolower($url);
-        $url = str_replace(' ', $separator, $url);
         $url = preg_replace('|[^a-z-A-Z\p{Arabic}0-9 _]|iu', '', $url);
+        $url = preg_replace('/\s+/', ' ', $url);
+        $url = str_replace(' ', $separator, $url);
 
         return $url;
     }

@@ -6,8 +6,6 @@ use Cache;
 
 class Menu extends BaseModel
 {
-    protected $with = ['pages'];
-
     public static function boot()
     {
         parent::boot();

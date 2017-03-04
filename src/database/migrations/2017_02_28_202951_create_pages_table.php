@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->json('title');
             $table->json('body')->nullable();
             $table->json('prefix')->nullable();
+            $table->json('url')->nullable();
             $table->timestamps();
         });
     }

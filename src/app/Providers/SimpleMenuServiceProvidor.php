@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\MenuController;
 use App\Http\Models\Menu;
 use App\Http\Models\Page;
+use App\SimpleMenu;
 use Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,15 +15,17 @@ class SimpleMenuServiceProvidor extends ServiceProvider
      */
     public function boot()
     {
-        Cache::rememberForever('menus', function () {
-            return Menu::get();
-        });
-
+        // for creating the routes
         Cache::rememberForever('pages', function () {
             return Page::get();
         });
 
-        new MenuController();
+        // for creating the menu
+        Cache::rememberForever('menus', function () {
+            return Menu::with('pages')->get();
+        });
+
+        (new SimpleMenu())->createMenus();
     }
 
     /**
