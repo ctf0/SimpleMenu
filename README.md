@@ -10,7 +10,6 @@ create a menu with nested items that support (multiLocal "title, url, prefix", t
   >
   - https://github.com/spatie/laravel-translatable
   - https://github.com/mcamara/laravel-localization
-  - https://github.com/jenssegers/date
 
   > - Menu Nested Set
   >
