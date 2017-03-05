@@ -33,7 +33,7 @@ protected $routeMiddleware = [
 <table>
 <tr>
 <th>config/laravel-localization</th>
-<th>config/laravel-localization</th>
+<th>db/laravel-translatable</th>
 </tr>
 <tr>
 <td>
