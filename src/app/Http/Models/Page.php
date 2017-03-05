@@ -2,13 +2,15 @@
 
 namespace App\Http\Models;
 
+use Baum\Node;
 use Cache;
 use File;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Translatable\HasTranslations;
 
-class Page extends BaseModel
+class Page extends Node
 {
-    use HasRoles;
+    use HasRoles, HasTranslations;
 
     public $translatable = ['title', 'body', 'prefix', 'url'];
 

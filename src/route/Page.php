@@ -1,3 +1,3 @@
 <?php
 
-(new App\SimpleMenu())->createRoutes();
+(new \App\SimpleMenu())->createRoutes();

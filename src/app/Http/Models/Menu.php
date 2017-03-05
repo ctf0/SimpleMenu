@@ -3,9 +3,12 @@
 namespace App\Http\Models;
 
 use Cache;
+use Illuminate\Database\Eloquent\Model;
 
-class Menu extends BaseModel
+class Menu extends Model
 {
+    protected $with = ['pages'];
+
     public static function boot()
     {
         parent::boot();
@@ -23,6 +26,6 @@ class Menu extends BaseModel
 
     public function pages()
     {
-        return $this->belongsToMany(Page::class)->withPivot('order', 'parent_id', 'child_order');
+        return $this->belongsToMany(Page::class);
     }
 }

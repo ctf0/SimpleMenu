@@ -47,27 +47,6 @@ trait createMenus
      */
     public function query($name)
     {
-        return cache('menus')->where('name', $name)
-                ->first()->pages()
-                ->whereNotNull('menu_page.order')
-                ->orderBy('menu_page.order', 'asc')
-                ->get();
-    }
-
-    /**
-     * menu item childs.
-     *
-     * @param [type] $name [description]
-     * @param [type] $id   [description]
-     *
-     * @return [type] [description]
-     */
-    public function getChilds($name, $id)
-    {
-        return cache('menus')->where('name', $name)
-                ->first()->pages()
-                ->where('menu_page.parent_id', $id)
-                ->orderBy('menu_page.child_order', 'asc')
-                ->get();
+        return cache('menus')->where('name', $name)->first()->pages;
     }
 }

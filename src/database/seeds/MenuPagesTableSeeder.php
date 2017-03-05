@@ -14,7 +14,7 @@ class MenuPagesTableSeeder extends Seeder
         $pages = Page::all();
         foreach ($pages as $key => $val) {
             $menu = Menu::inRandomOrder()->first();
-            $menu->pages()->attach($val->id, ['order'=> $key]);
+            $menu->pages()->attach($val->id);
         }
     }
 }

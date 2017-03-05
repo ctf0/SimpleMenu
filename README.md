@@ -2,12 +2,19 @@
 create a menu with nested items that support (multiLocal "title, url, prefix", template, static/dynamic, roles & permissions) pages
 
 1 - install
+  > - Permissions
+  >
+  - https://github.com/spatie/laravel-permission
 
-- https://github.com/spatie/laravel-translatable
+  > - MultiLocale
+  >
+  - https://github.com/spatie/laravel-translatable
+  - https://github.com/mcamara/laravel-localization
+  - https://github.com/jenssegers/date
 
-- https://github.com/spatie/laravel-permission
-
-- https://github.com/mcamara/laravel-localization
+  > - Menu Nested Set
+  >
+  - https://github.com/gazsp/baum#installation
 
 2 - Kernel.php
 
@@ -61,6 +68,5 @@ Page::create([
 
 # ToDo
 
-* [ ] Better Caching.
 * [ ] Views for editing.
 * [ ] Turn into Package.

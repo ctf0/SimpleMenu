@@ -4,7 +4,7 @@
             <a href="{{ $menu->getUrl(Route::currentRouteName(), $code) }}"
                 rel="alternate"
                 hreflang="{{ $code }}">
-                {{ $localeCode }}
+                {{ $code }}
             </a>
         </li>
         @if (!$loop->last)

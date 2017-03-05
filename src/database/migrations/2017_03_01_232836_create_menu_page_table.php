@@ -16,10 +16,6 @@ class CreateMenuPageTable extends Migration
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->integer('page_id')->unsigned()->index();
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
-
-            $table->integer('order')->nullable();
-            $table->integer('parent_id')->nullable();
-            $table->integer('child_order')->nullable();
         });
     }
 

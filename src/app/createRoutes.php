@@ -3,6 +3,7 @@
 namespace App;
 
 use File;
+use LaravelLocalization;
 use Route;
 
 trait createRoutes
@@ -23,7 +24,7 @@ trait createRoutes
         $this->listFileDir = $dir;
 
         if (!File::exists($dir)) {
-            $this->localeCodes = array_keys(\LaravelLocalization::getSupportedLocales());
+            $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
             $this->listFileFound = true;
 
             foreach (cache('pages') as $page) {
@@ -39,11 +40,11 @@ trait createRoutes
     }
 
     /**
-     * [getRoute description].
+     * [getUrl description].
      *
-     * @param [type] $code   [description]
      * @param [type] $name   [description]
-     * @param mixed  $params
+     * @param [type] $code   [description]
+     * @param [type] $params [description]
      *
      * @return [type] [description]
      */
@@ -62,7 +63,7 @@ trait createRoutes
             $url = preg_replace('/\{.*\}/', '', $url);
         }
 
-        return url($code.$url);
+        return url("$code/$url");
     }
 
     /**
@@ -84,8 +85,8 @@ trait createRoutes
         $url = $page->url !== null ? $page->url : slugfy($title);
         $action = $page->action;
         $prefix = $action !== null ? $page->prefix : slugfy($page->prefix);
-        $route = $prefix.'/'.$url;
-        $routeName = slugfy($page->getTranslation('title', $this->defLocale));
+        $route = "$prefix/$url";
+        $routeName = $page->route_name;
 
         // middlewares
         $roles = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
@@ -148,7 +149,7 @@ trait createRoutes
         foreach ($this->localeCodes as $code) {
             $r_url = $page->getTranslation('url', $code) !== null ? $page->getTranslation('url', $code) : slugfy($page->getTranslation('title', $code));
             $r_prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));
-            $r_route = $r_prefix.'/'.$r_url;
+            $r_route = "$r_prefix/$r_url";
 
             $this->allRoutes[$routeName][$code] = $r_route;
         }

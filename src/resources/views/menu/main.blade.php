@@ -1,7 +1,7 @@
 <ul>
     @foreach ($PAGES as $one)
         @php
-            $routeName = slugfy($one->getTranslation('title', $menu->defLocale));
+            $routeName = $one->route_name;
 
             // exmaple for how pass params based on route name
             switch ($routeName) {
@@ -17,13 +17,9 @@
         <li>
             <a href="{{ $route }}" class="{{ request()->url() == $route ? 'is-active' : '' }}">{{ $one->title }}</a>
 
-            @php
-                $items = $menu->getChilds($menuName,$one->id);
-            @endphp
-
-            @if (count($items))
+            @if (count($childs = $one->getImmediateDescendants()))
                 <ul>
-                    @include('menu._nested', ['items' => $items, 'menuName' => $menuName])
+                    @include('menu._nested', ['items' => $childs, 'menuName' => $menuName])
                 </ul>
             @endif
         </li>
