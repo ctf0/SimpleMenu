@@ -14,7 +14,7 @@ class SimpleMenu
 
     public function __construct()
     {
-        $this->listFileDir = config_path('temp/simpleMenu.php');
+        $this->listFileDir = storage_path('logs/simpleMenu.php');
         view()->share('menu', $this);
     }
 

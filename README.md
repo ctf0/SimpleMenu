@@ -62,9 +62,28 @@ Page::create([
 ## Notes
 - if `url` is empty, it will be a slug of title.
 - if `action` is added, this page `url & prefix` wont be slugged.
-- `action` **namespace** is `App\Http\Controllers`, so just add the `NameController@method`.
-- route name should be equal to `$page->title` under `app.locale`
-- atm to register the route params according to each route, u will have to duplicate the variable in the `@php` block, or use middleware.
+- `action` **default namespace** is `App\Http\Controllers`, so all your controllers should be available under that.
+- route name is equal to `$page->title` under **en** or whatever ur `config('app.locale')` value is.
+- to check & register route params, in the menu view you can use
+
+```php
+$routeName = $item->route_name;
+
+// same as "route($routeName)"
+$route = $menu->getRoute($routeName);
+
+// check if ($routeName = 'something') and return its "link" or "route($routeName)"
+$route = $menu->getRoute($routeName, $another);
+
+// you can also resolve route params while checking
+$route = $menu->getRoute($routeName, $another, ['key'=>'value']);
+
+// if you have more than one route in the same view, you can pass an array instead
+$route = $menu->getRoute($routeName, [
+  'about'      => ['name'=>'hello'],
+  'contact-us' => ['name'=>'there'],
+]);
+```
 
 # ToDo
 

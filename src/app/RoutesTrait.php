@@ -153,6 +153,11 @@ trait RoutesTrait
         $data = "<?php\n\nreturn ".var_export($routes, true).';';
         $data = preg_replace('/\/+/', '/', $data);
 
+        // short array syntax format
+        $data = str_replace('array (', '[', $data);
+        $data = str_replace(')', ']', $data);
+        $data = preg_replace('/=>\s+\[/', '=> [', $data);
+
         return File::put($this->listFileDir, $data);
     }
 }

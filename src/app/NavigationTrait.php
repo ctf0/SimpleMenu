@@ -71,7 +71,9 @@ trait NavigationTrait
      */
     protected function routeLink($name, $code)
     {
-        return config('temp.simpleMenu.'.$name.'.'.$code);
+        $file = include $this->listFileDir;
+
+        return array_get($file, "$name.$code");
     }
 
     /**

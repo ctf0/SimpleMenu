@@ -3,7 +3,6 @@
         @php
             $routeName = $one->route_name;
             $route = $menu->getRoute($routeName);
-            // $route = $menu->getRoute($routeName, 'about', ['name'=>'test']);
         @endphp
         
         <li>
