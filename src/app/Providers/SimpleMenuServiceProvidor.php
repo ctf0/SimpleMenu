@@ -15,6 +15,9 @@ class SimpleMenuServiceProvidor extends ServiceProvider
         // cache
         (new SimpleMenu())->createCache();
 
+        // create routes
+        (new SimpleMenu())->createRoutes();
+
         // create menu
         (new SimpleMenu())->createMenus();
     }

@@ -2,7 +2,7 @@
 
 namespace App;
 
-trait createMenus
+trait MenusTrait
 {
     /**
      * register routes for menu pages.
@@ -12,18 +12,18 @@ trait createMenus
     public function createMenus()
     {
         foreach (cache('menus')->pluck('name') as $name) {
-            $this->genMenu($name);
+            $this->viewComp($name);
         }
     }
 
     /**
-     * [genMenu description].
+     * [viewComp description].
      *
      * @param [type] $name [description]
      *
      * @return [type] [description]
      */
-    public function genMenu($name)
+    public function viewComp($name)
     {
         $viewFile = view()->exists("_partials.navigation.pages.{$name}")
         ? "_partials.navigation.pages.{$name}"

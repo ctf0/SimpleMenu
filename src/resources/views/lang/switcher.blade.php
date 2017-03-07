@@ -1,5 +1,5 @@
 <ul>
-    @foreach(LaravelLocalization::getSupportedLocales() as $code => $props)
+    @foreach(array_keys(LaravelLocalization::getSupportedLocales()) as $code)
         <li>
             <a href="{{ $menu->getUrl(Route::currentRouteName(), $code) }}"
                 rel="alternate"

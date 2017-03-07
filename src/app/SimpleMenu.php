@@ -8,13 +8,21 @@ use Cache;
 
 class SimpleMenu
 {
-    use createRoutes, createMenus;
+    use RoutesTrait, MenusTrait, NavigationTrait;
+
+    protected $listFileDir;
 
     public function __construct()
     {
+        $this->listFileDir = config_path('temp/simpleMenu.php');
         view()->share('menu', $this);
     }
 
+    /**
+     * [createCache description].
+     *
+     * @return [type] [description]
+     */
     public function createCache()
     {
         // for creating the routes

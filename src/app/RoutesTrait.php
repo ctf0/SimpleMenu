@@ -6,80 +6,64 @@ use File;
 use LaravelLocalization;
 use Route;
 
-trait createRoutes
+trait RoutesTrait
 {
     protected $allRoutes = [];
     protected $localeCodes;
-    protected $listFileFound;
-    protected $listFileDir;
+    protected $listFileFound = true;
 
     /**
-     * register routes for menu pages.
+     * [createRoutes description].
      *
      * @return [type] [description]
      */
     public function createRoutes()
     {
-        $dir = config_path('simpleMenuTemp.php');
-        $this->listFileDir = $dir;
-
-        if (!File::exists($dir)) {
-            $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
-            $this->listFileFound = true;
-
-            foreach (cache('pages') as $page) {
-                $this->generateRoute($page);
+        Route::group([
+            'prefix'     => LaravelLocalization::setLocale(),
+            'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect'],
+            'namespace'  => 'App\Http\Controllers',
+            ], function () {
+                $this->utilCheck();
             }
-
-            $this->saveRoutesToFile($this->allRoutes);
-        } else {
-            foreach (cache('pages') as $page) {
-                $this->generateRoute($page);
-            }
-        }
+        );
     }
 
-    /**
-     * [getUrl description].
-     *
-     * @param [type] $name   [description]
-     * @param [type] $code   [description]
-     * @param [type] $params [description]
-     *
-     * @return [type] [description]
-     */
-    public function getUrl($name, $code, $params = null)
+    protected function utilCheck()
     {
-        $url = config('simpleMenuTemp.'.$name.'.'.$code);
+        if (!File::exists($this->listFileDir)) {
+            $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
+            $this->listFileFound = false;
 
-        if ($params) {
-            foreach ($params as $key => $value) {
-                // replace phs with params
-                $url = preg_replace('/\{'.preg_quote($key).'(\?)?\}/', $value, $url);
-            }
-            // remove any extra phs to avoid weird chars in url
-            $url = preg_replace('/\{.*\}/', '', $url);
+            $this->utilLoop();
+            $this->saveRoutesListToFile($this->allRoutes);
         } else {
-            $url = preg_replace('/\{.*\}/', '', $url);
+            $this->utilLoop();
         }
+    }
 
-        return url("$code/$url");
+    protected function utilLoop()
+    {
+        foreach (cache('pages') as $page) {
+            $this->pageComp($page);
+        }
     }
 
     /**
-     * [generateRoute description].
+     * [pageComp description].
      *
      * @param [type] $page [description]
      *
      * @return [type] [description]
      */
-    protected function generateRoute($page)
+    protected function pageComp($page)
     {
         // page data
         $title = $page->title;
         $body = $page->body;
         $desc = trimfy($body);
         $template = $page->template;
+        $breadCrump = $page->getAncestors();
 
         // route data
         $url = $page->url !== null ? $page->url : slugfy($title);
@@ -93,16 +77,16 @@ trait createRoutes
         $permissions = 'perm:'.implode(',', $page->permissions()->pluck('name')->toArray());
 
         // make route
-        $this->createRoute($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc);
+        $this->routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump);
 
         // create route list
-        if ($this->listFileFound) {
-            $this->createRouteList($action, $page, $routeName);
+        if (!$this->listFileFound) {
+            $this->createRoutesList($action, $page, $routeName);
         }
     }
 
     /**
-     * [createRoute description].
+     * [routeGen description].
      *
      * @param [type] $routeName   [description]
      * @param [type] $route       [description]
@@ -113,21 +97,23 @@ trait createRoutes
      * @param [type] $title       [description]
      * @param [type] $body        [description]
      * @param [type] $desc        [description]
+     * @param [type] $breadCrump  [description]
      *
      * @return [type] [description]
      */
-    protected function createRoute($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc)
+    protected function routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
     {
         if ($action) {
             // dynamic
             Route::get($route, $action)->name($routeName)->middleware([$roles, $permissions]);
         } else {
             // static
-            Route::get($route, function () use ($template, $title, $body, $desc) {
+            Route::get($route, function () use ($template, $title, $body, $desc, $breadCrump) {
                 return view("pages.{$template}")->with([
-                    'title'    => $title,
-                    'body'     => $body,
-                    'desc'     => $desc,
+                    'title'      => $title,
+                    'body'       => $body,
+                    'desc'       => $desc,
+                    'breadCrump' => $breadCrump,
                 ]);
             })
             ->name($routeName)
@@ -136,7 +122,7 @@ trait createRoutes
     }
 
     /**
-     * [createRouteList description].
+     * [createRoutesList description].
      *
      * @param [type] $action    [description]
      * @param [type] $page      [description]
@@ -144,25 +130,25 @@ trait createRoutes
      *
      * @return [type] [description]
      */
-    protected function createRouteList($action, $page, $routeName)
+    protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
-            $r_url = $page->getTranslation('url', $code) !== null ? $page->getTranslation('url', $code) : slugfy($page->getTranslation('title', $code));
-            $r_prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));
-            $r_route = "$r_prefix/$r_url";
+            $url = $page->getTranslation('url', $code) !== null ? $page->getTranslation('url', $code) : slugfy($page->getTranslation('title', $code));
+            $prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));
+            $route = "$prefix/$url";
 
-            $this->allRoutes[$routeName][$code] = $r_route;
+            $this->allRoutes[$routeName][$code] = $route;
         }
     }
 
     /**
-     * [saveRoutesToFile description].
+     * [saveRoutesListToFile description].
      *
      * @param mixed $routes
      *
      * @return [type] [description]
      */
-    protected function saveRoutesToFile($routes)
+    protected function saveRoutesListToFile($routes)
     {
         $data = "<?php\n\nreturn ".var_export($routes, true).';';
         $data = preg_replace('/\/+/', '/', $data);

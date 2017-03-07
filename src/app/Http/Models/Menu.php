@@ -3,9 +3,8 @@
 namespace App\Http\Models;
 
 use Cache;
-use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Menu extends BaseModel
 {
     protected $with = ['pages'];
 

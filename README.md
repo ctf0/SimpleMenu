@@ -62,8 +62,9 @@ Page::create([
 ## Notes
 - if `url` is empty, it will be a slug of title.
 - if `action` is added, this page `url & prefix` wont be slugged.
-- route name is equal to `$page->title` under `defaultLocale`
-- atm we can either pass route params through the `lang switcher` or `the menu items` but not both as it will make code messy.
+- `action` **namespace** is `App\Http\Controllers`, so just add the `NameController@method`.
+- route name should be equal to `$page->title` under `app.locale`
+- atm to register the route params according to each route, u will have to duplicate the variable in the `@php` block, or use middleware.
 
 # ToDo
 

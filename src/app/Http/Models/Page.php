@@ -11,8 +11,9 @@ use Spatie\Translatable\HasTranslations;
 class Page extends Node
 {
     use HasRoles, HasTranslations;
-
     public $translatable = ['title', 'body', 'prefix', 'url'];
+
+    protected $guarded = ['id'];
 
     public static function boot()
     {

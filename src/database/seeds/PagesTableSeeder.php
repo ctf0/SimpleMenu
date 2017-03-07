@@ -18,7 +18,7 @@ class PagesTableSeeder extends Seeder
             $ar = $faker->unique()->city;
 
             Page::create([
-                'template'  => 'plain',
+                'template'  => 'hero',
                 'route_name'=> slugfy($en),
                 'title'     => [
                      'en' => $en,
@@ -45,7 +45,7 @@ class PagesTableSeeder extends Seeder
         foreach ($heros as $one) {
             Page::create([
                 'route_name'=> slugfy($one),
-                'template'  => 'plain',
+                'template'  => 'hero',
                 'action'    => 'PageController@'.camel_case($one),
                 'title'     => [
                     'en' => $one,
