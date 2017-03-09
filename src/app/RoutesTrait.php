@@ -66,7 +66,8 @@ trait RoutesTrait
         $breadCrump = $page->getAncestors();
 
         // route data
-        $url = $page->url !== null ? $page->url : slugfy($title);
+        $url = $page->url;
+        // $url = $page->url !== null ? $page->url : slugfy($title);
         $action = $page->action;
         $prefix = $action !== null ? $page->prefix : slugfy($page->prefix);
         $route = "$prefix/$url";
@@ -133,7 +134,8 @@ trait RoutesTrait
     protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
-            $url = $page->getTranslation('url', $code) !== null ? $page->getTranslation('url', $code) : slugfy($page->getTranslation('title', $code));
+            $url = $page->getTranslation('url', $code);
+            // $url = $page->getTranslation('url', $code) !== null ? $page->getTranslation('url', $code) : slugfy($page->getTranslation('title', $code));
             $prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));
             $route = "$prefix/$url";
 
@@ -153,7 +155,7 @@ trait RoutesTrait
         $data = "<?php\n\nreturn ".var_export($routes, true).';';
         $data = preg_replace('/\/+/', '/', $data);
 
-        // short array syntax format
+        // array(...) to [...]
         $data = str_replace('array (', '[', $data);
         $data = str_replace(')', ']', $data);
         $data = preg_replace('/=>\s+\[/', '=> [', $data);

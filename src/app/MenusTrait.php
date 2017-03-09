@@ -25,14 +25,13 @@ trait MenusTrait
      */
     public function viewComp($name)
     {
-        $viewFile = view()->exists("_partials.navigation.pages.{$name}")
-        ? "_partials.navigation.pages.{$name}"
-        : '_partials.navigation.pages.side';
+        $viewFile = view()->exists("menu.{$name}")
+        ? "menu.{$name}"
+        : 'menu.example';
 
         return view()->composer($viewFile, function ($view) use ($name) {
             $view->with([
-                'PAGES'   => $this->query($name),
-                'menuName'=> $name,
+                'PAGES' => $this->query($name),
             ]);
         });
     }

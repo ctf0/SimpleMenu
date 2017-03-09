@@ -12,14 +12,16 @@ class SimpleMenuServiceProvidor extends ServiceProvider
      */
     public function boot()
     {
+        $sm = new SimpleMenu();
+
         // cache
-        (new SimpleMenu())->createCache();
+        $sm->createCache();
 
         // create routes
-        (new SimpleMenu())->createRoutes();
+        $sm->createRoutes();
 
         // create menu
-        (new SimpleMenu())->createMenus();
+        $sm->createMenus();
     }
 
     /**

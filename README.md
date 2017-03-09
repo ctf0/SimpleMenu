@@ -1,21 +1,21 @@
 # SimpleMenu
-create a menu with nested items that support (multiLocal "title, url, prefix", template, static/dynamic, roles & permissions) pages
 
-1 - install
-  > - Permissions
-  >
-  - https://github.com/spatie/laravel-permission
+create a menu that support page (multiLocal "title, url, prefix", nesting, template, static/dynamic, roles & permissions).
 
-  > - MultiLocale
-  >
-  - https://github.com/spatie/laravel-translatable
-  - https://github.com/mcamara/laravel-localization
+## Installation
 
-  > - Menu Nested Set
-  >
-  - https://github.com/gazsp/baum#installation
+- install
+    > - Permissions
+    >   - https://github.com/spatie/laravel-permission
 
-2 - Kernel.php
+    > - MultiLocale
+    >   - https://github.com/spatie/laravel-translatable
+    >   - https://github.com/mcamara/laravel-localization
+
+    > - Menu Nested Set
+    >   - https://github.com/gazsp/baum#installation
+
+- Kernel.php
 
 ```php
 protected $routeMiddleware = [
@@ -25,65 +25,85 @@ protected $routeMiddleware = [
 ];
 ```
 
-3 - include `menu.main` anywhere to display the menu.
+## Usage
 
-4 - include `lang.switcher` anywhere to switch locale and redirect to the same page.
-- for this to work properly, make sure the enabled locales are the same as the ones in the db.
+- the package register a global variable **$menu** to use inside your views, which can be changed at `config('simpleMenu.viewVar')` and it gives you 3 methods
+    1. `$menu->getUrl($crntRouteName, $langCode)`
+        ***for language switcher.***
+        ```blade
+        {{ $menu->getUrl(Route::currentRouteName(), 'en') }}
+        ```
 
-<table>
-<tr>
-<th>config/laravel-localization</th>
-<th>db/laravel-translatable</th>
-</tr>
-<tr>
-<td>
-<pre>
-[
-  'en',
-  'fr',
-  'etc'
-]
-</pre>
-</td>
-<td>
-<pre>
-Page::create([
-  'title' => [
-    'en'  => '...',
-    'fr'  => '...',
-    'etc' => '...'
-  ]
-])
-</pre>
-</td>
-</tr>
-</table>
+    2. `$menu->getRoute($pageRouteName, $another = null, $params = null)`
+        ***for resolving routes & params for the menu list, and you can use it in more than one way, ex.***
+        ```php
+        @php
+            $routeName = $page->route_name;
+
+            // same as "route($routeName)"
+            $route = $menu->getRoute($routeName);
+
+            // check if ($routeName = 'something-else') and return its "link" or "route($routeName)"
+            $route = $menu->getRoute($routeName, 'something-else');
+
+            // resolve a single route with params
+            $route = $menu->getRoute($routeName, $another, ['key'=>'value']);
+
+            // resolve multi routes with params
+            $route = $menu->getRoute($routeName, [
+                'about'      => ['name'=>'hello'],
+                'contact-us' => ['name'=>'there'],
+            ]);
+        @endphp
+        ```
+
+    3. `$menu->render($pages, $menuClasses = null, $routeParams = null, $url = null)`
+        ***for automatic menu list render.***
+        ```php
+        // the $menuClasses could either
+        // be "null" for not including any classes
+        // or "config" for using the ones under "config('simpleMenu.listClasses')"
+        // or added manually as below
+        {!! $menu->render (
+            $PAGES,
+            ['ul' => 'menu-list', 'li' => 'list-item', 'a' => 'is-active'],
+            [
+                'contact-us' => ['name'=>'test']
+            ],
+            request()->url()
+        ) !!}
+        ```
+
+- use `bread-crump.example` to display the current page breadCrumps.
+- use `menu.example` for manually formating the menu list the way you want.
+
+- use `lang-switcher.example` to display the supported locales while resolving the route Params during redirection.
+
+    ***note that for this to work properly, make sure the enabled locales are the same as the ones in the db.***
+    ```php
+    // config/laravel-localization
+    [
+        'en',
+        'fr',
+        'etc'
+    ]
+
+    // db/laravel-translatable
+    Page::create([
+        'title' => [
+            'en'  => '...',
+            'fr'  => '...',
+            'etc' => '...'
+        ],
+        // ...
+    ])
+    ```
 
 ## Notes
-- if `url` is empty, it will be a slug of title.
+
 - if `action` is added, this page `url & prefix` wont be slugged.
 - `action` **default namespace** is `App\Http\Controllers`, so all your controllers should be available under that.
-- route name is equal to `$page->title` under **en** or whatever ur `config('app.locale')` value is.
-- to check & register route params, in the menu view you can use
-
-```php
-$routeName = $item->route_name;
-
-// same as "route($routeName)"
-$route = $menu->getRoute($routeName);
-
-// check if ($routeName = 'something') and return its "link" or "route($routeName)"
-$route = $menu->getRoute($routeName, $another);
-
-// you can also resolve route params while checking
-$route = $menu->getRoute($routeName, $another, ['key'=>'value']);
-
-// if you have more than one route in the same view, you can pass an array instead
-$route = $menu->getRoute($routeName, [
-  'about'      => ['name'=>'hello'],
-  'contact-us' => ['name'=>'there'],
-]);
-```
+- route name should be equal to `$page->title` under whatever your `config('app.locale')` value is.
 
 # ToDo
 
