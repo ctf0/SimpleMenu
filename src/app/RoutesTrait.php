@@ -141,7 +141,7 @@ trait RoutesTrait
             $url = $page->getTranslation('url', $code);
 
             if (config('simpleMenu.useTitleForUrl') && is_null($page->getTranslation('url', $code))) {
-                $url = slugfy($page->getTranslation('title', $code))
+                $url = slugfy($page->getTranslation('title', $code));
             }
 
             $prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));
