@@ -29,14 +29,14 @@ protected $routeMiddleware = [
 
 - the package register a global variable **$menu** to use inside your views, which can be changed at `config('simpleMenu.viewVar')` and it gives you 3 methods
     1. `$menu->getUrl($crntRouteName, $langCode)`
-    
+
         ***for language switcher.***
         ```blade
         {{ $menu->getUrl(Route::currentRouteName(), 'en') }}
         ```
 
     2. `$menu->getRoute($pageRouteName, $another = null, $params = null)`
-    
+
         ***for resolving routes & params for the menu list, and you can use it in more than one way, ex.***
         ```php
         @php
@@ -60,7 +60,7 @@ protected $routeMiddleware = [
         ```
 
     3. `$menu->render($pages, $menuClasses = null, $routeParams = null, $url = null)`
-    
+
         ***for automatic menu list render.***
         ```php
         // the $menuClasses could either
@@ -104,9 +104,10 @@ protected $routeMiddleware = [
 
 ## Notes
 
-- if `action` is added, this page `url & prefix` wont be slugged.
+- if `action` is added, the page `url & prefix` wont be slugged.
 - `action` **default namespace** is `App\Http\Controllers`, so all your controllers should be available under that.
 - route name should be equal to `$page->title` under whatever your `config('app.locale')` value is.
+- empty url could be replaced by slugged title by changing the config under `config('SimpleMenu.useTitleForUrl')` to *true*.
 
 # ToDo
 

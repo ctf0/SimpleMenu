@@ -19,4 +19,9 @@ return [
      * the path where we will save the route list for multiLocal route resolving
      */
     'routeListPath' => storage_path('logs/simpleMenu.php'),
+
+    /*
+     * if url is empty should we use a slugged title instead ?
+     */
+    'useTitleForUrl' => false,
 ];
