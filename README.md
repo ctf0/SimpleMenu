@@ -1,7 +1,3 @@
-# SimpleMenu
-
-create a menu that support page (multiLocal "title, url, prefix", nesting, template, static/dynamic, roles & permissions).
-
 ## Installation
 
 - install
