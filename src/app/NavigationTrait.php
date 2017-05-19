@@ -50,7 +50,7 @@ trait NavigationTrait
 
         if (is_array($another)) {
             foreach ($another as $k => $v) {
-                if (($crntRouteName == $k)) {
+                if ($crntRouteName == $k) {
                     if (!session()->has($crntRouteName)) {
                         session([$crntRouteName => $v]);
                     }

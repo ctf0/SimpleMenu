@@ -24,16 +24,12 @@ protected $routeMiddleware = [
 ## Usage
 
 - the package register a global variable **$menu** to use inside your views, which can be changed at `config('simpleMenu.viewVar')` and it gives you 3 methods
-    1. `$menu->getUrl($crntRouteName, $langCode)`
-
-        ***for language switcher.***
+    1. `$menu->getUrl($crntRouteName, $langCode)` ***for language switcher.***
         ```blade
         {{ $menu->getUrl(Route::currentRouteName(), 'en') }}
         ```
 
-    2. `$menu->getRoute($pageRouteName, $another = null, $params = null)`
-
-        ***for resolving routes & params for the menu list, and you can use it in more than one way, ex.***
+    2. `$menu->getRoute($pageRouteName, $another = null, $params = null)` ***for resolving routes & params for the menu list, and you can use it in more than one way, ex.***
         ```php
         @php
             $routeName = $page->route_name;
@@ -55,9 +51,7 @@ protected $routeMiddleware = [
         @endphp
         ```
 
-    3. `$menu->render($pages, $menuClasses = null, $routeParams = null, $url = null)`
-
-        ***for automatic menu list render.***
+    3. `$menu->render($pages, $menuClasses = null, $routeParams = null, $url = null)` ***for automatic menu list render.***
         ```php
         // the $menuClasses could either
         // be "null" for not including any classes
@@ -82,9 +76,12 @@ protected $routeMiddleware = [
     ```php
     // config/laravel-localization
     [
-        'en',
-        'fr',
-        'etc'
+        hideDefaultLocaleInURL => false, // to avoid getting an error when navigating back to the default locale.
+        supportedLocales => [
+            'en',
+            'fr',
+            'etc'
+        ]
     ]
 
     // db/laravel-translatable
@@ -108,4 +105,5 @@ protected $routeMiddleware = [
 # ToDo
 
 * [ ] Views for editing.
+* [ ] Add the ability to work with `hideDefaultLocaleInURL => true`.
 * [ ] Turn into Package.
