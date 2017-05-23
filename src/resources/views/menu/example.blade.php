@@ -1,8 +1,7 @@
 <ul>
     @foreach ($PAGES as $one)
         @php
-            $routeName = $one->route_name;
-            $route = $menu->getRoute($routeName);
+            $route = $menu->getRoute($one->route_name);
         @endphp
         
         <li>

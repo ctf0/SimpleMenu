@@ -31,7 +31,8 @@ trait MenusTrait
 
         return view()->composer($viewFile, function ($view) use ($name) {
             $view->with([
-                'PAGES' => $this->query($name),
+                'PAGES'    => $this->query($name),
+                'menuName' => $name,
             ]);
         });
     }

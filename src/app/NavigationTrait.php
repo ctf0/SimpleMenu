@@ -27,11 +27,15 @@ trait NavigationTrait
         if (session()->has($name)) {
             $params = session()->get($name);
 
-            return LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $params)));
+            return LaravelLocalization::getLocalizedURL(
+                $code, url($this->getParams($url, $params))
+            );
         }
 
         // no params
-        return LaravelLocalization::getLocalizedURL($code, url($this->rmvNonUsedParams($url)));
+        return LaravelLocalization::getLocalizedURL(
+            $code, url($this->rmvNonUsedParams($url))
+        );
     }
 
     /**
@@ -55,7 +59,7 @@ trait NavigationTrait
                         session([$crntRouteName => $v]);
                     }
 
-                    return LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $v)));
+                    return $this->checkForhideDefaultLocaleInURL($code, $url, $v);
                 }
             }
         } else {
@@ -66,7 +70,7 @@ trait NavigationTrait
                     session([$crntRouteName => $params]);
                 }
 
-                return LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $params)));
+                return $this->checkForhideDefaultLocaleInURL($code, $url, $params);
             }
         }
 
@@ -102,6 +106,27 @@ trait NavigationTrait
     }
 
     /**
+     * to resolve 'hideDefaultLocaleInURL => true' problem.
+     *
+     * @param [type] $code   [description]
+     * @param [type] $url    [description]
+     * @param [type] $params [description]
+     *
+     * @return [type] [description]
+     */
+    protected function checkForhideDefaultLocaleInURL($code, $url, $params)
+    {
+        if (LaravelLocalization::hideDefaultLocaleInURL() &&
+            LaravelLocalization::getCurrentLocale() == app('laravellocalization')->getDefaultLocale()) {
+            return url($this->getParams($url, $params));
+        }
+
+        return LaravelLocalization::getLocalizedURL(
+            $code, url($this->getParams($url, $params))
+        );
+    }
+
+    /**
      * resolve route url.
      *
      * @param [type] $name [description]
@@ -112,6 +137,11 @@ trait NavigationTrait
     protected function routeLink($name, $code)
     {
         $file = include $this->listFileDir;
+
+        // in case 'hideDefaultLocaleInURL => true'
+        if (LaravelLocalization::hideDefaultLocaleInURL() && !$code) {
+            $code = app('laravellocalization')->getDefaultLocale();
+        }
 
         return array_get($file, "$name.$code");
     }
