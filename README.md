@@ -29,7 +29,7 @@ protected $routeMiddleware = [
         {{ $menu->getUrl(Route::currentRouteName(), 'en') }}
         ```
 
-    2. `$menu->getRoute($pageRouteName, $another = null, $params = null)` ***for resolving routes & params for the menu list, and you can use it in more than one way, ex.***
+    2. `$menu->getRoute($pageRouteName, $another = null, $params = null)` ***for resolving routes & params for the menu list***, *and you can use it in more than one way, ex.*
         ```php
         @php
             $routeName = $page->route_name;
