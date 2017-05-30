@@ -28,13 +28,13 @@ trait NavigationTrait
             $params = session()->get($name);
 
             return LaravelLocalization::getLocalizedURL(
-                $code, url($this->getParams($url, $params))
+                $code, url($this->getParams($url, $params)), [], true
             );
         }
 
         // no params
         return LaravelLocalization::getLocalizedURL(
-            $code, url($this->rmvNonUsedParams($url))
+            $code, url($this->rmvNonUsedParams($url)), [], true
         );
     }
 
@@ -122,7 +122,7 @@ trait NavigationTrait
         }
 
         return LaravelLocalization::getLocalizedURL(
-            $code, url($this->getParams($url, $params))
+            $code, url($this->getParams($url, $params)), [], true
         );
     }
 
