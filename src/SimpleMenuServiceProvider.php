@@ -13,7 +13,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         // config
         $this->publishes([
-            __DIR__.'/config/simpleMenu.php' => config_path('simpleMenu.php'),
+            __DIR__.'/config' => config_path(),
         ], 'config');
 
         // models

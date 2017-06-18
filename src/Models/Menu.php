@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace ctf0\SimpleMenu\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
