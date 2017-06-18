@@ -1,6 +1,6 @@
 <?php
 
-namespace ctf0\SimpleMenu\Models;
+namespace App;
 
 use Baum\Node;
 use Illuminate\Support\Facades\Cache;
