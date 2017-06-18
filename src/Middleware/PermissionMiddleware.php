@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace ctf0\SimpleMenu\Middleware;
 
 use Closure;
 
@@ -9,12 +9,11 @@ class PermissionMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param mixed                    $role
-     * @param mixed                    $permission
+     * @param [type]  $request     [description]
+     * @param Closure $next        [description]
+     * @param [type]  $permissions [description]
      *
-     * @return mixed
+     * @return [type] [description]
      */
     public function handle($request, Closure $next, ...$permission)
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace ctf0\SimpleMenu\Traits;
 
-use File;
-use LaravelLocalization;
-use Route;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait RoutesTrait
 {

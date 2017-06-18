@@ -2,6 +2,7 @@
     @foreach(array_keys(LaravelLocalization::getSupportedLocales()) as $code)
         <li>
             <a href="{{ $menu->getUrl(Route::currentRouteName(), $code) }}"
+                class="{{ LaravelLocalization::getCurrentLocale() == $code ? 'is-active' : '' }}"
                 rel="alternate"
                 hreflang="{{ $code }}">
                 {{ $code }}

@@ -1,10 +1,13 @@
 <?php
 
-namespace App;
+namespace ctf0\SimpleMenu;
 
-use App\Http\Models\Menu;
-use App\Http\Models\Page;
-use Cache;
+use ctf0\SimpleMenu\Models\Menu;
+use ctf0\SimpleMenu\Models\Page;
+use ctf0\SimpleMenu\Traits\MenusTrait;
+use ctf0\SimpleMenu\Traits\NavigationTrait;
+use ctf0\SimpleMenu\Traits\RoutesTrait;
+use Illuminate\Support\Facades\Cache;
 
 class SimpleMenu
 {
@@ -16,6 +19,15 @@ class SimpleMenu
     {
         $this->listFileDir = config('simpleMenu.routeListPath');
         view()->share(config('simpleMenu.viewVar'), $this);
+
+        // cache
+        $this->createCache();
+
+        // create routes
+        $this->createRoutes();
+
+        // create menu
+        $this->createMenus();
     }
 
     /**

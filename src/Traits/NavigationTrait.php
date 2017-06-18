@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace ctf0\SimpleMenu\Traits;
 
-use LaravelLocalization;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait NavigationTrait
 {

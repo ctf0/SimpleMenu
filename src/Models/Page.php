@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Models;
+namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
-use Cache;
-use File;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class Page extends Node
 {
     use HasRoles, HasTranslations;
-    public $translatable = ['title', 'body', 'prefix', 'url'];
 
+    public $translatable = ['title', 'body', 'prefix', 'url'];
     protected $guarded = ['id'];
 
     public static function boot()

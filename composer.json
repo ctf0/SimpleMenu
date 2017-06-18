@@ -1,0 +1,45 @@
+{
+    "name": "ctf0/simple-menu",
+    "description": "create a menu that support page (multiLocal 'title/ url/ prefix', nesting, template, static/dynamic, roles & permissions).",
+    "homepage": "https://github.com/ctf0/simple-menu",
+    "license": "MIT",
+    "keywords": [
+        "ctf0",
+        "SimpleMenu"
+    ],
+    "authors": [
+        {
+            "name": "Muah",
+            "email": "muah003@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "illuminate/support": "5.4.*|5.5.*",
+        "gazsp/baum": "^1.1",
+        "mcamara/laravel-localization": "^1.2",
+        "spatie/laravel-permission": "^1.10",
+        "spatie/laravel-translatable": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ctf0\\SimpleMenu\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "ctf0\\SimpleMenu\\SimpleMenuServiceProvidor"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

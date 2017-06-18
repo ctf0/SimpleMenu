@@ -1,11 +1,16 @@
 <?php
 
-namespace App\Http\Models;
+namespace ctf0\SimpleMenu\Models;
 
-use Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Translatable\HasTranslations;
 
-class Menu extends BaseModel
+class Menu extends Model
 {
+    use HasTranslations;
+
+    protected $guarded = ['id'];
     protected $with = ['pages'];
 
     public static function boot()

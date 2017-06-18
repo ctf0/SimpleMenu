@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace ctf0\SimpleMenu\Traits;
 
 trait MenusTrait
 {
@@ -25,9 +25,9 @@ trait MenusTrait
      */
     public function viewComp($name)
     {
-        $viewFile = view()->exists("menu.{$name}")
-        ? "menu.{$name}"
-        : 'menu.example';
+        $viewFile = view()->exists("SimpleMenu::menu.{$name}")
+        ? "SimpleMenu::menu.{$name}"
+        : 'SimpleMenu::menu.example';
 
         return view()->composer($viewFile, function ($view) use ($name) {
             $view->with([
