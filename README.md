@@ -11,6 +11,8 @@
 
 ## Installation
 
+- `composer require ctf0/simple-menu`
+
 - add the service provider to `config/app.php`
 ```php
 'providers' => [
