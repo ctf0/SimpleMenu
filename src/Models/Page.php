@@ -21,15 +21,15 @@ class Page extends Node
 
         static::created(function ($model) {
             Cache::forget('pages');
-            File::delete(config_path('simpleMenuTemp.php'));
+            File::delete(config('simpleMenu.routeListPath'));
         });
         static::updated(function ($model) {
             Cache::forget('pages');
-            File::delete(config_path('simpleMenuTemp.php'));
+            File::delete(config('simpleMenu.routeListPath'));
         });
         static::deleted(function ($model) {
             Cache::forget('pages');
-            File::delete(config_path('simpleMenuTemp.php'));
+            File::delete(config('simpleMenu.routeListPath'));
         });
     }
 
