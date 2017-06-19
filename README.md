@@ -22,7 +22,8 @@
 
 - publish the package assets with `php artisan vendor:publish` [Wiki](https://github.com/ctf0/simple-menu/wiki/Config)
 
-### Usage
+## Usage
+
 [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
 ### MiddleWares
