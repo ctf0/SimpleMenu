@@ -36,7 +36,7 @@
 
 ## Notes
 
-- if `action` is added, the page `prefix` wont be slugged.
+- if `action` is added, the page `url & prefix` wont be slugged.
 
 # ToDo
 
