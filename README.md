@@ -61,7 +61,6 @@ Route::group(['middleware' => ['role:admin','perm:access_backend']], function ()
     ```
 
 - if `action` is added, the page `url & prefix` wont be slugged.
-- `action` **default namespace** is `App\Http\Controllers`, so all your controllers should be available under that.
 
 # ToDo
 
