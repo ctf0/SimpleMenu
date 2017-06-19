@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Models\Page;
+use ctf0\SimpleMenu\Models\Page;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 

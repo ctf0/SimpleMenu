@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Models\Page;
 use App\User;
+use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
