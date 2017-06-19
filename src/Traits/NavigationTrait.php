@@ -19,8 +19,8 @@ trait NavigationTrait
         $url = $this->routeLink($name, $code);
 
         if (!$url) {
-            // page is hardcoded
-            return LaravelLocalization::getLocalizedURL($code);
+            // page is hardcoded, means its not saved in the db (ex.php artisan make:auth routes)
+            return LaravelLocalization::getLocalizedURL($code, null, [], true);
         }
 
         // if we have a saved params
@@ -34,7 +34,7 @@ trait NavigationTrait
 
         // no params
         return LaravelLocalization::getLocalizedURL(
-            $code, url($this->rmvNonUsedParams($url)), [], true
+            $code, url($this->rmvUnUsedParams($url)), [], true
         );
     }
 
@@ -143,7 +143,22 @@ trait NavigationTrait
             $code = app('laravellocalization')->getDefaultLocale();
         }
 
-        return array_get($file, "$name.$code");
+        // check if we have a link according to that "routeName & code"
+        $search = array_get($file, "$name.$code");
+
+        // if notFound, then either redir to home or abort
+        if (!$search) {
+            switch (config('simpleMenu.unFoundLocalizedRoute')) {
+                case 'home':
+                    return '/';
+                    break;
+                case 'error':
+                    return '/404';
+                    break;
+            }
+        }
+
+        return $search;
     }
 
     /**
@@ -160,7 +175,7 @@ trait NavigationTrait
             $url = preg_replace('/\{'.preg_quote($key).'(\?)?\}/', $value, $url);
         }
 
-        return $this->rmvNonUsedParams($url);
+        return $this->rmvUnUsedParams($url);
     }
 
     /**
@@ -171,7 +186,7 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    protected function rmvNonUsedParams($url)
+    protected function rmvUnUsedParams($url)
     {
         return preg_replace('/\{.*\}/', '', $url);
     }

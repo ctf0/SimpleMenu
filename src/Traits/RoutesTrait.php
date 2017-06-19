@@ -5,6 +5,8 @@ namespace ctf0\SimpleMenu\Traits;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
+use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 
 trait RoutesTrait
 {
@@ -21,8 +23,12 @@ trait RoutesTrait
     {
         Route::group([
             'prefix'     => LaravelLocalization::setLocale(),
-            'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect'],
-            'namespace'  => 'App\Http\Controllers',
+            'middleware' => [
+                'web',
+                LocaleSessionRedirect::class,
+                LaravelLocalizationRedirectFilter::class,
+            ],
+            'namespace'  => config('simpleMenu.pagesControllerNS'),
             ], function () {
                 $this->utilCheck();
             }
@@ -140,8 +146,13 @@ trait RoutesTrait
         foreach ($this->localeCodes as $code) {
             $url = $page->getTranslation('url', $code);
 
-            if (config('simpleMenu.useTitleForUrl') && is_null($page->getTranslation('url', $code))) {
-                $url = slugfy($page->getTranslation('title', $code));
+            if (is_null($page->getTranslation('url', $code))) {
+                if (config('simpleMenu.mainRouteName') == $routeName) {
+                    $url = '/';
+                }
+                if (config('simpleMenu.useTitleForUrl')) {
+                    $url = slugfy($page->getTranslation('title', $code));
+                }
             }
 
             $prefix = $action !== null ? $page->getTranslation('prefix', $code) : slugfy($page->getTranslation('prefix', $code));

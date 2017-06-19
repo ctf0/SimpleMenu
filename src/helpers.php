@@ -8,7 +8,7 @@ if (!function_exists('trimfy')) {
     {
         $value = strip_tags($value);
 
-        if (crntLang() != 'en') {
+        if (config('app.locale') != 'en') {
             return strlen($value) <= $limit
                 ? $value
                 : mb_substr($value, 0, $limit, 'UTF-8').$end;

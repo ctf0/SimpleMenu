@@ -28,40 +28,15 @@
 
 ### MiddleWares
 - the package automatically register 2 middlewares `role & perm` to handle all the routes, however to use them on any other routes, use
-```php
-Route::group(['middleware' => ['role:admin','perm:access_backend']], function () {
-    // ...
-});
-```
+    ```php
+    Route::group(['middleware' => ['role:admin','perm:access_backend']], function () {
+        // ...
+    });
+    ```
 
 ## Notes
 
-- for everything to work properly, make sure the enabled locales are the same as the ones in the db.
-    ```php
-    // config/laravel-localization
-    // https://github.com/mcamara/laravel-localization
-    [
-        supportedLocales => [
-            'en',
-            'fr',
-            'etc'
-        ]
-    ]
-
-    // db
-    // https://github.com/spatie/laravel-translatable
-    Page::create([
-        'title' => [
-            'en'  => '...',
-            'fr'  => '...',
-            'etc' => '...'
-        ],
-        // ...
-    ])
-    ```
-
-- if `action` is added, the page `url & prefix` wont be slugged.
-- `action` **default namespace** is `App\Http\Controllers`, so all your controllers should be available under that.
+- if `action` is added, the page `prefix` wont be slugged.
 
 # ToDo
 
