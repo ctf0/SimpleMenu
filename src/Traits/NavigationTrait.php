@@ -153,7 +153,7 @@ trait NavigationTrait
                     return '/';
                     break;
                 case 'error':
-                    return '/404';
+                    return '404';
                     break;
             }
         }

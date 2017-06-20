@@ -33,7 +33,10 @@
         "laravel": {
             "providers": [
                 "ctf0\\SimpleMenu\\SimpleMenuServiceProvidor"
-            ]
+            ],
+            "aliases": {
+                "SimpleMenu": "ctf0\\SimpleMenu\\Facade\\SimpleMenu"
+            }
         }
     },
     "config": {

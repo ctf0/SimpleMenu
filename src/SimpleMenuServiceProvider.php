@@ -2,6 +2,8 @@
 
 namespace ctf0\SimpleMenu;
 
+use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
+use ctf0\SimpleMenu\Middleware\RoleMiddleware;
 use Illuminate\Support\ServiceProvider;
 
 class SimpleMenuServiceProvider extends ServiceProvider
@@ -37,7 +39,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
             __DIR__.'/views' => resource_path('views/vendor/SimpleMenu'),
         ], 'views');
 
-        new SimpleMenu();
+        $this->app['simplemenu'];
     }
 
     /**
@@ -45,11 +47,23 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(SimpleMenu::class, function () {
+        $this->app->singleton('simplemenu', function () {
             return new SimpleMenu();
         });
 
-        $this->app['router']->aliasMiddleware('perm', \ctf0\SimpleMenu\Middleware\PermissionMiddleware::class);
-        $this->app['router']->aliasMiddleware('role', \ctf0\SimpleMenu\Middleware\RoleMiddleware::class);
+        $this->app->alias('simplemenu', SimpleMenu::class);
+
+        $this->regMW();
+    }
+
+    /**
+     * register app middlewares.
+     *
+     * @return [type] [description]
+     */
+    protected function regMW()
+    {
+        $this->app['router']->aliasMiddleware('perm', PermissionMiddleware::class);
+        $this->app['router']->aliasMiddleware('role', RoleMiddleware::class);
     }
 }

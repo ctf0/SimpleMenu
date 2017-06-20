@@ -18,7 +18,6 @@ class SimpleMenu
     public function __construct()
     {
         $this->listFileDir = config('simpleMenu.routeListPath');
-        view()->share(config('simpleMenu.viewVar'), $this);
 
         // cache
         $this->createCache();

@@ -13,10 +13,14 @@
 
 - `composer require ctf0/simple-menu`
 
-- add the service provider to `config/app.php`
+- add the service provider & facade to `config/app.php`
 ```php
 'providers' => [
     ctf0\SimpleMenu\SimpleMenuServiceProvider::class,
+]
+
+'aliases' => [
+    'SimpleMenu' => ctf0\SimpleMenu\Facade\SimpleMenu::class,
 ]
 ```
 
