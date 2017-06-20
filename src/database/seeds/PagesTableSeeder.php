@@ -19,11 +19,11 @@ class PagesTableSeeder extends Seeder
                 'action'    => 'PageController@'.camel_case($one),
                 'title'     => [
                     'en' => $one,
-                    'ar' => $one,
+                    'fr' => $one,
                 ],
                 'url' => [
                     'en' => slugfy($one),
-                    'ar' => slugfy($one),
+                    'fr' => slugfy($one),
                 ],
             ]);
         }
@@ -39,19 +39,19 @@ class PagesTableSeeder extends Seeder
                 'route_name'=> slugfy($en),
                 'title'     => [
                      'en' => $en,
-                     'ar' => $ar,
+                     'fr' => $ar,
                 ],
                 'body' => [
                     'en' => $faker->text(),
-                    'ar' => $faker->text(),
+                    'fr' => $faker->text(),
                 ],
                 'prefix' => [
                     'en' => slugfy($faker->unique()->country),
-                    'ar' => slugfy($faker->unique()->country),
+                    'fr' => slugfy($faker->unique()->country),
                 ],
                 'url' => [
                     'en' => slugfy($en),
-                    'ar' => slugfy($ar),
+                    'fr' => slugfy($ar),
                 ],
             ]);
 
