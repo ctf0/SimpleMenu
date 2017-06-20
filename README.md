@@ -38,10 +38,6 @@
     });
     ```
 
-## Notes
-
-- if `action` is added, the page `url & prefix` wont be slugged.
-
 # ToDo
 
 * [ ] CRUD Views for (roles/pers/pages/menus).

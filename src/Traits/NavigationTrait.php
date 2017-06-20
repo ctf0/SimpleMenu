@@ -16,12 +16,14 @@ trait NavigationTrait
      */
     public function getUrl($name, $code)
     {
-        $url = $this->routeLink($name, $code);
-
-        if (!$url) {
-            // page is hardcoded, means its not saved in the db (ex.php artisan make:auth routes)
+        // routeName is not saved in the db (ex.php artisan make:auth)
+        // or only url
+        $routesListFile = include $this->listFileDir;
+        if (is_null($name) || !array_get($routesListFile, $name)) {
             return LaravelLocalization::getLocalizedURL($code, null, [], true);
         }
+
+        $url = $this->routeLink($name, $code);
 
         // if we have a saved params
         if (session()->has($name)) {
@@ -52,6 +54,7 @@ trait NavigationTrait
         $code = LaravelLocalization::getCurrentLocale();
         $url = $this->routeLink($crntRouteName, $code);
 
+        // resolve multi routes with params
         if (is_array($another)) {
             foreach ($another as $k => $v) {
                 if ($crntRouteName == $k) {
@@ -62,7 +65,10 @@ trait NavigationTrait
                     return $this->checkForhideDefaultLocaleInURL($code, $url, $v);
                 }
             }
-        } else {
+        }
+
+        // resolve a single route with params
+        else {
             if (($crntRouteName == $another) && $params) {
                 // set a session item so we can redir with params
                 // from the lang switcher
@@ -106,7 +112,7 @@ trait NavigationTrait
     }
 
     /**
-     * to resolve 'hideDefaultLocaleInURL => true' problem.
+     * to resolve links not being 'is-active' when 'hideDefaultLocaleInURL => true'.
      *
      * @param [type] $code   [description]
      * @param [type] $url    [description]
@@ -136,18 +142,13 @@ trait NavigationTrait
      */
     protected function routeLink($name, $code)
     {
-        $file = include $this->listFileDir;
-
-        // in case 'hideDefaultLocaleInURL => true'
-        if (LaravelLocalization::hideDefaultLocaleInURL() && !$code) {
-            $code = app('laravellocalization')->getDefaultLocale();
-        }
+        $routesListFile = include $this->listFileDir;
 
         // check if we have a link according to that "routeName & code"
-        $search = array_get($file, "$name.$code");
+        $searchCode = array_get($routesListFile, "$name.$code");
 
         // if notFound, then either redir to home or abort
-        if (!$search) {
+        if (!$searchCode) {
             switch (config('simpleMenu.unFoundLocalizedRoute')) {
                 case 'home':
                     return '/';
@@ -158,7 +159,7 @@ trait NavigationTrait
             }
         }
 
-        return $search;
+        return $searchCode;
     }
 
     /**
@@ -209,7 +210,7 @@ trait NavigationTrait
         $html .= "<ul class=\"{$ul}\">";
         foreach ($pages as $one) {
             $routeUrl = $this->getRoute($one->route_name, $params);
-            $isActive = $url == $routeUrl ? 'is-active' : '';
+            $isActive = ($url == $routeUrl ? 'is-active' : '');
 
             $html .= "<li class=\"{$li}\">";
             $html .= "<a href=\"{$routeUrl}\" class=\"{$isActive}\">{$one->title}</a>";

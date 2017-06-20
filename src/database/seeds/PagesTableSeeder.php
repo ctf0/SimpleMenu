@@ -15,26 +15,26 @@ class PagesTableSeeder extends Seeder
         $i = 1;
         while ($i <= 20) {
             $en = $faker->unique()->city;
-            $fr = $faker->unique()->city;
+            $ar = $faker->unique()->city;
 
             Page::create([
                 'template'  => 'hero',
                 'route_name'=> slugfy($en),
                 'title'     => [
                      'en' => $en,
-                     'fr' => $fr,
+                     'ar' => $ar,
                 ],
                 'body' => [
                     'en' => $faker->text(),
-                    'fr' => $faker->text(),
+                    'ar' => $faker->text(),
                 ],
                 'prefix' => [
-                    'en' => $faker->unique()->country,
-                    'fr' => $faker->unique()->country,
+                    'en' => slugfy($faker->unique()->country),
+                    'ar' => slugfy($faker->unique()->country),
                 ],
                 'url' => [
                     'en' => slugfy($en),
-                    'fr' => slugfy($fr),
+                    'ar' => slugfy($ar),
                 ],
             ]);
 
@@ -49,11 +49,11 @@ class PagesTableSeeder extends Seeder
                 'action'    => 'PageController@'.camel_case($one),
                 'title'     => [
                     'en' => $one,
-                    'fr' => $one,
+                    'ar' => $one,
                 ],
                 'url' => [
-                    'en' => slugfy($one),
-                    'fr' => slugfy($one),
+                    'en' => slugfy($one).'/{name}',
+                    'ar' => slugfy($one).'/{name}',
                 ],
             ]);
         }

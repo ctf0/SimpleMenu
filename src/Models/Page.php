@@ -11,8 +11,8 @@ use Spatie\Translatable\HasTranslations;
 class Page extends Node
 {
     use HasRoles, HasTranslations;
-    public $translatable = ['title', 'body', 'prefix', 'url'];
 
+    public $translatable = ['title', 'body', 'prefix', 'url'];
     protected $guarded = ['id'];
 
     public static function boot()
@@ -20,15 +20,15 @@ class Page extends Node
         parent::boot();
 
         static::created(function ($model) {
-            Cache::forget('pages');
+            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
         static::updated(function ($model) {
-            Cache::forget('pages');
+            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
         static::deleted(function ($model) {
-            Cache::forget('pages');
+            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
     }

@@ -18,13 +18,13 @@ class Menu extends Model
         parent::boot();
 
         static::created(function ($model) {
-            Cache::forget('menus');
+            Cache::forget('SimpleMenu-menus');
         });
         static::updated(function ($model) {
-            Cache::forget('menus');
+            Cache::forget('SimpleMenu-menus');
         });
         static::deleted(function ($model) {
-            Cache::forget('menus');
+            Cache::forget('SimpleMenu-menus');
         });
     }
 
