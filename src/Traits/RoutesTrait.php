@@ -76,7 +76,7 @@ trait RoutesTrait
         $url = $page->url;
 
         // useTitleForUrl
-        if (config('simpleMenu.useTitleForUrl') && is_null($url)) {
+        if (config('simpleMenu.useTitleForUrl') && empty($url)) {
             $url = slugfy($title);
         }
 
@@ -146,11 +146,9 @@ trait RoutesTrait
     protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
-            app()->setLocale($code);
-
             $url = $page->getTranslation('url', $code);
 
-            if (is_null($url)) {
+            if (empty($url)) {
                 if (config('simpleMenu.mainRouteName') == $routeName && !config('simpleMenu.useTitleForUrl')) {
                     $url = '/';
                 } else {
@@ -161,7 +159,7 @@ trait RoutesTrait
             $prefix = $page->getTranslation('prefix', $code);
             $route = "$prefix/$url";
 
-            // $this->allRoutes[$routeName][$code] = $route;
+            $this->allRoutes[$routeName][$code] = $route;
         }
     }
 
