@@ -11,7 +11,7 @@ trait MenusTrait
      */
     public function createMenus()
     {
-        foreach (cache('menus')->pluck('name') as $name) {
+        foreach (cache('SimpleMenu-menus')->pluck('name') as $name) {
             $this->viewComp($name);
         }
     }
@@ -47,6 +47,6 @@ trait MenusTrait
      */
     public function query($name)
     {
-        return cache('menus')->where('name', $name)->first()->pages;
+        return cache('SimpleMenu-menus')->where('name', $name)->first()->pages;
     }
 }

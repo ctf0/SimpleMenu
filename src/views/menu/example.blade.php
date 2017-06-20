@@ -9,7 +9,7 @@
             
             @if (count($childs = $one->getImmediateDescendants()))
                 <ul>
-                    @include('menu._nested', ['items' => $childs])
+                    @include('SimpleMenu::menu._nested', ['items' => $childs])
                 </ul>
             @endif
         </li>

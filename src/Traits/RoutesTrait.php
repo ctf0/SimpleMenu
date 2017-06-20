@@ -50,7 +50,7 @@ trait RoutesTrait
 
     protected function utilLoop()
     {
-        foreach (cache('pages') as $page) {
+        foreach (cache('SimpleMenu-pages') as $page) {
             $this->pageComp($page);
         }
     }

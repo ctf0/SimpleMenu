@@ -37,12 +37,12 @@ class SimpleMenu
     public function createCache()
     {
         // for creating the routes
-        Cache::rememberForever('pages', function () {
+        Cache::rememberForever('SimpleMenu-pages', function () {
             return Page::get();
         });
 
         // for creating the menu
-        Cache::rememberForever('menus', function () {
+        Cache::rememberForever('SimpleMenu-menus', function () {
             return Menu::get();
         });
     }
