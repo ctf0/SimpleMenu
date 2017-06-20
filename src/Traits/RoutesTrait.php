@@ -74,16 +74,10 @@ trait RoutesTrait
 
         // route data
         $url = $page->url;
-
-        // useTitleForUrl
-        if (config('simpleMenu.useTitleForUrl') && empty($url)) {
-            $url = slugfy($title);
-        }
-
         $action = $page->action;
         $prefix = $page->prefix;
-        $route = "$prefix/$url";
         $routeName = $page->route_name;
+        $route = "$prefix/$url";
 
         // middlewares
         $roles = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
@@ -146,19 +140,14 @@ trait RoutesTrait
     protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
-            $url = $page->getTranslation('url', $code);
+            $url = $page->getTranslationWithoutFallback('url', $code);
+            $prefix = $page->getTranslationWithoutFallback('prefix', $code);
 
             if (empty($url)) {
-                if (config('simpleMenu.mainRouteName') == $routeName && !config('simpleMenu.useTitleForUrl')) {
-                    $url = '/';
-                } else {
-                    $url = slugfy($page->getTranslation('title', $code));
-                }
+                continue;
             }
 
-            $prefix = $page->getTranslation('prefix', $code);
             $route = "$prefix/$url";
-
             $this->allRoutes[$routeName][$code] = $route;
         }
     }
