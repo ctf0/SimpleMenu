@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
+use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -50,7 +51,7 @@ trait RoutesTrait
 
     protected function utilLoop()
     {
-        foreach (cache('SimpleMenu-pages') as $page) {
+        foreach (Page::all() as $page) {
             $this->pageComp($page);
         }
     }
@@ -68,7 +69,7 @@ trait RoutesTrait
         // page data
         $title = $page->title;
         $body = $page->body;
-        $desc = trimfy($body);
+        $desc = $body;
         $template = $page->template;
         $breadCrump = $page->getAncestors();
 
@@ -76,8 +77,8 @@ trait RoutesTrait
         $url = $page->url;
         $action = $page->action;
         $prefix = $page->prefix;
+        $route = $this->clearExtraSlash("$prefix/$url");
         $routeName = $page->route_name;
-        $route = "$prefix/$url";
 
         // middlewares
         $roles = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
@@ -110,11 +111,17 @@ trait RoutesTrait
      */
     protected function routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
     {
+        // escape empty route
+        if ($routeName != config('simpleMenu.mainRouteName') && $route == '/') {
+            return;
+        }
+
+        // dynamic
         if ($action) {
-            // dynamic
             Route::get($route, $action)->name($routeName)->middleware([$roles, $permissions]);
-        } else {
-            // static
+        }
+        // static
+        else {
             Route::get($route, function () use ($template, $title, $body, $desc, $breadCrump) {
                 return view("pages.{$template}")->with([
                     'title'      => $title,
@@ -147,7 +154,7 @@ trait RoutesTrait
                 continue;
             }
 
-            $route = "$prefix/$url";
+            $route = $this->clearExtraSlash("$prefix/$url");
             $this->allRoutes[$routeName][$code] = $route;
         }
     }
@@ -162,7 +169,7 @@ trait RoutesTrait
     protected function saveRoutesListToFile($routes)
     {
         $data = "<?php\n\nreturn ".var_export($routes, true).';';
-        $data = preg_replace('/\/+/', '/', $data);
+        $data = $this->clearExtraSlash($data);
 
         // array(...) to [...]
         $data = str_replace('array (', '[', $data);
@@ -170,5 +177,10 @@ trait RoutesTrait
         $data = preg_replace('/=>\s+\[/', '=> [', $data);
 
         return File::put($this->listFileDir, $data);
+    }
+
+    protected function clearExtraSlash($url)
+    {
+        return preg_replace('/\/+/', '/', $url);
     }
 }

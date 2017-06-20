@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
@@ -20,15 +19,12 @@ class Page extends Node
         parent::boot();
 
         static::created(function ($model) {
-            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
         static::updated(function ($model) {
-            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
         static::deleted(function ($model) {
-            Cache::forget('SimpleMenu-pages');
             File::delete(config('simpleMenu.routeListPath'));
         });
     }

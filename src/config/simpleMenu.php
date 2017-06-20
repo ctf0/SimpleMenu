@@ -22,15 +22,10 @@ return [
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
-     * if url is empty (ex.'/') should we use a slugged title instead ?
-     */
-    'useTitleForUrl' => false,
-
-    /*
      * what happens when a route is available in one locale "en" but not in another "fr"
      * add either 'home' or 'error'
      */
-    'unFoundLocalizedRoute' => 'error',
+    'unFoundLocalizedRoute' => 'home',
 
     /*
      * pages controller namespace

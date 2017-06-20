@@ -2,6 +2,8 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
+use ctf0\SimpleMenu\Models\Menu;
+
 trait MenusTrait
 {
     /**
@@ -11,7 +13,7 @@ trait MenusTrait
      */
     public function createMenus()
     {
-        foreach (cache('SimpleMenu-menus')->pluck('name') as $name) {
+        foreach (Menu::get()->pluck('name') as $name) {
             $this->viewComp($name);
         }
     }
@@ -47,6 +49,6 @@ trait MenusTrait
      */
     public function query($name)
     {
-        return cache('SimpleMenu-menus')->where('name', $name)->first()->pages;
+        return Menu::where('name', $name)->first()->pages;
     }
 }

@@ -1,4 +1,9 @@
 @foreach ($items as $one)
+    
+    @if (empty($one->url))
+        @continue
+    @endif
+    
     @php
         $route = SimpleMenu::getRoute($one->route_name);
     @endphp

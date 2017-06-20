@@ -209,6 +209,11 @@ trait NavigationTrait
         $html = '';
         $html .= "<ul class=\"{$ul}\">";
         foreach ($pages as $one) {
+            // escape empty url
+            if (empty($one->getTranslationWithoutFallback('url', app()->getLocale()))) {
+                continue;
+            }
+
             $routeUrl = $this->getRoute($one->route_name, $params);
             $isActive = ($url == $routeUrl ? 'is-active' : '');
 

@@ -11,6 +11,23 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
+        $heros = ['Home', 'Contact Us', 'About'];
+        foreach ($heros as $one) {
+            Page::create([
+                'route_name'=> slugfy($one),
+                'template'  => 'hero',
+                'action'    => 'PageController@'.camel_case($one),
+                'title'     => [
+                    'en' => $one,
+                    'ar' => $one,
+                ],
+                'url' => [
+                    'en' => slugfy($one),
+                    'ar' => slugfy($one),
+                ],
+            ]);
+        }
+
         $faker = Factory::create();
         $i = 1;
         while ($i <= 20) {
@@ -39,23 +56,6 @@ class PagesTableSeeder extends Seeder
             ]);
 
             ++$i;
-        }
-
-        $heros = ['Home', 'About', 'Contact Us'];
-        foreach ($heros as $one) {
-            Page::create([
-                'route_name'=> slugfy($one),
-                'template'  => 'hero',
-                'action'    => 'PageController@'.camel_case($one),
-                'title'     => [
-                    'en' => $one,
-                    'ar' => $one,
-                ],
-                'url' => [
-                    'en' => slugfy($one).'/{name}',
-                    'ar' => slugfy($one).'/{name}',
-                ],
-            ]);
         }
     }
 }

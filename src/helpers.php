@@ -1,26 +1,6 @@
 <?php
 
 /*
- * trim phrases in english or arabic
- */
-if (!function_exists('trimfy')) {
-    function trimfy($value, $limit = 100, $end = ' ...')
-    {
-        $value = strip_tags($value);
-
-        if (config('app.locale') != 'en') {
-            return strlen($value) <= $limit
-                ? $value
-                : mb_substr($value, 0, $limit, 'UTF-8').$end;
-        }
-
-        return mb_strwidth($value, 'UTF-8') <= $limit
-            ? $value
-            : rtrim(mb_strimwidth($value, 0, $limit, '', 'UTF-8')).$end;
-    }
-}
-
-/*
  * slug titles for english or arabic
  */
 if (!function_exists('slugfy')) {
