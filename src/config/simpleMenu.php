@@ -22,8 +22,9 @@ return [
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
-     * what happens when a route is available in one locale "en" but not in another "fr"
-     * add either 'home' or 'error'
+     * what happens when a route is available in one locale "en" but not in another "fr", add either
+     * 'home' = '/' or
+     * 'error' = '404'
      */
     'unFoundLocalizedRoute' => 'home',
 

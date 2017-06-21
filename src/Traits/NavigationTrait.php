@@ -43,93 +43,36 @@ trait NavigationTrait
     /**
      * resolve route & params for links.
      *
-     * @param [type] $crntRouteName [description]
-     * @param [type] $another       [description]
-     * @param [type] $params        [description]
+     * @param [type]     $crntRouteName [description]
+     * @param array|null $params        [description]
      *
      * @return [type] [description]
      */
-    public function getRoute($crntRouteName, $another = null, $params = null)
+    public function getRoute($crntRouteName, array $params = null)
     {
         $code = LaravelLocalization::getCurrentLocale();
         $url = $this->routeLink($crntRouteName, $code);
 
-        // resolve multi routes with params
-        if (is_array($another)) {
-            foreach ($another as $k => $v) {
-                if ($crntRouteName == $k) {
+        // resolve route params
+        if ($params) {
+            foreach ($params as $key => $value) {
+                if ($crntRouteName == $key) {
                     if (!session()->has($crntRouteName)) {
-                        session([$crntRouteName => $v]);
+                        session([$crntRouteName => $value]);
                     }
 
-                    return $this->checkForhideDefaultLocaleInURL($code, $url, $v);
-                }
-            }
-        }
+                    if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
+                        return url($this->getParams($url, $value));
+                    }
 
-        // resolve a single route with params
-        else {
-            if (($crntRouteName == $another) && $params) {
-                // set a session item so we can redir with params
-                // from the lang switcher
-                if (!session()->has($crntRouteName)) {
-                    session([$crntRouteName => $params]);
+                    return LaravelLocalization::getLocalizedURL(
+                        $code, url($this->getParams($url, $value)), [], true
+                    );
                 }
-
-                return $this->checkForhideDefaultLocaleInURL($code, $url, $params);
             }
         }
 
         return route($crntRouteName);
-    }
-
-    /**
-     * render menu.
-     *
-     * @param [type] $pages   [description]
-     * @param [type] $classes [description]
-     * @param [type] $params  [description]
-     * @param [type] $url     [description]
-     *
-     * @return [type] [description]
-     */
-    public function render($pages, $classes = null, $params = null, $url = null)
-    {
-        switch ($classes) {
-            case 'config':
-                $ul = config('simpleMenu.listClasses.ul');
-                $li = config('simpleMenu.listClasses.li');
-                $a = config('simpleMenu.listClasses.a');
-                break;
-            default:
-                $ul = array_get($classes, 'ul');
-                $li = array_get($classes, 'li');
-                $a = array_get($classes, 'a');
-                break;
-        }
-
-        return $this->getHtml($pages, $ul, $li, $a, $params, $url);
-    }
-
-    /**
-     * to resolve links not being 'is-active' when 'hideDefaultLocaleInURL => true'.
-     *
-     * @param [type] $code   [description]
-     * @param [type] $url    [description]
-     * @param [type] $params [description]
-     *
-     * @return [type] [description]
-     */
-    protected function checkForhideDefaultLocaleInURL($code, $url, $params)
-    {
-        if (LaravelLocalization::hideDefaultLocaleInURL() &&
-            LaravelLocalization::getCurrentLocale() == app('laravellocalization')->getDefaultLocale()) {
-            return url($this->getParams($url, $params));
-        }
-
-        return LaravelLocalization::getLocalizedURL(
-            $code, url($this->getParams($url, $params)), [], true
-        );
     }
 
     /**
@@ -163,33 +106,31 @@ trait NavigationTrait
     }
 
     /**
-     * resolve params.
+     * render menu.
      *
-     * @param [type] $url    [description]
-     * @param [type] $params [description]
+     * @param [type] $pages   [description]
+     * @param [type] $classes [description]
+     * @param [type] $params  [description]
+     * @param [type] $url     [description]
      *
      * @return [type] [description]
      */
-    protected function getParams($url, $params)
+    public function render($pages, $classes = null, $params = null, $url = null)
     {
-        foreach ($params as $key => $value) {
-            $url = preg_replace('/\{'.preg_quote($key).'(\?)?\}/', $value, $url);
+        switch ($classes) {
+            case 'config':
+                $ul = config('simpleMenu.listClasses.ul');
+                $li = config('simpleMenu.listClasses.li');
+                $a = config('simpleMenu.listClasses.a');
+                break;
+            default:
+                $ul = array_get($classes, 'ul');
+                $li = array_get($classes, 'li');
+                $a = array_get($classes, 'a');
+                break;
         }
 
-        return $this->rmvUnUsedParams($url);
-    }
-
-    /**
-     * remove optional params.
-     * so we dont get badly formated url.
-     *
-     * @param [type] $url [description]
-     *
-     * @return [type] [description]
-     */
-    protected function rmvUnUsedParams($url)
-    {
-        return preg_replace('/\{.*\}/', '', $url);
+        return $this->getHtml($pages, $ul, $li, $a, $params, $url);
     }
 
     /**
@@ -208,6 +149,7 @@ trait NavigationTrait
     {
         $html = '';
         $html .= "<ul class=\"{$ul}\">";
+
         foreach ($pages as $one) {
             // escape empty url
             if (empty($one->getTranslationWithoutFallback('url', app()->getLocale()))) {
@@ -225,8 +167,38 @@ trait NavigationTrait
             }
             $html .= '</li>';
         }
+
         $html .= '</ul>';
 
         return $html;
+    }
+
+    /**
+     * resolve params.
+     *
+     * @param [type] $url    [description]
+     * @param [type] $params [description]
+     *
+     * @return [type] [description]
+     */
+    protected function getParams($url, $params)
+    {
+        foreach ($params as $key => $value) {
+            $url = preg_replace('/\{'.preg_quote($key).'(\?)?\}/', $value, $url);
+        }
+
+        return $this->rmvUnUsedParams($url);
+    }
+
+    /**
+     * remove optional params. so we dont get badly formated url.
+     *
+     * @param [type] $url [description]
+     *
+     * @return [type] [description]
+     */
+    protected function rmvUnUsedParams($url)
+    {
+        return preg_replace('/\{.*\}/', '', $url);
     }
 }

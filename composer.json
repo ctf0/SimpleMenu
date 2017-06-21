@@ -24,10 +24,7 @@
     "autoload": {
         "psr-4": {
             "ctf0\\SimpleMenu\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "extra": {
         "laravel": {

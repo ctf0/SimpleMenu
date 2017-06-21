@@ -11,8 +11,8 @@ class Page extends Node
 {
     use HasRoles, HasTranslations;
 
-    public $translatable = ['title', 'body', 'prefix', 'url'];
     protected $guarded = ['id'];
+    public $translatable = ['title', 'body', 'prefix', 'url'];
 
     public static function boot()
     {

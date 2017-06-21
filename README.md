@@ -40,4 +40,4 @@
 
 # ToDo
 
-* [ ] CRUD Views for (roles/pers/pages/menus).
+* [ ] CRUD Views for (roles/perms/pages/menus).
