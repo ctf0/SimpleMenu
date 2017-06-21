@@ -15,11 +15,6 @@ trait RoutesTrait
     protected $localeCodes;
     protected $listFileFound = true;
 
-    /**
-     * [createRoutes description].
-     *
-     * @return [type] [description]
-     */
     public function createRoutes()
     {
         Route::group([
@@ -93,22 +88,6 @@ trait RoutesTrait
         }
     }
 
-    /**
-     * [routeGen description].
-     *
-     * @param [type] $routeName   [description]
-     * @param [type] $route       [description]
-     * @param [type] $action      [description]
-     * @param [type] $roles       [description]
-     * @param [type] $permissions [description]
-     * @param [type] $template    [description]
-     * @param [type] $title       [description]
-     * @param [type] $body        [description]
-     * @param [type] $desc        [description]
-     * @param [type] $breadCrump  [description]
-     *
-     * @return [type] [description]
-     */
     protected function routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
     {
         // escape empty route
@@ -135,15 +114,6 @@ trait RoutesTrait
         }
     }
 
-    /**
-     * [createRoutesList description].
-     *
-     * @param [type] $action    [description]
-     * @param [type] $page      [description]
-     * @param [type] $routeName [description]
-     *
-     * @return [type] [description]
-     */
     protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
@@ -159,13 +129,6 @@ trait RoutesTrait
         }
     }
 
-    /**
-     * [saveRoutesListToFile description].
-     *
-     * @param mixed $routes
-     *
-     * @return [type] [description]
-     */
     protected function saveRoutesListToFile($routes)
     {
         $data = "<?php\n\nreturn ".var_export($routes, true).';';
