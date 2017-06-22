@@ -24,11 +24,11 @@
 ]
 ```
 
-- publish the package assets with `php artisan vendor:publish` [Wiki](https://github.com/ctf0/simple-menu/wiki/Config)
+- publish the package assets with `php artisan vendor:publish` 
 
-## Usage
+## [Config](https://github.com/ctf0/simple-menu/wiki/Config)
 
-[Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
+## [Usage](https://github.com/ctf0/simple-menu/wiki/Usage)
 
 ### MiddleWares
 - the package automatically register 2 middlewares `role & perm` to handle all the routes, however to use them on any other routes, use
