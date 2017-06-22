@@ -7,7 +7,7 @@
     >   - https://github.com/mcamara/laravel-localization
 
     > - Menu Nested Set
-    >   - https://github.com/gazsp/baum#installation
+    >   - https://github.com/gazsp/baum
 
 ## Installation
 
