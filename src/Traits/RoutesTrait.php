@@ -13,13 +13,10 @@ trait RoutesTrait
 {
     protected $allRoutes = [];
     protected $localeCodes;
-    protected $crntLocale;
     protected $listFileFound = true;
 
     public function createRoutes()
     {
-        $this->crntLocale = app()->getLocale();
-
         Route::group([
             'prefix'     => LaravelLocalization::setLocale(),
             'middleware' => [
@@ -70,9 +67,9 @@ trait RoutesTrait
         $breadCrump = $page->getAncestors();
 
         // route data
-        $url = $page->getTranslationWithoutFallback('url', $this->crntLocale);
+        $url = $page->getTranslationWithoutFallback('url', app()->getLocale());
         $action = $page->action;
-        $prefix = $page->getTranslationWithoutFallback('prefix', $this->crntLocale);
+        $prefix = $page->getTranslationWithoutFallback('prefix', app()->getLocale());
         $routeName = $page->route_name;
 
         // middlewares
