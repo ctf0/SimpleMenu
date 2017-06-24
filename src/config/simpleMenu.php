@@ -2,12 +2,6 @@
 
 return [
     /*
-     * the name of the main route '/',
-     * make sure you have a row in ur db with a `route_name = the below`
-     */
-    'mainRouteName'=> 'home',
-
-    /*
      * the menu list classes to be used for "render()"
      */
     'listClasses' => [

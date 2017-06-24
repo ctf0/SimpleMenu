@@ -19,8 +19,11 @@ trait NavigationTrait
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;
+
         if (is_null($name) || !array_get($routesListFile, $name)) {
-            return LaravelLocalization::getLocalizedURL($code, null, [], true);
+            return LaravelLocalization::getLocalizedURL(
+                $code, null, [], true
+            );
         }
 
         $url = $this->routeLink($name, $code);
@@ -61,6 +64,7 @@ trait NavigationTrait
                         session([$crntRouteName => $value]);
                     }
 
+                    // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
                     if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
                         return url($this->getParams($url, $value));
                     }

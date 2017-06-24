@@ -13,10 +13,13 @@ trait RoutesTrait
 {
     protected $allRoutes = [];
     protected $localeCodes;
+    protected $crntLocale;
     protected $listFileFound = true;
 
     public function createRoutes()
     {
+        $this->crntLocale = app()->getLocale();
+
         Route::group([
             'prefix'     => LaravelLocalization::setLocale(),
             'middleware' => [
@@ -44,6 +47,12 @@ trait RoutesTrait
         }
     }
 
+    /**
+     * runs everytime you change the current local so routes links gets
+     * dynamically changed without causing issues.
+     *
+     * @return [type] [description]
+     */
     protected function utilLoop()
     {
         foreach (Page::all() as $page) {
@@ -51,14 +60,6 @@ trait RoutesTrait
         }
     }
 
-    /**
-     * runs everytime you change the current local so routes links gets
-     * dynamically changed without causing issues.
-     *
-     * @param [type] $page [description]
-     *
-     * @return [type] [description]
-     */
     protected function pageComp($page)
     {
         // page data
@@ -69,10 +70,9 @@ trait RoutesTrait
         $breadCrump = $page->getAncestors();
 
         // route data
-        $url = $page->url;
+        $url = $page->getTranslationWithoutFallback('url', $this->crntLocale);
         $action = $page->action;
-        $prefix = $page->prefix;
-        $route = $this->clearExtraSlash("$prefix/$url");
+        $prefix = $page->getTranslationWithoutFallback('prefix', $this->crntLocale);
         $routeName = $page->route_name;
 
         // middlewares
@@ -80,7 +80,7 @@ trait RoutesTrait
         $permissions = 'perm:'.implode(',', $page->permissions()->pluck('name')->toArray());
 
         // make route
-        $this->routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump);
+        $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump);
 
         // create route list
         if (!$this->listFileFound) {
@@ -88,12 +88,13 @@ trait RoutesTrait
         }
     }
 
-    protected function routeGen($routeName, $route, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
+    protected function routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
     {
-        // escape empty route
-        if ($routeName != config('simpleMenu.mainRouteName') && $route == '/') {
+        if ($this->escapeEmptyRoute($url)) {
             return;
         }
+
+        $route = $this->getRouteUrl($url, $prefix);
 
         // dynamic
         if ($action) {
@@ -120,13 +121,30 @@ trait RoutesTrait
             $url = $page->getTranslationWithoutFallback('url', $code);
             $prefix = $page->getTranslationWithoutFallback('prefix', $code);
 
-            if (empty($url)) {
+            if ($this->escapeEmptyRoute($url)) {
                 continue;
             }
 
-            $route = $this->clearExtraSlash("$prefix/$url");
+            $route = $this->getRouteUrl($url, $prefix);
+
             $this->allRoutes[$routeName][$code] = $route;
         }
+    }
+
+    protected function escapeEmptyRoute($url)
+    {
+        return empty($url);
+    }
+
+    protected function getRouteUrl($url, $prefix)
+    {
+        if (empty($prefix)) {
+            $clear = $url;
+        } else {
+            $clear = "$prefix/$url";
+        }
+
+        return $this->clearExtraSlash($clear);
     }
 
     protected function saveRoutesListToFile($routes)
