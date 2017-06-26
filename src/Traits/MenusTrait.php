@@ -49,6 +49,6 @@ trait MenusTrait
      */
     public function query($name)
     {
-        return Menu::where('name', $name)->first()->pages;
+        return Menu::where('name', $name)->first()->pages()->where('url->'.app()->getLocale(), '!=', '')->get();
     }
 }
