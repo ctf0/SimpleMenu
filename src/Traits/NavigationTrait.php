@@ -119,7 +119,7 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    public function render($pages, $classes = null, $params = null, $url = null)
+    public function render($pages, $classes = null, $params = null, $url)
     {
         switch ($classes) {
             case 'config':
