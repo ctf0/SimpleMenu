@@ -18,11 +18,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
             __DIR__.'/config' => config_path(),
         ], 'config');
 
-        // models
-        $this->publishes([
-            __DIR__.'/Models' => app_path(),
-        ], 'models');
-
         // migrations
         $this->publishes([
             __DIR__.'/database/migrations/' => database_path('migrations'),
