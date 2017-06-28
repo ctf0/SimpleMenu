@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
+use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait NavigationTrait
@@ -14,8 +15,10 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    public function getUrl($name, $code)
+    public function getUrl($code)
     {
+        $name = Route::currentRouteName();
+
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;

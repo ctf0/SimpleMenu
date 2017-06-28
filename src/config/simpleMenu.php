@@ -11,6 +11,11 @@ return [
     ],
 
     /*
+     * where to search for the template views relative to "resources\views" folder
+     */
+    'templatePath' => 'pages',
+
+    /*
      * the path where we will save the route list for multiLocal route resolving
      */
     'routeListPath' => storage_path('logs/simpleMenu.php'),

@@ -14,7 +14,7 @@ class Page extends Node
     use HasRoles, HasTranslations;
 
     protected $guarded = ['id'];
-    public $translatable = ['title', 'body', 'prefix', 'url'];
+    public $translatable = ['title', 'body', 'desc', 'prefix', 'url'];
 
     public static function boot()
     {
@@ -32,6 +32,7 @@ class Page extends Node
                 });
             }
 
+            Cache::forget($model->route_name);
             File::delete(config('simpleMenu.routeListPath'));
         });
 
@@ -43,6 +44,7 @@ class Page extends Node
                 });
             }
 
+            Cache::forget($model->route_name);
             File::delete(config('simpleMenu.routeListPath'));
         });
     }

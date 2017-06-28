@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Traits;
 
 use ctf0\SimpleMenu\Models\Page;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -19,7 +20,6 @@ trait RoutesTrait
     {
         Route::group([
             'prefix'     => LaravelLocalization::setLocale(),
-            'namespace'  => config('simpleMenu.pagesControllerNS'),
             'middleware' => [
                 'web',
                 LocaleSessionRedirect::class,
@@ -62,7 +62,7 @@ trait RoutesTrait
         // page data
         $title = $page->title;
         $body = $page->body;
-        $desc = $body;
+        $desc = $page->desc;
         $template = $page->template;
         $breadCrump = $page->getAncestors();
 
@@ -95,18 +95,19 @@ trait RoutesTrait
 
         // dynamic
         if ($action) {
-            Route::get($route, $action)->name($routeName)->middleware([$roles, $permissions]);
+            Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
+
+            Route::get($route)
+            ->uses(config('simpleMenu.pagesControllerNS').'\\'.$action)
+            ->name($routeName)
+            ->middleware([$roles, $permissions]);
         }
         // static
         else {
-            Route::get($route, function () use ($template, $title, $body, $desc, $breadCrump) {
-                return view("pages.{$template}")->with([
-                    'title'      => $title,
-                    'body'       => $body,
-                    'desc'       => $desc,
-                    'breadCrump' => $breadCrump,
-                ]);
-            })
+            Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
+
+            Route::get($route)
+            ->uses('\ctf0\SimpleMenu\Controller\DummyController@handle')
             ->name($routeName)
             ->middleware([$roles, $permissions]);
         }

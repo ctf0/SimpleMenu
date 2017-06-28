@@ -40,6 +40,11 @@ return [
     ],
 
     /*
+     * where to search for the template views relative to "resources\views" folder
+     */
+    'templatePath' => 'pages',
+
+    /*
      * the path where we will save the route list for multiLocal route resolving
      */
     'routeListPath' => storage_path('logs/simpleMenu.php'),
@@ -68,6 +73,19 @@ return [
         // ...
     });
     ```
+
+### Good Practice
+Ofcourse you are free to code your app the way you want, but just in-case here are the naming convention the package use.
+
+- `title`       > `title_case(some title)`
+- `route_name`  > `str_slug(title)`
+- `action`      > `SomeController\camelCase(title)`
+
+## Notes
+- for the pages with "action" you can get all the page params like **template, title, body, desc, breadCrump** inside your "action@method" by using `extract(cache('the_route_name'));`
+
+<u>**or**</u>
+- if you followed the naming convention above, you can instead use `extract(cache(kebab_case('TheCurrentMethodName')));`
 
 # ToDo
 
