@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Traits;
 
 use ctf0\SimpleMenu\Models\Menu;
+use Illuminate\Support\Facades\Cache;
 
 trait MenusTrait
 {
@@ -13,9 +14,9 @@ trait MenusTrait
      */
     public function createMenus()
     {
-        foreach (Menu::get()->pluck('name') as $name) {
+        Menu::get()->pluck('name')->each(function ($name) {
             $this->viewComp($name);
-        }
+        });
     }
 
     /**
@@ -49,6 +50,10 @@ trait MenusTrait
      */
     public function query($name)
     {
-        return Menu::where('name', $name)->first()->pages()->where('url->'.app()->getLocale(), '!=', '')->get();
+        Cache::rememberForever("{$name}Menu-".app()->getLocale().'Pages', function () use ($name) {
+            return app(Menu::class)->where('name', $name)->first()->pages()->where('url->'.app()->getLocale(), '!=', '')->get();
+        });
+
+        return cache("{$name}Menu-".app()->getLocale().'Pages');
     }
 }

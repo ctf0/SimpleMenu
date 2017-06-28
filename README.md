@@ -29,7 +29,7 @@
 ## Config
 **config/simpleMenu.php**
 ```php
-return [        
+return [
     /*
      * the menu list classes to be used for "render()"
      */
@@ -72,3 +72,4 @@ return [
 # ToDo
 
 * [ ] CRUD Views for (roles/perms/pages/menus). *any help is appreciated*
+* [ ] clear cache through pivot table events. *any help is appreciated*
