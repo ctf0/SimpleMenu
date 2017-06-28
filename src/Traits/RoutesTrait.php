@@ -19,12 +19,12 @@ trait RoutesTrait
     {
         Route::group([
             'prefix'     => LaravelLocalization::setLocale(),
+            'namespace'  => config('simpleMenu.pagesControllerNS'),
             'middleware' => [
                 'web',
                 LocaleSessionRedirect::class,
                 LaravelLocalizationRedirectFilter::class,
             ],
-            'namespace'  => config('simpleMenu.pagesControllerNS'),
             ], function () {
                 $this->utilCheck();
             }

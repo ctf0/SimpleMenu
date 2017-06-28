@@ -21,12 +21,19 @@ class Page extends Node
         static::created(function ($model) {
             File::delete(config('simpleMenu.routeListPath'));
         });
+
         static::updated(function ($model) {
             File::delete(config('simpleMenu.routeListPath'));
         });
+
         static::deleted(function ($model) {
             File::delete(config('simpleMenu.routeListPath'));
         });
+    }
+
+    public function menuNames()
+    {
+        return $this->belongsToMany(Menu::class);
     }
 
     public function roles()
