@@ -77,15 +77,22 @@ return [
 ### Good Practice
 Ofcourse you are free to code your app the way you want, but just in-case here are the naming convention the package use.
 
-- `title`       > `title_case(some title)`
-- `route_name`  > `str_slug(title)`
-- `action`      > `SomeController\camelCase(title)`
+| column name |                format                |   output   |
+|-------------|--------------------------------------|------------|
+| title       | title_case(some title)               | Some Title |
+| route_name  | str_slug(Some Title)                 | some-title |
+| action      | SomeController\camelCase(Some Title) | someTitle  |
 
 ## Notes
-- for the pages with "action" you can get all the page params like **template, title, body, desc, breadCrump** inside your "action@method" by using `extract(cache('the_route_name'));`
+- you can get any page params like (**template, title, body, desc, breadCrump**) by using `extract(cache('the_route_name'));`
 
 <u>**or**</u>
-- if you followed the naming convention above, you can instead use `extract(cache(kebab_case('TheCurrentMethodName')));`
+
+- if you followed the naming convention above and you are inside the `page action method`, you can instead use `extract(cache(kebab_case('TheCurrentMethodName')));`
+
+    | method name |          format         | output = route_name |
+    |-------------|-------------------------|---------------------|
+    | contactUs   | kebab_case('contactUs') | contact-us          |
 
 # ToDo
 

@@ -91,12 +91,13 @@ trait RoutesTrait
             return;
         }
 
+        // cache the page so we pass the page params to the controller@method
+        Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
+
         $route = $this->getRouteUrl($url, $prefix);
 
         // dynamic
         if ($action) {
-            Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
-
             Route::get($route)
             ->uses(config('simpleMenu.pagesControllerNS').'\\'.$action)
             ->name($routeName)
@@ -104,8 +105,6 @@ trait RoutesTrait
         }
         // static
         else {
-            Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
-
             Route::get($route)
             ->uses('\ctf0\SimpleMenu\Controller\DummyController@handle')
             ->name($routeName)

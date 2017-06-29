@@ -11,11 +11,6 @@ class DummyController extends Controller
     {
         extract(cache(Route::currentRouteName()));
 
-        return view(config('simpleMenu.templatePath').".$template")->with([
-            'title'      => $title,
-            'body'       => $body,
-            'desc'       => $desc,
-            'breadCrump' => $breadCrump,
-        ]);
+        return view(config('simpleMenu.templatePath').".$template", compact('title', 'body', 'desc', 'breadCrump'));
     }
 }

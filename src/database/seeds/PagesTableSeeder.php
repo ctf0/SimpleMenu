@@ -20,8 +20,8 @@ class PagesTableSeeder extends Seeder
                 'template'  => 'hero',
                 'action'    => 'PageController@'.camel_case($one),
                 'title'     => [
-                    'en' => $one,
-                    'fr' => $one,
+                    'en' => title_case($one),
+                    'fr' => title_case($one),
                 ],
                 'body' => [
                     'en' => $faker->text(),
@@ -44,11 +44,11 @@ class PagesTableSeeder extends Seeder
             $fr = $faker->unique()->city;
 
             Page::create([
-                'template'  => 'hero',
                 'route_name'=> str_slug($en),
+                'template'  => 'hero',
                 'title'     => [
-                     'en' => $en,
-                     'fr' => $fr,
+                     'en' => title_case($en),
+                     'fr' => title_case($fr),
                 ],
                 'body' => [
                     'en' => $faker->text(),
