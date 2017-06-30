@@ -67,12 +67,11 @@ return [
 [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
 ### MiddleWares
-- the package automatically register 2 middlewares `role & perm` to handle all the routes, however to use them on any other routes, use
-    ```php
-    Route::group(['middleware' => ['role:admin','perm:access_backend']], function () {
-        // ...
-    });
-    ```
+- the package automatically register 4 middlewares to handle all the package routes, however to use them anywhere else, they are
+    - `localizationRedirect`
+    - `localeSessionRedirect`
+    - `role:roleName`
+    - `perm:permName`
 
 ### Good Practice
 Ofcourse you are free to code your app the way you want, but just in-case here are the naming convention the package use.
