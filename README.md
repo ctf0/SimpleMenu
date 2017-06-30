@@ -1,4 +1,4 @@
-- Package Uses
+- Dependencies
     > - Permissions
     >   - https://github.com/spatie/laravel-permission
 
@@ -13,7 +13,10 @@
 
 - `composer require ctf0/simple-menu`
 
-- add the service provider & facade to `config/app.php`
+- add the service provider & facade to `config/app.php` 
+
+    - all the package dependencies "serviceProvider & aliases" are registerd with the package.
+    
 ```php
 'providers' => [
     ctf0\SimpleMenu\SimpleMenuServiceProvider::class,
@@ -67,7 +70,7 @@ return [
 [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
 ### MiddleWares
-- the package automatically register 4 middlewares to handle all the package routes, however to use them anywhere else, they are
+- the package automatically register 4 middlewares to handle all the routes but incase you want to use them anywhere else, they are
     - `localizationRedirect`
     - `localeSessionRedirect`
     - `role:roleName`
