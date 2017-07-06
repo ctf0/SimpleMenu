@@ -92,7 +92,9 @@ trait RoutesTrait
         }
 
         // cache the page so we pass the page params to the controller@method
-        Cache::forever($routeName, compact('template', 'title', 'body', 'desc', 'breadCrump'));
+        Cache::rememberForever($routeName, function () use ($template, $title, $body, $desc, $breadCrump) {
+            return compact('template', 'title', 'body', 'desc', 'breadCrump');
+        });
 
         $route = $this->getRouteUrl($url, $prefix);
 

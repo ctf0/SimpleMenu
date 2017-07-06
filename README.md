@@ -98,5 +98,6 @@ Ofcourse you are free to code your app the way you want, but just in-case here a
 
 # ToDo
 
-* [ ] CRUD Views for (roles/perms/pages/menus). *any help is appreciated*
-* [ ] clear cache through pivot table events. *any help is appreciated*
+* [ ] CRUD Views for (roles/perms/pages/menus).
+* [ ] Clear cache through pivot table events.
+* [ ] Find away to share route params across all views with `@include` or similar.
