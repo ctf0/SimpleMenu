@@ -7,6 +7,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait NavigationTrait
 {
+    protected $urlRoute;
+
     /**
      * resolve route & params for lang switcher.
      *
@@ -57,7 +59,7 @@ trait NavigationTrait
     public function getRoute($crntRouteName, array $params = null)
     {
         $code = LaravelLocalization::getCurrentLocale();
-        $url = $this->routeLink($crntRouteName, $code);
+        $url  = $this->routeLink($crntRouteName, $code);
 
         // resolve route params
         if ($params) {
@@ -69,17 +71,30 @@ trait NavigationTrait
 
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
                     if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
-                        return url($this->getParams($url, $value));
+                        $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), []);
+                    }else {
+                        $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), [], true);
                     }
 
-                    return LaravelLocalization::getLocalizedURL(
-                        $code, url($this->getParams($url, $value)), [], true
-                    );
+                    $this->urlRoute = $finalUrl;
+                    return $finalUrl;
                 }
             }
         }
 
-        return route($crntRouteName);
+        $finalUrl = route($crntRouteName);
+        $this->urlRoute = $finalUrl;
+        return $finalUrl;
+    }
+
+    /**
+     * helper.
+     *
+     * @return [type] [description]
+     */
+    public function urlRoute()
+    {
+        return $this->urlRoute;
     }
 
     /**
@@ -128,12 +143,12 @@ trait NavigationTrait
             case 'config':
                 $ul = config('simpleMenu.listClasses.ul');
                 $li = config('simpleMenu.listClasses.li');
-                $a = config('simpleMenu.listClasses.a');
+                $a  = config('simpleMenu.listClasses.a');
                 break;
             default:
                 $ul = array_get($classes, 'ul');
                 $li = array_get($classes, 'li');
-                $a = array_get($classes, 'a');
+                $a  = array_get($classes, 'a');
                 break;
         }
 

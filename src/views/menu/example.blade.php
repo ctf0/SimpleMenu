@@ -1,16 +1,14 @@
 <ul>
     @foreach ($PAGES as $one)
         
-        @php
-            $route = SimpleMenu::getRoute($one->route_name);
-        @endphp
+        @include('SimpleMenu::partials.r_params')
         
         <li>
-            <a href="{{ $route }}" class="{{ request()->url() == $route ? 'is-active' : '' }}">{{ $one->title }}</a>
+            <a href="{{ SimpleMenu::urlRoute() }}" class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">{{ $one->title }}</a>
             
             @if (count($childs = $one->getImmediateDescendants()))
                 <ul>
-                    @include('SimpleMenu::menu._nested', ['items' => $childs])
+                    @include('SimpleMenu::partials.nested', ['items' => $childs])
                 </ul>
             @endif
         </li>

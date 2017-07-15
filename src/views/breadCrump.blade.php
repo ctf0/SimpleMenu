@@ -1,12 +1,10 @@
 <ul>
-    @foreach ($items as $item)
-        @php
-            $route = SimpleMenu::getRoute($item->route_name);
-        @endphp
+    @foreach ($items as $one)
+        @include('SimpleMenu::partials.r_params')
         
         <li>
-            <a href="{{ $route }}" class="{{ request()->url() == $route ? 'is-active' : '' }}">
-                {{ $item->title }}
+            <a href="{{ SimpleMenu::urlRoute() }}" class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">
+                {{ $one->title }}
             </a>
         </li>
         @if (!$loop->last)

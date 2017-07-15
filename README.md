@@ -13,10 +13,10 @@
 
 - `composer require ctf0/simple-menu`
 
-- add the service provider & facade to `config/app.php` 
+- add the service provider & facade to `config/app.php`
 
     - all the package dependencies "serviceProvider & aliases" are registerd with the package.
-    
+
 ```php
 'providers' => [
     ctf0\SimpleMenu\SimpleMenuServiceProvider::class,
@@ -100,4 +100,3 @@ Ofcourse you are free to code your app the way you want, but just in-case here a
 
 * [ ] CRUD Views for (roles/perms/pages/menus).
 * [ ] Clear cache through pivot table events.
-* [ ] Find away to share route params across all views with `@include` or similar.
