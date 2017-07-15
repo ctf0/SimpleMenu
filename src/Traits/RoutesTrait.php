@@ -34,7 +34,7 @@ trait RoutesTrait
     protected function utilCheck()
     {
         if (!File::exists($this->listFileDir)) {
-            $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
+            $this->localeCodes   = array_keys(LaravelLocalization::getSupportedLocales());
             $this->listFileFound = false;
 
             $this->utilLoop();
@@ -60,20 +60,20 @@ trait RoutesTrait
     protected function pageComp($page)
     {
         // page data
-        $title = $page->title;
-        $body = $page->body;
-        $desc = $page->desc;
-        $template = $page->template;
+        $title      = $page->title;
+        $body       = $page->body;
+        $desc       = $page->desc;
+        $template   = $page->template;
         $breadCrump = $page->getAncestors();
 
         // route data
-        $url = $page->getTranslationWithoutFallback('url', app()->getLocale());
-        $action = $page->action;
-        $prefix = $page->getTranslationWithoutFallback('prefix', app()->getLocale());
+        $url       = $page->getTranslationWithoutFallback('url', app()->getLocale());
+        $action    = $page->action;
+        $prefix    = $page->getTranslationWithoutFallback('prefix', app()->getLocale());
         $routeName = $page->route_name;
 
         // middlewares
-        $roles = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
+        $roles       = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
         $permissions = 'perm:'.implode(',', $page->permissions()->pluck('name')->toArray());
 
         // make route
@@ -92,7 +92,7 @@ trait RoutesTrait
         }
 
         // cache the page so we pass the page params to the controller@method
-        Cache::rememberForever($routeName, function () use ($template, $title, $body, $desc, $breadCrump) {
+        Cache::rememberForever(LaravelLocalization::getCurrentLocale().'-'.$routeName, function () use ($template, $title, $body, $desc, $breadCrump) {
             return compact('template', 'title', 'body', 'desc', 'breadCrump');
         });
 
@@ -117,7 +117,7 @@ trait RoutesTrait
     protected function createRoutesList($action, $page, $routeName)
     {
         foreach ($this->localeCodes as $code) {
-            $url = $page->getTranslationWithoutFallback('url', $code);
+            $url    = $page->getTranslationWithoutFallback('url', $code);
             $prefix = $page->getTranslationWithoutFallback('prefix', $code);
 
             if ($this->escapeEmptyRoute($url)) {

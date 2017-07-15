@@ -2,8 +2,8 @@
     @foreach ($items as $one)
         @include('SimpleMenu::partials.r_params')
         
-        <li>
-            <a href="{{ SimpleMenu::urlRoute() }}" class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">
+        <li class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">
+            <a href="{{ SimpleMenu::urlRoute() }}">
                 {{ $one->title }}
             </a>
         </li>

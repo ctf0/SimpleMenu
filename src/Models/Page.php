@@ -13,7 +13,7 @@ class Page extends Node
 {
     use HasRoles, HasTranslations;
 
-    protected $guarded = ['id'];
+    protected $guarded   = ['id'];
     public $translatable = ['title', 'body', 'desc', 'prefix', 'url'];
 
     public static function boot()
@@ -30,9 +30,9 @@ class Page extends Node
                     $name = "{$item}Menu-{$code}Pages";
                     Cache::forget($name);
                 });
+                Cache::forget("{$code}-{$model->route_name}");
             }
 
-            Cache::forget($model->route_name);
             File::delete(config('simpleMenu.routeListPath'));
         });
 
@@ -42,9 +42,9 @@ class Page extends Node
                     $name = "{$item}Menu-{$code}Pages";
                     Cache::forget($name);
                 });
+                Cache::forget("{$code}-{$model->route_name}");
             }
 
-            Cache::forget($model->route_name);
             File::delete(config('simpleMenu.routeListPath'));
         });
     }
