@@ -72,7 +72,7 @@ trait NavigationTrait
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
                     if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
                         $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), []);
-                    }else {
+                    } else {
                         $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), [], true);
                     }
 
@@ -88,13 +88,18 @@ trait NavigationTrait
     }
 
     /**
-     * helper.
+     * helpers.
      *
      * @return [type] [description]
      */
     public function urlRoute()
     {
         return $this->urlRoute;
+    }
+
+    public function getRouteData($name)
+    {
+        return cache(LaravelLocalization::getCurrentLocale().'-'.$name);
     }
 
     /**

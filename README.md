@@ -86,11 +86,11 @@ Ofcourse you are free to code your app the way you want, but just in-case here a
 | action      | SomeController\camelCase(Some Title) | someTitle  |
 
 ## Notes
-- you can get any page params like (**template, title, body, desc, breadCrump**) by using `extract(cache('the_route_name'));`
+- you can get any page params like (**template, title, body, desc, breadCrump**) by using `extract(SimpleMenu::getRouteData('the-route-name'));`
 
 <u>**or**</u>
 
-- if you followed the naming convention above and you are inside the `page action method`, you can instead use `extract(cache(kebab_case('TheCurrentMethodName')));`
+- if you followed the naming convention above and you are inside the `page action method`, you can instead use `extract(SimpleMenu::getRouteData(kebab_case('theCurrentMethodName')));`
 
     | method name |          format         | output = route_name |
     |-------------|-------------------------|---------------------|
