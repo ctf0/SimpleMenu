@@ -5,7 +5,9 @@
     "license": "MIT",
     "keywords": [
         "ctf0",
-        "SimpleMenu"
+        "SimpleMenu",
+        "menu maker",
+        "laravel"
     ],
     "authors": [
         {
