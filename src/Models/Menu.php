@@ -4,6 +4,7 @@ namespace ctf0\SimpleMenu\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Translatable\HasTranslations;
 
 class Menu extends Model
@@ -11,7 +12,7 @@ class Menu extends Model
     use HasTranslations;
 
     protected $guarded = ['id'];
-    protected $with = ['pages'];
+    protected $with    = ['pages'];
 
     public static function boot()
     {
