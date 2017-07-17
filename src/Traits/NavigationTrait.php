@@ -26,9 +26,7 @@ trait NavigationTrait
         $routesListFile = include $this->listFileDir;
 
         if (is_null($name) || !array_get($routesListFile, $name)) {
-            return LaravelLocalization::getLocalizedURL(
-                $code, null, [], true
-            );
+            return LaravelLocalization::getLocalizedURL($code, null, [], true);
         }
 
         $url = $this->routeLink($name, $code);
@@ -37,15 +35,11 @@ trait NavigationTrait
         if (session()->has($name)) {
             $params = session()->get($name);
 
-            return LaravelLocalization::getLocalizedURL(
-                $code, url($this->getParams($url, $params)), [], true
-            );
+            return LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $params)), [], true);
         }
 
         // no params
-        return LaravelLocalization::getLocalizedURL(
-            $code, url($this->rmvUnUsedParams($url)), [], true
-        );
+        return LaravelLocalization::getLocalizedURL($code, url($this->rmvUnUsedParams($url)), [], true);
     }
 
     /**
@@ -65,9 +59,7 @@ trait NavigationTrait
         if ($params) {
             foreach ($params as $key => $value) {
                 if ($crntRouteName == $key) {
-                    if (!session()->has($crntRouteName)) {
-                        session([$crntRouteName => $value]);
-                    }
+                    session([$crntRouteName => $value]);
 
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
                     if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
@@ -77,13 +69,15 @@ trait NavigationTrait
                     }
 
                     $this->urlRoute = $finalUrl;
+
                     return $finalUrl;
                 }
             }
         }
 
-        $finalUrl = route($crntRouteName);
+        $finalUrl       = route($crntRouteName);
         $this->urlRoute = $finalUrl;
+
         return $finalUrl;
     }
 
