@@ -53,16 +53,4 @@ class Page extends Node
     {
         return $this->belongsToMany(Menu::class);
     }
-
-    public function roles()
-    {
-        return $this->belongsToMany(
-            config('laravel-permission.models.role'), 'page_has_roles');
-    }
-
-    public function permissions()
-    {
-        return $this->belongsToMany(
-            config('laravel-permission.models.permission'), 'page_has_permissions');
-    }
 }
