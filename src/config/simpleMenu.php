@@ -32,6 +32,8 @@ return [
      */
     'pagesControllerNS'=> 'App\Http\Controllers',
 
-    // css farmework
+    /*
+     * css farmework
+     */
     'framework'=> 'bulma',
 ];
