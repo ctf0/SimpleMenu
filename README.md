@@ -85,15 +85,6 @@ return [
     - `role:roleName`
     - `perm:permName`
 
-### Good Practice
-Ofcourse you are free to code your app the way you want, but just in-case here are the naming convention the package use.
-
-| column name |                format                |   output   |
-|-------------|--------------------------------------|------------|
-| title       | title_case(some title)               | Some Title |
-| route_name  | str_slug(Some Title)                 | some-title |
-| action      | SomeController\camelCase(Some Title) | someTitle  |
-
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
 
