@@ -1,6 +1,6 @@
 <ul>
     @foreach ($items as $one)
-        @include('SimpleMenu::partials.r_params')
+        @include('SimpleMenu::menu.partials.r_params')
         
         <li class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">
             <a href="{{ SimpleMenu::urlRoute() }}">

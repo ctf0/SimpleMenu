@@ -27,7 +27,11 @@
 ]
 ```
 
-- publish the package assets with `php artisan vendor:publish` [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
+- publish the packages assets with `php artisan vendor:publish`
+    - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
+    - also check the **Dependencies** packages pages for "config/options/migrations".
+
+- check `resources/assets/vendor/SimpleMenu` and add the **component & styles** to your build system.
 
 ## Config
 **config/simpleMenu.php**
@@ -63,6 +67,9 @@ return [
      * pages controller namespace
      */
     'pagesControllerNS'=> 'App\Http\Controllers',
+
+    // css farmework
+    'framework'=> 'bulma',
 ];
 ```
 
@@ -85,18 +92,10 @@ Ofcourse you are free to code your app the way you want, but just in-case here a
 | route_name  | str_slug(Some Title)                 | some-title |
 | action      | SomeController\camelCase(Some Title) | someTitle  |
 
-## Notes
-- you can get any page params like (**template, title, body, desc, breadCrump**) by using `extract(SimpleMenu::getRouteData('the-route-name'));`
-
-<u>**or**</u>
-
-- if you followed the naming convention above and you are inside the `page action method`, you can instead use `extract(SimpleMenu::getRouteData(kebab_case('theCurrentMethodName')));`
-
-    | method name |          format         | output = route_name |
-    |-------------|-------------------------|---------------------|
-    | contactUs   | kebab_case('contactUs') | contact-us          |
+### Crud Views
+[Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
 
 # ToDo
 
-* [ ] CRUD Views for (roles/perms/pages/menus).
 * [ ] Clear cache through pivot table events.
+* [ ] Assign Pages to Menus with Drag & Drop.

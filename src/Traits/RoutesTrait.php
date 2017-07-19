@@ -64,7 +64,7 @@ trait RoutesTrait
         $body       = $page->body;
         $desc       = $page->desc;
         $template   = $page->template;
-        $breadCrump = $page->getAncestors();
+        $breadCrumb = $page->getAncestors();
 
         // route data
         $url       = $page->getTranslationWithoutFallback('url', app()->getLocale());
@@ -77,7 +77,7 @@ trait RoutesTrait
         $permissions = 'perm:'.implode(',', $page->permissions()->pluck('name')->toArray());
 
         // make route
-        $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump);
+        $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrumb);
 
         // create route list
         if (!$this->listFileFound) {
@@ -85,15 +85,15 @@ trait RoutesTrait
         }
     }
 
-    protected function routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrump)
+    protected function routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrumb)
     {
         if ($this->escapeEmptyRoute($url)) {
             return;
         }
 
         // cache the page so we pass the page params to the controller@method
-        Cache::rememberForever(LaravelLocalization::getCurrentLocale().'-'.$routeName, function () use ($template, $title, $body, $desc, $breadCrump) {
-            return compact('template', 'title', 'body', 'desc', 'breadCrump');
+        Cache::rememberForever(LaravelLocalization::getCurrentLocale().'-'.$routeName, function () use ($template, $title, $body, $desc, $breadCrumb) {
+            return compact('template', 'title', 'body', 'desc', 'breadCrumb');
         });
 
         $route = $this->getRouteUrl($url, $prefix);
@@ -108,7 +108,7 @@ trait RoutesTrait
         // static
         else {
             Route::get($route)
-            ->uses('\ctf0\SimpleMenu\Controller\DummyController@handle')
+            ->uses('\ctf0\SimpleMenu\Controllers\DummyController@handle')
             ->name($routeName)
             ->middleware([$roles, $permissions]);
         }

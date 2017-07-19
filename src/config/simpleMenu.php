@@ -31,4 +31,7 @@ return [
      * pages controller namespace
      */
     'pagesControllerNS'=> 'App\Http\Controllers',
+
+    // css farmework
+    'framework'=> 'bulma',
 ];

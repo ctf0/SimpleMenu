@@ -15,13 +15,13 @@ class RoleMiddleware
      *
      * @return [type] [description]
      */
-    public function handle($request, Closure $next, ...$role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        if (in_array('guest', $role)) {
+        if (in_array('guest', $roles)) {
             return $next($request);
         }
 
-        if (!$request->user()->hasAnyRole(...$role)) {
+        if (!$request->user()->hasAnyRole(...$roles)) {
             abort(403);
         }
 

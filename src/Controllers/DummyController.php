@@ -1,6 +1,6 @@
 <?php
 
-namespace ctf0\SimpleMenu\Controller;
+namespace ctf0\SimpleMenu\Controllers;
 
 use App\Http\Controllers\Controller;
 use ctf0\SimpleMenu\Facade\SimpleMenu;
@@ -12,6 +12,6 @@ class DummyController extends Controller
     {
         extract(SimpleMenu::getRouteData(Route::currentRouteName()));
 
-        return view(config('simpleMenu.templatePath').".$template", compact('title', 'body', 'desc', 'breadCrump'));
+        return view(config('simpleMenu.templatePath').".$template", compact('title', 'body', 'desc', 'breadCrumb'));
     }
 }

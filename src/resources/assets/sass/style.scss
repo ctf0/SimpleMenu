@@ -1,0 +1,30 @@
+// select2
+.select2 {
+    width: 100% !important;
+}
+
+// input locales
+.input-box {
+    position: relative;
+}
+
+.toggle-locale {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0.3;
+    &:hover {
+        opacity: 1;
+    }
+    &:after {
+        display: none;
+    }
+    select {
+        padding: 0.25rem 0.5rem 0.5rem;
+        font-weight: bold;
+        text-transform: capitalize;
+        background-color: transparent;
+        border: none;
+    }
+}

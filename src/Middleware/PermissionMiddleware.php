@@ -15,13 +15,13 @@ class PermissionMiddleware
      *
      * @return [type] [description]
      */
-    public function handle($request, Closure $next, ...$permission)
+    public function handle($request, Closure $next, ...$permissions)
     {
-        if (in_array('guest', $permission)) {
+        if (in_array('guest', $permissions)) {
             return $next($request);
         }
 
-        if (!$request->user()->hasAnyPermission(...$permission)) {
+        if (!$request->user()->hasAnyPermission(...$permissions)) {
             abort(403);
         }
 
