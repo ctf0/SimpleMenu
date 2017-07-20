@@ -6,7 +6,7 @@
         <a href="{{ route('admin.pages.index') }}">Go Back</a>
     </h3>
     
-    <page-comp inline-template select-first="{{ array_keys(LaravelLocalization::getSupportedLocales())[0] }}">
+    <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($page, ['method' => 'PUT', 'route' => ['admin.pages.update', $page->id]]) }}
                 

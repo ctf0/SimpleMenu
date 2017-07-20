@@ -91,7 +91,7 @@ trait RoutesTrait
             return;
         }
 
-        // cache the page so we pass the page params to the controller@method
+        // cache the page so we can pass the page params to the controller@method
         Cache::rememberForever(LaravelLocalization::getCurrentLocale().'-'.$routeName, function () use ($template, $title, $body, $desc, $breadCrumb) {
             return compact('template', 'title', 'body', 'desc', 'breadCrumb');
         });

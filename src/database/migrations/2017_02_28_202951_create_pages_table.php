@@ -21,11 +21,11 @@ class CreatePagesTable extends Migration
             $table->string('action')->nullable();
             $table->string('template')->nullable();
             $table->string('route_name')->nullable();
+            $table->json('prefix')->nullable();
+            $table->json('url')->nullable();
             $table->json('title');
             $table->json('body')->nullable();
             $table->json('desc')->nullable();
-            $table->json('prefix')->nullable();
-            $table->json('url')->nullable();
             $table->timestamps();
         });
     }
