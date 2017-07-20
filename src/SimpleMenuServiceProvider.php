@@ -64,7 +64,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
             __DIR__.'/routes' => base_path('routes'),
         ], 'routes');
 
-        $this->observer();
+        $this->observers();
 
         $this->app['simplemenu'];
     }
@@ -84,11 +84,11 @@ class SimpleMenuServiceProvider extends ServiceProvider
     }
 
     /**
-     * model events observer.
+     * model events observers.
      *
      * @return [type] [description]
      */
-    protected function observer()
+    protected function observers()
     {
         Page::observe(PageObserver::class);
         Menu::observe(MenuObserver::class);
