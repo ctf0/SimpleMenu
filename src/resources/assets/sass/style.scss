@@ -21,10 +21,15 @@
         display: none;
     }
     select {
-        padding: 0.25rem 0.5rem 0.5rem;
+        padding: 0.40rem 0.5rem 0.5rem;
         font-weight: bold;
         text-transform: capitalize;
         background-color: transparent;
         border: none;
     }
+}
+
+// tinymce
+.mce-path {
+    display: none !important;
 }

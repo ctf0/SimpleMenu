@@ -4,9 +4,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('description', '')">
     <title>@yield('title', '')</title>
-    
+
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    
+
     {{-- jquery --}}
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
     {{-- select2 --}}
@@ -16,12 +16,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/lists/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/link/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/image/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/paste/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/spellchecker/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/fullscreen/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/media/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/table/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/preview/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/contextmenu/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/autoresize/plugin.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +42,7 @@
                         </ul>
                     </aside>
                 </div>
-                
+
                 {{-- Pages --}}
                 <div class="column">
                     @yield('sub')
@@ -49,24 +50,23 @@
             </div>
         </div>
     </section>
-    
+
     {{-- Scripts --}}
     <script>
         // role & perm
         $('.select2').select2({
-        placeholder: 'Select an option',
-        allowClear: true,
-        tag: true
+            placeholder: 'Select an option',
+            allowClear: true,
+            tag: true
         });
-        
+
         // body & desc
         tinymce.overrideDefaults({
-        menubar: false,
-        statusbar: false,
-        branding: false,
-        height : "120",
-        plugins: "lists link image paste spellchecker fullscreen media table",
-        toolbar: 'undo redo | paste | link unlink | media image | styleselect removeformat | outdent indent | blockquote | numlist bullist table | spellchecker fullscreen',
+            menubar: false,
+            branding: false,
+            height : "120",
+            plugins: "lists link image spellchecker fullscreen media table preview contextmenu autoresize",
+            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen',
         });
     </script>
 </body>
