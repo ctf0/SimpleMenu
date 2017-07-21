@@ -36,7 +36,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <textarea name="body[{{ $code }}]" class="textarea" v-show="showBody('{{ $code }}')"></textarea>
+            <textarea id="body-{{ $code }}" name="body[{{ $code }}]" class="textarea" v-show="showBody('{{ $code }}')"></textarea>
         @endforeach
     </div>
     @if($errors->has('body'))
@@ -58,7 +58,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <textarea name="desc[{{ $code }}]" class="textarea" v-show="showDesc('{{ $code }}')"></textarea>
+            <textarea id="desc-{{ $code }}" name="desc[{{ $code }}]" class="textarea" v-show="showDesc('{{ $code }}')"></textarea>
         @endforeach
     </div>
     @if($errors->has('desc'))

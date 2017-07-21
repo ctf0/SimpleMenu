@@ -35,6 +35,26 @@
             },
             showUrl(code) {
                 return this.url == code
+            },
+            toggleTinyMce(input, newVal, oldVal){
+                tinymce.init({
+                    selector: `#${input}-${newVal}`
+                });
+
+                if (oldVal) {
+                    tinymce.remove(`#${input}-${oldVal}`);
+                    this.$nextTick(function(){
+                        $(`#${input}-${newVal}`).hide().closest('div').find('.mce-tinymce').fadeToggle('fast')
+                    })
+                }
+            }
+        },
+        watch: {
+            body(newVal, oldVal) {
+                this.toggleTinyMce('body', newVal, oldVal)
+            },
+            desc(newVal, oldVal) {
+                this.toggleTinyMce('desc', newVal, oldVal)
             }
         }
     }
