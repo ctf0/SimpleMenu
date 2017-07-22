@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu\Observers;
 
+use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
@@ -10,19 +11,11 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 class PageObserver
 {
     /**
-     * Listen to the User created event.
+     * Listen to the User saved event.
      */
-    public function created(Page $page)
+    public function saved(Page $page)
     {
-        File::delete(config('simpleMenu.routeListPath'));
-    }
-
-    /**
-     * Listen to the User updated event.
-     */
-    public function updated(Page $page)
-    {
-        $this->cleanData($page);
+        return $this->cleanData($page);
     }
 
     /**
@@ -30,7 +23,7 @@ class PageObserver
      */
     public function deleted(Page $page)
     {
-        $this->cleanData($page);
+        return $this->cleanData($page);
     }
 
     /**
@@ -42,18 +35,20 @@ class PageObserver
      */
     protected function cleanData($page)
     {
+        $route_name = $page->route_name;
+
         foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
             // clear menu cache
-            $page->menuNames->pluck('name')->each(function ($item) use ($code) {
-                $name = "{$item}Menu-{$code}Pages";
-                Cache::forget($name);
+            Menu::get()->pluck('name')->each(function ($item) use ($code) {
+                return Cache::forget("{$item}Menu-{$code}Pages");
             });
+
             // clear page cache
-            Cache::forget("{$code}-{$page->route_name}");
+            return Cache::forget("$code-$route_name");
         }
 
         // clear page session
-        session()->forget($page->route_name);
+        session()->forget($route_name);
 
         // remove the route file
         File::delete(config('simpleMenu.routeListPath'));

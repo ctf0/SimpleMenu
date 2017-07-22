@@ -14,7 +14,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <input type="text" name="title[{{ $code }}]" class="input" v-show="showTitle('{{ $code }}')" placeholder="Some Title">
+            <input type="text" name="title[{{ $code }}]" class="input" v-show="showTitle('{{ $code }}')" value="{{ old('title.'.$code) }}" placeholder="Some Title">
         @endforeach
     </div>
     @if($errors->has('title'))
@@ -36,7 +36,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <textarea id="body-{{ $code }}" name="body[{{ $code }}]" class="textarea" v-show="showBody('{{ $code }}')"></textarea>
+            <textarea id="body-{{ $code }}" name="body[{{ $code }}]" class="textarea" v-show="showBody('{{ $code }}')">{{ old('body.'.$code) }}</textarea>
         @endforeach
     </div>
     @if($errors->has('body'))
@@ -58,7 +58,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <textarea id="desc-{{ $code }}" name="desc[{{ $code }}]" class="textarea" v-show="showDesc('{{ $code }}')"></textarea>
+            <textarea id="desc-{{ $code }}" name="desc[{{ $code }}]" class="textarea" v-show="showDesc('{{ $code }}')">{{ old('desc.'.$code) }}</textarea>
         @endforeach
     </div>
     @if($errors->has('desc'))
@@ -80,7 +80,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <input type="text" name="prefix[{{ $code }}]" class="input" v-show="showPrefix('{{ $code }}')" placeholder="abc">
+            <input type="text" name="prefix[{{ $code }}]" class="input" v-show="showPrefix('{{ $code }}')" value="{{ old('prefix.'.$code) }}" placeholder="abc">
         @endforeach
     </div>
     @if($errors->has('prefix'))
@@ -102,7 +102,7 @@
             </select>
         </div>
         @foreach ($locales as $code)
-            <input type="text" name="url[{{ $code }}]" class="input" v-show="showUrl('{{ $code }}')" placeholder="xyz/{someParam}">
+            <input type="text" name="url[{{ $code }}]" class="input" v-show="showUrl('{{ $code }}')" value="{{ old('url.'.$code) }}" placeholder="xyz/{someParam}">
         @endforeach
     </div>
     @if($errors->has('url'))

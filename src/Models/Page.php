@@ -18,4 +18,14 @@ class Page extends Node
     {
         return $this->belongsToMany(Menu::class);
     }
+
+    public function syncMenus($menus)
+    {
+        return $this->menuNames()->sync($menus);
+    }
+
+    public function assignToMenus($menus)
+    {
+        return $this->menuNames()->attach($menus);
+    }
 }

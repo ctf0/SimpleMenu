@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +35,9 @@ class PagesController extends Controller
     {
         $roles       = Role::get()->pluck('name', 'name');
         $permissions = Permission::get()->pluck('name', 'name');
+        $menus       = Menu::get()->pluck('name', 'id');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.create', compact('roles', 'permissions'));
+        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.create', compact('roles', 'permissions', 'menus'));
     }
 
     /**
@@ -52,9 +54,11 @@ class PagesController extends Controller
         $page        = Page::create($this->cleanEmptyTrans($request));
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
+        $menus       = $request->input('menus') ?: [];
 
         $page->assignRole($roles);
         $page->givePermissionTo($permissions);
+        $page->assignToMenus($menus);
 
         return redirect()->route('admin.pages.index');
     }
@@ -71,8 +75,9 @@ class PagesController extends Controller
         $page        = Page::findOrFail($id);
         $roles       = Role::get()->pluck('name', 'name');
         $permissions = Permission::get()->pluck('name', 'name');
+        $menus       = Menu::get()->pluck('name', 'id');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.edit', compact('page', 'roles', 'permissions'));
+        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.edit', compact('page', 'roles', 'permissions', 'menus'));
     }
 
     /**
@@ -90,10 +95,12 @@ class PagesController extends Controller
         $page        = Page::findOrFail($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
+        $menus       = $request->input('menus') ?: [];
 
         $page->update($this->cleanEmptyTrans($request));
         $page->syncRoles($roles);
         $page->syncPermissions($permissions);
+        $page->syncMenus($menus);
 
         return redirect()->route('admin.pages.index');
     }
@@ -143,7 +150,8 @@ class PagesController extends Controller
 
         if ($validator->fails()) {
             throw new ValidationException($validator, $this->buildFailedValidationResponse(
-                $request, $this->formatValidationErrors($validator)
+                $request,
+                $this->formatValidationErrors($validator)
             ));
         }
     }
@@ -178,7 +186,8 @@ class PagesController extends Controller
 
         if ($validator->fails()) {
             throw new ValidationException($validator, $this->buildFailedValidationResponse(
-                $request, $this->formatValidationErrors($validator)
+                $request,
+                $this->formatValidationErrors($validator)
             ));
         }
     }
@@ -192,7 +201,7 @@ class PagesController extends Controller
      */
     protected function cleanEmptyTrans($request)
     {
-        $result = $request->except(['roles', 'permissions']);
+        $result = $request->except(['roles', 'permissions', 'menus']);
         foreach ($result as $k =>$v) {
             if ($v == null) {
                 unset($result[$k]);
