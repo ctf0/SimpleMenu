@@ -131,8 +131,8 @@ class PagesController extends Controller
     protected function storeValidation($request)
     {
         $validator = Validator::make($request->all(), [
-            'route_name'  => 'required|unique:pages,route_name',
             'template'    => 'required_without:action',
+            'route_name'  => 'required|unique:pages,route_name',
             'roles'       => 'required',
             'permissions' => 'required',
         ]);
@@ -167,8 +167,8 @@ class PagesController extends Controller
     protected function updateValidation($request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'route_name'   => 'required|unique:pages,route_name,'.$id,
             'template'     => 'required_without:action',
+            'route_name'   => 'required|unique:pages,route_name,'.$id,
             'roles'        => 'required',
             'permissions'  => 'required',
         ]);

@@ -4,12 +4,14 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use ctf0\SimpleMenu\Models\Menu;
+use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenusController extends Controller
 {
     /**
-     * Display a listing of Permission.
+     * Display a listing of Menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +23,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Show the form for creating new Permission.
+     * Show the form for creating new Menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +33,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Store a newly created Permission in storage.
+     * Store a newly created Menu in storage.
      *
      * @param \App\Http\Requests\StoreMenusRequest $request
      *
@@ -49,7 +51,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Show the form for editing Permission.
+     * Show the form for editing Menu.
      *
      * @param int $id
      *
@@ -57,13 +59,13 @@ class MenusController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu  = Menu::findOrFail($id);
 
         return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.menus.edit', compact('menu'));
     }
 
     /**
-     * Update Permission in storage.
+     * Update Menu in storage.
      *
      * @param \App\Http\Requests\UpdateMenusRequest $request
      * @param int                                   $id
@@ -76,13 +78,21 @@ class MenusController extends Controller
             'name' => 'required|unique:menus,name,'.$id,
         ]);
 
-        Menu::findOrFail($id)->update($request->all());
+        // update menu pages order
+        foreach (json_decode($request->saveList) as $item) {
+            DB::table('menu_page')->where('page_id', $item->id)->update(['order'=>$item->order]);
+        }
 
-        return redirect()->route('admin.menus.index');
+        Menu::findOrFail($id)->update($request->except('saveList'));
+
+        // todo
+        // page nest list
+
+        return back();
     }
 
     /**
-     * Remove Permission from storage.
+     * Remove Menu from storage.
      *
      * @param int $id
      *
@@ -93,5 +103,37 @@ class MenusController extends Controller
         Menu::findOrFail($id)->delete();
 
         return redirect()->route('admin.menus.index');
+    }
+
+    /*                helpers                */
+
+    /**
+     * remove page from menu with ajax.
+     *
+     * @param [type]  $id      [description]
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
+     */
+    public function removePage($id, Request $request)
+    {
+        if (Menu::find($id)->pages()->detach($request->page_id)) {
+            Menu::find($id)->touch();
+            return response()->json(['done'=>true]);
+        }
+    }
+
+    /**
+     * get all menu pages for sorting with vuejs.
+     *
+     * @param Menu $id [description]
+     *
+     * @return [type] [description]
+     */
+    public function getPages(Menu $id)
+    {
+        $pages = $id->pages()->orderBy('pivot_order', 'asc')->where('url->'.app()->getLocale(), '!=', '')->get();
+
+        return response()->json(['data' => $pages]);
     }
 }

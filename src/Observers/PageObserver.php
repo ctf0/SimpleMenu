@@ -11,7 +11,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 class PageObserver
 {
     /**
-     * Listen to the User saved event.
+     * Listen to the Page saved event.
      */
     public function saved(Page $page)
     {
@@ -19,7 +19,7 @@ class PageObserver
     }
 
     /**
-     * Listen to the User deleting event.
+     * Listen to the Page deleted event.
      */
     public function deleted(Page $page)
     {
@@ -46,11 +46,11 @@ class PageObserver
         foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
             // clear menu cache
             Menu::get()->pluck('name')->each(function ($item) use ($code) {
-                return Cache::forget("{$item}Menu-{$code}Pages");
+                Cache::forget("{$item}Menu-{$code}Pages");
             });
 
             // clear page cache
-            return Cache::forget("$code-$route_name");
+            Cache::forget("$code-$route_name");
         }
     }
 }

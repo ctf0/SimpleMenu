@@ -13,6 +13,7 @@
                 <th>@lang('SimpleMenu::messages.pages.fields.title')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.roles')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
+                <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
@@ -30,6 +31,11 @@
                         <td>
                             @foreach ($page->permissions()->pluck('name') as $perm)
                                 <span class="tag is-medium is-info">{{ $perm }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($page->menuNames()->pluck('name') as $name)
+                                <span class="tag is-medium is-info">{{ $name }}</span>
                             @endforeach
                         </td>
                         <td>

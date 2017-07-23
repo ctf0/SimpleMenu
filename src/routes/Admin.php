@@ -16,6 +16,8 @@ Route::group([
 
         /*               Menus               */
         Route::resource('menus', '\ctf0\SimpleMenu\Controllers\Admin\MenusController');
+        Route::get('menus/getPages/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@getPages')->name('menus.getPages');
+        Route::post('menus/removePage/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@removePage')->name('menus.removePage');
 
         /*               Users               */
         Route::resource('users', '\ctf0\SimpleMenu\Controllers\Admin\UsersController');

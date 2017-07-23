@@ -1,10 +1,10 @@
 <ul>
-    @foreach ($items as $one)
+    @foreach ($items as $page)
         @include('SimpleMenu::menu.partials.r_params')
-        
-        <li class="{{ request()->url() == SimpleMenu::urlRoute() ? 'is-active' : '' }}">
+
+        <li class="{{ SimpleMenu::urlRouteCheck() ? 'is-active' : '' }}">
             <a href="{{ SimpleMenu::urlRoute() }}">
-                {{ $one->title }}
+                {{ $page->title }}
             </a>
         </li>
         @if (!$loop->last)

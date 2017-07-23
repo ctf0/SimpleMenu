@@ -9,7 +9,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 class MenuObserver
 {
     /**
-     * Listen to the User saved event.
+     * Listen to the Menu saved event.
      */
     public function saved(Menu $menu)
     {
@@ -17,7 +17,7 @@ class MenuObserver
     }
 
     /**
-     * Listen to the User deleting event.
+     * Listen to the Menu deleting event.
      */
     public function deleted(Menu $menu)
     {
@@ -34,7 +34,7 @@ class MenuObserver
     protected function cleanData($menu)
     {
         foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
-            return Cache::forget("{$menu->name}Menu-{$code}Pages");
+            Cache::forget("{$menu->name}Menu-{$code}Pages");
         }
     }
 }

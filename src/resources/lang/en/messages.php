@@ -19,6 +19,7 @@ return [
         'fields' => [
             'title'       => 'Title',
             'roles'       => 'Roles',
+            'menus'       => 'Menus',
             'permissions' => 'Permissions',
         ],
     ],

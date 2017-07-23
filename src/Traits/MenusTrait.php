@@ -51,7 +51,7 @@ trait MenusTrait
     public function query($name)
     {
         Cache::rememberForever("{$name}Menu-".app()->getLocale().'Pages', function () use ($name) {
-            return app(Menu::class)->where('name', $name)->first()->pages()->where('url->'.app()->getLocale(), '!=', '')->get();
+            return app(Menu::class)->where('name', $name)->first()->pages()->orderBy('pivot_order', 'asc')->where('url->'.app()->getLocale(), '!=', '')->get();
         });
 
         return cache("{$name}Menu-".app()->getLocale().'Pages');

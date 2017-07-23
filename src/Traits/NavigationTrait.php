@@ -59,7 +59,7 @@ trait NavigationTrait
         if ($params) {
             foreach ($params as $key => $value) {
                 if ($crntRouteName == $key) {
-                    session([$crntRouteName => $value]);
+                    session([$key => $value]);
 
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
                     if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
@@ -69,16 +69,13 @@ trait NavigationTrait
                     }
 
                     $this->urlRoute = $finalUrl;
-
                     return $finalUrl;
                 }
             }
         }
 
-        $finalUrl       = route($crntRouteName);
-        $this->urlRoute = $finalUrl;
-
-        return $finalUrl;
+        $this->urlRoute = route($crntRouteName);
+        return $this->urlRoute;
     }
 
     /**
@@ -89,6 +86,11 @@ trait NavigationTrait
     public function urlRoute()
     {
         return $this->urlRoute;
+    }
+
+    public function urlRouteCheck()
+    {
+        return request()->url() == $this->urlRoute;
     }
 
     public function getRouteData($name)
@@ -116,11 +118,9 @@ trait NavigationTrait
             switch (config('simpleMenu.unFoundLocalizedRoute')) {
                 case 'home':
                     return '/';
-
                     break;
                 case 'error':
                     return '404';
-
                     break;
             }
         }
@@ -147,13 +147,11 @@ trait NavigationTrait
                 $ul = config('simpleMenu.listClasses.ul');
                 $li = config('simpleMenu.listClasses.li');
                 $a  = config('simpleMenu.listClasses.a');
-
                 break;
             default:
                 $ul = array_get($classes, 'ul');
                 $li = array_get($classes, 'li');
                 $a  = array_get($classes, 'a');
-
                 break;
         }
 

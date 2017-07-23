@@ -9,6 +9,11 @@
     > - Menu Nested Set
     >   - https://github.com/gazsp/baum
 
+- Javascript
+    + [Vue](https://vuejs.org/)
+    + [jQuery](https://jquery.com/)
+    + [vue-sortable](https://github.com/sagalbot/vue-sortable/pull/17#issuecomment-260562645)
+
 ## Installation
 
 - `composer require ctf0/simple-menu`
@@ -30,8 +35,6 @@
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
     - also check the **Dependencies** packages pages for "config/options/migrations".
-
-- check `resources/assets/vendor/SimpleMenu` and add the **component & styles** to your build system.
 
 ## Config
 **config/simpleMenu.php**
@@ -91,4 +94,3 @@ return [
 # ToDo
 
 * [ ] Menu Pages Hierarchy "nesting" Creation.
-* [ ] Clear cache through pivot table events.
