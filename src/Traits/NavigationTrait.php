@@ -116,9 +116,11 @@ trait NavigationTrait
             switch (config('simpleMenu.unFoundLocalizedRoute')) {
                 case 'home':
                     return '/';
+
                     break;
                 case 'error':
                     return '404';
+
                     break;
             }
         }
@@ -136,18 +138,22 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    public function render($pages, $classes = null, $params = null, $url)
+    public function render($pages, $classes = null, $params = null)
     {
+        $url = request()->url();
+
         switch ($classes) {
             case 'config':
                 $ul = config('simpleMenu.listClasses.ul');
                 $li = config('simpleMenu.listClasses.li');
                 $a  = config('simpleMenu.listClasses.a');
+
                 break;
             default:
                 $ul = array_get($classes, 'ul');
                 $li = array_get($classes, 'li');
                 $a  = array_get($classes, 'a');
+
                 break;
         }
 

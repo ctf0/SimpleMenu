@@ -13,11 +13,33 @@ class PagesTableSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        $heros = ['Home', 'About', 'Contact Us'];
+        Page::create([
+            'template'  => 'hero',
+            'route_name'=> str_slug('Home'),
+            'action'    => 'PageController@'.camel_case('Home'),
+            'title'     => [
+                'en' => title_case('Home'),
+                'fr' => title_case('Home'),
+            ],
+            'body' => [
+                'en' => $faker->text(),
+                'fr' => $faker->text(),
+            ],
+            'desc' => [
+                'en' => $faker->text(),
+                'fr' => $faker->text(),
+            ],
+            'url' => [
+                'en' => '/',
+                'fr' => '/',
+            ],
+        ]);
+
+        $heros = ['About', 'Contact Us'];
         foreach ($heros as $one) {
             Page::create([
-                'route_name'=> str_slug($one),
                 'template'  => 'hero',
+                'route_name'=> str_slug($one),
                 'action'    => 'PageController@'.camel_case($one),
                 'title'     => [
                     'en' => title_case($one),
@@ -44,8 +66,8 @@ class PagesTableSeeder extends Seeder
             $fr = $faker->unique()->city;
 
             Page::create([
-                'route_name'=> str_slug($en),
                 'template'  => 'hero',
+                'route_name'=> str_slug($en),
                 'title'     => [
                      'en' => title_case($en),
                      'fr' => title_case($fr),

@@ -37,6 +37,12 @@ class PageObserver
     {
         $route_name = $page->route_name;
 
+        // clear page session
+        session()->forget($route_name);
+
+        // remove the route file
+        File::delete(config('simpleMenu.routeListPath'));
+
         foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
             // clear menu cache
             Menu::get()->pluck('name')->each(function ($item) use ($code) {
@@ -46,11 +52,5 @@ class PageObserver
             // clear page cache
             return Cache::forget("$code-$route_name");
         }
-
-        // clear page session
-        session()->forget($route_name);
-
-        // remove the route file
-        File::delete(config('simpleMenu.routeListPath'));
     }
 }
