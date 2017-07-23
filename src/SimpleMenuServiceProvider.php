@@ -9,6 +9,7 @@ use ctf0\SimpleMenu\Models\Page;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -65,6 +66,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         ], 'routes');
 
         $this->observers();
+        $this->macros();
 
         $this->app['simplemenu'];
     }
@@ -92,6 +94,13 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         Page::observe(PageObserver::class);
         Menu::observe(MenuObserver::class);
+    }
+
+    protected function macros()
+    {
+        URL::macro('has', function ($needle) {
+            return str_contains($this->current(), $needle);
+        });
     }
 
     /**
