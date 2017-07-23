@@ -12,7 +12,7 @@
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::text('name', old('name'), ['class' => 'input']) }}
+                {{ Form::text('name', $user->name, ['class' => 'input']) }}
             </div>
             @if($errors->has('name'))
                 <p class="help is-danger">
@@ -25,7 +25,7 @@
         <div class="field">
             {{ Form::label('email', 'Email', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::email('email', old('email'), ['class' => 'input']) }}
+                {{ Form::email('email', $user->email, ['class' => 'input']) }}
             </div>
             @if($errors->has('email'))
                 <p class="help is-danger">
@@ -50,7 +50,7 @@
         <div class="field">
             {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('roles[]', $roles, old('roles') ?: $user->roles()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select('roles[]', $roles, $user->roles()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>
             @if($errors->has('roles'))
                 <p class="help is-danger">
@@ -63,7 +63,7 @@
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('permissions[]', $permissions, old('permissions') ?: $user->permissions()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select('permissions[]', $permissions, $user->permissions()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>
             @if($errors->has('permissions'))
                 <p class="help is-danger">

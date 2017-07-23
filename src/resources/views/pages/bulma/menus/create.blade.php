@@ -12,7 +12,7 @@
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::text('name', old('name'), ['class' => 'input']) }}
+                {{ Form::text('name', null, ['class' => 'input']) }}
             </div>
             @if($errors->has('name'))
                 <p class="help is-danger">

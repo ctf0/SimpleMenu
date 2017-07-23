@@ -40,7 +40,7 @@ class MenusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:menus,name',
         ]);
 
         Menu::create($request->all());
@@ -73,7 +73,7 @@ class MenusController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:menus,name,'.$id,
         ]);
 
         Menu::findOrFail($id)->update($request->all());

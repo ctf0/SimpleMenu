@@ -12,7 +12,7 @@
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::text('name', old('name'), ['class' => 'input']) }}
+                {{ Form::text('name', null, ['class' => 'input']) }}
             </div>
             @if($errors->has('name'))
                 <span class="help is-danger">
@@ -25,7 +25,7 @@
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('permissions[]', $permissions, old('permissions'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select('permissions[]', $permissions, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>
             @if($errors->has('permissions'))
                 <span class="help is-danger">
