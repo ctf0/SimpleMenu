@@ -6,7 +6,7 @@
         @lang('SimpleMenu::messages.menus.title') "{{ count($menus) }}"
         <a href="{{ route('admin.menus.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
-    
+
     <table class="table is-bordered">
         <thead>
             <tr>
@@ -14,18 +14,18 @@
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
-        
+
         <tbody>
             @if (count($menus) > 0)
-                @foreach ($menus as $permission)
-                    <tr data-entry-id="{{ $permission->id }}">
-                        <td>{{ $permission->name }}</td>
+                @foreach ($menus as $menu)
+                    <tr>
+                        <td>{{ $menu->name }}</td>
                         <td>
-                            <a href="{{ route('admin.menus.edit',[$permission->id]) }}" class="button is-info is-inline-block">
+                            <a href="{{ route('admin.menus.edit',[$menu->id]) }}" class="button is-info is-inline-block">
                                 @lang('SimpleMenu::messages.app_edit')
                             </a>
                             <a class="is-inline-block">
-                                {{ Form::open(['method' => 'DELETE', 'route' => ['admin.menus.destroy', $permission->id]]) }}
+                                {{ Form::open(['method' => 'DELETE', 'route' => ['admin.menus.destroy', $menu->id]]) }}
                                     {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
                                 {{ Form::close() }}
                             </a>

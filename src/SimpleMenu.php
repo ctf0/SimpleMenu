@@ -16,10 +16,12 @@ class SimpleMenu
     {
         $this->listFileDir = config('simpleMenu.routeListPath');
 
-        // create routes
-        $this->createRoutes();
+        if (!app()->runningInConsole()) {
+            // create routes
+            $this->createRoutes();
 
-        // create menu
-        $this->createMenus();
+            // create menu
+            $this->createMenus();
+        }
     }
 }
