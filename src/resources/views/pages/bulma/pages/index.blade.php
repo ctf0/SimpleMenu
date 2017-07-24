@@ -6,7 +6,7 @@
         @lang('SimpleMenu::messages.pages.title') "{{ count($pages) }}"
         <a href="{{ route('admin.pages.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
-    
+
     <table class="table is-bordered">
         <thead>
             <tr>
@@ -14,15 +14,16 @@
                 <th>@lang('SimpleMenu::messages.pages.fields.roles')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
+                <th>@lang('SimpleMenu::messages.pages.fields.locales')</th>
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
-        
+
         <tbody>
             @if (count($pages) > 0)
                 @foreach ($pages as $page)
                     <tr>
-                        <td>{{ $page->title }}</td>
+                        <td>{{ collect($page->getTranslations('title'))->first() }}</td>
                         <td>
                             @foreach ($page->roles()->pluck('name') as $role)
                                 <span class="tag is-medium is-info">{{ $role }}</span>
@@ -34,8 +35,13 @@
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->menuNames()->pluck('name') as $name)
-                                <span class="tag is-medium is-info">{{ $name }}</span>
+                            @foreach ($page->menuNames()->pluck('name') as $menu)
+                                <span class="tag is-medium is-info">{{ $menu }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($page->getTranslatedLocales('title') as $locale)
+                                <span class="tag is-medium is-warning">{{ $locale }}</span>
                             @endforeach
                         </td>
                         <td>

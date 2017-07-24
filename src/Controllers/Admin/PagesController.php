@@ -21,7 +21,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = Page::where('title->'.app()->getLocale(), '!=', '')->get();
+        $pages = Page::get();
 
         return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.index', compact('pages'));
     }

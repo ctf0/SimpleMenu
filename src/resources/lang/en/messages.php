@@ -20,7 +20,8 @@ return [
             'title'       => 'Title',
             'roles'       => 'Roles',
             'menus'       => 'Menus',
-            'permissions' => 'Permissions',
+            'locales'     => 'Available In',
+            'permissions' => 'Permissions'
         ],
     ],
     'permissions' => [
