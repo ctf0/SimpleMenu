@@ -1,13 +1,13 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ 'Create new User' }}@endsection
 
 @section('sub')
     <h3 class="title">
         <a href="{{ route('admin.users.index') }}">Go Back</a>
     </h3>
-    
+
     {{ Form::open(['method' => 'POST', 'route' => 'admin.users.store']) }}
-        
+
         {{-- name --}}
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
@@ -20,7 +20,7 @@
                 </p>
             @endif
         </div>
-        
+
         {{-- email --}}
         <div class="field">
             {{ Form::label('email', 'Email', ['class' => 'label']) }}
@@ -33,7 +33,7 @@
                 </p>
             @endif
         </div>
-        
+
         {{-- password --}}
         <div class="field">
             {{ Form::label('password', 'Password', ['class' => 'label']) }}
@@ -46,7 +46,7 @@
                 </p>
             @endif
         </div>
-        
+
         {{-- roles --}}
         <div class="field">
             {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
@@ -59,7 +59,7 @@
                 </p>
             @endif
         </div>
-        
+
         {{-- permissions --}}
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
@@ -72,7 +72,7 @@
                 </p>
             @endif
         </div>
-        
+
         {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
     {{ Form::close() }}
 @stop

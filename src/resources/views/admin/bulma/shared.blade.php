@@ -37,17 +37,17 @@
                             <li><a class="{{ request()->url() == route('admin.users.index') ? 'is-active' : '' }}" href="{{ route('admin.users.index') }}">Users</a></li>
                             <li><a class="{{ request()->url() == route('admin.roles.index') ? 'is-active' : '' }}" href="{{ route('admin.roles.index') }}">Roles</a></li>
                             <li><a class="{{ request()->url() == route('admin.permissions.index') ? 'is-active' : '' }}" href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+                            <li><a class="{{ request()->url() == route('admin.pages.index')  ? 'is-active' : '' }}" href="{{ route('admin.pages.index') }}">Pages</a></li>
                             <li>
                                 <a class="{{ request()->url() == route('admin.menus.index') ? 'is-active' : '' }}" href="{{ route('admin.menus.index') }}">Menus</a>
                                 <ul>
                                     @foreach (\ctf0\SimpleMenu\Models\Menu::all() as $menu)
                                         <li>
-                                            <a class="{{ request()->url() == route('admin.menus.edit',['id'=>$menu->id]) ? 'is-active is-info' : '' }}" href="{{ route('admin.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
+                                            <a class="{{ request()->url() == route('admin.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route('admin.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </li>
-                            <li><a class="{{ request()->url() == route('admin.pages.index')  ? 'is-active' : '' }}" href="{{ route('admin.pages.index') }}">Pages</a></li>
                         </ul>
                     </aside>
                 </div>

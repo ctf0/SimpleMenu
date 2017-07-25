@@ -1,0 +1,1 @@
+@include('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')

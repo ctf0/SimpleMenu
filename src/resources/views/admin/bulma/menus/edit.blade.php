@@ -1,4 +1,4 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ "Edit '$menu->name'" }}@endsection
 
 @section('sub')
@@ -6,7 +6,10 @@
         <a href="{{ route('admin.menus.index') }}">Go Back</a>
     </h3>
 
-    <menu-comp inline-template del-route="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}" pages-route="{{ route('admin.menus.getPages',['id'=>$menu->id]) }}">
+    <menu-comp
+        inline-template
+        del-route="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}"
+        pages-route="{{ route('admin.menus.getPages',['id'=>$menu->id]) }}">
         <div>
             {{ Form::model($menu, ['method' => 'PUT', 'route' => ['admin.menus.update', $menu->id]]) }}
 
@@ -33,7 +36,16 @@
                     <ul v-sortable="{ onUpdate: onUpdate }">
                         <li v-for="item in list" :key="item.id">
                             <div class="notification is-info menu-item">
-                                <p v-html="item.title.{{ LaravelLocalization::getCurrentLocale() }}"></p>
+                                <table>
+                                    <tr>
+                                        <td class="handler">
+                                            <span class="icon is-small">
+                                                <i class="fa fa-caret-right"></i>
+                                            </span>
+                                        </td>
+                                        <td v-html="item.title.{{ LaravelLocalization::getCurrentLocale() }}"></td>
+                                    </tr>
+                                </table>
                                 <button class="delete" @click.prevent="deleteItem(item)"></button>
                             </div>
                         </li>

@@ -1,4 +1,4 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ 'Users' }}@endsection
 
 @section('sub')
@@ -6,7 +6,7 @@
         @lang('SimpleMenu::messages.users.title') "{{ count($users) }}"
         <a href="{{ route('admin.users.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
-    
+
     <table class="table is-bordered">
         <thead>
             <tr>
@@ -17,7 +17,7 @@
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
-        
+
         <tbody>
             @if (count($users) > 0)
                 @foreach ($users as $user)

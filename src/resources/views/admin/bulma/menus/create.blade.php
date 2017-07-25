@@ -1,13 +1,13 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ 'Create new Menu' }}@endsection
 
 @section('sub')
     <h3 class="title">
         <a href="{{ route('admin.menus.index') }}">Go Back</a>
     </h3>
-    
+
     {{ Form::open(['method' => 'POST', 'route' => 'admin.menus.store']) }}
-        
+
         {{-- name --}}
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
@@ -25,6 +25,6 @@
                 {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
             </div>
         </div>
-        
+
     {{ Form::close() }}
 @stop

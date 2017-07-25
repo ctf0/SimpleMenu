@@ -1,39 +1,39 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
-@section('title'){{ "Edit '$role->name'" }}@endsection
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
+@section('title'){{ 'Create new Role' }}@endsection
 
 @section('sub')
     <h3 class="title">
         <a href="{{ route('admin.roles.index') }}">Go Back</a>
     </h3>
-    
-    {{ Form::model($role, ['method' => 'PUT', 'route' => ['admin.roles.update', $role->id]]) }}
-        
+
+    {{ Form::open(['method' => 'POST', 'route' => 'admin.roles.store']) }}
+
         {{-- name --}}
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::text('name', $role->name, ['class' => 'input']) }}
+                {{ Form::text('name', null, ['class' => 'input']) }}
             </div>
             @if($errors->has('name'))
-                <p class="help is-danger">
+                <span class="help is-danger">
                     {{ $errors->first('name') }}
-                </p>
+                </span>
             @endif
         </div>
-        
+
         {{-- permissions --}}
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('permissions[]', $permissions, $role->permissions()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select('permissions[]', $permissions, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>
             @if($errors->has('permissions'))
-                <p class="help is-danger">
+                <span class="help is-danger">
                     {{ $errors->first('permissions') }}
-                </p>
+                </span>
             @endif
         </div>
-        
-        {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
+
+        {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
     {{ Form::close() }}
 @stop

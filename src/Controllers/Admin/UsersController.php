@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         $users = User::all();
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.users.index', compact('users'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.index', compact('users'));
     }
 
     /**
@@ -32,7 +32,7 @@ class UsersController extends Controller
         $roles       = Role::get()->pluck('name', 'name');
         $permissions = Permission::get()->pluck('name', 'name');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.users.create', compact('roles', 'permissions'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.create', compact('roles', 'permissions'));
     }
 
     /**
@@ -75,7 +75,7 @@ class UsersController extends Controller
         $roles       = Role::get()->pluck('name', 'name');
         $permissions = Permission::get()->pluck('name', 'name');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.users.edit', compact('user', 'roles', 'permissions'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**

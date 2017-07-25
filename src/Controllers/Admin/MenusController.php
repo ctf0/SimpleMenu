@@ -19,7 +19,7 @@ class MenusController extends Controller
     {
         $menus = Menu::all();
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.menus.index', compact('menus'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.index', compact('menus'));
     }
 
     /**
@@ -29,7 +29,7 @@ class MenusController extends Controller
      */
     public function create()
     {
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.menus.create');
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class MenusController extends Controller
     {
         $menu  = Menu::findOrFail($id);
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.menus.edit', compact('menu'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.edit', compact('menu'));
     }
 
     /**
@@ -78,7 +78,6 @@ class MenusController extends Controller
             'name' => 'required|unique:menus,name,'.$id,
         ]);
 
-        // update menu pages order
         foreach (json_decode($request->saveList) as $item) {
             DB::table('menu_page')->where('page_id', $item->id)->update(['order'=>$item->order]);
         }
@@ -105,30 +104,22 @@ class MenusController extends Controller
         return redirect()->route('admin.menus.index');
     }
 
-    /*                helpers                */
-
     /**
      * remove page from menu with ajax.
      *
-     * @param [type]  $id      [description]
-     * @param Request $request [description]
-     *
-     * @return [type] [description]
+     * @param mixed $id
      */
     public function removePage($id, Request $request)
     {
         if (Menu::find($id)->pages()->detach($request->page_id)) {
             Menu::find($id)->touch();
+
             return response()->json(['done'=>true]);
         }
     }
 
     /**
      * get all menu pages for sorting with vuejs.
-     *
-     * @param Menu $id [description]
-     *
-     * @return [type] [description]
      */
     public function getPages(Menu $id)
     {

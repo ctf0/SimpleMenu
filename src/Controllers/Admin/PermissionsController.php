@@ -17,7 +17,7 @@ class PermissionsController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.permissions.index', compact('permissions'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.index', compact('permissions'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.permissions.create');
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class PermissionsController extends Controller
     {
         $permission = Permission::findOrFail($id);
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.permissions.edit', compact('permission'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.edit', compact('permission'));
     }
 
     /**

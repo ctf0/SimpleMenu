@@ -1,4 +1,4 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ 'Pages' }}@endsection
 
 @section('sub')
@@ -14,7 +14,7 @@
                 <th>@lang('SimpleMenu::messages.pages.fields.roles')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
-                <th>@lang('SimpleMenu::messages.pages.fields.locales')</th>
+                <th>@lang('SimpleMenu::messages.pages.fields.locals')</th>
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
@@ -35,13 +35,13 @@
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->menuNames()->pluck('name') as $menu)
-                                <span class="tag is-medium is-info">{{ $menu }}</span>
+                            @foreach ($page->menuNames()->pluck('name') as $name)
+                                <span class="tag is-medium is-info">{{ $name }}</span>
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->getTranslatedLocales('title') as $locale)
-                                <span class="tag is-medium is-warning">{{ $locale }}</span>
+                            @foreach ($page->getTranslatedLocales('title') as $name)
+                                <span class="tag is-medium is-warning">{{ $name }}</span>
                             @endforeach
                         </td>
                         <td>

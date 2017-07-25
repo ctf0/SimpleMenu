@@ -13,7 +13,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.admin')->with([
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.admin')->with([
             'title' => 'DashBoard',
             'desc'  => 'Admin Description',
         ]);

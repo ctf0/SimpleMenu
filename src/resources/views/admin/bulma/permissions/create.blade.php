@@ -1,20 +1,20 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
-@section('title'){{ "Edit '$permission->name'" }}@endsection
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
+@section('title'){{ 'Create new Permission' }}@endsection
 
 @section('sub')
     <h3 class="title">
         <a href="{{ route('admin.permissions.index') }}">Go Back</a>
     </h3>
-    
-    {{ Form::model($permission, ['method' => 'PUT', 'route' => ['admin.permissions.update', $permission->id]]) }}
-        
+
+    {{ Form::open(['method' => 'POST', 'route' => 'admin.permissions.store']) }}
+
         {{-- name --}}
         <div class="field">
             {{ Form::label('name', 'Name', ['class' => 'label']) }}
         </div>
         <div class="field has-addons">
             <div class="control is-expanded">
-                {{ Form::text('name', $permission->name, ['class' => 'input']) }}
+                {{ Form::text('name', null, ['class' => 'input']) }}
             </div>
             @if($errors->has('name'))
                 <p class="help is-danger">
@@ -22,9 +22,9 @@
                 </p>
             @endif
             <div class="control">
-                {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
+                {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
             </div>
         </div>
-        
+
     {{ Form::close() }}
 @stop

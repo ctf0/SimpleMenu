@@ -23,7 +23,7 @@ class PagesController extends Controller
     {
         $pages = Page::get();
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.index', compact('pages'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.pages.index', compact('pages'));
     }
 
     /**
@@ -37,7 +37,7 @@ class PagesController extends Controller
         $permissions = Permission::get()->pluck('name', 'name');
         $menus       = Menu::get()->pluck('name', 'id');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.create', compact('roles', 'permissions', 'menus'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.pages.create', compact('roles', 'permissions', 'menus'));
     }
 
     /**
@@ -77,7 +77,7 @@ class PagesController extends Controller
         $permissions = Permission::get()->pluck('name', 'name');
         $menus       = Menu::get()->pluck('name', 'id');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages.edit', compact('page', 'roles', 'permissions', 'menus'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.pages.edit', compact('page', 'roles', 'permissions', 'menus'));
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('SimpleMenu::pages.'.config('simpleMenu.framework').'.shared')
+@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
 @section('title'){{ 'Create new Page' }}@endsection
 
 @section('sub')
@@ -50,7 +50,7 @@
                 </div>
 
                 {{-- multi --}}
-                @include('SimpleMenu::pages.'.config('simpleMenu.framework').'.pages._multi')
+                @include('SimpleMenu::admin.'.config('simpleMenu.framework').'.pages._multi')
                 {{-- end multi --}}
 
                 {{-- roles --}}

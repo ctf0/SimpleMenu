@@ -18,7 +18,7 @@ class RolesController extends Controller
     {
         $roles = Role::all();
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.roles.index', compact('roles'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.index', compact('roles'));
     }
 
     /**
@@ -30,7 +30,7 @@ class RolesController extends Controller
     {
         $permissions = Permission::get()->pluck('name', 'name');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.roles.create', compact('permissions'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.create', compact('permissions'));
     }
 
     /**
@@ -66,7 +66,7 @@ class RolesController extends Controller
         $role        = Role::findOrFail($id);
         $permissions = Permission::get()->pluck('name', 'name');
 
-        return view('SimpleMenu::pages.'.config('simpleMenu.framework').'.roles.edit', compact('role', 'permissions'));
+        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.edit', compact('role', 'permissions'));
     }
 
     /**

@@ -38,4 +38,11 @@
 .menu-item {
     padding: 0.5em;
     margin-bottom: 0.5em !important;
+    cursor: ns-resize;
+    table {
+        table-layout: fixed;
+        .handler {
+            width: 15px;
+        }
+    }
 }
