@@ -23,7 +23,7 @@
             @if (count($pages) > 0)
                 @foreach ($pages as $page)
                     <tr>
-                        <td>{{ collect($page->getTranslations('title'))->first() }}</td>
+                        <td>{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}</td>
                         <td>
                             @foreach ($page->roles()->pluck('name') as $role)
                                 <span class="tag is-medium is-info">{{ $role }}</span>
@@ -35,13 +35,13 @@
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->menuNames()->pluck('name') as $name)
-                                <span class="tag is-medium is-info">{{ $name }}</span>
+                            @foreach ($page->menuNames()->pluck('name') as $menu)
+                                <span class="tag is-medium is-info">{{ $menu }}</span>
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->getTranslatedLocales('title') as $name)
-                                <span class="tag is-medium is-warning">{{ $name }}</span>
+                            @foreach ($page->getTranslatedLocales('title') as $locale)
+                                <span class="tag is-medium is-warning">{{ $locale }}</span>
                             @endforeach
                         </td>
                         <td>

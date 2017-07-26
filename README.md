@@ -12,7 +12,7 @@
 - Javascript
     + [Vue](https://vuejs.org/)
     + [jQuery](https://jquery.com/)
-    + [vue-sortable](https://github.com/sagalbot/vue-sortable/pull/17#issuecomment-260562645)
+    + [vuedraggable](https://github.com/SortableJS/Vue.Draggable)
 
 ## Installation
 

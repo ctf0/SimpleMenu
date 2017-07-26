@@ -1,16 +1,20 @@
 <template></template>
 
 <script>
-import Sortable from 'vue-sortable'
-Vue.use(Sortable)
+import draggable from 'vuedraggable'
+Vue.component('MenuChild', require('./_nested.vue'));
 
 export default {
-    props: ['DelRoute', 'PagesRoute'],
+    props: ['PagesRoute', 'DelRoute', 'locale'],
+    components: {
+        draggable,
+    },
     data() {
         return {
-            list: [],
-            saveList: []
-        };
+            pages: [],
+            allPages: [],
+            saveList: [],
+        }
     },
     created() {
         $.ajaxSetup({
@@ -18,37 +22,51 @@ export default {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        });
+        })
 
-        this.getPages();
+        this.getPages()
     },
     methods: {
-        onUpdate(event) {
-            this.list.splice(event.newIndex, 0, (this.list.splice(event.oldIndex, 1)[0]))
-        },
         getPages(){
             $.get(this.PagesRoute, (res) => {
-                this.list = res.data;
-            });
+                this.pages = res.pages
+                this.allPages = res.allPages
+            })
         },
         deleteItem(item){
             $.post(this.DelRoute,{
                 page_id: item.id,
             }, (res) => {
                 if (res.done) {
-                    this.list.splice(this.list.indexOf(item), 1)
+                    this.pages.splice(this.pages.indexOf(item), 1)
                 }
-            });
-        }
+            })
+        },
+
+        // operations
+        getTitle(title){
+            let locale = this.locale
+            let v = Object.keys(title).indexOf(locale)
+            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0]
+        },
+        checkAdded(evt){
+            if (evt.added) {
+                evt.added.element.updated_at = null
+            }
+        },
+        undoItem(item){
+            this.pages.splice(this.pages.indexOf(item),1)
+            this.allPages.unshift(item)
+        },
     },
     watch: {
-        list(val) {
+        pages(val) {
             this.saveList = []
 
             val.map((item) => {
                 return this.saveList.push({
                     id: item.id,
-                    order: this.list.indexOf(item) + 1
+                    order: this.pages.indexOf(item) + 1
                 })
             })
         }

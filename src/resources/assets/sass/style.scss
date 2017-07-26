@@ -18,10 +18,10 @@
         opacity: 1;
     }
     &:after {
-        display: none;
+        display: none !important;
     }
     select {
-        padding: 0.40rem 0.5rem 0.5rem;
+        padding: 0.40rem 0.5rem 0.5rem !important;
         font-weight: bold;
         text-transform: capitalize;
         background-color: transparent;
@@ -39,10 +39,4 @@
     padding: 0.5em;
     margin-bottom: 0.5em !important;
     cursor: ns-resize;
-    table {
-        table-layout: fixed;
-        .handler {
-            width: 15px;
-        }
-    }
 }

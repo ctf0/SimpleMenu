@@ -1,5 +1,7 @@
 @extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
-@section('title'){{ "Edit '$page->title'" }}@endsection
+@section('title')
+    Edit "{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}"
+@endsection
 
 @section('sub')
     <h3 class="title">

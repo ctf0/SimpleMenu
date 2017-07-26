@@ -6,10 +6,10 @@
         <a href="{{ route('admin.menus.index') }}">Go Back</a>
     </h3>
 
-    <menu-comp
-        inline-template
+    <menu-comp inline-template
+        pages-route="{{ route('admin.menus.getMenuPages',['id'=>$menu->id]) }}"
         del-route="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}"
-        pages-route="{{ route('admin.menus.getPages',['id'=>$menu->id]) }}">
+        locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($menu, ['method' => 'PUT', 'route' => ['admin.menus.update', $menu->id]]) }}
 
@@ -31,25 +31,38 @@
                     </div>
                 </div>
 
-                {{-- pages --}}
-                <div class="column is-4">
-                    <ul v-sortable="{ onUpdate: onUpdate }">
-                        <li v-for="item in list" :key="item.id">
-                            <div class="notification is-info menu-item">
-                                <table>
-                                    <tr>
-                                        <td class="handler">
-                                            <span class="icon is-small">
-                                                <i class="fa fa-caret-right"></i>
-                                            </span>
-                                        </td>
-                                        <td v-html="item.title.{{ LaravelLocalization::getCurrentLocale() }}"></td>
-                                    </tr>
-                                </table>
-                                <button class="delete" @click.prevent="deleteItem(item)"></button>
+                <div class="columns">
+                    {{-- pages --}}
+                    <draggable v-model="pages"
+                        class="column is-4 menu-list"
+                        style="min-height: 35px; display: block"
+                        :options="{draggable:'.item', group:'pages'}"
+                        :element="'ul'"
+                        @change="checkAdded">
+                        <li v-for="item in pages" :key="item.id" class="item">
+                            <div class="notification is-info menu-item" :class="{'is-warning' : !item.updated_at}">
+                                <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
+                                <span v-html="getTitle(item.title)"></span>
+
+                                <button type="button" v-if="item.updated_at" class="delete" @click.prevent="deleteItem(item)"></button>
+                                <button type="button" v-else class="delete" @click="undoItem(item)"></button>
                             </div>
+
+                            {{-- childs --}}
+                            <menu-child v-if="item.children" :childs="item.children" :locale="locale"></menu-child>
                         </li>
-                    </ul>
+                    </draggable>
+
+                    {{-- all_pages --}}
+                    <draggable v-model="allPages"
+                        class="column"
+                        :element="'ul'"
+                        :options="{draggable:'.item', group:{name:'pages', put:false}, chosenClass:'is-warning'}">
+                        <li v-for="item in allPages" :key="item.id" class="item notification is-info menu-item" style="cursor: default">
+                            <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
+                            <span v-html="getTitle(item.title)"></span>
+                        </li>
+                    </draggable>
                 </div>
 
                 <input type="hidden" name="saveList" v-model="JSON.stringify(saveList)">

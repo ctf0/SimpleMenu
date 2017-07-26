@@ -59,7 +59,7 @@ class MenusController extends Controller
      */
     public function edit($id)
     {
-        $menu  = Menu::findOrFail($id);
+        $menu = Menu::findOrFail($id);
 
         return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.edit', compact('menu'));
     }
@@ -78,11 +78,14 @@ class MenusController extends Controller
             'name' => 'required|unique:menus,name,'.$id,
         ]);
 
+        $menu = Menu::findOrFail($id);
+
         foreach (json_decode($request->saveList) as $item) {
+            $menu->pages()->sync($item->id, false);
             DB::table('menu_page')->where('page_id', $item->id)->update(['order'=>$item->order]);
         }
 
-        Menu::findOrFail($id)->update($request->except('saveList'));
+        $menu->update($request->except('saveList'));
 
         // todo
         // page nest list
@@ -105,9 +108,40 @@ class MenusController extends Controller
     }
 
     /**
+     * get all menu pages for vuejs.
+     *
+     * @param Menu $id [description]
+     *
+     * @return [type] [description]
+     */
+    public function getMenuPages(Menu $id)
+    {
+        $pages = $id->pages()->orderBy('pivot_order', 'asc')->get();
+
+        $pages->map(function ($item) {
+            if (count($childs = $item->getDescendants()->toHierarchy())) {
+                $item['children'] = $childs;
+            }
+        });
+
+        $allPages = Page::all()->diff($pages);
+
+        $allPages->map(function ($item) {
+            if (count($childs = $item->getDescendants()->toHierarchy())) {
+                $item['children'] = $childs;
+            }
+        });
+
+        return response()->json(compact('pages', 'allPages'));
+    }
+
+    /**
      * remove page from menu with ajax.
      *
-     * @param mixed $id
+     * @param [type]  $id      [description]
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
      */
     public function removePage($id, Request $request)
     {
@@ -116,15 +150,5 @@ class MenusController extends Controller
 
             return response()->json(['done'=>true]);
         }
-    }
-
-    /**
-     * get all menu pages for sorting with vuejs.
-     */
-    public function getPages(Menu $id)
-    {
-        $pages = $id->pages()->orderBy('pivot_order', 'asc')->where('url->'.app()->getLocale(), '!=', '')->get();
-
-        return response()->json(['data' => $pages]);
     }
 }
