@@ -49,7 +49,7 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->storeValidation($request);
+        $this->sT_uP_Validaiton($request);
 
         $page        = Page::create($this->cleanEmptyTrans($request));
         $roles       = $request->input('roles') ?: [];
@@ -88,9 +88,9 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        $this->updateValidation($request, $id);
+        $this->sT_uP_Validaiton($request, $id);
 
         $page        = Page::findOrFail($id);
         $roles       = $request->input('roles') ?: [];
@@ -121,59 +121,22 @@ class PagesController extends Controller
         return redirect()->route('admin.pages.index');
     }
 
-    /**
-     * [storeValidation description].
-     *
-     * @param [type] $request [description]
-     *
-     * @return [type] [description]
-     */
-    protected function storeValidation($request)
+    protected function sT_uP_Validaiton($request, $id = null)
     {
+        $routename = 'required|unique:pages,route_name';
+
+        if ($id) {
+            $routename = 'required|unique:pages,route_name,'.$id;
+        }
+
         $validator = Validator::make($request->all(), [
             'template'    => 'required_without:action',
-            'route_name'  => 'required|unique:pages,route_name',
+            'route_name'  => $routename,
             'roles'       => 'required',
             'permissions' => 'required',
         ]);
 
-        // because laravel is pretty fucked up when it comes to showing input array error
-        $validator->after(function ($validator) use ($request) {
-            if (!array_filter($request->url)) {
-                $validator->errors()->add('url', 'The Url is required');
-            }
-
-            if (!array_filter($request->title)) {
-                $validator->errors()->add('title', 'The Title is required');
-            }
-        });
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator, $this->buildFailedValidationResponse(
-                $request,
-                $this->formatValidationErrors($validator)
-            ));
-        }
-    }
-
-    /**
-     * [updateValidation description].
-     *
-     * @param [type] $request [description]
-     * @param [type] $id      [description]
-     *
-     * @return [type] [description]
-     */
-    protected function updateValidation($request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'template'     => 'required_without:action',
-            'route_name'   => 'required|unique:pages,route_name,'.$id,
-            'roles'        => 'required',
-            'permissions'  => 'required',
-        ]);
-
-        // because laravel is pretty fucked up when it comes to showing input array error
+        // because laravel is pretty fucked up when it comes to showing array input error
         $validator->after(function ($validator) use ($request) {
             if (!array_filter($request->url)) {
                 $validator->errors()->add('url', 'Url is required');

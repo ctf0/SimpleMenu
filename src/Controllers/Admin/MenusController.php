@@ -72,7 +72,7 @@ class MenusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:menus,name,'.$id,
@@ -87,8 +87,9 @@ class MenusController extends Controller
 
         $menu->update($request->except('saveList'));
 
-        // todo
-        // page nest list
+        /*
+         * todo "page nest list"
+         */
 
         return back();
     }
@@ -114,9 +115,9 @@ class MenusController extends Controller
      *
      * @return [type] [description]
      */
-    public function getMenuPages(Menu $id)
+    public function getMenuPages($id)
     {
-        $pages = $id->pages()->orderBy('pivot_order', 'asc')->get();
+        $pages = Menu::findOrFail($id)->pages()->orderBy('pivot_order', 'asc')->get();
 
         $pages->map(function ($item) {
             if (count($childs = $item->getDescendants()->toHierarchy())) {
@@ -145,7 +146,7 @@ class MenusController extends Controller
      */
     public function removePage($id, Request $request)
     {
-        if (Menu::find($id)->pages()->detach($request->page_id)) {
+        if (Menu::findOrFail($id)->pages()->detach($request->page_id)) {
             Menu::find($id)->touch();
 
             return response()->json(['done'=>true]);

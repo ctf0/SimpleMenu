@@ -86,11 +86,11 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name'        => 'required',
-            'email'       => 'required|email|unique:users,email,'.$id,
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
         ]);
 
         $user        = User::findOrFail($id);
