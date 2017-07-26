@@ -46,7 +46,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="9">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                    <td colspan="5">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
                 </tr>
             @endif
         </tbody>

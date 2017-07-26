@@ -14,7 +14,6 @@
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
-
         <tbody>
             @if (count($menus) > 0)
                 @foreach ($menus as $menu)
@@ -34,7 +33,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="3">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                    <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
                 </tr>
             @endif
         </tbody>

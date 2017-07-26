@@ -18,7 +18,7 @@
         <tbody>
             @if (count($permissions) > 0)
                 @foreach ($permissions as $permission)
-                    <tr data-entry-id="{{ $permission->id }}">
+                    <tr>
                         <td>{{ $permission->name }}</td>
                         <td>
                             <a href="{{ route('admin.permissions.edit',[$permission->id]) }}" class="button is-info is-inline-block">
@@ -34,7 +34,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="3">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                    <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
                 </tr>
             @endif
         </tbody>
