@@ -12,8 +12,8 @@
 - Javascript
     + [Vue](https://vuejs.org/)
     + [jQuery](https://jquery.com/)
-    + [select2]()
-    + [tinymce]()
+    + [select2](https://select2.github.io/)
+    + [tinymce](https://www.tinymce.com/)
     + [vuedraggable](https://github.com/SortableJS/Vue.Draggable)
     + [notification-component](https://github.com/ctf0/Notification-Component)
 
