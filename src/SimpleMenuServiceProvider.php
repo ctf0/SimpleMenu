@@ -9,6 +9,7 @@ use ctf0\SimpleMenu\Models\Page;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -65,6 +66,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         ], 'routes');
 
         $this->observers();
+        $this->macros();
 
         $this->app['simplemenu'];
     }
@@ -90,8 +92,23 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     protected function observers()
     {
-        Page::observe(PageObserver::class);
-        Menu::observe(MenuObserver::class);
+        if (!app()->runningInConsole()) {
+            Page::observe(PageObserver::class);
+            Menu::observe(MenuObserver::class);
+        }
+    }
+
+    /**
+     * package macros.
+     *
+     * @return [type] [description]
+     */
+    protected function macros()
+    {
+        // alias to "Route::is()" but with support for params
+        URL::macro('is', function ($route_name, $params = null) {
+            return request()->url() == route($route_name, $params);
+        });
     }
 
     /**

@@ -1,5 +1,5 @@
 @php
-    $locales = array_keys(LaravelLocalization::getSupportedLocales());
+    $locales = SimpleMenu::AppLocales();
 @endphp
 
 {{-- title --}}

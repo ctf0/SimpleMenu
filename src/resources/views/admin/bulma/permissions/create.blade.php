@@ -15,12 +15,12 @@
         <div class="field has-addons">
             <div class="control is-expanded">
                 {{ Form::text('name', null, ['class' => 'input']) }}
+                @if($errors->has('name'))
+                    <p class="help is-danger">
+                        {{ $errors->first('name') }}
+                    </p>
+                @endif
             </div>
-            @if($errors->has('name'))
-                <p class="help is-danger">
-                    {{ $errors->first('name') }}
-                </p>
-            @endif
             <div class="control">
                 {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
             </div>

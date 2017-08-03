@@ -1,5 +1,5 @@
 <ul>
-    @foreach(array_keys(LaravelLocalization::getSupportedLocales()) as $code)
+    @foreach(SimpleMenu::AppLocales() as $code)
         <li>
             <a href="{{ SimpleMenu::getUrl($code) }}"
                 class="{{ LaravelLocalization::getCurrentLocale() == $code ? 'is-active' : '' }}"

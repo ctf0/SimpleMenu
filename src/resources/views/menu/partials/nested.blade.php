@@ -5,7 +5,7 @@
         <li>
             <a href="{{ SimpleMenu::urlRoute() }}" class="{{ SimpleMenu::urlRouteCheck() ? 'is-active' : '' }}">{{ $page->title }}</a>
 
-            @if (count($childs = $page->getImmediateDescendants()))
+            @if ($childs = $page->nests)
                 @include('SimpleMenu::menu.partials.nested', ['items' => $childs])
             @endif
         </li>

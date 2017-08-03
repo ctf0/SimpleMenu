@@ -34,16 +34,16 @@
                 <div class="column">
                     <aside class="menu">
                         <ul class="menu-list">
-                            <li><a class="{{ request()->url() == route('admin.users.index') ? 'is-active' : '' }}" href="{{ route('admin.users.index') }}">Users</a></li>
-                            <li><a class="{{ request()->url() == route('admin.roles.index') ? 'is-active' : '' }}" href="{{ route('admin.roles.index') }}">Roles</a></li>
-                            <li><a class="{{ request()->url() == route('admin.permissions.index') ? 'is-active' : '' }}" href="{{ route('admin.permissions.index') }}">Permissions</a></li>
-                            <li><a class="{{ request()->url() == route('admin.pages.index')  ? 'is-active' : '' }}" href="{{ route('admin.pages.index') }}">Pages</a></li>
+                            <li><a class="{{ URL::is('admin.users.index') ? 'is-active' : '' }}" href="{{ route('admin.users.index') }}">Users</a></li>
+                            <li><a class="{{ URL::is('admin.roles.index') ? 'is-active' : '' }}" href="{{ route('admin.roles.index') }}">Roles</a></li>
+                            <li><a class="{{ URL::is('admin.permissions.index') ? 'is-active' : '' }}" href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+                            <li><a class="{{ URL::is('admin.pages.index')  ? 'is-active' : '' }}" href="{{ route('admin.pages.index') }}">Pages</a></li>
                             <li>
-                                <a class="{{ request()->url() == route('admin.menus.index') ? 'is-active' : '' }}" href="{{ route('admin.menus.index') }}">Menus</a>
+                                <a class="{{ URL::is('admin.menus.index') ? 'is-active' : '' }}" href="{{ route('admin.menus.index') }}">Menus</a>
                                 <ul>
-                                    @foreach (\ctf0\SimpleMenu\Models\Menu::all() as $menu)
+                                    @foreach (cache('sm-menus') as $menu)
                                         <li>
-                                            <a class="{{ request()->url() == route('admin.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route('admin.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
+                                            <a class="{{ URL::is('admin.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route('admin.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

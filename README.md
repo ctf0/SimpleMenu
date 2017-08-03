@@ -12,7 +12,10 @@
 - Javascript
     + [Vue](https://vuejs.org/)
     + [jQuery](https://jquery.com/)
+    + [select2]()
+    + [tinymce]()
     + [vuedraggable](https://github.com/SortableJS/Vue.Draggable)
+    + [notification-component](https://github.com/ctf0/Notification-Component)
 
 ## Installation
 
@@ -34,7 +37,7 @@
 
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
-    - also check the **Dependencies** packages pages for "config/options/migrations".
+    - also check the **Dependencies** packages for "config/options/migrations".
 
 ## Config
 **config/simpleMenu.php**
@@ -50,31 +53,40 @@ return [
     ],
 
     /*
-     * where to search for the template views relative to "resources\views" folder
+     * where to search for the template views ? (relative to "resources\views" folder)
      */
     'templatePath' => 'pages',
 
     /*
-     * the path where we will save the route list for multiLocal route resolving
+     * the path where we will save the routes list
      */
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
-     * what happens when a route is available in one locale "en" but not in another "fr", add either
-     * 'home' = '/' or
-     * 'error' = '404'
+     * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      */
     'unFoundLocalizedRoute' => 'home',
 
     /*
-     * pages controller namespace
+     * pages action controller namespace
      */
-    'pagesControllerNS'=> 'App\Http\Controllers',
+    'pagesControllerNS' => 'App\Http\Controllers',
 
     /*
-     * css farmework
+     * the user model we are going to use for the admin page
      */
-    'framework'=> 'bulma',
+    'userModel' => App\User::class,
+
+    /*
+     * by default when removing a nested page, all of its 'Descendants' gets cleared.
+     * but what about when removing the root, do you also want the same behavior ?
+     */
+    'clearRootDescendants' => false,
+
+    /*
+     * css farmework for admin pages
+     */
+    'framework' => 'bulma',
 ];
 ```
 
@@ -90,7 +102,3 @@ return [
 
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
-
-# ToDo
-
-* [ ] Menu Pages Hierarchy "nesting" Creation.

@@ -7,8 +7,9 @@
     </h3>
 
     <menu-comp inline-template
-        pages-route="{{ route('admin.menus.getMenuPages',['id'=>$menu->id]) }}"
-        del-route="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}"
+        get-menu-pages="{{ route('admin.menus.getMenuPages',['id'=>$menu->id]) }}"
+        del-page="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}"
+        del-child="{{ route('admin.menus.removeChild') }}"
         locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($menu, ['method' => 'PUT', 'route' => ['admin.menus.update', $menu->id]]) }}
@@ -35,21 +36,24 @@
                     {{-- pages --}}
                     <draggable v-model="pages"
                         class="column is-4 menu-list"
-                        style="min-height: 35px; display: block"
-                        :options="{draggable:'.item', group:'pages'}"
+                        :options="{draggable:'.item', group:'pages', ghostClass: 'ghost'}"
                         :element="'ul'"
                         @change="checkAdded">
                         <li v-for="item in pages" :key="item.id" class="item">
-                            <div class="notification is-info menu-item" :class="{'is-warning' : !item.updated_at}">
+                            {{-- main --}}
+                            <div class="notification is-info menu-item" :class="{'is-warning' : checkFrom(item)}">
                                 <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
                                 <span v-html="getTitle(item.title)"></span>
 
-                                <button type="button" v-if="item.updated_at" class="delete" @click.prevent="deleteItem(item)"></button>
-                                <button type="button" v-else class="delete" @click="undoItem(item)"></button>
+                                {{-- ops --}}
+                                <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
+                                <button type="button" v-else class="delete" @click.prevent="deletePage(item)" title="remove page"></button>
                             </div>
 
                             {{-- childs --}}
-                            <menu-child v-if="item.children" :childs="item.children" :locale="locale"></menu-child>
+                            <template v-if="hasChilds(item)">
+                                <menu-child :pages="pages" :all-pages="allPages" :locale="locale" :del-child="delChild" :childs="item.nests"></menu-child>
+                            </template>
                         </li>
                     </draggable>
 
@@ -57,8 +61,8 @@
                     <draggable v-model="allPages"
                         class="column"
                         :element="'ul'"
-                        :options="{draggable:'.item', group:{name:'pages', put:false}, chosenClass:'is-warning'}">
-                        <li v-for="item in allPages" :key="item.id" class="item notification is-info menu-item" style="cursor: default">
+                        :options="{draggable:'.item', group:{name:'pages', put:false}, chosenClass:'is-warning', sort: false}">
+                        <li v-for="item in allPages" :key="item.id" class="item notification is-info menu-item">
                             <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
                             <span v-html="getTitle(item.title)"></span>
                         </li>

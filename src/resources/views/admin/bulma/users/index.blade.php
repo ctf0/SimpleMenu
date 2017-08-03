@@ -38,7 +38,7 @@
                             <a href="{{ route('admin.users.edit',[$user->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
                             <a class="is-inline-block">
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['admin.users.destroy', $user->id]]) !!}
-                                    {!! Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) !!}
+                                    {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger', 'disabled' => $user->id == auth()->user()->id ? true : false]) }}
                                 {!! Form::close() !!}
                             </a>
                         </td>

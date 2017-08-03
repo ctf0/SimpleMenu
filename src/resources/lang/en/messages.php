@@ -19,9 +19,10 @@ return [
         'fields' => [
             'title'       => 'Title',
             'roles'       => 'Roles',
+            'permissions' => 'Permissions',
             'menus'       => 'Menus',
-            'locales'     => 'Available In',
-            'permissions' => 'Permissions'
+            'locals'      => 'Available In',
+            'template'    => 'Template',
         ],
     ],
     'permissions' => [

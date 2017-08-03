@@ -38,5 +38,14 @@
 .menu-item {
     padding: 0.5em;
     margin-bottom: 0.5em !important;
-    cursor: ns-resize;
+}
+.dragArea {
+    min-height: 35px;
+    display: block;
+}
+.notification > .delete {
+    top: 0.45em;
+}
+.ghost {
+    opacity: 0.5;
 }

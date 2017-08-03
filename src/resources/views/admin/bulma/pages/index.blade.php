@@ -15,6 +15,7 @@
                 <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
                 <th>@lang('SimpleMenu::messages.pages.fields.locals')</th>
+                <th>@lang('SimpleMenu::messages.pages.fields.template')</th>
                 <th>@lang('SimpleMenu::messages.ops')</th>
             </tr>
         </thead>
@@ -22,8 +23,15 @@
         <tbody>
             @if (count($pages) > 0)
                 @foreach ($pages as $page)
+                    @include('SimpleMenu::menu.partials.r_params')
                     <tr>
-                        <td>{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}</td>
+                        <td>
+                            @if (in_array(LaravelLocalization::getCurrentLocale(), $page->getTranslatedLocales('title')))
+                                <a href="{{ SimpleMenu::urlRoute() }}">{{ $page->title }}</a>
+                            @else
+                                {{ empty($page->title) ? $page->translate('title') : $page->title }}
+                            @endif
+                        </td>
                         <td>
                             @foreach ($page->roles()->pluck('name') as $role)
                                 <span class="tag is-medium is-info">{{ $role }}</span>
@@ -44,6 +52,7 @@
                                 <span class="tag is-medium is-warning">{{ $locale }}</span>
                             @endforeach
                         </td>
+                        <td><span class="tag is-medium is-primary">{{ $page->template }}</span></td>
                         <td>
                             <a href="{{ route('admin.pages.edit',[$page->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
                             <a class="is-inline-block">

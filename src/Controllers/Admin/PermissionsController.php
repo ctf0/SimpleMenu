@@ -2,11 +2,11 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
-class PermissionsController extends Controller
+class PermissionsController extends BaseController
 {
     /**
      * Display a listing of Permission.
@@ -15,9 +15,9 @@ class PermissionsController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
+        $permissions = cache('spatie.permission.cache');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.index', compact('permissions'));
+        return view("{$this->adminPath}.permissions.index", compact('permissions'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.create');
+        return view("{$this->adminPath}.permissions.create");
     }
 
     /**
@@ -40,7 +40,7 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:permissions,name',
         ]);
 
         Permission::create($request->all());
@@ -57,9 +57,9 @@ class PermissionsController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = cache('spatie.permission.cache')->find($id);
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.permissions.edit', compact('permission'));
+        return view("{$this->adminPath}.permissions.edit", compact('permission'));
     }
 
     /**
@@ -73,10 +73,10 @@ class PermissionsController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:permissions,name,'.$id,
         ]);
 
-        Permission::findOrFail($id)->update($request->all());
+        Permission::find($id)->update($request->all());
 
         return redirect()->route('admin.permissions.index');
     }
@@ -90,7 +90,7 @@ class PermissionsController extends Controller
      */
     public function destroy($id)
     {
-        Permission::findOrFail($id)->delete();
+        Permission::find($id)->delete();
 
         return redirect()->route('admin.permissions.index');
     }

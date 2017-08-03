@@ -52,8 +52,8 @@ trait NavigationTrait
      */
     public function getRoute($crntRouteName, array $params = null)
     {
-        $code = LaravelLocalization::getCurrentLocale();
-        $url  = $this->routeLink($crntRouteName, $code);
+        $locale = LaravelLocalization::getCurrentLocale();
+        $url    = $this->routeLink($crntRouteName, $locale);
 
         // resolve route params
         if ($params) {
@@ -62,19 +62,21 @@ trait NavigationTrait
                     session([$key => $value]);
 
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
-                    if (LaravelLocalization::hideDefaultLocaleInURL() && $code == LaravelLocalization::getDefaultLocale()) {
-                        $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), []);
+                    if (LaravelLocalization::hideDefaultLocaleInURL() && $locale == LaravelLocalization::getDefaultLocale()) {
+                        $finalUrl = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), []);
                     } else {
-                        $finalUrl = LaravelLocalization::getLocalizedURL($code, url($this->getParams($url, $value)), [], true);
+                        $finalUrl = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), [], true);
                     }
 
                     $this->urlRoute = $finalUrl;
+
                     return $finalUrl;
                 }
             }
         }
 
         $this->urlRoute = route($crntRouteName);
+
         return $this->urlRoute;
     }
 
@@ -95,7 +97,7 @@ trait NavigationTrait
 
     public function getRouteData($name)
     {
-        return cache(LaravelLocalization::getCurrentLocale().'-'.$name);
+        return cache(LaravelLocalization::getCurrentLocale()."-$name");
     }
 
     /**
@@ -175,19 +177,19 @@ trait NavigationTrait
         $html = '';
         $html .= "<ul class=\"{$ul}\">";
 
-        foreach ($pages as $one) {
+        foreach ($pages as $page) {
             // escape empty url
-            if (empty($one->getTranslationWithoutFallback('url', app()->getLocale()))) {
+            if (empty($page->url)) {
                 continue;
             }
 
-            $routeUrl = $this->getRoute($one->route_name, $params);
+            $routeUrl = $this->getRoute($page->route_name, $params);
             $isActive = ($url == $routeUrl ? 'is-active' : '');
 
             $html .= "<li class=\"{$li}\">";
-            $html .= "<a href=\"{$routeUrl}\" class=\"{$isActive}\">{$one->title}</a>";
+            $html .= "<a href=\"{$routeUrl}\" class=\"{$isActive}\">{$page->title}</a>";
 
-            if (count($childs = $one->getImmediateDescendants())) {
+            if ($childs = $page->nests) {
                 $html .= $this->getHtml($childs, $ul, $li, $a, $params, $url);
             }
             $html .= '</li>';

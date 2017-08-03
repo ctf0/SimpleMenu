@@ -4,7 +4,7 @@ namespace ctf0\SimpleMenu\Observers;
 
 use ctf0\SimpleMenu\Models\Menu;
 use Illuminate\Support\Facades\Cache;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 
 class MenuObserver
 {
@@ -33,7 +33,7 @@ class MenuObserver
      */
     protected function cleanData($menu)
     {
-        foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
+        foreach (SimpleMenu::AppLocales() as $code) {
             Cache::forget("{$menu->name}Menu-{$code}Pages");
         }
     }

@@ -2,12 +2,11 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RolesController extends Controller
+class RolesController extends BaseController
 {
     /**
      * Display a listing of Role.
@@ -18,7 +17,7 @@ class RolesController extends Controller
     {
         $roles = Role::all();
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.index', compact('roles'));
+        return view("{$this->adminPath}.roles.index", compact('roles'));
     }
 
     /**
@@ -28,9 +27,9 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::get()->pluck('name', 'name');
+        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.create', compact('permissions'));
+        return view("{$this->adminPath}.roles.create", compact('permissions'));
     }
 
     /**
@@ -43,7 +42,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:roles,name',
         ]);
 
         $role        = Role::create($request->except('permissions'));
@@ -63,10 +62,10 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role        = Role::findOrFail($id);
-        $permissions = Permission::get()->pluck('name', 'name');
+        $role        = Role::find($id);
+        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.roles.edit', compact('role', 'permissions'));
+        return view("{$this->adminPath}.roles.edit", compact('role', 'permissions'));
     }
 
     /**
@@ -80,10 +79,10 @@ class RolesController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:roles,name,'.$id,
         ]);
 
-        $role        = Role::findOrFail($id);
+        $role        = Role::find($id);
         $permissions = $request->input('permissions') ?: [];
 
         $role->update($request->except('permissions'));
@@ -101,7 +100,7 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        Role::findOrFail($id)->delete();
+        Role::find($id)->delete();
 
         return redirect()->route('admin.roles.index');
     }

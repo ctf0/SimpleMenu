@@ -2,13 +2,12 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\User;
+use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UsersController extends Controller
+class UsersController extends BaseController
 {
     /**
      * Display a listing of User.
@@ -17,9 +16,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = $this->userModel->all();
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.index', compact('users'));
+        return view("{$this->adminPath}.users.index", compact('users'));
     }
 
     /**
@@ -30,9 +29,9 @@ class UsersController extends Controller
     public function create()
     {
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.create', compact('roles', 'permissions'));
+        return view("{$this->adminPath}.users.create", compact('roles', 'permissions'));
     }
 
     /**
@@ -45,14 +44,14 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'           => 'required',
-            'email'          => 'required|email|unique:users,email',
-            'password'       => 'required',
-            'roles'          => 'required',
-            'permissions'    => 'required',
+            'name'        => 'required',
+            'email'       => 'required|email|unique:users,email',
+            'password'    => 'required',
+            'roles'       => 'required',
+            'permissions' => 'required',
         ]);
 
-        $user        = User::create($request->except(['roles', 'permissions']));
+        $user        = $this->userModel->create($request->except(['roles', 'permissions']));
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
 
@@ -71,11 +70,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user        = User::findOrFail($id);
+        $user        = $this->userModel->find($id);
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.users.edit', compact('user', 'roles', 'permissions'));
+        return view("{$this->adminPath}.users.edit", compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -89,11 +88,13 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'name'        => 'required',
+            'email'       => 'required|email|unique:users,email,'.$id,
+            'roles'       => 'required',
+            'permissions' => 'required',
         ]);
 
-        $user        = User::findOrFail($id);
+        $user        = $this->userModel->find($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
 
@@ -113,7 +114,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        if (auth()->user()->id == $id) {
+            abort(403);
+        }
+
+        $this->userModel->find($id)->delete();
 
         return redirect()->route('admin.users.index');
     }

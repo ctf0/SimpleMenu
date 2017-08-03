@@ -2,9 +2,9 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use ctf0\SimpleMenu\Controllers\BaseController;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
     /**
      * home.
@@ -13,7 +13,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.admin')->with([
+        return view("{$this->adminPath}.admin")->with([
             'title' => 'DashBoard',
             'desc'  => 'Admin Description',
         ]);

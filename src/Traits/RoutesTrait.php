@@ -12,8 +12,7 @@ use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 
 trait RoutesTrait
 {
-    protected $allRoutes = [];
-    protected $localeCodes;
+    protected $allRoutes     = [];
     protected $listFileFound = true;
 
     public function createRoutes()
@@ -25,7 +24,7 @@ trait RoutesTrait
                 LocaleSessionRedirect::class,
                 LaravelLocalizationRedirectFilter::class,
             ],
-            ], function () {
+        ], function () {
                 $this->utilCheck();
             }
         );
@@ -34,7 +33,6 @@ trait RoutesTrait
     protected function utilCheck()
     {
         if (!File::exists($this->listFileDir)) {
-            $this->localeCodes   = array_keys(LaravelLocalization::getSupportedLocales());
             $this->listFileFound = false;
 
             $this->utilLoop();
@@ -45,14 +43,18 @@ trait RoutesTrait
     }
 
     /**
-     * runs everytime you change the current local so routes links gets
-     * dynamically changed without causing issues.
+     * runs everytime you change the current local
+     * so routes links gets dynamically changed without causing issues.
      *
      * @return [type] [description]
      */
     protected function utilLoop()
     {
-        foreach (Page::all() as $page) {
+        Cache::rememberForever('sm-pages', function () {
+            return Page::get();
+        });
+
+        foreach (cache('sm-pages') as $page) {
             $this->pageComp($page);
         }
     }
@@ -67,9 +69,9 @@ trait RoutesTrait
         $breadCrumb = $page->getAncestors();
 
         // route data
-        $url       = $page->getTranslationWithoutFallback('url', app()->getLocale());
+        $url       = $page->url;
         $action    = $page->action;
-        $prefix    = $page->getTranslationWithoutFallback('prefix', app()->getLocale());
+        $prefix    = $page->prefix;
         $routeName = $page->route_name;
 
         // middlewares
@@ -92,7 +94,7 @@ trait RoutesTrait
         }
 
         // cache the page so we can pass the page params to the controller@method
-        Cache::rememberForever(LaravelLocalization::getCurrentLocale().'-'.$routeName, function () use ($template, $title, $body, $desc, $breadCrumb) {
+        Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-$routeName", function () use ($template, $title, $body, $desc, $breadCrumb) {
             return compact('template', 'title', 'body', 'desc', 'breadCrumb');
         });
 
@@ -101,22 +103,22 @@ trait RoutesTrait
         // dynamic
         if ($action) {
             Route::get($route)
-            ->uses(config('simpleMenu.pagesControllerNS').'\\'.$action)
-            ->name($routeName)
-            ->middleware([$roles, $permissions]);
+                ->uses(config('simpleMenu.pagesControllerNS').'\\'.$action)
+                ->name($routeName)
+                ->middleware([$roles, $permissions]);
         }
         // static
         else {
             Route::get($route)
-            ->uses('\ctf0\SimpleMenu\Controllers\DummyController@handle')
-            ->name($routeName)
-            ->middleware([$roles, $permissions]);
+                ->uses('\ctf0\SimpleMenu\Controllers\DummyController@handle')
+                ->name($routeName)
+                ->middleware([$roles, $permissions]);
         }
     }
 
     protected function createRoutesList($action, $page, $routeName)
     {
-        foreach ($this->localeCodes as $code) {
+        foreach ($this->AppLocales() as $code) {
             $url    = $page->getTranslationWithoutFallback('url', $code);
             $prefix = $page->getTranslationWithoutFallback('prefix', $code);
 

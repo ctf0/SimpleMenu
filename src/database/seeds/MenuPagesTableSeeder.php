@@ -16,5 +16,11 @@ class MenuPagesTableSeeder extends Seeder
             $menu = Menu::inRandomOrder()->first();
             $menu->pages()->attach($val->id);
         }
+
+        Page::find(4)->makeChildOf(Page::find(3));
+        Page::find(5)->makeChildOf(Page::find(4));
+        Page::find(6)->makeChildOf(Page::find(5));
+        Page::find(7)->makeChildOf(Page::find(6));
+        Page::find(8)->makeChildOf(Page::find(7));
     }
 }

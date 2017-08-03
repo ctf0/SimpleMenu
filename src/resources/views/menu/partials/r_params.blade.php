@@ -1,8 +1,9 @@
+{{-- simple --}}
 @php
     SimpleMenu::getRoute($page->route_name);
 @endphp
 
-{{-- example --}}
+{{-- advanced --}}
 {{-- @php
     SimpleMenu::getRoute($page->route_name, [
     'about'      => ['name'=> isset($var) ? $var : 'default'],

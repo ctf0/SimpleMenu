@@ -2,14 +2,17 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\MenuOps;
+use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MenusController extends Controller
+class MenusController extends BaseController
 {
+    use MenuOps;
+
     /**
      * Display a listing of Menu.
      *
@@ -17,9 +20,9 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
+        $menus = cache('sm-menus');
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.index', compact('menus'));
+        return view("{$this->adminPath}.menus.index", compact('menus'));
     }
 
     /**
@@ -29,7 +32,7 @@ class MenusController extends Controller
      */
     public function create()
     {
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.create');
+        return view("{$this->adminPath}.menus.create");
     }
 
     /**
@@ -47,6 +50,8 @@ class MenusController extends Controller
 
         Menu::create($request->all());
 
+        $this->clearCache();
+
         return redirect()->route('admin.menus.index');
     }
 
@@ -59,9 +64,9 @@ class MenusController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu = cache('sm-menus')->find($id);
 
-        return view('SimpleMenu::admin.'.config('simpleMenu.framework').'.menus.edit', compact('menu'));
+        return view("{$this->adminPath}.menus.edit", compact('menu'));
     }
 
     /**
@@ -78,18 +83,28 @@ class MenusController extends Controller
             'name' => 'required|unique:menus,name,'.$id,
         ]);
 
-        $menu = Menu::findOrFail($id);
+        $menu = Menu::find($id);
+
+        // clear prev records
+        DB::table('menu_page')->where('menu_id', $menu->id)->delete();
 
         foreach (json_decode($request->saveList) as $item) {
-            $menu->pages()->sync($item->id, false);
-            DB::table('menu_page')->where('page_id', $item->id)->update(['order'=>$item->order]);
+            // make sure page is not included under any other pages
+            $this->clearSelfAndNests($item->id);
+
+            // save page hierarchy
+            if ($item->children) {
+                $this->saveListToDb($item->children);
+            }
+
+            // update the menu root list
+            $menu->pages()->attach($item->id, ['order'=>$item->order]);
         }
 
+        // update and trigger events
         $menu->update($request->except('saveList'));
 
-        /*
-         * todo "page nest list"
-         */
+        $this->clearCache();
 
         return back();
     }
@@ -103,53 +118,10 @@ class MenusController extends Controller
      */
     public function destroy($id)
     {
-        Menu::findOrFail($id)->delete();
+        Menu::find($id)->delete();
+
+        $this->clearCache();
 
         return redirect()->route('admin.menus.index');
-    }
-
-    /**
-     * get all menu pages for vuejs.
-     *
-     * @param Menu $id [description]
-     *
-     * @return [type] [description]
-     */
-    public function getMenuPages($id)
-    {
-        $pages = Menu::findOrFail($id)->pages()->orderBy('pivot_order', 'asc')->get();
-
-        $pages->map(function ($item) {
-            if (count($childs = $item->getDescendants()->toHierarchy())) {
-                $item['children'] = $childs;
-            }
-        });
-
-        $allPages = Page::all()->diff($pages);
-
-        $allPages->map(function ($item) {
-            if (count($childs = $item->getDescendants()->toHierarchy())) {
-                $item['children'] = $childs;
-            }
-        });
-
-        return response()->json(compact('pages', 'allPages'));
-    }
-
-    /**
-     * remove page from menu with ajax.
-     *
-     * @param [type]  $id      [description]
-     * @param Request $request [description]
-     *
-     * @return [type] [description]
-     */
-    public function removePage($id, Request $request)
-    {
-        if (Menu::findOrFail($id)->pages()->detach($request->page_id)) {
-            Menu::find($id)->touch();
-
-            return response()->json(['done'=>true]);
-        }
     }
 }

@@ -6,7 +6,7 @@ use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 
 class PageObserver
 {
@@ -43,10 +43,10 @@ class PageObserver
         // remove the route file
         File::delete(config('simpleMenu.routeListPath'));
 
-        foreach (array_keys(LaravelLocalization::getSupportedLocales()) as $code) {
+        foreach (SimpleMenu::AppLocales() as $code) {
             // clear menu cache
-            Menu::get()->pluck('name')->each(function ($item) use ($code) {
-                Cache::forget("{$item}Menu-{$code}Pages");
+            cache('sm-menus')->pluck('name')->each(function ($name) use ($code) {
+                Cache::forget("{$name}Menu-{$code}Pages");
             });
 
             // clear page cache
