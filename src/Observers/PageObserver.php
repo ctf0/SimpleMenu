@@ -2,11 +2,11 @@
 
 namespace ctf0\SimpleMenu\Observers;
 
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use ctf0\SimpleMenu\Facade\SimpleMenu;
 
 class PageObserver
 {
@@ -23,6 +23,9 @@ class PageObserver
      */
     public function deleted(Page $page)
     {
+        $page->roles()->detach();
+        $page->permissions()->detach();
+
         return $this->cleanData($page);
     }
 

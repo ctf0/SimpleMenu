@@ -30,61 +30,61 @@
 </style>
 
 <script>
-    import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 
-    export default {
-        name: 'menu-child',
-        props: ['pages', 'allPages', 'locale', 'delChild', 'childs'],
-        components: {draggable},
-        methods: {
-            deleteChild(item){
-                $.post(this.delChild,{
-                    child_id: item.id,
-                }, (res) => {
-                    if (res.done) {
-                        this.childs.splice(this.childs.indexOf(item), 1)
+export default {
+    name: 'menu-child',
+    props: ['pages', 'allPages', 'locale', 'delChild', 'childs'],
+    components: {draggable},
+    methods: {
+        deleteChild(item) {
+            $.post(this.delChild, {
+                child_id: item.id
+            }, (res) => {
+                if (res.done) {
+                    this.childs.splice(this.childs.indexOf(item), 1)
 
-                        EventHub.fire('showNotif',{
-                            title: 'Success',
-                            body: `"${this.getTitle(item.title)}" was removed`,
-                            type: 'success',
-                            duration: 3,
-                            icon: false
-                        });
+                    EventHub.fire('showNotif', {
+                        title: 'Success',
+                        body: `"${this.getTitle(item.title)}" was removed`,
+                        type: 'success',
+                        duration: 3,
+                        icon: false
+                    })
 
-                        EventHub.fire('updateAllPages')
-                        EventHub.fire('updatePagesHierarchy')
-                    }
-                })
-            },
-            getTitle(title) {
-                let locale = this.locale
-                let v = Object.keys(title).indexOf(locale)
-                return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0]
-            },
-
-            // operations
-            checkFrom(item) {
-                return item.from ? true : false;
-            },
-            undoItem(item) {
-                this.childs.splice(this.childs.indexOf(item),1)
-                this.pushBackToList(item)
-            },
-            pushBackToList(item){
-                return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
-            },
-
-            // nests
-            hasChilds(item){
-                return item.nests && item.nests.length > 0;
-            },
-            checkAdded(e){
-                // update saveList on nest movement
-                if (e.removed || e.added && e.added.element.from == 'allPages') {
+                    EventHub.fire('updateAllPages')
                     EventHub.fire('updatePagesHierarchy')
                 }
-            }
+            })
         },
+        getTitle(title) {
+            let locale = this.locale
+            let v = Object.keys(title).indexOf(locale)
+            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0]
+        },
+
+        // operations
+        checkFrom(item) {
+            return item.from ? true : false
+        },
+        undoItem(item) {
+            this.childs.splice(this.childs.indexOf(item), 1)
+            this.pushBackToList(item)
+        },
+        pushBackToList(item) {
+            return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
+        },
+
+        // nests
+        hasChilds(item) {
+            return item.nests && item.nests.length > 0
+        },
+        checkAdded(e) {
+            // update saveList on nest movement
+            if (e.moved || e.removed || e.added && e.added.element.from == 'allPages') {
+                EventHub.fire('updatePagesHierarchy')
+            }
+        }
     }
+}
 </script>

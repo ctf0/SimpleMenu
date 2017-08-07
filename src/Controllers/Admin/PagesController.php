@@ -6,7 +6,6 @@ use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class PagesController extends BaseController
@@ -118,8 +117,6 @@ class PagesController extends BaseController
     public function destroy($id)
     {
         Page::find($id)->delete();
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-        DB::table('model_has_permissions')->where('model_id', $id)->delete();
 
         $this->clearCache();
 
