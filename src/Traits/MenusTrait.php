@@ -16,7 +16,7 @@ trait MenusTrait
     public function createMenus()
     {
         Cache::rememberForever('sm-menus', function () {
-            return Menu::get();
+            return Menu::with('pages')->get();
         });
 
         cache('sm-menus')->pluck('name')->each(function ($name) {
@@ -58,11 +58,9 @@ trait MenusTrait
         $locale = LaravelLocalization::getCurrentLocale();
 
         return Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
-            return cache('sm-menus')
-                ->where('name', $name)
-                ->first()->pages()
-                ->orderBy('pivot_order', 'asc')
-                ->get();
+            return collect(
+                    cache('sm-menus')->where('name', $name)->first()->pages
+                )->sortBy('pivot_order');
         });
     }
 }

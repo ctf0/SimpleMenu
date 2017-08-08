@@ -25,9 +25,8 @@ trait RoutesTrait
                 LaravelLocalizationRedirectFilter::class,
             ],
         ], function () {
-                $this->utilCheck();
-            }
-        );
+            $this->utilCheck();
+        });
     }
 
     protected function utilCheck()
@@ -51,7 +50,7 @@ trait RoutesTrait
     protected function utilLoop()
     {
         Cache::rememberForever('sm-pages', function () {
-            return Page::with(['roles','permissions'])->get();
+            return Page::with(['roles', 'permissions'])->get();
         });
 
         foreach (cache('sm-pages') as $page) {

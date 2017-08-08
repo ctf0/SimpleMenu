@@ -56,11 +56,11 @@ class Page extends Node
     }
 
     /**
-     * Get all the ancestor chain from the database excluding the current node.
+     * override Baum\Node\getAncestors().
      *
-     * @param array $columns
+     * @param array $columns [description]
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return [type] [description]
      */
     public function getAncestors($columns = ['*'])
     {
@@ -70,7 +70,7 @@ class Page extends Node
     }
 
     /**
-     * eager load page Descendants.
+     * Descendants.
      *
      * @return [type] [description]
      */

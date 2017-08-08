@@ -28,6 +28,12 @@
 
 <body>
     <section id="app">
+
+        {{-- notif --}}
+        <div class="notif-container">
+            <my-notification></my-notification>
+        </div>
+
         {{-- Body --}}
         <div class="container">
             <div class="columns">
