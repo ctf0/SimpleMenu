@@ -7,7 +7,6 @@ use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MenusController extends BaseController
 {
@@ -86,7 +85,7 @@ class MenusController extends BaseController
         $menu = Menu::find($id);
 
         // clear prev records
-        DB::table('menu_page')->where('menu_id', $menu->id)->delete();
+        $menu->pages()->detach();
 
         foreach (json_decode($request->saveList) as $item) {
             // make sure page is not included under any other pages

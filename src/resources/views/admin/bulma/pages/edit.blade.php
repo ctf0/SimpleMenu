@@ -59,7 +59,7 @@
                 <div class="field">
                     {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('roles[]', $roles, $page->roles()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select('roles[]', $roles, $page->roles->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
                     </div>
                     @if($errors->has('roles'))
                         <p class="help is-danger">
@@ -72,7 +72,7 @@
                 <div class="field">
                     {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('permissions[]', $permissions, $page->permissions()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select('permissions[]', $permissions, $page->permissions->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
                     </div>
                     @if($errors->has('permissions'))
                         <p class="help is-danger">
@@ -85,7 +85,7 @@
                 <div class="field">
                     {{ Form::label('menus', 'Menus', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('menus[]', $menus, $page->menuNames()->pluck('id', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select('menus[]', $menus, $page->menuNames->pluck('id', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
                     </div>
                     @if($errors->has('menus'))
                         <p class="help is-danger">

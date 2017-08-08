@@ -7,7 +7,7 @@
         <a href="{{ route('admin.permissions.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
-    <table class="table is-bordered">
+    <table class="table is-narrow is-fullwidth is-bordered">
         <thead>
             <tr>
                 <th>@lang('SimpleMenu::messages.permissions.fields.name')</th>

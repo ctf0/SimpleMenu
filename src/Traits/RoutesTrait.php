@@ -3,12 +3,12 @@
 namespace ctf0\SimpleMenu\Traits;
 
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 
 trait RoutesTrait
 {
@@ -51,7 +51,7 @@ trait RoutesTrait
     protected function utilLoop()
     {
         Cache::rememberForever('sm-pages', function () {
-            return Page::get();
+            return Page::with(['roles','permissions'])->get();
         });
 
         foreach (cache('sm-pages') as $page) {
@@ -75,8 +75,8 @@ trait RoutesTrait
         $routeName = $page->route_name;
 
         // middlewares
-        $roles       = 'role:'.implode(',', $page->roles()->pluck('name')->toArray());
-        $permissions = 'perm:'.implode(',', $page->permissions()->pluck('name')->toArray());
+        $roles       = 'role:'.implode(',', $page->roles->pluck('name')->toArray());
+        $permissions = 'perm:'.implode(',', $page->permissions->pluck('name')->toArray());
 
         // make route
         $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrumb);

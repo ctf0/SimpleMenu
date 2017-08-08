@@ -57,14 +57,12 @@ trait MenusTrait
     {
         $locale = LaravelLocalization::getCurrentLocale();
 
-        Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
+        return Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
             return cache('sm-menus')
                 ->where('name', $name)
                 ->first()->pages()
                 ->orderBy('pivot_order', 'asc')
                 ->get();
         });
-
-        return cache("{$name}Menu-{$locale}Pages");
     }
 }

@@ -7,7 +7,7 @@
         <a href="{{ route('admin.roles.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
-    <table class="table is-bordered">
+    <table class="table is-narrow is-fullwidth is-bordered">
         <thead>
             <tr>
                 <th>@lang('SimpleMenu::messages.roles.fields.name')</th>
@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ $role->name }}</td>
                         <td>
-                            @foreach ($role->permissions()->pluck('name') as $permission)
+                            @foreach ($role->permissions->pluck('name') as $permission)
                                 <span class="tag is-medium is-medium is-info">{{ $permission }}</span>
                             @endforeach
                         </td>

@@ -3,9 +3,10 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Page extends Node
 {
@@ -55,15 +56,31 @@ class Page extends Node
     }
 
     /**
+     * Get all the ancestor chain from the database excluding the current node.
+     *
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAncestors($columns = ['*'])
+    {
+        return Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-{$this->route_name}_ancestors", function () use ($columns) {
+            return $this->ancestors()->get($columns);
+        });
+    }
+
+    /**
      * eager load page Descendants.
      *
      * @return [type] [description]
      */
     public function getNestsAttribute()
     {
-        $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
+        return Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-{$this->route_name}_nests", function () {
+            $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
 
-        return count($childs) ? $childs : null;
+            return count($childs) ? $childs : null;
+        });
     }
 
     /**

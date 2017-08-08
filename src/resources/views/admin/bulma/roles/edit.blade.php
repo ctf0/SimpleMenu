@@ -25,7 +25,7 @@
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('permissions[]', $permissions, $role->permissions()->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select('permissions[]', $permissions, $role->permissions->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>
             @if($errors->has('permissions'))
                 <p class="help is-danger">

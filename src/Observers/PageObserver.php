@@ -2,11 +2,11 @@
 
 namespace ctf0\SimpleMenu\Observers;
 
-use ctf0\SimpleMenu\Facade\SimpleMenu;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 
 class PageObserver
 {
@@ -54,6 +54,10 @@ class PageObserver
 
             // clear page cache
             Cache::forget("$code-$route_name");
+
+            // clear ancestors & nests cache
+            Cache::forget("$code-{$route_name}_ancestors");
+            Cache::forget("$code-{$route_name}_nests");
         }
     }
 }

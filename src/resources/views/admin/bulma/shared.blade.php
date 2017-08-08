@@ -68,7 +68,7 @@
             placeholder: 'Select an option',
             allowClear: true,
             tag: true
-        });
+        })
 
         // body & desc
         tinymce.overrideDefaults({
@@ -76,8 +76,8 @@
             branding: false,
             height : "120",
             plugins: "lists link image spellchecker fullscreen media table preview contextmenu autoresize",
-            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen',
-        });
+            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen'
+        })
     </script>
 </body>
 </html>

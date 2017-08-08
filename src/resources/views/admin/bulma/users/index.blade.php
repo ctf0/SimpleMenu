@@ -7,7 +7,7 @@
         <a href="{{ route('admin.users.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
-    <table class="table is-bordered">
+    <table class="table is-narrow is-fullwidth is-bordered">
         <thead>
             <tr>
                 <th>@lang('SimpleMenu::messages.users.fields.name')</th>
@@ -25,12 +25,12 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            @foreach ($user->roles()->pluck('name') as $role)
+                            @foreach ($user->roles->pluck('name') as $role)
                                 <span class="tag is-medium is-info">{{ $role }}</span>
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($user->permissions()->pluck('name') as $perm)
+                            @foreach ($user->permissions->pluck('name') as $perm)
                                 <span class="tag is-medium is-info">{{ $perm }}</span>
                             @endforeach
                         </td>

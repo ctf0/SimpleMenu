@@ -7,7 +7,7 @@
         <a href="{{ route('admin.pages.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
-    <table class="table is-bordered">
+    <table class="table is-narrow is-fullwidth is-bordered">
         <thead>
             <tr>
                 <th>@lang('SimpleMenu::messages.pages.fields.title')</th>
@@ -33,17 +33,17 @@
                             @endif
                         </td>
                         <td>
-                            @foreach ($page->roles()->pluck('name') as $role)
+                            @foreach ($page->roles->pluck('name') as $role)
                                 <span class="tag is-medium is-info">{{ $role }}</span>
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->permissions()->pluck('name') as $perm)
+                            @foreach ($page->permissions->pluck('name') as $perm)
                                 <span class="tag is-medium is-info">{{ $perm }}</span>
                             @endforeach
                         </td>
                         <td>
-                            @foreach ($page->menuNames()->pluck('name') as $menu)
+                            @foreach ($page->menuNames->pluck('name') as $menu)
                                 <span class="tag is-medium is-info">{{ $menu }}</span>
                             @endforeach
                         </td>
