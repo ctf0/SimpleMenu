@@ -93,12 +93,5 @@ return [
 ## Usage
 [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
-### MiddleWares
-- the package automatically register 4 middlewares to handle all the routes but incase you want to use them anywhere else, they are
-    - `localizationRedirect`
-    - `localeSessionRedirect`
-    - `role:roleName`
-    - `perm:permName`
-
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)

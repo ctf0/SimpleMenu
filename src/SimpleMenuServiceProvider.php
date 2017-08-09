@@ -2,17 +2,17 @@
 
 namespace ctf0\SimpleMenu;
 
-use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
-use ctf0\SimpleMenu\Middleware\RoleMiddleware;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
-use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
+use ctf0\SimpleMenu\Middleware\RoleMiddleware;
+use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 
 class SimpleMenuServiceProvider extends ServiceProvider
 {
@@ -59,11 +59,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/resources/views' => resource_path('views/vendor/SimpleMenu'),
         ], 'views');
-
-        // routes
-        $this->publishes([
-            __DIR__.'/routes' => base_path('routes'),
-        ], 'routes');
 
         $this->observers();
         $this->macros();
