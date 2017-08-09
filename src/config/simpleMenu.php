@@ -51,6 +51,12 @@ return [
     'clearRootDescendants' => false,
 
     /*
+     * crud views url prefix ex.'admin/pages'
+     * this is also the same for the route names ex.'admin.pages.*'
+     */
+    'crud_prefix' => 'admin',
+
+    /*
      * css farmework for admin pages
      */
     'framework' => 'bulma',

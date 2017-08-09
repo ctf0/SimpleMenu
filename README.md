@@ -84,6 +84,11 @@ return [
     'clearRootDescendants' => false,
 
     /*
+     * crud views url prefix
+     */
+    'crud_prefix' => 'admin',
+
+    /*
      * css farmework for admin pages
      */
     'framework' => 'bulma',

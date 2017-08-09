@@ -41,9 +41,11 @@ class SimpleMenu
      */
     public function menuRoutes()
     {
+        $prefix = config('simpleMenu.crud_prefix');
+
         Route::group([
-                'prefix'=> 'admin',
-                'as'    => 'admin.',
+                'prefix'=> $prefix,
+                'as'    => "$prefix.",
         ], function () {
             /*                Home                */
             Route::get('/', '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index')->name('index');
