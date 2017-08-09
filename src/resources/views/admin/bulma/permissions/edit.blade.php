@@ -3,10 +3,10 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.permissions.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.permissions.index') }}">Go Back</a>
     </h3>
 
-    {{ Form::model($permission, ['method' => 'PUT', 'route' => ['admin.permissions.update', $permission->id]]) }}
+    {{ Form::model($permission, ['method' => 'PUT', 'route' => [$crud_prefix.'.permissions.update', $permission->id]]) }}
 
         {{-- name --}}
         <div class="field">

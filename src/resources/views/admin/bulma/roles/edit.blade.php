@@ -3,10 +3,10 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.roles.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.roles.index') }}">Go Back</a>
     </h3>
 
-    {{ Form::model($role, ['method' => 'PUT', 'route' => ['admin.roles.update', $role->id]]) }}
+    {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
 
         {{-- name --}}
         <div class="field">

@@ -3,10 +3,10 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.roles.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.roles.index') }}">Go Back</a>
     </h3>
 
-    {{ Form::open(['method' => 'POST', 'route' => 'admin.roles.store']) }}
+    {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.roles.store']) }}
 
         {{-- name --}}
         <div class="field">

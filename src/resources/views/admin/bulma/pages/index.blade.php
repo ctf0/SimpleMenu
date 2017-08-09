@@ -4,7 +4,7 @@
 @section('sub')
     <h3 class="title">
         @lang('SimpleMenu::messages.pages.title') "{{ count($pages) }}"
-        <a href="{{ route('admin.pages.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.pages.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
     <table class="table is-narrow is-fullwidth is-bordered">
@@ -54,9 +54,9 @@
                         </td>
                         <td><span class="tag is-medium is-primary">{{ $page->template }}</span></td>
                         <td>
-                            <a href="{{ route('admin.pages.edit',[$page->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                            <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
                             <a class="is-inline-block">
-                                {!! Form::open(['method' => 'DELETE', 'route' => ['admin.pages.destroy', $page->id]]) !!}
+                                {!! Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) !!}
                                     {!! Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) !!}
                                 {!! Form::close() !!}
                             </a>

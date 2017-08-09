@@ -3,16 +3,16 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.menus.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.menus.index') }}">Go Back</a>
     </h3>
 
     <menu-comp inline-template
-        get-menu-pages="{{ route('admin.menus.getMenuPages',['id'=>$menu->id]) }}"
-        del-page="{{ route('admin.menus.removePage',['id'=>$menu->id]) }}"
-        del-child="{{ route('admin.menus.removeChild') }}"
+        get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages',['id'=>$menu->id]) }}"
+        del-page="{{ route($crud_prefix.'.menus.removePage',['id'=>$menu->id]) }}"
+        del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
         locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::model($menu, ['method' => 'PUT', 'route' => ['admin.menus.update', $menu->id]]) }}
+            {{ Form::model($menu, ['method' => 'PUT', 'route' => [$crud_prefix.'.menus.update', $menu->id]]) }}
 
                 {{-- name --}}
                 <div class="field">

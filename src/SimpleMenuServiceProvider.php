@@ -62,6 +62,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
 
         $this->observers();
         $this->macros();
+        $this->viewComp();
 
         $this->app['simplemenu'];
     }
@@ -103,6 +104,18 @@ class SimpleMenuServiceProvider extends ServiceProvider
         // alias to "Route::is()" but with support for params
         URL::macro('is', function ($route_name, $params = null) {
             return request()->url() == route($route_name, $params);
+        });
+    }
+
+    /**
+     * share var across views.
+     *
+     * @return [type] [description]
+     */
+    protected function viewComp()
+    {
+        view()->composer('SimpleMenu::admin.*', function ($view) {
+            $view->with(['crud_prefix' => config('simpleMenu.crud_prefix')]);
         });
     }
 

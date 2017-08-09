@@ -5,12 +5,12 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.pages.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.pages.index') }}">Go Back</a>
     </h3>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::model($page, ['method' => 'PUT', 'route' => ['admin.pages.update', $page->id]]) }}
+            {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id]]) }}
 
                 {{-- action --}}
                 <div class="field">

@@ -41,16 +41,16 @@
                 <div class="column">
                     <aside class="menu">
                         <ul class="menu-list">
-                            <li><a class="{{ URL::is('admin.users.index') ? 'is-active' : '' }}" href="{{ route('admin.users.index') }}">Users</a></li>
-                            <li><a class="{{ URL::is('admin.roles.index') ? 'is-active' : '' }}" href="{{ route('admin.roles.index') }}">Roles</a></li>
-                            <li><a class="{{ URL::is('admin.permissions.index') ? 'is-active' : '' }}" href="{{ route('admin.permissions.index') }}">Permissions</a></li>
-                            <li><a class="{{ URL::is('admin.pages.index')  ? 'is-active' : '' }}" href="{{ route('admin.pages.index') }}">Pages</a></li>
+                            <li><a class="{{ URL::is($crud_prefix.'.users.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.users.index') }}">Users</a></li>
+                            <li><a class="{{ URL::is($crud_prefix.'.roles.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.roles.index') }}">Roles</a></li>
+                            <li><a class="{{ URL::is($crud_prefix.'.permissions.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.permissions.index') }}">Permissions</a></li>
+                            <li><a class="{{ URL::is($crud_prefix.'.pages.index')  ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.pages.index') }}">Pages</a></li>
                             <li>
-                                <a class="{{ URL::is('admin.menus.index') ? 'is-active' : '' }}" href="{{ route('admin.menus.index') }}">Menus</a>
+                                <a class="{{ URL::is($crud_prefix.'.menus.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
                                 <ul>
                                     @foreach (cache('sm-menus') as $menu)
                                         <li>
-                                            <a class="{{ URL::is('admin.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route('admin.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
+                                            <a class="{{ URL::is($crud_prefix.'.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

@@ -3,12 +3,12 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route('admin.pages.index') }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.pages.index') }}">Go Back</a>
     </h3>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::open(['method' => 'POST', 'route' => 'admin.pages.store']) }}
+            {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store']) }}
 
                 {{-- action --}}
                 <div class="field">
