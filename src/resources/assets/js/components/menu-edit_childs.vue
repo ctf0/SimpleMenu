@@ -5,7 +5,7 @@
         @change="checkAdded">
         <li v-for="item in childs" :key="item.id" class="item">
             <!-- main -->
-            <div class="notification is-dark menu-item" :class="{'is-warning' : checkFrom(item)}">
+            <div class="notification is-dark menu-item" :class="classObj(item)">
                 <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
                 <span v-html="getTitle(item.title)"></span>
 
@@ -73,6 +73,11 @@ export default {
         },
         pushBackToList(item) {
             return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
+        },
+        classObj(item){
+            if (this.checkFrom(item)) {
+                return 'is-warning'
+            }
         },
 
         // nests

@@ -2,7 +2,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import MenuChild from './menu_child.vue'
+import MenuChild from './menu-edit_childs.vue'
 
 export default {
     props: ['getMenuPages', 'delPage', 'delChild', 'locale'],
@@ -70,6 +70,7 @@ export default {
             this.pushBackToList(item)
         },
         pushBackToList(item) {
+            item.from = 'allPages'
             this.allPages.unshift(item)
         },
         cancelAdd(item) {
@@ -79,6 +80,17 @@ export default {
             // catch moving from the childs list
             if (e.added && !e.added.element.from) {
                 e.added.element.updated_at = null
+            }
+            if (e.moved) {
+                e.moved.element.created_at = null
+            }
+        },
+        classObj(item){
+            if (this.checkFrom(item)) {
+                return 'is-warning'
+            }
+            if (item.created_at == null) {
+                return 'is-danger'
             }
         },
 
@@ -113,7 +125,6 @@ export default {
 
             return childs
         },
-
         updatePages(val) {
             this.saveList = []
 

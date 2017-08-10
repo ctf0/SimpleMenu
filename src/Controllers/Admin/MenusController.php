@@ -2,11 +2,12 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use ctf0\SimpleMenu\Controllers\Admin\Traits\MenuOps;
-use ctf0\SimpleMenu\Controllers\BaseController;
+use Illuminate\Http\Request;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use ctf0\SimpleMenu\Controllers\BaseController;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\MenuOps;
 
 class MenusController extends BaseController
 {
@@ -51,7 +52,7 @@ class MenusController extends BaseController
 
         $this->clearCache();
 
-        return redirect()->route('admin.menus.index');
+        return redirect()->route($this->crud_prefix.'.menus.index');
     }
 
     /**
@@ -117,10 +118,13 @@ class MenusController extends BaseController
      */
     public function destroy($id)
     {
-        Menu::find($id)->delete();
+        $menu = Menu::find($id);
+        $menu->pages()->detach();
+        $menu->delete();
 
+        Cache::forget('sm-pages');
         $this->clearCache();
 
-        return redirect()->route('admin.menus.index');
+        return redirect()->route($this->crud_prefix.'.menus.index');
     }
 }

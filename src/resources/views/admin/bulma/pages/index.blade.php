@@ -29,7 +29,7 @@
                             @if (in_array(LaravelLocalization::getCurrentLocale(), $page->getTranslatedLocales('title')))
                                 <a href="{{ SimpleMenu::urlRoute() }}">{{ $page->title }}</a>
                             @else
-                                {{ empty($page->title) ? $page->translate('title') : $page->title }}
+                                {{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}
                             @endif
                         </td>
                         <td>

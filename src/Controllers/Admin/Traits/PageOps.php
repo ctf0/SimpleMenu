@@ -81,6 +81,6 @@ trait PageOps
 
     protected function clearCache()
     {
-        Cache::forget('sm-pages');
+        return Cache::forget('sm-pages');
     }
 }

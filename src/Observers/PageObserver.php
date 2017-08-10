@@ -13,7 +13,7 @@ class PageObserver
     /**
      * Listen to the Page saved event.
      */
-    public function saved(Page $page)
+    public function saving(Page $page)
     {
         return $this->cleanData($page);
     }
@@ -21,11 +21,8 @@ class PageObserver
     /**
      * Listen to the Page deleted event.
      */
-    public function deleted(Page $page)
+    public function deleting(Page $page)
     {
-        $page->roles()->detach();
-        $page->permissions()->detach();
-
         return $this->cleanData($page);
     }
 
@@ -39,6 +36,8 @@ class PageObserver
     protected function cleanData($page)
     {
         $route_name = $page->route_name;
+        $locales    = SimpleMenu::AppLocales();
+        $menus      = Menu::pluck('name');
 
         // clear page session
         session()->forget($route_name);
@@ -46,18 +45,14 @@ class PageObserver
         // remove the route file
         File::delete(config('simpleMenu.routeListPath'));
 
-        foreach (SimpleMenu::AppLocales() as $code) {
-            // clear menu cache
-            cache('sm-menus')->pluck('name')->each(function ($name) use ($code) {
+        foreach ($locales as $code) {
+            foreach ($menus as $name) {
+                // clear menu cache
                 Cache::forget("{$name}Menu-{$code}Pages");
-            });
+            }
 
             // clear page cache
             Cache::forget("$code-$route_name");
-
-            // clear ancestors & nests cache
-            Cache::forget("$code-{$route_name}_ancestors");
-            Cache::forget("$code-{$route_name}_nests");
         }
     }
 }

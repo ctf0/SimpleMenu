@@ -15,6 +15,7 @@ class Page extends Node
     protected $guard_name = 'web';
     protected $appends    = ['nests'];
     protected $hidden     = ['children'];
+    protected $with       = ['menuNames'];
     public $translatable  = ['title', 'body', 'desc', 'prefix', 'url'];
 
     public function menuNames()
@@ -56,31 +57,15 @@ class Page extends Node
     }
 
     /**
-     * override Baum\Node\getAncestors().
-     *
-     * @param array $columns [description]
-     *
-     * @return [type] [description]
-     */
-    public function getAncestors($columns = ['*'])
-    {
-        return Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-{$this->route_name}_ancestors", function () use ($columns) {
-            return $this->ancestors()->get($columns);
-        });
-    }
-
-    /**
      * Descendants.
      *
      * @return [type] [description]
      */
     public function getNestsAttribute()
     {
-        return Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-{$this->route_name}_nests", function () {
-            $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
+        $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
 
-            return count($childs) ? $childs : null;
-        });
+        return count($childs) ? $childs : null;
     }
 
     /**

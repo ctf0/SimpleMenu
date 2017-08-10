@@ -2,15 +2,18 @@
 
 namespace ctf0\SimpleMenu;
 
-use Illuminate\Support\Facades\Route;
+use ctf0\SimpleMenu\Models\Menu;
+use ctf0\SimpleMenu\Models\Page;
+use Illuminate\Support\Facades\Cache;
 use ctf0\SimpleMenu\Traits\MenusTrait;
 use ctf0\SimpleMenu\Traits\RoutesTrait;
 use ctf0\SimpleMenu\Traits\NavigationTrait;
+use ctf0\SimpleMenu\Traits\PackageRoutesTrait;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class SimpleMenu
 {
-    use RoutesTrait, MenusTrait, NavigationTrait;
+    use RoutesTrait, MenusTrait, NavigationTrait, PackageRoutesTrait;
 
     protected $listFileDir;
     protected $localeCodes;
@@ -19,6 +22,9 @@ class SimpleMenu
     {
         $this->listFileDir = config('simpleMenu.routeListPath');
         $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
+
+        // create caches
+        $this->createCaches();
 
         if (!app()->runningInConsole()) {
             // create routes
@@ -34,39 +40,18 @@ class SimpleMenu
         return $this->localeCodes;
     }
 
-    /**
-     * package routes.
-     *
-     * @return [type] [description]
-     */
-    public function menuRoutes()
+    protected function createCaches()
     {
-        $prefix = config('simpleMenu.crud_prefix');
+        Cache::rememberForever('sm-menus', function () {
+            return Menu::with('pages')->get();
+        });
 
-        Route::group([
-                'prefix'=> $prefix,
-                'as'    => "$prefix.",
-        ], function () {
-            /*                Home                */
-            Route::get('/', '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index')->name('index');
+        Cache::rememberForever('sm-pages', function () {
+            return Page::get();
+        });
 
-            /*               Roles               */
-            Route::resource('roles', '\ctf0\SimpleMenu\Controllers\Admin\RolesController');
-
-            /*               Perms               */
-            Route::resource('permissions', '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController');
-
-            /*               Menus               */
-            Route::post('menus/removechild', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@removeChild')->name('menus.removeChild');
-            Route::post('menus/removepage/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@removePage')->name('menus.removePage');
-            Route::get('menus/getmenupages/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@getMenuPages')->name('menus.getMenuPages');
-            Route::resource('menus', '\ctf0\SimpleMenu\Controllers\Admin\MenusController', ['except' => 'show']);
-
-            /*               Users               */
-            Route::resource('users', '\ctf0\SimpleMenu\Controllers\Admin\UsersController');
-
-            /*               Pages               */
-            Route::resource('pages', '\ctf0\SimpleMenu\Controllers\Admin\PagesController');
+        Cache::rememberForever('sm-users', function () {
+            return app(config('simpleMenu.userModel'))->get();
         });
     }
 }

@@ -3,9 +3,9 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use App\User;
-use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use ctf0\SimpleMenu\Controllers\BaseController;
 
 class UsersController extends BaseController
 {
@@ -16,7 +16,7 @@ class UsersController extends BaseController
      */
     public function index()
     {
-        $users = $this->userModel->all();
+        $users = cache('sm-users');
 
         return view("{$this->adminPath}.users.index", compact('users'));
     }
@@ -58,7 +58,7 @@ class UsersController extends BaseController
         $user->assignRole($roles);
         $user->givePermissionTo($permissions);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route($this->crud_prefix.'.users.index');
     }
 
     /**
@@ -70,7 +70,7 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user        = $this->userModel->find($id);
+        $user        = cache('sm-users')->find($id);
         $roles       = Role::get()->pluck('name', 'name');
         $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
 
@@ -102,7 +102,7 @@ class UsersController extends BaseController
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route($this->crud_prefix.'.users.index');
     }
 
     /**
@@ -120,6 +120,6 @@ class UsersController extends BaseController
 
         $this->userModel->find($id)->delete();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route($this->crud_prefix.'.users.index');
     }
 }

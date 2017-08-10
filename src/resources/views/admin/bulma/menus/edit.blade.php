@@ -41,7 +41,7 @@
                         @change="checkAdded">
                         <li v-for="item in pages" :key="item.id" class="item">
                             {{-- main --}}
-                            <div class="notification is-info menu-item" :class="{'is-warning' : checkFrom(item)}">
+                            <div class="notification is-info menu-item" :class="classObj(item)">
                                 <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
                                 <span v-html="getTitle(item.title)"></span>
 

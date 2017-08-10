@@ -50,7 +50,7 @@ class RolesController extends BaseController
 
         $role->givePermissionTo($permissions);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->crud_prefix.'.roles.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class RolesController extends BaseController
         $role->update($request->except('permissions'));
         $role->syncPermissions($permissions);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->crud_prefix.'.roles.index');
     }
 
     /**
@@ -102,6 +102,6 @@ class RolesController extends BaseController
     {
         Role::find($id)->delete();
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->crud_prefix.'.roles.index');
     }
 }

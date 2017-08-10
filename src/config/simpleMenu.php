@@ -52,7 +52,7 @@ return [
 
     /*
      * crud views url prefix ex.'admin/pages'
-     * this is also the same for the route names ex.'admin.pages.*'
+     * this is also the same name for the route name ex.'admin.pages.*'
      */
     'crud_prefix' => 'admin',
 

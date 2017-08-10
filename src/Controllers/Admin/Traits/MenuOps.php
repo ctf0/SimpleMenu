@@ -2,9 +2,9 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 
+use Illuminate\Http\Request;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 trait MenuOps
@@ -18,7 +18,7 @@ trait MenuOps
      */
     public function getMenuPages($id)
     {
-        $pages = cache('sm-menus')->find($id)->pages()->orderBy('pivot_order', 'asc')->get()->each(function ($item) {
+        $pages = collect(Menu::with('pages')->find($id)->pages)->sortBy('pivot_order')->each(function ($item) {
             $item['from'] = 'pages';
         });
 
@@ -76,7 +76,10 @@ trait MenuOps
     protected function saveListToDb($list)
     {
         foreach ($list as $one) {
-            $this->findPage($one->id)->makeChildOf($this->findPage($one->parent_id));
+            $parent = $this->findPage($one->parent_id);
+
+            $this->findPage($one->id)->makeChildOf($parent);
+            $parent->touch();
 
             if ($one->children) {
                 $this->saveListToDb($one->children);
@@ -95,7 +98,6 @@ trait MenuOps
     {
         $page = $this->findPage($id);
         $page->clearSelfAndDescendants();
-        Cache::forget('sm-pages');
     }
 
     protected function findPage($id)
@@ -105,6 +107,6 @@ trait MenuOps
 
     protected function clearCache()
     {
-        Cache::forget('sm-menus');
+        return Cache::forget('sm-menus');
     }
 }

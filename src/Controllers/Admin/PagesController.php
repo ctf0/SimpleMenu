@@ -2,11 +2,12 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
-use ctf0\SimpleMenu\Controllers\BaseController;
-use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Http\Request;
+use ctf0\SimpleMenu\Models\Page;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Cache;
+use ctf0\SimpleMenu\Controllers\BaseController;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
 
 class PagesController extends BaseController
 {
@@ -60,7 +61,7 @@ class PagesController extends BaseController
 
         $this->clearCache();
 
-        return redirect()->route('admin.pages.index');
+        return redirect()->route($this->crud_prefix.'.pages.index');
     }
 
     /**
@@ -102,9 +103,10 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
+        Cache::forget('sm-menus');
         $this->clearCache();
 
-        return redirect()->route('admin.pages.index');
+        return redirect()->route($this->crud_prefix.'.pages.index');
     }
 
     /**
@@ -118,8 +120,9 @@ class PagesController extends BaseController
     {
         Page::find($id)->delete();
 
+        Cache::forget('sm-menus');
         $this->clearCache();
 
-        return redirect()->route('admin.pages.index');
+        return redirect()->route($this->crud_prefix.'.pages.index');
     }
 }

@@ -45,7 +45,7 @@ class PermissionsController extends BaseController
 
         Permission::create($request->all());
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route($this->crud_prefix.'.permissions.index');
     }
 
     /**
@@ -78,7 +78,7 @@ class PermissionsController extends BaseController
 
         Permission::find($id)->update($request->all());
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route($this->crud_prefix.'.permissions.index');
     }
 
     /**
@@ -92,6 +92,6 @@ class PermissionsController extends BaseController
     {
         Permission::find($id)->delete();
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route($this->crud_prefix.'.permissions.index');
     }
 }

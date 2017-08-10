@@ -15,10 +15,6 @@ trait MenusTrait
      */
     public function createMenus()
     {
-        Cache::rememberForever('sm-menus', function () {
-            return Menu::with('pages')->get();
-        });
-
         cache('sm-menus')->pluck('name')->each(function ($name) {
             $this->viewComp($name);
         });
@@ -57,10 +53,14 @@ trait MenusTrait
     {
         $locale = LaravelLocalization::getCurrentLocale();
 
-        return Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
-            return collect(
-                    cache('sm-menus')->where('name', $name)->first()->pages
-                )->sortBy('pivot_order');
-        });
+        if (cache('sm-menus')->isNotEmpty()) {
+            return Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
+                return collect(cache('sm-menus')->where('name', $name)->first()->pages)
+                    ->sortBy('pivot_order')
+                    ->filter(function ($item) {
+                        return $item->url != '';
+                    });
+            });
+        }
     }
 }

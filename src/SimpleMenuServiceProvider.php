@@ -9,6 +9,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
+use ctf0\SimpleMenu\Observers\UserObserver;
 use ctf0\SimpleMenu\Middleware\RoleMiddleware;
 use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -68,20 +69,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any package services.
-     */
-    public function register()
-    {
-        $this->app->singleton('simplemenu', function () {
-            return new SimpleMenu();
-        });
-
-        $this->regPSP();
-        $this->regPA();
-        $this->regPMW();
-    }
-
-    /**
      * model events observers.
      *
      * @return [type] [description]
@@ -91,6 +78,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         if (!app()->runningInConsole()) {
             Page::observe(PageObserver::class);
             Menu::observe(MenuObserver::class);
+            app(config('simpleMenu.userModel'))->observe(UserObserver::class);
         }
     }
 
@@ -103,7 +91,11 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         // alias to "Route::is()" but with support for params
         URL::macro('is', function ($route_name, $params = null) {
-            return request()->url() == route($route_name, $params);
+            if ($params) {
+                return request()->url() == route($route_name, $params);
+            }
+
+            return request()->url() == route($route_name);
         });
     }
 
@@ -117,6 +109,20 @@ class SimpleMenuServiceProvider extends ServiceProvider
         view()->composer('SimpleMenu::admin.*', function ($view) {
             $view->with(['crud_prefix' => config('simpleMenu.crud_prefix')]);
         });
+    }
+
+    /**
+     * Register any package services.
+     */
+    public function register()
+    {
+        $this->app->singleton('simplemenu', function () {
+            return new SimpleMenu();
+        });
+
+        $this->regPSP();
+        $this->regPA();
+        $this->regPMW();
     }
 
     /**
