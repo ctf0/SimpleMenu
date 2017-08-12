@@ -27,13 +27,17 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                @foreach ($user->roles->pluck('name') as $role)
-                                    <span class="tag is-medium is-info">{{ $role }}</span>
+                                @foreach ($user->roles as $role)
+                                    <span class="tag is-medium is-info">
+                                        <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
+                                    </span>
                                 @endforeach
                             </td>
                             <td>
-                                @foreach ($user->permissions->pluck('name') as $perm)
-                                    <span class="tag is-medium is-info">{{ $perm }}</span>
+                                @foreach ($user->permissions as $perm)
+                                    <span class="tag is-medium is-info">
+                                        <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
+                                    </span>
                                 @endforeach
                             </td>
                             <td>
