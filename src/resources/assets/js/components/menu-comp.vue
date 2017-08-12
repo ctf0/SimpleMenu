@@ -23,9 +23,6 @@ export default {
             })
         })
     },
-    updated() {
-        admin_sticky_sidebar()
-    },
     methods: {
         getPages() {
             $.get(this.getMenuPages, (res) => {
@@ -81,7 +78,7 @@ export default {
                 e.moved.element.created_at = null
             }
         },
-        classObj(item){
+        classObj(item) {
             if (this.checkFrom(item)) {
                 return 'is-warning'
             }

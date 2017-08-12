@@ -44,7 +44,7 @@ export default {
     methods: {
         deleteChild(item) {
             $.post(this.delChild, {
-                child_id: item.id,
+                child_id: item.id
             }, (res) => {
                 if (res.done) {
                     this.childs.splice(this.childs.indexOf(item), 1)
@@ -79,7 +79,7 @@ export default {
         pushBackToList(item) {
             return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
         },
-        classObj(item){
+        classObj(item) {
             if (this.checkFrom(item)) {
                 return 'is-warning'
             }
