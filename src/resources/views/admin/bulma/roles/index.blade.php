@@ -24,8 +24,10 @@
                         <tr id="item-{{ $role->id }}">
                             <td>{{ $role->name }}</td>
                             <td>
-                                @foreach ($role->permissions->pluck('name') as $permission)
-                                    <span class="tag is-medium is-medium is-info">{{ $permission }}</span>
+                                @foreach ($role->permissions as $perm)
+                                    <span class="tag is-medium is-medium is-info">
+                                        <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
+                                    </span>
                                 @endforeach
                             </td>
                             <td>
