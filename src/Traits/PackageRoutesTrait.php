@@ -23,22 +23,22 @@ trait PackageRoutesTrait
             Route::get('/', '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index')->name('index');
 
             /*               Roles               */
-            Route::resource('roles', '\ctf0\SimpleMenu\Controllers\Admin\RolesController');
+            Route::resource('roles', '\ctf0\SimpleMenu\Controllers\Admin\RolesController', ['except'=>'show']);
 
             /*               Perms               */
-            Route::resource('permissions', '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController');
+            Route::resource('permissions', '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController', ['except'=>'show']);
 
             /*               Menus               */
             Route::post('menus/removechild', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@removeChild')->name('menus.removeChild');
             Route::post('menus/removepage/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@removePage')->name('menus.removePage');
             Route::get('menus/getmenupages/{id}', '\ctf0\SimpleMenu\Controllers\Admin\MenusController@getMenuPages')->name('menus.getMenuPages');
-            Route::resource('menus', '\ctf0\SimpleMenu\Controllers\Admin\MenusController', ['except' => 'show']);
+            Route::resource('menus', '\ctf0\SimpleMenu\Controllers\Admin\MenusController', ['except'=>'show']);
 
             /*               Users               */
-            Route::resource('users', '\ctf0\SimpleMenu\Controllers\Admin\UsersController');
+            Route::resource('users', '\ctf0\SimpleMenu\Controllers\Admin\UsersController', ['except'=>'show']);
 
             /*               Pages               */
-            Route::resource('pages', '\ctf0\SimpleMenu\Controllers\Admin\PagesController');
+            Route::resource('pages', '\ctf0\SimpleMenu\Controllers\Admin\PagesController', ['except'=>'show']);
         });
     }
 }

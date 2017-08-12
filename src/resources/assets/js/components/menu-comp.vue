@@ -2,7 +2,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import MenuChild from './menu-edit_childs.vue'
+import MenuChild from './menu-comp_childs.vue'
 
 export default {
     props: ['getMenuPages', 'delPage', 'delChild', 'locale'],
@@ -15,13 +15,6 @@ export default {
         }
     },
     created() {
-        $.ajaxSetup({
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
-
         this.getPages()
 
         EventHub.listen('updateAllPages', () => {
@@ -29,6 +22,9 @@ export default {
                 this.allPages = res.allPages.filter((x) => this.pages.indexOf(x) < 0 )
             })
         })
+    },
+    updated() {
+        admin_sticky_sidebar()
     },
     methods: {
         getPages() {
@@ -49,7 +45,7 @@ export default {
                         title: 'Success',
                         body: `"${this.getTitle(item.title)}" was removed`,
                         type: 'success',
-                        duration: 3,
+                        duration: 1,
                         icon: false
                     })
                 }

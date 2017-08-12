@@ -85,7 +85,7 @@
                 <div class="field">
                     {{ Form::label('menus', 'Menus', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('menus[]', $menus, $page->menuNames->pluck('id', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select('menus[]', $menus, $page->menus->pluck('id', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
                     </div>
                     @if($errors->has('menus'))
                         <p class="help is-danger">

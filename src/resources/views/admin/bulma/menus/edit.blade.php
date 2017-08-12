@@ -36,6 +36,7 @@
                     {{-- pages --}}
                     <draggable v-model="pages"
                         class="column is-4 menu-list"
+                        style="line-height: inherit"
                         :options="{draggable:'.item', group:'pages', ghostClass: 'ghost'}"
                         :element="'ul'"
                         @change="checkAdded">
@@ -52,7 +53,12 @@
 
                             {{-- childs --}}
                             <template v-if="hasChilds(item)">
-                                <menu-child :pages="pages" :all-pages="allPages" :locale="locale" :del-child="delChild" :childs="item.nests"></menu-child>
+                                <menu-child :locale="locale"
+                                    :pages="pages"
+                                    :all-pages="allPages"
+                                    :del-child="delChild"
+                                    :childs="item.nests">
+                                </menu-child>
                             </template>
                         </li>
                     </draggable>

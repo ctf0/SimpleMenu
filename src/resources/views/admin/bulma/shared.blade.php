@@ -49,7 +49,7 @@
                                 <a class="{{ URL::is($crud_prefix.'.menus.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
                                 <ul>
                                     @foreach (cache('sm-menus') as $menu)
-                                        <li>
+                                        <li data-id="menu-{{ $menu->id }}">
                                             <a class="{{ URL::is($crud_prefix.'.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
                                     @endforeach

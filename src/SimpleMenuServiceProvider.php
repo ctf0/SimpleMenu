@@ -2,13 +2,9 @@
 
 namespace ctf0\SimpleMenu;
 
-use ctf0\SimpleMenu\Models\Menu;
-use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use ctf0\SimpleMenu\Observers\MenuObserver;
-use ctf0\SimpleMenu\Observers\PageObserver;
 use ctf0\SimpleMenu\Observers\UserObserver;
 use ctf0\SimpleMenu\Middleware\RoleMiddleware;
 use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
@@ -31,34 +27,34 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         // config
         $this->publishes([
-            __DIR__.'/config' => config_path(),
+            __DIR__ . '/config' => config_path(),
         ], 'config');
 
         // migrations
         $this->publishes([
-            __DIR__.'/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/database/migrations/' => database_path('migrations'),
         ], 'migrations');
 
         // seeds
         $this->publishes([
-            __DIR__.'/database/seeds/' => database_path('seeds'),
+            __DIR__ . '/database/seeds/' => database_path('seeds'),
         ], 'seeds');
 
         // resources
         $this->publishes([
-            __DIR__.'/resources/assets' => resource_path('assets/vendor/SimpleMenu'),
+            __DIR__ . '/resources/assets' => resource_path('assets/vendor/SimpleMenu'),
         ], 'assets');
 
         // trans
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'SimpleMenu');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'SimpleMenu');
         $this->publishes([
-            __DIR__.'/resources/lang' => resource_path('lang/vendor/SimpleMenu'),
+            __DIR__ . '/resources/lang' => resource_path('lang/vendor/SimpleMenu'),
         ], 'trans');
 
         // views
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'SimpleMenu');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'SimpleMenu');
         $this->publishes([
-            __DIR__.'/resources/views' => resource_path('views/vendor/SimpleMenu'),
+            __DIR__ . '/resources/views' => resource_path('views/vendor/SimpleMenu'),
         ], 'views');
 
         $this->observers();
@@ -76,8 +72,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function observers()
     {
         if (!app()->runningInConsole()) {
-            Page::observe(PageObserver::class);
-            Menu::observe(MenuObserver::class);
             app(config('simpleMenu.userModel'))->observe(UserObserver::class);
         }
     }

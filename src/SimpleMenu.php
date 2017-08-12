@@ -23,10 +23,10 @@ class SimpleMenu
         $this->listFileDir = config('simpleMenu.routeListPath');
         $this->localeCodes = array_keys(LaravelLocalization::getSupportedLocales());
 
-        // create caches
-        $this->createCaches();
-
         if (!app()->runningInConsole()) {
+            // create caches
+            $this->createCaches();
+
             // create routes
             $this->createRoutes();
 
@@ -38,6 +38,11 @@ class SimpleMenu
     public function AppLocales()
     {
         return $this->localeCodes;
+    }
+
+    protected function getCrntLocale()
+    {
+        return LaravelLocalization::getCurrentLocale();
     }
 
     protected function createCaches()

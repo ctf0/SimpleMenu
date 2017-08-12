@@ -2,9 +2,9 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use ctf0\SimpleMenu\Controllers\BaseController;
 
 class RolesController extends BaseController
 {
@@ -50,7 +50,7 @@ class RolesController extends BaseController
 
         $role->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix.'.roles.index');
+        return redirect()->route($this->crud_prefix . '.roles.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class RolesController extends BaseController
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name,'.$id,
+            'name' => 'required|unique:roles,name,' . $id,
         ]);
 
         $role        = Role::find($id);
@@ -88,7 +88,7 @@ class RolesController extends BaseController
         $role->update($request->except('permissions'));
         $role->syncPermissions($permissions);
 
-        return redirect()->route($this->crud_prefix.'.roles.index');
+        return redirect()->route($this->crud_prefix . '.roles.index');
     }
 
     /**
@@ -98,10 +98,14 @@ class RolesController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         Role::find($id)->delete();
 
-        return redirect()->route($this->crud_prefix.'.roles.index');
+        if ($request->expectsJson()) {
+            return response()->json(['done'=>true]);
+        }
+
+        return redirect()->route($this->crud_prefix . '.roles.index');
     }
 }

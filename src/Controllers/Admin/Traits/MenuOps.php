@@ -5,7 +5,6 @@ namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 use Illuminate\Http\Request;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\Cache;
 
 trait MenuOps
 {
@@ -18,7 +17,7 @@ trait MenuOps
      */
     public function getMenuPages($id)
     {
-        $pages = collect(Menu::with('pages')->find($id)->pages)->sortBy('pivot_order')->each(function ($item) {
+        $pages = cache('sm-menus')->find($id)->pages()->orderBy('pivot_order', 'asc')->get()->each(function ($item) {
             $item['from'] = 'pages';
         });
 
@@ -42,7 +41,7 @@ trait MenuOps
         // remove page from menu
         $menu = Menu::find($id);
         $menu->pages()->detach($request->page_id);
-        $menu->touch();
+        $menu->cleanData();
 
         // clear page nesting
         if (config('simpleMenu.clearRootDescendants')) {
@@ -90,23 +89,17 @@ trait MenuOps
     /**
      * helpers.
      *
-     * @param [type] $id [description]
+     * @param mixed $id
      *
      * @return [type] [description]
      */
     protected function clearSelfAndNests($id)
     {
-        $page = $this->findPage($id);
-        $page->clearSelfAndDescendants();
+        return $this->findPage($id)->clearSelfAndDescendants();
     }
 
     protected function findPage($id)
     {
         return Page::find($id);
-    }
-
-    protected function clearCache()
-    {
-        return Cache::forget('sm-menus');
     }
 }

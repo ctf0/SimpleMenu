@@ -59,9 +59,9 @@ class PagesController extends BaseController
         $page->givePermissionTo($permissions);
         $page->assignToMenus($menus);
 
-        $this->clearCache();
+        $page->cleanData();
 
-        return redirect()->route($this->crud_prefix.'.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index');
     }
 
     /**
@@ -103,10 +103,9 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
-        Cache::forget('sm-menus');
-        $this->clearCache();
+        $page->cleanData();
 
-        return redirect()->route($this->crud_prefix.'.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index');
     }
 
     /**
@@ -116,13 +115,16 @@ class PagesController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        Page::find($id)->delete();
+        $page = Page::find($id);
+        $page->delete();
+        $page->cleanData();
 
-        Cache::forget('sm-menus');
-        $this->clearCache();
+        if ($request->expectsJson()) {
+            return response()->json(['done'=>true]);
+        }
 
-        return redirect()->route($this->crud_prefix.'.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index');
     }
 }

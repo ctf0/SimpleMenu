@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
@@ -10,30 +11,46 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Page extends Node
 {
-    use HasRoles, HasTranslations;
+    use HasRoles, HasTranslations, ClearCacheTrait;
 
-    protected $guard_name = 'web';
+    protected $with       = ['roles', 'permissions', 'menus'];
     protected $appends    = ['nests'];
-    protected $hidden     = ['children'];
-    protected $with       = ['menuNames'];
     public $translatable  = ['title', 'body', 'desc', 'prefix', 'url'];
+    protected $guard_name = 'web';
+    protected $hidden     = [
+        'children', 'roles', 'permissions',
+        'menus', 'pivot', 'parent_id',
+        'lft', 'rgt', 'depth',
+    ];
 
-    public function menuNames()
+    public function menus()
     {
         return $this->belongsToMany(Menu::class);
     }
 
+    protected function getCrntLocale()
+    {
+        return LaravelLocalization::getCurrentLocale();
+    }
+
+    /**
+     * override HasTranslations\getAttributeValue().
+     *
+     * @param [type] $key [description]
+     *
+     * @return [type] [description]
+     */
     public function getAttributeValue($key)
     {
         if (!$this->isTranslatableAttribute($key)) {
             return parent::getAttributeValue($key);
         }
 
-        return $this->getTranslationWithoutFallback($key, LaravelLocalization::getCurrentLocale());
+        return $this->getTranslationWithoutFallback($key, $this->getCrntLocale());
     }
 
     /**
-     * attach to a menu.
+     * Menus.
      *
      * @param [type] $menus [description]
      *
@@ -41,39 +58,38 @@ class Page extends Node
      */
     public function assignToMenus($menus)
     {
-        return $this->menuNames()->attach($menus);
+        return $this->menus()->attach($menus);
     }
 
-    /**
-     * update attached menus.
-     *
-     * @param [type] $menus [description]
-     *
-     * @return [type] [description]
-     */
     public function syncMenus($menus)
     {
-        return $this->menuNames()->sync($menus);
+        return $this->menus()->sync($menus);
     }
 
     /**
-     * Descendants.
+     * Nesting.
+     *
+     * @param mixed $columns
      *
      * @return [type] [description]
      */
+    public function getAncestors($columns = ['*'])
+    {
+        return Cache::rememberForever($this->getCrntLocale() . "-{$this->route_name}_ancestors", function () use ($columns) {
+            return $this->ancestors()->get($columns);
+        });
+    }
+
     public function getNestsAttribute()
     {
-        $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
+        return Cache::rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
+            $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
 
-        return count($childs) ? $childs : null;
+            return count($childs) ? $childs : null;
+        });
     }
 
-    /**
-     * helpers.
-     *
-     * @return [type] [description]
-     */
-    public function clearDescendants()
+    public function destroyDescendants()
     {
         $this->clearNests();
     }
@@ -85,9 +101,6 @@ class Page extends Node
 
         // childs
         $this->clearNests();
-
-        // fire events
-        $this->touch();
     }
 
     protected function clearNests()
@@ -105,5 +118,33 @@ class Page extends Node
         $this->where($lftCol, '>', $lft)->where($rgtCol, '<', $rgt)->each(function ($one) {
             $one->makeRoot();
         });
+
+        $this->cleanData();
+    }
+
+    /**
+     * clear cacheing and stuff.
+     *
+     * @param [type] $page [description]
+     *
+     * @return [type] [description]
+     */
+    public function cleanData()
+    {
+        $route_name = $this->route_name;
+
+        // clear page session
+        session()->forget($route_name);
+
+        // remove the route file
+        File::delete(config('simpleMenu.routeListPath'));
+
+        // clear page cache
+        $this->clearCache($route_name);
+        $this->clearCache('_ancestors');
+        $this->clearCache('_nests');
+
+        // clear menu cache
+        return $this->clearCache('Menu');
     }
 }

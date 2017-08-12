@@ -48,11 +48,10 @@ class MenusController extends BaseController
             'name' => 'required|unique:menus,name',
         ]);
 
-        Menu::create($request->all());
+        $menu = Menu::create($request->all());
+        $menu->cleanData();
 
-        $this->clearCache();
-
-        return redirect()->route($this->crud_prefix.'.menus.index');
+        return redirect()->route($this->crud_prefix . '.menus.index');
     }
 
     /**
@@ -80,7 +79,7 @@ class MenusController extends BaseController
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:menus,name,'.$id,
+            'name' => 'required|unique:menus,name,' . $id,
         ]);
 
         $menu = Menu::find($id);
@@ -103,8 +102,7 @@ class MenusController extends BaseController
 
         // update and trigger events
         $menu->update($request->except('saveList'));
-
-        $this->clearCache();
+        $menu->cleanData();
 
         return back();
     }
@@ -116,15 +114,17 @@ class MenusController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $menu = Menu::find($id);
         $menu->pages()->detach();
         $menu->delete();
+        $menu->cleanData();
 
-        Cache::forget('sm-pages');
-        $this->clearCache();
+        if ($request->expectsJson()) {
+            return response()->json(['done'=>true]);
+        }
 
-        return redirect()->route($this->crud_prefix.'.menus.index');
+        return redirect()->route($this->crud_prefix . '.menus.index');
     }
 }

@@ -2,9 +2,9 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use ctf0\SimpleMenu\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use ctf0\SimpleMenu\Controllers\BaseController;
 
 class PermissionsController extends BaseController
 {
@@ -45,7 +45,7 @@ class PermissionsController extends BaseController
 
         Permission::create($request->all());
 
-        return redirect()->route($this->crud_prefix.'.permissions.index');
+        return redirect()->route($this->crud_prefix . '.permissions.index');
     }
 
     /**
@@ -73,12 +73,12 @@ class PermissionsController extends BaseController
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:permissions,name,'.$id,
+            'name' => 'required|unique:permissions,name,' . $id,
         ]);
 
         Permission::find($id)->update($request->all());
 
-        return redirect()->route($this->crud_prefix.'.permissions.index');
+        return redirect()->route($this->crud_prefix . '.permissions.index');
     }
 
     /**
@@ -88,10 +88,14 @@ class PermissionsController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         Permission::find($id)->delete();
 
-        return redirect()->route($this->crud_prefix.'.permissions.index');
+        if ($request->expectsJson()) {
+            return response()->json(['done'=>true]);
+        }
+
+        return redirect()->route($this->crud_prefix . '.permissions.index');
     }
 }

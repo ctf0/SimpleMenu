@@ -2,40 +2,44 @@
 @section('title'){{ 'Menus' }}@endsection
 
 @section('sub')
-    <h3 class="title">
-        @lang('SimpleMenu::messages.menus.title') "{{ count($menus) }}"
-        <a href="{{ route($crud_prefix.'.menus.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
-    </h3>
 
-    <table class="table is-narrow is-fullwidth is-bordered">
-        <thead>
-            <tr>
-                <th>@lang('SimpleMenu::messages.menus.fields.name')</th>
-                <th>@lang('SimpleMenu::messages.ops')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (count($menus) > 0)
-                @foreach ($menus as $menu)
+    <index-comp inline-template :count="{{ count($menus) }}">
+        <div>
+            <h3 class="title">
+                @lang('SimpleMenu::messages.menus.title') "<span>@{{ itemsCount }}</span>"
+                <a href="{{ route($crud_prefix.'.menus.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
+            </h3>
+
+            <table class="table is-narrow is-fullwidth is-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $menu->name }}</td>
-                        <td>
-                            <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-info is-inline-block">
-                                @lang('SimpleMenu::messages.app_edit')
-                            </a>
-                            <a class="is-inline-block">
-                                {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.menus.destroy', $menu->id]]) }}
-                                    {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
-                                {{ Form::close() }}
-                            </a>
-                        </td>
+                        <th>@lang('SimpleMenu::messages.menus.fields.name')</th>
+                        <th>@lang('SimpleMenu::messages.ops')</th>
                     </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
-                </tr>
-            @endif
-        </tbody>
-    </table>
+                </thead>
+
+                <tbody>
+                    @foreach ($menus as $menu)
+                        <tr id="menu-{{ $menu->id }}">
+                            <td>{{ $menu->name }}</td>
+                            <td>
+                                <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-info is-inline-block">
+                                    @lang('SimpleMenu::messages.app_edit')
+                                </a>
+                                <a class="is-inline-block">
+                                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.menus.destroy', $menu->id], 'data-id'=>'menu-'.$menu->id ,'@submit.prevent'=>'DelItem($event,"'.$menu->name.'")']) }}
+                                        {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
+                                    {{ Form::close() }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    <tr v-show="itemsCount == 0">
+                        <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </index-comp>
 @stop

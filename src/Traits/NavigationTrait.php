@@ -52,7 +52,7 @@ trait NavigationTrait
      */
     public function getRoute($crntRouteName, array $params = null)
     {
-        $locale = LaravelLocalization::getCurrentLocale();
+        $locale = $this->getCrntLocale();
         $url    = $this->routeLink($crntRouteName, $locale);
 
         // resolve route params
@@ -97,7 +97,12 @@ trait NavigationTrait
 
     public function getRouteData($name)
     {
-        return cache(LaravelLocalization::getCurrentLocale()."-$name");
+        return cache($this->getCrntLocale() . "-$name");
+    }
+
+    public function checkForBC($bc)
+    {
+        return count($bc) && $this->searchForRoute($bc->pluck('route_name')->first(), $this->getCrntLocale());
     }
 
     /**
@@ -108,12 +113,17 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    protected function routeLink($name, $code)
+    protected function searchForRoute($name, $code)
     {
         $routesListFile = include $this->listFileDir;
 
         // check if we have a link according to that "routeName & code"
-        $searchCode = array_get($routesListFile, "$name.$code");
+        return array_get($routesListFile, "$name.$code") ?? false;
+    }
+
+    protected function routeLink($name, $code)
+    {
+        $searchCode = $this->searchForRoute($name, $code);
 
         // if notFound, then either redir to home or abort
         if (!$searchCode) {
@@ -211,7 +221,7 @@ trait NavigationTrait
     protected function getParams($url, $params)
     {
         foreach ($params as $key => $value) {
-            $url = preg_replace('/\{'.preg_quote($key).'(\?)?\}/', $value, $url);
+            $url = preg_replace('/\{' . preg_quote($key) . '(\?)?\}/', $value, $url);
         }
 
         return $this->rmvUnUsedParams($url);

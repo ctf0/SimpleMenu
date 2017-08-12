@@ -58,7 +58,7 @@ class UsersController extends BaseController
         $user->assignRole($roles);
         $user->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix.'.users.index');
+        return redirect()->route($this->crud_prefix . '.users.index');
     }
 
     /**
@@ -89,7 +89,7 @@ class UsersController extends BaseController
     {
         $this->validate($request, [
             'name'        => 'required',
-            'email'       => 'required|email|unique:users,email,'.$id,
+            'email'       => 'required|email|unique:users,email,' . $id,
             'roles'       => 'required',
             'permissions' => 'required',
         ]);
@@ -102,7 +102,7 @@ class UsersController extends BaseController
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 
-        return redirect()->route($this->crud_prefix.'.users.index');
+        return redirect()->route($this->crud_prefix . '.users.index');
     }
 
     /**
@@ -112,7 +112,7 @@ class UsersController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         if (auth()->user()->id == $id) {
             abort(403);
@@ -120,6 +120,10 @@ class UsersController extends BaseController
 
         $this->userModel->find($id)->delete();
 
-        return redirect()->route($this->crud_prefix.'.users.index');
+        if ($request->expectsJson()) {
+            return response()->json(['done'=>true]);
+        }
+
+        return redirect()->route($this->crud_prefix . '.users.index');
     }
 }

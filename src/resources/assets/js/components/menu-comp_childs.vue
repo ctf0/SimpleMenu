@@ -16,7 +16,12 @@
 
             <!-- childs -->
             <template v-if="hasChilds(item)">
-                <menu-child :pages="pages" :all-pages="allPages" :locale="locale" :del-child="delChild" :childs="item.nests"></menu-child>
+                <menu-child :locale="locale"
+                    :pages="pages"
+                    :all-pages="allPages"
+                    :del-child="delChild"
+                    :childs="item.nests">
+                </menu-child>
             </template>
         </li>
     </draggable>
@@ -39,7 +44,7 @@ export default {
     methods: {
         deleteChild(item) {
             $.post(this.delChild, {
-                child_id: item.id
+                child_id: item.id,
             }, (res) => {
                 if (res.done) {
                     this.childs.splice(this.childs.indexOf(item), 1)

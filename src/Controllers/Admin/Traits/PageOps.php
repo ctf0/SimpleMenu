@@ -2,7 +2,6 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -21,7 +20,7 @@ trait PageOps
         $routename = 'required|unique:pages,route_name';
 
         if ($id) {
-            $routename = 'required|unique:pages,route_name,'.$id;
+            $routename = 'required|unique:pages,route_name,' . $id;
         }
 
         $validator = Validator::make($request->all(), [
@@ -77,10 +76,5 @@ trait PageOps
         }
 
         return $result;
-    }
-
-    protected function clearCache()
-    {
-        return Cache::forget('sm-pages');
     }
 }
