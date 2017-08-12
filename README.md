@@ -35,9 +35,11 @@
 ]
 ```
 
+- the package relay heavily on caching through **Redis**, so make sure to check the [docs](https://laravel.com/docs/5.4/redis) for installation & configuration.
+
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
-    - also check the **Dependencies** packages for "config/options/migrations".
+    - also check the **Dependencies** packages for "configuration/options/migrations".
 
 ## Config
 **config/simpleMenu.php**

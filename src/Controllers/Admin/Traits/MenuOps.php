@@ -75,10 +75,13 @@ trait MenuOps
     protected function saveListToDb($list)
     {
         foreach ($list as $one) {
+            $child  = $this->findPage($one->id);
             $parent = $this->findPage($one->parent_id);
 
-            $this->findPage($one->id)->makeChildOf($parent);
-            $parent->touch();
+            $child->makeChildOf($parent);
+
+            $child->cleanData();
+            $parent->cleanData();
 
             if ($one->children) {
                 $this->saveListToDb($one->children);

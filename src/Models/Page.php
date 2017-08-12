@@ -145,6 +145,6 @@ class Page extends Node
         $this->clearCache('_nests');
 
         // clear menu cache
-        return $this->clearCache('Menu');
+        $this->clearCache('Menu');
     }
 }

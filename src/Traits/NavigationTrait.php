@@ -21,6 +21,13 @@ trait NavigationTrait
     {
         $name = Route::currentRouteName();
 
+        // redir to '/' if current route ancestor is not found under current locale
+        if ($bc = $this->getRouteData($name)['breadCrumb']) {
+            if (!$this->searchForRoute($bc->pluck('route_name')->first(), $code)) {
+                return LaravelLocalization::getLocalizedURL($code, url('/'), [], true);
+            }
+        }
+
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;
