@@ -44,7 +44,7 @@
                             {{-- main --}}
                             <div class="notification is-info menu-item" :class="classObj(item)">
                                 <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
-                                <span v-html="getTitle(item.title)"></span>
+                                <span>@{{ getTitle(item.title) }}</span>
 
                                 {{-- ops --}}
                                 <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
@@ -70,7 +70,7 @@
                         :options="{draggable:'.item', group:{name:'pages', put:false}, chosenClass:'is-warning', sort: false}">
                         <li v-for="item in allPages" :key="item.id" class="item notification is-info menu-item">
                             <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
-                            <span v-html="getTitle(item.title)"></span>
+                            <span>@{{ getTitle(item.title) }}</span>
                         </li>
                     </draggable>
                 </div>

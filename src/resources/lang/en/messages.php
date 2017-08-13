@@ -18,6 +18,7 @@ return [
         'title'  => 'Pages',
         'fields' => [
             'title'       => 'Title',
+            'route'       => 'Route Name',
             'roles'       => 'Roles',
             'permissions' => 'Permissions',
             'menus'       => 'Menus',

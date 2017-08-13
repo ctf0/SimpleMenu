@@ -22,7 +22,9 @@ trait NavigationTrait
         $name = Route::currentRouteName();
 
         // redir to '/' if current route ancestor is not found under current locale
-        if ($bc = $this->getRouteData($name)['breadCrumb']) {
+        $bc = $this->getRouteData($name)['breadCrumb'];
+
+        if (isset($bs) && count($bc)) {
             if (!$this->searchForRoute($bc->pluck('route_name')->first(), $code)) {
                 return LaravelLocalization::getLocalizedURL($code, url('/'), [], true);
             }
@@ -59,6 +61,10 @@ trait NavigationTrait
      */
     public function getRoute($crntRouteName, array $params = null)
     {
+        if (!Route::has($crntRouteName)) {
+            return;
+        }
+
         $locale = $this->getCrntLocale();
         $url    = $this->routeLink($crntRouteName, $locale);
 

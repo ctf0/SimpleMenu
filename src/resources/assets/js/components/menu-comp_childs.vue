@@ -7,7 +7,7 @@
             <!-- main -->
             <div class="notification is-dark menu-item" :class="classObj(item)">
                 <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
-                <span v-html="getTitle(item.title)"></span>
+                <span>{{ getTitle(item.title) }}</span>
 
                 <!-- ops -->
                 <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
@@ -65,7 +65,7 @@ export default {
         getTitle(title) {
             let locale = this.locale
             let v = Object.keys(title).indexOf(locale)
-            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0]
+            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
 
         // operations

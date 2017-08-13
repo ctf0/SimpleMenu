@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>@lang('SimpleMenu::messages.pages.fields.title')</th>
+                        <th>@lang('SimpleMenu::messages.pages.fields.route')</th>
                         <th>@lang('SimpleMenu::messages.pages.fields.roles')</th>
                         <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
                         <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
@@ -26,6 +27,7 @@
                 <tbody>
                     @foreach ($pages as $page)
                         @include('SimpleMenu::menu.partials.r_params')
+
                         <tr id="item-{{ $page->id }}">
                             <td>
                                 @if (in_array(LaravelLocalization::getCurrentLocale(), $page->getTranslatedLocales('title')))
@@ -33,6 +35,9 @@
                                 @else
                                     {{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}
                                 @endif
+                            </td>
+                            <td>
+                                {{ $page->route_name }}
                             </td>
                             <td>
                                 @foreach ($page->roles as $role)

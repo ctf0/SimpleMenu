@@ -51,7 +51,7 @@ export default {
         getTitle(title) {
             let locale = this.locale
             let v = Object.keys(title).indexOf(locale)
-            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0]
+            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
 
         // operations
