@@ -23,6 +23,14 @@ class Page extends Node
         'lft', 'rgt', 'depth',
     ];
 
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::addGlobalScope('url', function (Illuminate\Database\Eloquent\Builder $builder) {
+    //         $builder->where('url->' . LaravelLocalization::getCurrentLocale(), '!=', '');
+    //     });
+    // }
+
     public function menus()
     {
         return $this->belongsToMany(Menu::class);
@@ -91,7 +99,11 @@ class Page extends Node
 
     public function destroyDescendants()
     {
-        $this->clearNests();
+        if (config('simpleMenu.deletePageAndNests')) {
+            parent::destroyDescendants();
+        } else {
+            $this->clearNests();
+        }
     }
 
     public function clearSelfAndDescendants()

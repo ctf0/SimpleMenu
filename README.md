@@ -80,13 +80,36 @@ return [
     'userModel' => App\User::class,
 
     /*
-     * by default when removing a nested page, all of its 'Descendants' gets cleared.
-     * but what about when removing the root, do you also want the same behavior ?
+     * when adding a page which is a nest of a nother to a menu
+     *
+     * root
+     *   | child 1
+     *     | child 2 "add this along with its childrens to another menu"
+     *       | child 3
+     *
+     * do you want to clear its parent and make it a root ?
+     */
+    'clearPartialyNestedParent'=> false,
+
+    /*
+     * when removing a root page from a menu, ex.
+     *
+     * root "remove"
+     *   | child 1
+     *     | child 2
+     *       | child 3
+     *
+     * do you want clear all of its 'Descendants' ?
      */
     'clearRootDescendants' => false,
 
     /*
-     * crud views url prefix
+     * when deleteing a page "from the db", do you also want to delete all of its childrens ?
+     */
+    'deletePageAndNests' => false,
+
+    /*
+     * package routes url & name prefix
      */
     'crud_prefix' => 'admin',
 
@@ -102,3 +125,6 @@ return [
 
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
+
+## Todo
+- find a way to add new nesting levels in [vuedraggable](https://github.com/SortableJS/Vue.Draggable)

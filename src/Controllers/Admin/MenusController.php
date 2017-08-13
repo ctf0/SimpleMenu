@@ -88,8 +88,11 @@ class MenusController extends BaseController
         $menu->pages()->detach();
 
         foreach (json_decode($request->saveList) as $item) {
-            // make sure page is not included under any other pages
-            $this->clearSelfAndNests($item->id);
+            if (config('simpleMenu.clearPartialyNestedParent')) {
+                $this->clearSelfAndNests($item->id);
+            } else {
+                $this->clearNests($item->id);
+            }
 
             // save page hierarchy
             if ($item->children) {

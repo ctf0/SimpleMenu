@@ -96,6 +96,11 @@ trait MenuOps
      *
      * @return [type] [description]
      */
+    protected function clearNests($id)
+    {
+        return $this->findPage($id)->destroyDescendants();
+    }
+
     protected function clearSelfAndNests($id)
     {
         return $this->findPage($id)->clearSelfAndDescendants();

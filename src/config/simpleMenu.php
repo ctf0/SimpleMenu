@@ -39,20 +39,38 @@ return [
     'userModel' => App\User::class,
 
     /*
-     * by default when removing a nested page, all of its 'Descendants' gets cleared ex.
+     * when adding a page which is a nest of a nother to a menu
      *
      * root
      *   | child 1
-     *     | child 2 "delete" (now "child 2" & "child 3" wont be a descendants of any page)
+     *     | child 2 "add this along with its childrens to another menu"
      *       | child 3
      *
-     * but what about when removing the root, do you also want the same behavior ?
+     * do you want to clear its parent and make it a root ?
+     */
+    'clearPartialyNestedParent'=> false,
+
+    /*
+     * when removing a root page from a menu, ex.
+     *
+     * root "remove"
+     *   | child 1
+     *     | child 2
+     *       | child 3
+     *
+     * do you want clear all of its 'Descendants' ?
      */
     'clearRootDescendants' => false,
 
     /*
-     * crud views url prefix ex.'admin/pages'
-     * this is also the same name for the route name ex.'admin.pages.*'
+     * when deleteing a page "from the db", do you also want to delete all of its childrens ?
+     */
+    'deletePageAndNests' => false,
+
+    /*
+     * package routes url & name prefix ex.
+     * url = 'admin/pages'
+     * name = 'admin.pages.*'
      */
     'crud_prefix' => 'admin',
 
