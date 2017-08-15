@@ -2,9 +2,13 @@
 
 namespace ctf0\SimpleMenu;
 
+use ctf0\SimpleMenu\Models\Menu;
+use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use ctf0\SimpleMenu\Observers\MenuObserver;
+use ctf0\SimpleMenu\Observers\PageObserver;
 use ctf0\SimpleMenu\Observers\UserObserver;
 use ctf0\SimpleMenu\Middleware\RoleMiddleware;
 use ctf0\SimpleMenu\Middleware\PermissionMiddleware;
@@ -72,6 +76,8 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function observers()
     {
         if (!app()->runningInConsole()) {
+            Page::observe(PageObserver::class);
+            Menu::observe(MenuObserver::class);
             app(config('simpleMenu.userModel'))->observe(UserObserver::class);
         }
     }

@@ -5,23 +5,19 @@ import draggable from 'vuedraggable'
 import MenuChild from './menu-comp_childs.vue'
 
 export default {
-    props: ['getMenuPages', 'delPage', 'delChild', 'locale'],
     components: {draggable, MenuChild},
+    props: ['getMenuPages', 'delPage', 'delChild', 'locale'],
     data() {
         return {
             pages: [],
             allPages: [],
-            saveList: []
+            saveList: [],
+            isDragging: false
         }
     },
     created() {
         this.getPages()
-
-        EventHub.listen('updateAllPages', () => {
-            $.get(this.getMenuPages, (res) => {
-                this.allPages = res.allPages.filter((x) => this.pages.indexOf(x) < 0 )
-            })
-        })
+        this.eventsListeners()
     },
     methods: {
         getPages() {
@@ -51,6 +47,7 @@ export default {
         getTitle(title) {
             let locale = this.locale
             let v = Object.keys(title).indexOf(locale)
+
             return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
 
@@ -66,14 +63,30 @@ export default {
             item.from = 'allPages'
             this.allPages.unshift(item)
         },
-        cancelAdd(item) {
-            return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
+        eventsListeners() {
+            EventHub.listen('updateAllPages', () => {
+                $.get(this.getMenuPages, (res) => {
+                    this.allPages = res.allPages.filter((x) => this.pages.indexOf(x) < 0 )
+                })
+            })
+
+            EventHub.listen('childDragStart', () => {
+                this.isDragging = true
+            })
+
+            EventHub.listen('childDragEnd', () => {
+                this.isDragging = false
+            })
         },
-        checkAdded(e) {
+
+        // styling
+        updateList(e) {
             // catch moving from the childs list
             if (e.added && !e.added.element.from) {
                 e.added.element.updated_at = null
             }
+
+            // update visual when item is moved
             if (e.moved) {
                 e.moved.element.created_at = null
             }
@@ -86,8 +99,23 @@ export default {
                 return 'is-danger'
             }
         },
+        arrowObj(item) {
+            if (this.hasChilds(item)) {
+                return 'fa-caret-down'
+            }
+
+            return 'fa-caret-right'
+        },
 
         // nests
+        dragStart() {
+            this.isDragging = true
+            EventHub.fire('parentDragStart')
+        },
+        dragEnd() {
+            this.isDragging = false
+            EventHub.fire('parentDragEnd')
+        },
         hasChilds(item) {
             return item.nests && item.nests.length > 0
         },
@@ -96,17 +124,11 @@ export default {
 
             item.nests.forEach((e) => {
                 if (this.hasChilds(e)) {
-                    // avoid self nesting
-                    if (e.id == item.id) {
-                        item.nests.splice(item.nests.indexOf(e), 1)
-                        this.cancelAdd(item)
-                    } else {
-                        childs.push({
-                            id: e.id,
-                            parent_id: item.id,
-                            children: this.loop(e)
-                        })
-                    }
+                    childs.push({
+                        id: e.id,
+                        parent_id: item.id,
+                        children: this.loop(e)
+                    })
                 } else {
                     childs.push({
                         id: e.id,
@@ -118,6 +140,8 @@ export default {
 
             return childs
         },
+
+        // list hierarchy for db
         updatePages(val) {
             this.saveList = []
 
@@ -127,17 +151,11 @@ export default {
 
                     item.nests.forEach((e) => {
                         if (this.hasChilds(e)) {
-                            // avoid self nesting
-                            if (e.id == item.id) {
-                                item.nests.splice(item.nests.indexOf(e), 1)
-                                this.cancelAdd(item)
-                            } else {
-                                childs.push({
-                                    id: e.id,
-                                    parent_id: item.id,
-                                    children: this.loop(e)
-                                })
-                            }
+                            childs.push({
+                                id: e.id,
+                                parent_id: item.id,
+                                children: this.loop(e)
+                            })
                         } else {
                             childs.push({
                                 id: e.id,

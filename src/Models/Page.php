@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
@@ -11,25 +10,17 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Page extends Node
 {
-    use HasRoles, HasTranslations, ClearCacheTrait;
+    use HasRoles, HasTranslations;
 
     protected $with       = ['roles', 'permissions', 'menus'];
     protected $appends    = ['nests'];
-    public $translatable  = ['title', 'body', 'desc', 'prefix', 'url'];
     protected $guard_name = 'web';
     protected $hidden     = [
         'children', 'roles', 'permissions',
         'menus', 'pivot', 'parent_id',
         'lft', 'rgt', 'depth',
     ];
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::addGlobalScope('url', function (Illuminate\Database\Eloquent\Builder $builder) {
-    //         $builder->where('url->' . LaravelLocalization::getCurrentLocale(), '!=', '');
-    //     });
-    // }
+    public $translatable  = ['title', 'body', 'desc', 'prefix', 'url'];
 
     public function menus()
     {
@@ -66,12 +57,14 @@ class Page extends Node
      */
     public function assignToMenus($menus)
     {
-        return $this->menus()->attach($menus);
+        $this->menus()->attach($menus);
+        $this->touch();
     }
 
     public function syncMenus($menus)
     {
-        return $this->menus()->sync($menus);
+        $this->menus()->sync($menus);
+        $this->touch();
     }
 
     /**
@@ -91,12 +84,15 @@ class Page extends Node
     public function getNestsAttribute()
     {
         return Cache::rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
-            $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
-
-            return count($childs) ? $childs : null;
+            return $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
         });
     }
 
+    /**
+     * clear Nesting.
+     *
+     * @return [type] [description]
+     */
     public function destroyDescendants()
     {
         if (config('simpleMenu.deletePageAndNests')) {
@@ -108,10 +104,7 @@ class Page extends Node
 
     public function clearSelfAndDescendants()
     {
-        // self
         $this->makeRoot();
-
-        // childs
         $this->clearNests();
     }
 
@@ -131,32 +124,6 @@ class Page extends Node
             $one->makeRoot();
         });
 
-        $this->cleanData();
-    }
-
-    /**
-     * clear cacheing and stuff.
-     *
-     * @param [type] $page [description]
-     *
-     * @return [type] [description]
-     */
-    public function cleanData()
-    {
-        $route_name = $this->route_name;
-
-        // clear page session
-        session()->forget($route_name);
-
-        // remove the route file
-        File::delete(config('simpleMenu.routeListPath'));
-
-        // clear page cache
-        $this->clearCache($route_name);
-        $this->clearCache('_ancestors');
-        $this->clearCache('_nests');
-
-        // clear menu cache
-        $this->clearCache('Menu');
+        $this->touch();
     }
 }

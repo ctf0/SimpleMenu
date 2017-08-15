@@ -125,6 +125,3 @@ return [
 
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
-
-## Todo
-- find a way to add new nesting levels in [vuedraggable](https://github.com/SortableJS/Vue.Draggable)

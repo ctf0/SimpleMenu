@@ -36,47 +36,50 @@
                     {{-- pages --}}
                     <draggable v-model="pages"
                         class="column is-4 menu-list"
-                        style="line-height: inherit"
-                        :options="{draggable:'.item', group:'pages', ghostClass: 'ghost'}"
+                        :class="{dragArea: isDragging}"
+                        :options="{group:'pages', ghostClass: 'ghost'}"
                         :element="'ul'"
-                        @change="checkAdded">
-                        <li v-for="item in pages" :key="item.id" class="item">
-                            {{-- main --}}
-                            <div class="notification is-info menu-item" :class="classObj(item)">
-                                <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
-                                <span>@{{ getTitle(item.title) }}</span>
-
-                                {{-- ops --}}
-                                <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
-                                <button type="button" v-else class="delete" @click.prevent="deletePage(item)" title="remove page"></button>
-                            </div>
-
-                            {{-- childs --}}
-                            <template v-if="hasChilds(item)">
-                                <menu-child :locale="locale"
-                                    :pages="pages"
-                                    :all-pages="allPages"
-                                    :del-child="delChild"
-                                    :childs="item.nests">
-                                </menu-child>
-                            </template>
-                        </li>
-                    </draggable>
-
-                    {{-- all_pages --}}
-                    <draggable v-model="allPages"
-                        class="column"
-                        :element="'ul'"
-                        :options="{draggable:'.item', group:{name:'pages', put:false}, chosenClass:'is-warning', sort: false}">
-                        <li v-for="item in allPages" :key="item.id" class="item notification is-info menu-item">
-                            <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
+                        @change="updateList"
+                        @start="dragStart"
+                        @end="dragEnd">
+                    <li v-for="item in pages" :key="item.id">
+                        {{-- main --}}
+                        <div class="notification is-info menu-item" :class="classObj(item)">
+                            <span class="icon is-small"><i class="fa" :class="arrowObj(item)"></i></span>
                             <span>@{{ getTitle(item.title) }}</span>
-                        </li>
-                    </draggable>
-                </div>
 
-                <input type="hidden" name="saveList" v-model="JSON.stringify(saveList)">
-            {{ Form::close() }}
-        </div>
-    </menu-comp>
+                            {{-- ops --}}
+                            <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
+                            <button type="button" v-else class="delete" @click.prevent="deletePage(item)" title="remove page"></button>
+                        </div>
+
+                        {{-- childs --}}
+                        <menu-child :locale="locale"
+                            :class="{dragArea: isDragging}"
+                            :pages="pages"
+                            :all-pages="allPages"
+                            :del-child="delChild"
+                            :childs="item.nests">
+                        </menu-child>
+                    </li>
+                </draggable>
+
+                {{-- all_pages --}}
+                <draggable v-model="allPages"
+                    class="column"
+                    :element="'ul'"
+                    :options="{group:{name:'pages', put:false}, chosenClass:'is-warning', sort: false}"
+                    @start="dragStart"
+                    @end="dragEnd">
+                    <li v-for="item in allPages" :key="item.id" class="notification is-info menu-item">
+                        <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
+                        <span>@{{ getTitle(item.title) }}</span>
+                    </li>
+                </draggable>
+            </div>
+
+            <input type="hidden" name="saveList" v-model="JSON.stringify(saveList)">
+        {{ Form::close() }}
+    </div>
+</menu-comp>
 @stop

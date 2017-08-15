@@ -39,6 +39,9 @@
     padding: 0.5em;
     margin-bottom: 0.5em !important;
 }
+.menu-list {
+    line-height: inherit;
+}
 .dragArea {
     min-height: 35px;
     display: block;
@@ -47,9 +50,8 @@
     top: 0.45em;
 }
 .ghost {
-    opacity: 0.5;
+    opacity: 1;
 }
-
 .is-white {
     color: white;
 }

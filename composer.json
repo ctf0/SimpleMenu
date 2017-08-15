@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ctf0\\SimpleMenu\\SimpleMenuServiceProvidor"
+                "ctf0\\SimpleMenu\\SimpleMenuServiceProvider"
             ],
             "aliases": {
                 "SimpleMenu": "ctf0\\SimpleMenu\\Facade\\SimpleMenu"

@@ -49,7 +49,6 @@ class MenusController extends BaseController
         ]);
 
         $menu = Menu::create($request->all());
-        $menu->cleanData();
 
         return redirect()->route($this->crud_prefix . '.menus.index');
     }
@@ -105,7 +104,6 @@ class MenusController extends BaseController
 
         // update and trigger events
         $menu->update($request->except('saveList'));
-        $menu->cleanData();
 
         return back();
     }
@@ -122,7 +120,6 @@ class MenusController extends BaseController
         $menu = Menu::find($id);
         $menu->pages()->detach();
         $menu->delete();
-        $menu->cleanData();
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);

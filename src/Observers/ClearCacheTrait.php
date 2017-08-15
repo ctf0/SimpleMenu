@@ -1,6 +1,6 @@
 <?php
 
-namespace ctf0\SimpleMenu\Models;
+namespace ctf0\SimpleMenu\Observers;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -13,8 +13,15 @@ trait ClearCacheTrait
         foreach ($keys as $key) {
             $redis->del($key);
         }
+    }
 
+    protected function clearPagesCache()
+    {
         Cache::forget('sm-pages');
+    }
+
+    protected function clearMenusCache()
+    {
         Cache::forget('sm-menus');
     }
 }

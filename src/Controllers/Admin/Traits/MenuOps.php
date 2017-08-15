@@ -41,7 +41,7 @@ trait MenuOps
         // remove page from menu
         $menu = Menu::find($id);
         $menu->pages()->detach($request->page_id);
-        $menu->cleanData();
+        $menu->touch();
 
         // clear page nesting
         if (config('simpleMenu.clearRootDescendants')) {
@@ -78,10 +78,14 @@ trait MenuOps
             $child  = $this->findPage($one->id);
             $parent = $this->findPage($one->parent_id);
 
+            if ($child == $parent) {
+                return;
+            }
+
             $child->makeChildOf($parent);
 
-            $child->cleanData();
-            $parent->cleanData();
+            $child->touch();
+            $parent->touch();
 
             if ($one->children) {
                 $this->saveListToDb($one->children);
@@ -103,7 +107,9 @@ trait MenuOps
 
     protected function clearSelfAndNests($id)
     {
-        return $this->findPage($id)->clearSelfAndDescendants();
+        $page = $this->findPage($id);
+
+        return $page->clearSelfAndDescendants();
     }
 
     protected function findPage($id)

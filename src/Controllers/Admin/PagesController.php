@@ -59,8 +59,6 @@ class PagesController extends BaseController
         $page->givePermissionTo($permissions);
         $page->assignToMenus($menus);
 
-        $page->cleanData();
-
         return redirect()->route($this->crud_prefix . '.pages.index');
     }
 
@@ -103,8 +101,6 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
-        $page->cleanData();
-
         return redirect()->route($this->crud_prefix . '.pages.index');
     }
 
@@ -119,7 +115,6 @@ class PagesController extends BaseController
     {
         $page = Page::find($id);
         $page->delete();
-        $page->cleanData();
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);
