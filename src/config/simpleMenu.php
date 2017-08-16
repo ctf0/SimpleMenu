@@ -39,16 +39,19 @@ return [
     'userModel' => App\User::class,
 
     /*
-     * when adding a page which is a nest of a nother to a menu
+     * when adding a page which is a nest of another to a menu
      *
      * root
      *   | child 1
-     *     | child 2 "add this along with its childrens to another menu"
+     *     | child 2 "add this along with its children to another menu"
      *       | child 3
      *
      * do you want to clear its parent and make it a root ?
+     *
+     * note that this will cause issues for breadcumb as to "what to show" and "what to hide"
+     * if set to "false"
      */
-    'clearPartialyNestedParent'=> false,
+    'clearPartialyNestedParent'=> true,
 
     /*
      * when removing a root page from a menu, ex.
@@ -63,7 +66,12 @@ return [
     'clearRootDescendants' => false,
 
     /*
-     * when deleteing a page "from the db", do you also want to delete all of its childrens ?
+     * when removing a nest from a list, do you want to reset its hierarchy ?
+     */
+    'clearNestDescendants'=> false,
+
+    /*
+     * when deleting a page "from the db", do you also want to delete all of its children ?
      */
     'deletePageAndNests' => false,
 

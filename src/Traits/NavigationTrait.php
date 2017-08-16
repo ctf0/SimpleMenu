@@ -21,10 +21,15 @@ trait NavigationTrait
     {
         $name = Route::currentRouteName();
 
+        // redir to '/' if the first item in "bc" is in diff locale
+        $bc = $this->getRouteData($name)['breadCrumb'];
+        if (isset($bc) && count($bc) && !$this->searchForRoute($bc->pluck('route_name')->first(), $code)) {
+            return LaravelLocalization::getLocalizedURL($code, url('/'), [], true);
+        }
+
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;
-
         if (is_null($name) || !array_get($routesListFile, $name)) {
             return LaravelLocalization::getLocalizedURL($code, null, [], true);
         }
@@ -110,7 +115,7 @@ trait NavigationTrait
         $name = Route::currentRouteName();
         $bc   = $this->getRouteData($name)['breadCrumb'];
 
-        if (isset($bc) && count($bc) && $this->searchForRoute($bc->pluck('route_name')->first(), $this->getCrntLocale())) {
+        if (isset($bc) && count($bc)) {
             return $bc;
         }
     }

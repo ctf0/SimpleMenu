@@ -89,7 +89,7 @@ return [
      *
      * do you want to clear its parent and make it a root ?
      */
-    'clearPartialyNestedParent'=> false,
+    'clearPartialyNestedParent'=> true,
 
     /*
      * when removing a root page from a menu, ex.
@@ -102,6 +102,11 @@ return [
      * do you want clear all of its 'Descendants' ?
      */
     'clearRootDescendants' => false,
+
+    /**
+     * when removing a nest from a list, do you want to reset its hierarchy ?
+     */
+    'clearNestDescendants' => false,
 
     /*
      * when deleteing a page "from the db", do you also want to delete all of its childrens ?

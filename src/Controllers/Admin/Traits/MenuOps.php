@@ -60,7 +60,13 @@ trait MenuOps
      */
     public function removeChild(Request $request)
     {
-        $this->clearSelfAndNests($request->child_id);
+        if (config('simpleMenu.clearNestDescendants')) {
+            $this->clearSelfAndNests($request->child_id);
+        } else {
+            $page = $this->findPage($request->child_id);
+            $page->makeRoot();
+            $page->touch();
+        }
 
         return response()->json(['done'=>true]);
     }
