@@ -8,20 +8,18 @@ use Illuminate\Support\Facades\Cache;
 
 class PageObserver
 {
-    use ClearCacheTrait;
-
     /**
-     * Listen to the User saving event.
+     * Listen to the User saved event.
      */
-    public function saving(Page $page)
+    public function saved(Page $page)
     {
         return $this->cleanData($page);
     }
 
     /**
-     * Listen to the User deleting event.
+     * Listen to the User deleted event.
      */
-    public function deleting(Page $page)
+    public function deleted(Page $page)
     {
         return $this->cleanData($page);
     }
@@ -44,16 +42,8 @@ class PageObserver
         // remove the route file
         File::delete(config('simpleMenu.routeListPath'));
 
-        // clear page cache
-        $this->clearCache($route_name);
-        $this->clearCache('_ancestors');
-        $this->clearCache('_nests');
-
-        // clear menu cache
-        foreach ($page->menus->pluck('name') as $menu) {
-            $this->clearCache("{$menu}Menu");
-        }
-
-        $this->clearPagesCache();
+        // clear all cache
+        // due to issues with baum\node
+        Cache::flush();
     }
 }

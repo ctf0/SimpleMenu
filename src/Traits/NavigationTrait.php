@@ -21,15 +21,6 @@ trait NavigationTrait
     {
         $name = Route::currentRouteName();
 
-        // redir to '/' if current route ancestor is not found under current locale
-        $bc = $this->getRouteData($name)['breadCrumb'];
-
-        if (isset($bs) && count($bc)) {
-            if (!$this->searchForRoute($bc->pluck('route_name')->first(), $code)) {
-                return LaravelLocalization::getLocalizedURL($code, url('/'), [], true);
-            }
-        }
-
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;
@@ -61,6 +52,7 @@ trait NavigationTrait
      */
     public function getRoute($crntRouteName, array $params = null)
     {
+        // where route is available under one locale but not the other
         if (!Route::has($crntRouteName)) {
             return;
         }
@@ -98,12 +90,12 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    public function urlRoute()
+    public function routeUrl()
     {
         return $this->urlRoute;
     }
 
-    public function urlRouteCheck()
+    public function isActiveRoute()
     {
         return request()->url() == $this->urlRoute;
     }
@@ -113,9 +105,14 @@ trait NavigationTrait
         return cache($this->getCrntLocale() . "-$name");
     }
 
-    public function checkForBC($bc)
+    public function getBC()
     {
-        return count($bc) && $this->searchForRoute($bc->pluck('route_name')->first(), $this->getCrntLocale());
+        $name = Route::currentRouteName();
+        $bc   = $this->getRouteData($name)['breadCrumb'];
+
+        if (isset($bc) && count($bc) && $this->searchForRoute($bc->pluck('route_name')->first(), $this->getCrntLocale())) {
+            return $bc;
+        }
     }
 
     /**
@@ -126,14 +123,6 @@ trait NavigationTrait
      *
      * @return [type] [description]
      */
-    protected function searchForRoute($name, $code)
-    {
-        $routesListFile = include $this->listFileDir;
-
-        // check if we have a link according to that "routeName & code"
-        return array_get($routesListFile, "$name.$code") ?? false;
-    }
-
     protected function routeLink($name, $code)
     {
         $searchCode = $this->searchForRoute($name, $code);
@@ -151,6 +140,14 @@ trait NavigationTrait
         }
 
         return $searchCode;
+    }
+
+    protected function searchForRoute($name, $code)
+    {
+        $routesListFile = include $this->listFileDir;
+
+        // check if we have a link according to that "routeName & code"
+        return array_get($routesListFile, "$name.$code") ?? false;
     }
 
     /**

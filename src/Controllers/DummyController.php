@@ -2,8 +2,8 @@
 
 namespace ctf0\SimpleMenu\Controllers;
 
-use ctf0\SimpleMenu\Facade\SimpleMenu;
 use Illuminate\Support\Facades\Route;
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 
 class DummyController extends BaseController
 {
@@ -11,6 +11,6 @@ class DummyController extends BaseController
     {
         extract(SimpleMenu::getRouteData(Route::currentRouteName()));
 
-        return view("$this->templatePath.$template", compact('title', 'body', 'desc', 'breadCrumb'));
+        return view("$this->templatePath.$template", compact('title', 'body', 'desc'));
     }
 }
