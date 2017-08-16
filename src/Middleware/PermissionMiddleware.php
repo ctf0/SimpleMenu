@@ -17,7 +17,7 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, ...$permissions)
     {
-        if (in_array('guest', $permissions)) {
+        if (in_array(config('simpleMenu.defaultPerm'), $permissions)) {
             return $next($request);
         }
 

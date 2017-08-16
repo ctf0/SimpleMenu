@@ -21,14 +21,6 @@ return [
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
-     * where to redirect when a route is available in one locale "en" but not in another "fr" ?
-     *
-     * add
-     * 'home' = '/' (or) 'error' = '404'
-     */
-    'unFoundLocalizedRoute' => 'home',
-
-    /*
      * pages action controller namespace
      */
     'pagesControllerNS' => 'App\Http\Controllers',
@@ -37,6 +29,14 @@ return [
      * the user model we are going to use for the admin page
      */
     'userModel' => App\User::class,
+
+    /*
+     * where to redirect when a route is available in one locale "en" but not in another "fr" ?
+     *
+     * add
+     * 'home' = '/' (or) 'error' = '404'
+     */
+    'unFoundLocalizedRoute' => 'home',
 
     /*
      * when adding a page which is a nest of another to a menu
@@ -81,6 +81,13 @@ return [
      * name = 'admin.pages.*'
      */
     'crud_prefix' => 'admin',
+
+    /*
+     * the default role/permission for the middlewares
+     * if changed, make sure you also have records under your "roles/permissions" tables with the same values.
+     */
+    'defaultRole' => '',
+    'defaultPerm' => '',
 
     /*
      * css farmework for admin pages

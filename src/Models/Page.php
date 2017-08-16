@@ -76,14 +76,14 @@ class Page extends Node
      */
     public function getAncestors($columns = ['*'])
     {
-        return Cache::rememberForever($this->getCrntLocale() . "-{$this->route_name}_ancestors", function () use ($columns) {
+        return Cache::tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_ancestors", function () use ($columns) {
             return $this->ancestors()->get($columns);
         });
     }
 
     public function getNestsAttribute()
     {
-        return Cache::rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
+        return Cache::tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
             return $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
         });
     }

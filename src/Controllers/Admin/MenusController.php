@@ -5,7 +5,6 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 use Illuminate\Http\Request;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\Cache;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\MenuOps;
 
@@ -20,7 +19,7 @@ class MenusController extends BaseController
      */
     public function index()
     {
-        $menus = cache('sm-menus');
+        $menus = $this->cache->tags('sm')->get('menus');
 
         return view("{$this->adminPath}.menus.index", compact('menus'));
     }
@@ -62,7 +61,7 @@ class MenusController extends BaseController
      */
     public function edit($id)
     {
-        $menu = cache('sm-menus')->find($id);
+        $menu = $this->cache->tags('sm')->get('menus')->find($id);
 
         return view("{$this->adminPath}.menus.edit", compact('menu'));
     }

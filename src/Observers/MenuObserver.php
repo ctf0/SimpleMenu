@@ -4,10 +4,8 @@ namespace ctf0\SimpleMenu\Observers;
 
 use ctf0\SimpleMenu\Models\Menu;
 
-class MenuObserver
+class MenuObserver extends BaseObserver
 {
-    use ClearCacheTrait;
-
     /**
      * Listen to the User saved event.
      */
@@ -34,7 +32,6 @@ class MenuObserver
      */
     protected function cleanData($menu)
     {
-        $this->clearCache("{$menu->name}Menu");
-        $this->clearMenusCache();
+        $this->cache->tags('sm')->flush();
     }
 }

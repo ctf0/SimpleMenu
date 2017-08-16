@@ -2,10 +2,6 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
-use ctf0\SimpleMenu\Models\Menu;
-use Illuminate\Support\Facades\Cache;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 trait MenusTrait
 {
     /**
@@ -15,7 +11,7 @@ trait MenusTrait
      */
     public function createMenus()
     {
-        cache('sm-menus')->pluck('name')->each(function ($name) {
+        $this->cache->tags('sm')->get('menus')->pluck('name')->each(function ($name) {
             $this->viewComp($name);
         });
     }
@@ -51,11 +47,11 @@ trait MenusTrait
      */
     public function query($name)
     {
-        $locale = LaravelLocalization::getCurrentLocale();
+        $locale = $this->getCrntLocale();
 
-        if (cache('sm-menus')->isNotEmpty()) {
-            return Cache::rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
-                return collect(cache('sm-menus')->where('name', $name)->first()->pages)
+        if ($this->cache->tags('sm')->get('menus')->isNotEmpty()) {
+            return $this->cache->tags('sm')->rememberForever("{$name}Menu-{$locale}Pages", function () use ($name) {
+                return collect($this->cache->tags('sm')->get('menus')->where('name', $name)->first()->pages)
                     ->sortBy('pivot_order')
                     ->filter(function ($item) {
                         return $item->url != '';

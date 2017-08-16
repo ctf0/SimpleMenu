@@ -16,7 +16,7 @@ class UsersController extends BaseController
      */
     public function index()
     {
-        $users = cache('sm-users');
+        $users = $this->cache->get('sm-users');
 
         return view("{$this->adminPath}.users.index", compact('users'));
     }
@@ -29,7 +29,7 @@ class UsersController extends BaseController
     public function create()
     {
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
 
         return view("{$this->adminPath}.users.create", compact('roles', 'permissions'));
     }
@@ -70,9 +70,9 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user        = cache('sm-users')->find($id);
+        $user        = $this->cache->get('sm-users')->find($id);
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
 
         return view("{$this->adminPath}.users.edit", compact('user', 'roles', 'permissions'));
     }

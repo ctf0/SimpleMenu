@@ -4,7 +4,6 @@ namespace ctf0\SimpleMenu\Traits;
 
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -49,7 +48,7 @@ trait RoutesTrait
      */
     protected function utilLoop()
     {
-        foreach (cache('sm-pages') as $page) {
+        foreach ($this->cache->tags('sm')->get('pages') as $page) {
             $this->pageComp($page);
         }
     }
@@ -70,8 +69,8 @@ trait RoutesTrait
         $routeName = $page->route_name;
 
         // middlewares
-        $roles       = 'role:'.implode(',', $page->roles->pluck('name')->toArray());
-        $permissions = 'perm:'.implode(',', $page->permissions->pluck('name')->toArray());
+        $roles       = 'role:' . implode(',', $page->roles->pluck('name')->toArray());
+        $permissions = 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
         // make route
         $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $breadCrumb);
@@ -89,7 +88,7 @@ trait RoutesTrait
         }
 
         // cache the page so we can pass the page params to the controller@method
-        Cache::rememberForever(LaravelLocalization::getCurrentLocale()."-$routeName", function () use ($template, $title, $body, $desc, $breadCrumb) {
+        $this->cache->tags('sm')->rememberForever($this->getCrntLocale() . "-$routeName", function () use ($template, $title, $body, $desc, $breadCrumb) {
             return compact('template', 'title', 'body', 'desc', 'breadCrumb');
         });
 
@@ -98,7 +97,7 @@ trait RoutesTrait
         // dynamic
         if ($action) {
             Route::get($route)
-                ->uses(config('simpleMenu.pagesControllerNS').'\\'.$action)
+                ->uses(config('simpleMenu.pagesControllerNS') . '\\' . $action)
                 ->name($routeName)
                 ->middleware([$roles, $permissions]);
         }
@@ -145,7 +144,7 @@ trait RoutesTrait
 
     protected function saveRoutesListToFile($routes)
     {
-        $data = "<?php\n\nreturn ".var_export($routes, true).';';
+        $data = "<?php\n\nreturn " . var_export($routes, true) . ';';
         $data = $this->clearExtraSlash($data);
 
         // array(...) to [...]

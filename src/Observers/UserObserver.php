@@ -2,9 +2,7 @@
 
 namespace ctf0\SimpleMenu\Observers;
 
-use Illuminate\Support\Facades\Cache;
-
-class UserObserver
+class UserObserver extends BaseObserver
 {
     /**
      * Listen to the User saved event.
@@ -31,6 +29,6 @@ class UserObserver
      */
     protected function cleanData()
     {
-        Cache::forget('sm-users');
+        $this->cache->forget('sm-users');
     }
 }

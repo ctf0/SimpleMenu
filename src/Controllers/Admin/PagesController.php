@@ -5,7 +5,6 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 use Illuminate\Http\Request;
 use ctf0\SimpleMenu\Models\Page;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Cache;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
 
@@ -20,7 +19,7 @@ class PagesController extends BaseController
      */
     public function index()
     {
-        $pages = cache('sm-pages');
+        $pages = $this->cache->tags('sm')->get('pages');
 
         return view("{$this->adminPath}.pages.index", compact('pages'));
     }
@@ -33,8 +32,8 @@ class PagesController extends BaseController
     public function create()
     {
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
-        $menus       = cache('sm-menus')->pluck('name', 'id');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
 
         return view("{$this->adminPath}.pages.create", compact('roles', 'permissions', 'menus'));
     }
@@ -72,9 +71,9 @@ class PagesController extends BaseController
     public function edit($id)
     {
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
-        $page        = cache('sm-pages')->find($id);
-        $menus       = cache('sm-menus')->pluck('name', 'id');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $page        = $this->cache->tags('sm')->get('pages')->find($id);
+        $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
 
         return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus'));
     }

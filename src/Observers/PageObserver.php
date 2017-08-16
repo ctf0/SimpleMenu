@@ -4,9 +4,8 @@ namespace ctf0\SimpleMenu\Observers;
 
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Cache;
 
-class PageObserver
+class PageObserver extends BaseObserver
 {
     /**
      * Listen to the User saved event.
@@ -43,7 +42,6 @@ class PageObserver
         File::delete(config('simpleMenu.routeListPath'));
 
         // clear all cache
-        // due to issues with baum\node
-        Cache::flush();
+        $this->cache->tags('sm')->flush();
     }
 }

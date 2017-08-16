@@ -5,9 +5,12 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use ctf0\SimpleMenu\Controllers\BaseController;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\RolePermOps;
 
 class RolesController extends BaseController
 {
+    use RolePermOps;
+
     /**
      * Display a listing of Role.
      *
@@ -27,7 +30,7 @@ class RolesController extends BaseController
      */
     public function create()
     {
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.create", compact('permissions'));
     }
@@ -63,7 +66,7 @@ class RolesController extends BaseController
     public function edit($id)
     {
         $role        = Role::find($id);
-        $permissions = cache('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.edit", compact('role', 'permissions'));
     }
@@ -88,6 +91,8 @@ class RolesController extends BaseController
         $role->update($request->except('permissions'));
         $role->syncPermissions($permissions);
 
+        $this->clearCache();
+
         return redirect()->route($this->crud_prefix . '.roles.index');
     }
 
@@ -101,6 +106,8 @@ class RolesController extends BaseController
     public function destroy($id, Request $request)
     {
         Role::find($id)->delete();
+
+        $this->clearCache();
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);

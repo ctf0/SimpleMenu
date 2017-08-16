@@ -107,7 +107,7 @@ trait NavigationTrait
 
     public function getRouteData($name)
     {
-        return cache($this->getCrntLocale() . "-$name");
+        return $this->cache->tags('sm')->get($this->getCrntLocale() . "-$name");
     }
 
     public function getBC()

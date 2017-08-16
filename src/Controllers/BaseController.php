@@ -10,9 +10,11 @@ class BaseController extends Controller
     protected $adminPath;
     protected $userModel;
     protected $crud_prefix;
+    protected $cache;
 
     public function __construct()
     {
+        $this->cache        = app()['cache'];
         $fw                 = config('simpleMenu.framework');
         $this->adminPath    = "SimpleMenu::admin.{$fw}";
         $this->templatePath = config('simpleMenu.templatePath');

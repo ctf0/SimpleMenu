@@ -5,9 +5,12 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\RolePermOps;
 
 class PermissionsController extends BaseController
 {
+    use RolePermOps;
+
     /**
      * Display a listing of Permission.
      *
@@ -15,7 +18,7 @@ class PermissionsController extends BaseController
      */
     public function index()
     {
-        $permissions = cache('spatie.permission.cache');
+        $permissions = $this->cache->get('spatie.permission.cache');
 
         return view("{$this->adminPath}.permissions.index", compact('permissions'));
     }
@@ -57,7 +60,7 @@ class PermissionsController extends BaseController
      */
     public function edit($id)
     {
-        $permission = cache('spatie.permission.cache')->find($id);
+        $permission = $this->cache->get('spatie.permission.cache')->find($id);
 
         return view("{$this->adminPath}.permissions.edit", compact('permission'));
     }
@@ -78,6 +81,8 @@ class PermissionsController extends BaseController
 
         Permission::find($id)->update($request->all());
 
+        $this->clearCache();
+
         return redirect()->route($this->crud_prefix . '.permissions.index');
     }
 
@@ -91,6 +96,8 @@ class PermissionsController extends BaseController
     public function destroy($id, Request $request)
     {
         Permission::find($id)->delete();
+
+        $this->clearCache();
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);
