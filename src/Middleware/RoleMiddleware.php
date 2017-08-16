@@ -17,7 +17,7 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, ...$roles)
     {
-        if (in_array(config('simpleMenu.defaultPerm'), $roles)) {
+        if (empty(array_filter($roles))) {
             return $next($request);
         }
 

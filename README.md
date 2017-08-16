@@ -119,12 +119,6 @@ return [
     'crud_prefix' => 'admin',
 
     /*
-     * the default role/permission for the middlewares
-     */
-    'defaultRole' => '',
-    'defaultPerm' => '',
-
-    /*
      * css farmework for admin pages
      */
     'framework' => 'bulma',

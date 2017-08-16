@@ -83,13 +83,6 @@ return [
     'crud_prefix' => 'admin',
 
     /*
-     * the default role/permission for the middlewares
-     * if changed, make sure you also have records under your "roles/permissions" tables with the same values.
-     */
-    'defaultRole' => '',
-    'defaultPerm' => '',
-
-    /*
      * css farmework for admin pages
      */
     'framework' => 'bulma',
