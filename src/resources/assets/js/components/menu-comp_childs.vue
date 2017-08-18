@@ -38,19 +38,13 @@
 
 <script>
 import draggable from 'vuedraggable'
+import menu from './mixins/menu'
 
 export default {
     components: {draggable},
     name: 'menu-child',
-    props: ['pages', 'allPages', 'locale', 'delChild', 'childs'],
-    data() {
-        return {
-            isDragging: false
-        }
-    },
-    created() {
-        this.eventsListeners()
-    },
+    mixins: [menu],
+    props: ['pages', 'allPages', 'childs'],
     methods: {
         deleteChild(item) {
             $.post(this.delChild, {
@@ -71,12 +65,6 @@ export default {
                     EventHub.fire('updatePagesHierarchy')
                 }
             })
-        },
-        getTitle(title) {
-            let locale = this.locale
-            let v = Object.keys(title).indexOf(locale)
-
-            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
 
         // operations
@@ -113,20 +101,6 @@ export default {
                 EventHub.fire('updatePagesHierarchy')
             }
         },
-        classObj(item) {
-            if (this.checkFrom(item)) {
-                return 'is-warning'
-            }
-            if (item.created_at == null) {
-                return 'is-danger'
-            }
-        },
-        arrowObj(item) {
-            if (this.hasChilds(item)) {
-                return 'fa-caret-down'
-            }
-            return 'fa-caret-right'
-        },
 
         // nests
         dragStart() {
@@ -136,9 +110,6 @@ export default {
         dragEnd() {
             this.isDragging = false
             EventHub.fire('childDragEnd')
-        },
-        hasChilds(item) {
-            return item.nests && item.nests.length > 0
         }
     }
 }

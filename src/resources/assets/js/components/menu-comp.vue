@@ -3,21 +3,21 @@
 <script>
 import draggable from 'vuedraggable'
 import MenuChild from './menu-comp_childs.vue'
+import menu from './mixins/menu'
 
 export default {
     components: {draggable, MenuChild},
-    props: ['getMenuPages', 'delPage', 'delChild', 'locale'],
+    mixins: [menu],
+    props: ['getMenuPages', 'delPage'],
     data() {
         return {
             pages: [],
             allPages: [],
-            saveList: [],
-            isDragging: false
+            saveList: []
         }
     },
     created() {
         this.getPages()
-        this.eventsListeners()
     },
     methods: {
         getPages() {
@@ -43,12 +43,6 @@ export default {
                     })
                 }
             })
-        },
-        getTitle(title) {
-            let locale = this.locale
-            let v = Object.keys(title).indexOf(locale)
-
-            return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
 
         // operations
@@ -91,21 +85,6 @@ export default {
                 e.moved.element.created_at = null
             }
         },
-        classObj(item) {
-            if (this.checkFrom(item)) {
-                return 'is-warning'
-            }
-            if (item.created_at == null) {
-                return 'is-danger'
-            }
-        },
-        arrowObj(item) {
-            if (this.hasChilds(item)) {
-                return 'fa-caret-down'
-            }
-
-            return 'fa-caret-right'
-        },
 
         // nests
         dragStart() {
@@ -115,9 +94,6 @@ export default {
         dragEnd() {
             this.isDragging = false
             EventHub.fire('parentDragEnd')
-        },
-        hasChilds(item) {
-            return item.nests && item.nests.length > 0
         },
         loop(item) {
             let childs = []
