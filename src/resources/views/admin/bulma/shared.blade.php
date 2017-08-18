@@ -48,7 +48,7 @@
                             <li>
                                 <a class="{{ URL::is($crud_prefix.'.menus.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
                                 <ul>
-                                    @foreach (Cache::tags('sm')->get('menus') as $menu)
+                                    @foreach (app()['cache']->tags('sm')->get('menus') as $menu)
                                         <li data-id="menu-{{ $menu->id }}">
                                             <a class="{{ URL::is($crud_prefix.'.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
