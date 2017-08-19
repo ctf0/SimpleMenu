@@ -19,6 +19,9 @@ export default {
     created() {
         this.getPages()
     },
+    updated() {
+        admin_sticky_sidebar()
+    },
     methods: {
         getPages() {
             $.get(this.getMenuPages, (res) => {
@@ -63,14 +66,6 @@ export default {
                     this.allPages = res.allPages.filter((x) => this.pages.indexOf(x) < 0 )
                 })
             })
-
-            EventHub.listen('childDragStart', () => {
-                this.isDragging = true
-            })
-
-            EventHub.listen('childDragEnd', () => {
-                this.isDragging = false
-            })
         },
 
         // styling
@@ -87,14 +82,6 @@ export default {
         },
 
         // nests
-        dragStart() {
-            this.isDragging = true
-            EventHub.fire('parentDragStart')
-        },
-        dragEnd() {
-            this.isDragging = false
-            EventHub.fire('parentDragEnd')
-        },
         loop(item) {
             let childs = []
 

@@ -15,6 +15,22 @@ export default {
 
             return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
+
+        // ops
+        eventsListeners() {
+            EventHub.listen('DragStart', () => {
+                this.isDragging = true
+            })
+
+            EventHub.listen('DragEnd', () => {
+                this.isDragging = false
+            })
+        },
+        hasChilds(item) {
+            return item.nests && item.nests.length > 0
+        },
+
+        // style
         classObj(item) {
             if (this.checkFrom(item)) {
                 return 'is-warning'
@@ -30,8 +46,16 @@ export default {
 
             return 'fa-caret-right'
         },
-        hasChilds(item) {
-            return item.nests && item.nests.length > 0
+
+        // nests
+        dragStart() {
+            this.isDragging = true
+            EventHub.fire('DragStart')
+        },
+        dragEnd() {
+            this.isDragging = false
+            EventHub.fire('DragEnd')
         }
+
     }
 }

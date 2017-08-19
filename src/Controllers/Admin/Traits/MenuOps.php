@@ -17,9 +17,11 @@ trait MenuOps
      */
     public function getMenuPages($id)
     {
-        $pages = $this->cache->tags('sm')->get('menus')->find($id)->pages()->orderBy('pivot_order', 'asc')->get()->each(function ($item) {
-            $item['from'] = 'pages';
-        });
+        $pages = collect($this->cache->tags('sm')->get('menus')->find($id)->pages)
+                ->sortBy('pivot_order')
+                ->each(function ($item) {
+                    $item['from'] = 'pages';
+                });
 
         $allPages = $this->cache->tags('sm')->get('pages')->diff($pages)->each(function ($item) {
             $item['from'] = 'allPages';

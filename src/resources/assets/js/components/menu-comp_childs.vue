@@ -78,15 +78,6 @@ export default {
         pushBackToList(item) {
             return item.from == 'pages' ? this.pages.unshift(item) : this.allPages.unshift(item)
         },
-        eventsListeners() {
-            EventHub.listen('parentDragStart', () => {
-                this.isDragging = true
-            })
-
-            EventHub.listen('parentDragEnd', () => {
-                this.isDragging = false
-            })
-        },
 
         // styling
         updateList(e) {
@@ -100,16 +91,6 @@ export default {
             if (e.moved || e.removed || e.added && e.added.element.from == 'allPages') {
                 EventHub.fire('updatePagesHierarchy')
             }
-        },
-
-        // nests
-        dragStart() {
-            this.isDragging = true
-            EventHub.fire('childDragStart')
-        },
-        dragEnd() {
-            this.isDragging = false
-            EventHub.fire('childDragEnd')
         }
     }
 }
