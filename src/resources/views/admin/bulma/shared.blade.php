@@ -48,7 +48,7 @@
                             <li>
                                 <a class="{{ URL::is($crud_prefix.'.menus.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
                                 <ul>
-                                    @foreach (app()['cache']->tags('sm')->get('menus') as $menu)
+                                    @foreach (app('cache')->tags('sm')->get('menus') as $menu)
                                         <li data-id="menu-{{ $menu->id }}">
                                             <a class="{{ URL::is($crud_prefix.'.menus.edit',['id'=>$menu->id]) ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}">{{ $menu->name }}</a>
                                         </li>
@@ -80,8 +80,8 @@
         tinymce.overrideDefaults({
             menubar: false,
             branding: false,
-            height : "120",
-            plugins: "lists link image spellchecker fullscreen media table preview contextmenu autoresize",
+            height : '120',
+            plugins: 'lists link image spellchecker fullscreen media table preview contextmenu autoresize',
             toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen'
         })
     </script>

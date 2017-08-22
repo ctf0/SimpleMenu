@@ -37,13 +37,14 @@
 // nest
 .menu-item {
     padding: 0.5em;
+    padding-left: 1em;
     margin-bottom: 0.5em !important;
 }
 .menu-list {
     line-height: inherit;
 }
 .dragArea {
-    min-height: 35px;
+    min-height: 25px;
     display: block;
 }
 .notification > .delete {

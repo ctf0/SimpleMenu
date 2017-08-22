@@ -9,7 +9,6 @@
         <li v-for="item in childs" :key="item.id">
             <!-- main -->
             <div class="notification is-dark menu-item" :class="classObj(item)">
-                <span class="icon is-small"><i class="fa" :class="arrowObj(item)"></i></span>
                 <span>{{ getTitle(item.title) }}</span>
 
                 <!-- ops -->

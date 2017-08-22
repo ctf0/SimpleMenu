@@ -23,12 +23,12 @@ class UserObserver extends BaseObserver
     /**
      * helpers.
      *
-     * @param [type] $menu [description]
-     *
      * @return [type] [description]
      */
     protected function cleanData()
     {
         $this->cache->forget('sm-users');
+
+        event('sm-users.cleared');
     }
 }

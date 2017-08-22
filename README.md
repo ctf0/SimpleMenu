@@ -130,3 +130,17 @@ return [
 
 ### Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
+
+### Events
+- in case you are using some package that caches the response and you need to invalidate the cache when any of the package **CRUD** operations is fired, you can listen to
+    + `sm-menus.cleared`
+    + `sm-pages.cleared`
+    + `sm-users.cleared`
+    + `sm-perms.cleared`
+
+    and you can listen to all through
+    ```php
+    Event::listen('sm-*', function () {
+        // do something
+    });
+    ```

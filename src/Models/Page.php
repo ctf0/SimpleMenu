@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -76,15 +75,15 @@ class Page extends Node
      */
     public function getAncestors($columns = ['*'])
     {
-        return Cache::tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_ancestors", function () use ($columns) {
+        return app('cache')->tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_ancestors", function () use ($columns) {
             return $this->ancestors()->get($columns);
         });
     }
 
     public function getNestsAttribute()
     {
-        return Cache::tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
-            return $childs = array_flatten(current($this->getDescendants()->toHierarchy()));
+        return app('cache')->tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
+            return array_flatten(current($this->getDescendants()->toHierarchy()));
         });
     }
 

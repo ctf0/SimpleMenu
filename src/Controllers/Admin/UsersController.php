@@ -47,8 +47,6 @@ class UsersController extends BaseController
             'name'        => 'required',
             'email'       => 'required|email|unique:users,email',
             'password'    => 'required',
-            'roles'       => 'required',
-            'permissions' => 'required',
         ]);
 
         $user        = $this->userModel->create($request->except(['roles', 'permissions']));
@@ -90,8 +88,6 @@ class UsersController extends BaseController
         $this->validate($request, [
             'name'        => 'required',
             'email'       => 'required|email|unique:users,email,' . $id,
-            'roles'       => 'required',
-            'permissions' => 'required',
         ]);
 
         $user        = $this->userModel->find($id);

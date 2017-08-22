@@ -7,5 +7,7 @@ trait RolePermOps
     protected function clearCache()
     {
         $this->cache->tags('sm')->flush();
+
+        event('sm-perms.cleared');
     }
 }

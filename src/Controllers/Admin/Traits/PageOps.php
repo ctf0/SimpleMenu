@@ -26,8 +26,6 @@ trait PageOps
         $validator = Validator::make($request->all(), [
             'template'    => 'required_without:action',
             'route_name'  => $routename,
-            'roles'       => 'required',
-            'permissions' => 'required',
         ]);
 
         // because laravel still pretty fucked up when it comes to showing array input errors

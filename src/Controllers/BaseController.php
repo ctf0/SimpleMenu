@@ -14,7 +14,11 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        $this->cache        = app()['cache'];
+        if (is_callable('parent::__construct')) {
+            parent::__construct();
+        }
+
+        $this->cache        = app('cache');
         $fw                 = config('simpleMenu.framework');
         $this->adminPath    = "SimpleMenu::admin.{$fw}";
         $this->templatePath = config('simpleMenu.templatePath');

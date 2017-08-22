@@ -39,13 +39,6 @@ export default {
                 return 'is-danger'
             }
         },
-        arrowObj(item) {
-            if (this.hasChilds(item)) {
-                return 'fa-caret-down'
-            }
-
-            return 'fa-caret-right'
-        },
 
         // nests
         dragStart() {

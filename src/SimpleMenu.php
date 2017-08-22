@@ -4,6 +4,7 @@ namespace ctf0\SimpleMenu;
 
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
+use Illuminate\Support\Facades\File;
 use ctf0\SimpleMenu\Traits\MenusTrait;
 use ctf0\SimpleMenu\Traits\RoutesTrait;
 use ctf0\SimpleMenu\Traits\NavigationTrait;
@@ -20,9 +21,11 @@ class SimpleMenu
 
     public function __construct()
     {
-        $this->cache        = app()['cache'];
+        $this->cache        = app('cache');
         $this->listFileDir  = config('simpleMenu.routeListPath');
         $this->localeCodes  = array_keys(LaravelLocalization::getSupportedLocales());
+
+        static::create_LFD($this->listFileDir);
 
         if (!app()->runningInConsole()) {
             // create caches
@@ -36,6 +39,9 @@ class SimpleMenu
         }
     }
 
+    /**
+     * locales.
+     */
     public function AppLocales()
     {
         return $this->localeCodes;
@@ -46,6 +52,11 @@ class SimpleMenu
         return LaravelLocalization::getCurrentLocale();
     }
 
+    /**
+     * cacheing.
+     *
+     * @return [type] [description]
+     */
     protected function createCaches()
     {
         $this->cache->tags('sm')->rememberForever('menus', function () {
@@ -59,5 +70,20 @@ class SimpleMenu
         $this->cache->rememberForever('sm-users', function () {
             return app(config('simpleMenu.userModel'))->get();
         });
+    }
+
+    /**
+     * route list dir.
+     *
+     * @param mixed $dir
+     */
+    protected static function create_LFD($dir)
+    {
+        $file_name = substr(strrchr($dir, '/'), 1);
+        $dir_only  = str_replace($file_name, '', $dir);
+
+        if (!File::exists($dir_only)) {
+            return File::makeDirectory($dir_only, 0755, true);
+        }
     }
 }

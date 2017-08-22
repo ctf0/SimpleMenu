@@ -45,7 +45,6 @@
                     <li v-for="item in pages" :key="item.id">
                         {{-- main --}}
                         <div class="notification is-info menu-item" :class="classObj(item)">
-                            <span class="icon is-small"><i class="fa" :class="arrowObj(item)"></i></span>
                             <span>@{{ getTitle(item.title) }}</span>
 
                             {{-- ops --}}
@@ -72,7 +71,6 @@
                     @start="dragStart"
                     @end="dragEnd">
                     <li v-for="item in allPages" :key="item.id" class="notification is-info menu-item">
-                        <span class="icon is-small"><i class="fa fa-caret-right"></i></span>
                         <span>@{{ getTitle(item.title) }}</span>
                     </li>
                 </draggable>

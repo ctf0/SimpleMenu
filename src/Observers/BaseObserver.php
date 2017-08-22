@@ -8,6 +8,6 @@ class BaseObserver
 
     public function __construct()
     {
-        $this->cache = app()['cache'];
+        $this->cache = app('cache');
     }
 }

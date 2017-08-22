@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 class PageObserver extends BaseObserver
 {
     /**
-     * Listen to the User saved event.
+     * Listen to the Page saved event.
      */
     public function saved(Page $page)
     {
@@ -16,7 +16,7 @@ class PageObserver extends BaseObserver
     }
 
     /**
-     * Listen to the User deleted event.
+     * Listen to the Page deleted event.
      */
     public function deleted(Page $page)
     {
@@ -26,8 +26,7 @@ class PageObserver extends BaseObserver
     /**
      * helpers.
      *
-     * @param [type] $menu [description]
-     * @param mixed  $page
+     * @param [type] $page [description]
      *
      * @return [type] [description]
      */
@@ -43,5 +42,7 @@ class PageObserver extends BaseObserver
 
         // clear all cache
         $this->cache->tags('sm')->flush();
+
+        event('sm-pages.cleared');
     }
 }

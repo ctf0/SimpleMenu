@@ -2,36 +2,33 @@
 
 namespace ctf0\SimpleMenu\Observers;
 
-use ctf0\SimpleMenu\Models\Menu;
-
 class MenuObserver extends BaseObserver
 {
     /**
-     * Listen to the User saved event.
+     * Listen to the Menu saved event.
      */
-    public function saved(Menu $menu)
+    public function saved()
     {
-        return $this->cleanData($menu);
+        return $this->cleanData();
     }
 
     /**
-     * Listen to the User deleted event.
+     * Listen to the Menu deleted event.
      */
-    public function deleted(Menu $menu)
+    public function deleted()
     {
-        return $this->cleanData($menu);
+        return $this->cleanData();
     }
 
     /**
      * helpers.
      *
-     * @param [type] $menu [description]
-     * @param mixed  $page
-     *
      * @return [type] [description]
      */
-    protected function cleanData($menu)
+    protected function cleanData()
     {
         $this->cache->tags('sm')->flush();
+
+        event('sm-menus.cleared');
     }
 }
