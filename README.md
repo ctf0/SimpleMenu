@@ -35,7 +35,7 @@
 ]
 ```
 
-- the package relay heavily on caching through **Redis**, so make sure to check the [docs](https://laravel.com/docs/5.4/redis) for installation & configuration.
+- the package rely heavily on caching through **Redis**, so make sure to check the [docs](https://laravel.com/docs/5.4/redis) for installation & configuration.
 
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
