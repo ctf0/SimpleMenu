@@ -1,4 +1,4 @@
-@extends('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
+@extends("SimpleMenu::admin.$css_fw.shared")
 @section('title'){{ 'Roles' }}@endsection
 
 @section('sub')

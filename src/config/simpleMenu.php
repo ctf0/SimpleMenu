@@ -84,6 +84,8 @@ return [
 
     /*
      * css farmework for admin pages
+     * ex.
+     * MIX_SM_FRAMEWORK=bulma
      */
-    'framework' => 'bulma',
+    'framework'=> env('MIX_SM_FRAMEWORK'),
 ];

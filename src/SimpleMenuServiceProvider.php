@@ -97,6 +97,10 @@ class SimpleMenuServiceProvider extends ServiceProvider
 
             return request()->url() == route($route_name);
         });
+
+        URL::macro('has', function ($needle) {
+            return str_contains($this->current(), $needle);
+        });
     }
 
     /**
@@ -108,6 +112,10 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         view()->composer('SimpleMenu::admin.*', function ($view) {
             $view->with(['crud_prefix' => config('simpleMenu.crud_prefix')]);
+        });
+
+        view()->composer('SimpleMenu::admin.*', function ($view) {
+            $view->with(['css_fw' => config('simpleMenu.framework')]);
         });
     }
 

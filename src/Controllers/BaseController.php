@@ -19,11 +19,10 @@ class BaseController extends Controller
         }
 
         $this->cache        = app('cache');
-        $fw                 = config('simpleMenu.framework');
-        $this->adminPath    = "SimpleMenu::admin.{$fw}";
+        $css_fw             = config('simpleMenu.framework');
+        $this->adminPath    = "SimpleMenu::admin.$css_fw";
         $this->templatePath = config('simpleMenu.templatePath');
         $this->crud_prefix  = config('simpleMenu.crud_prefix');
-
         $this->userModel    = app(config('simpleMenu.userModel'));
     }
 }

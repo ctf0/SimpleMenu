@@ -5,6 +5,6 @@ $.ajaxSetup({
     }
 })
 
-Vue.component('PageComp', require('./components/page-comp.vue'))
-Vue.component('MenuComp', require('./components/menu-comp.vue'))
-Vue.component('IndexComp', require('./components/index-comp.vue'))
+Vue.component('PageComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/page-comp.vue'))
+Vue.component('MenuComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu-comp.vue'))
+Vue.component('IndexComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/index-comp.vue'))

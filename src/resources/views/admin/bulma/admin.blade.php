@@ -1,1 +1,1 @@
-@include('SimpleMenu::admin.'.config('simpleMenu.framework').'.shared')
+@include("SimpleMenu::admin.$css_fw.shared")

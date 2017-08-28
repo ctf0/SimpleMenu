@@ -38,15 +38,15 @@
         <div class="container">
             <div class="columns">
                 {{-- Sidebar --}}
-                <div class="column">
+                <div class="column is-2">
                     <aside class="menu">
                         <ul class="menu-list">
-                            <li><a class="{{ URL::is($crud_prefix.'.users.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.users.index') }}">Users</a></li>
-                            <li><a class="{{ URL::is($crud_prefix.'.roles.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.roles.index') }}">Roles</a></li>
-                            <li><a class="{{ URL::is($crud_prefix.'.permissions.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.permissions.index') }}">Permissions</a></li>
-                            <li><a class="{{ URL::is($crud_prefix.'.pages.index')  ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.pages.index') }}">Pages</a></li>
+                            <li><a class="{{ URL::has("$crud_prefix/users") ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.users.index') }}">Users</a></li>
+                            <li><a class="{{ URL::has("$crud_prefix/roles") ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.roles.index') }}">Roles</a></li>
+                            <li><a class="{{ URL::has("$crud_prefix/permissions") ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.permissions.index') }}">Permissions</a></li>
+                            <li><a class="{{ URL::has("$crud_prefix/pages")  ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.pages.index') }}">Pages</a></li>
                             <li>
-                                <a class="{{ URL::is($crud_prefix.'.menus.index') ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
+                                <a class="{{ URL::has("$crud_prefix/menus") ? 'is-active' : '' }}" href="{{ route($crud_prefix.'.menus.index') }}">Menus</a>
                                 <ul>
                                     @foreach (app('cache')->tags('sm')->get('menus') as $menu)
                                         <li data-id="menu-{{ $menu->id }}">
@@ -60,7 +60,7 @@
                 </div>
 
                 {{-- Pages --}}
-                <div class="column">
+                <div class="column is-10">
                     @yield('sub')
                 </div>
             </div>
