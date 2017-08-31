@@ -19,8 +19,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
 {
     protected $packagesSP = [
         \Baum\Providers\BaumServiceProvider::class,
-        \Spatie\Translatable\TranslatableServiceProvider::class,
-        \Spatie\Permission\PermissionServiceProvider::class,
         \Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
     ];
 
