@@ -5,7 +5,6 @@ namespace ctf0\SimpleMenu;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
@@ -19,7 +18,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
 {
     protected $packagesSP = [
         \Baum\Providers\BaumServiceProvider::class,
-        \Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
     ];
 
     /**
@@ -151,8 +149,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function regPA()
     {
         $this->app->alias('simplemenu', SimpleMenu::class);
-
-        AliasLoader::getInstance()->alias('LaravelLocalization', 'Mcamara\LaravelLocalization\Facades\LaravelLocalization');
     }
 
     /**
