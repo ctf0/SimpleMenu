@@ -1,5 +1,3 @@
-<template></template>
-
 <script>
 import draggable from 'vuedraggable'
 import MenuChild from './menu-comp_childs.vue'
@@ -151,6 +149,7 @@ export default {
                 this.updatePages(val)
             })
         }
-    }
+    },
+    render () {}
 }
 </script>

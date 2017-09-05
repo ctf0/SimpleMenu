@@ -1,5 +1,3 @@
-<template></template>
-
 <script>
 export default {
     props: ['count'],
@@ -38,6 +36,7 @@ export default {
                 }
             })
         }
-    }
+    },
+    render () {}
 }
 </script>

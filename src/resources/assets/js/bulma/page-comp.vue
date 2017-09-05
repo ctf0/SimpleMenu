@@ -1,5 +1,3 @@
-<template></template>
-
 <script>
 export default {
     props: ['SelectFirst'],
@@ -56,6 +54,7 @@ export default {
         desc(newVal, oldVal) {
             this.toggleTinyMce('desc', newVal, oldVal)
         }
-    }
+    },
+    render () {}
 }
 </script>
