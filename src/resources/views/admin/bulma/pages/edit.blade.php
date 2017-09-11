@@ -17,10 +17,10 @@
         <div>
             {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id]]) }}
 
-                {{-- Header --}}
+                {{-- Control --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Header</h3>
+                        <h3 class="title">Control</h3>
                     </div>
                     <div class="column is-10">
                         {{-- action --}}

@@ -89,7 +89,7 @@ return [
      *
      * do you want to clear its parent and make it a root ?
      */
-    'clearPartialyNestedParent'=> true,
+    'clearPartialyNestedParent' => true,
 
     /*
      * when removing a root page from a menu, ex.
@@ -121,7 +121,7 @@ return [
     /*
      * css farmework for admin pages
      */
-    'framework'=> env('MIX_SM_FRAMEWORK'),
+    'framework' => env('MIX_SM_FRAMEWORK'),
 ];
 ```
 

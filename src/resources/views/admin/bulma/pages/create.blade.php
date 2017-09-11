@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title'){{ 'Create new Page' }}@endsection
+@section('title', 'Create new Page')
 
 @php
     $locales = SimpleMenu::AppLocales();
@@ -15,10 +15,10 @@
         <div>
             {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store']) }}
 
-                {{-- Header --}}
+                {{-- Control --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Header</h3>
+                        <h3 class="title">Control</h3>
                     </div>
                     <div class="column is-10">
                         {{-- action --}}

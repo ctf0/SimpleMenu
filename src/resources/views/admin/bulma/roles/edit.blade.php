@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title'){{ "Edit '$role->name'" }}@endsection
+@section('title', "Edit '$role->name'")
 
 @section('sub')
     <h3 class="title">

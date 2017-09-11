@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title'){{ 'Roles' }}@endsection
+@section('title', 'Roles')
 
 @section('sub')
 

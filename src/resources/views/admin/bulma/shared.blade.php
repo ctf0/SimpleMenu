@@ -72,8 +72,7 @@
         // role & perm
         $('.select2').select2({
             placeholder: 'Select an option',
-            allowClear: true,
-            tag: true
+            allowClear: true
         })
 
         // body & desc
