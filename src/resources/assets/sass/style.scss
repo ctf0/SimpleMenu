@@ -1,3 +1,14 @@
+// notifications
+.notif-container {
+    padding: 0 0 4rem;
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
+    bottom: 0;
+    z-index: 100;
+    overflow: scroll;
+}
+
 // select2
 .select2 {
     width: 100% !important;
@@ -14,12 +25,15 @@
     right: 0;
     z-index: 1;
     opacity: 0.3;
+
     &:hover {
         opacity: 1;
     }
+
     &:after {
         display: none !important;
     }
+
     select {
         padding: 0.40rem 0.5rem 0.5rem !important;
         font-weight: bold;
@@ -33,6 +47,7 @@
 .mce-path {
     display: none !important;
 }
+
 div.mce-edit-area {
     border-right-width: 1px !important;
 }
@@ -43,19 +58,24 @@ div.mce-edit-area {
     padding-left: 1em;
     margin-bottom: 0.5em !important;
 }
+
 .menu-list {
     line-height: inherit;
 }
+
 .dragArea {
     min-height: 25px;
     display: block;
 }
+
 .notification > .delete {
     top: 0.45em;
 }
+
 .ghost {
     opacity: 1;
 }
+
 .is-white {
     color: white;
 }

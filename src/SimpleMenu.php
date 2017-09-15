@@ -81,11 +81,10 @@ class SimpleMenu
      */
     protected static function create_LFD($dir)
     {
-        $file_name = substr(strrchr($dir, '/'), 1);
-        $dir_only  = str_replace($file_name, '', $dir);
+        $dir_name = dirname($dir);
 
-        if (!File::exists($dir_only)) {
-            return File::makeDirectory($dir_only, 0755, true);
+        if (!File::exists($dir_name)) {
+            return File::makeDirectory($dir_name, 0755, true);
         }
     }
 }

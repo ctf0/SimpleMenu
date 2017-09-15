@@ -9,21 +9,11 @@
     > - Menu Nested Set
     >   - https://github.com/gazsp/baum
 
-- Javascript
-    + [jQuery](https://jquery.com/) (cdn)
-    + [select2](https://select2.github.io/) (cdn)
-    + [tinymce](https://www.tinymce.com/) (cdn)
-    + [Vue](https://vuejs.org/)
-    + [vuedraggable](https://github.com/SortableJS/Vue.Draggable)
-    + [notification-component](https://github.com/ctf0/Notification-Component)
-
 ## Installation
 
 - `composer require ctf0/simple-menu`
 
-- add the service provider & facade to `config/app.php`
-
-    - all the package dependencies "serviceProvider & aliases" are registerd with the package.
+- (Laravel < 5.5) add the service provider & facade to `config/app.php`
 
 ```php
 'providers' => [
@@ -40,6 +30,14 @@
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
     - also check the **Dependencies** packages for "configuration/options/migrations".
+
+- install JS dependencies
+
+```bash
+yarn add vue vuemit vuedraggable
+# or
+npm install vue vuemit vuedraggable
+```
 
 ## Config
 **config/simpleMenu.php**

@@ -21,7 +21,8 @@
         "gazsp/baum": "^1.1",
         "mcamara/laravel-localization": "^1.2",
         "spatie/laravel-permission": "^2.5",
-        "spatie/laravel-translatable": "^2.0"
+        "spatie/laravel-translatable": "^2.0",
+        "ctf0/package-changelog": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +37,8 @@
             "aliases": {
                 "SimpleMenu": "ctf0\\SimpleMenu\\Facade\\SimpleMenu"
             }
-        }
+        },
+        "changeLog": "logs"
     },
     "config": {
         "sort-packages": true

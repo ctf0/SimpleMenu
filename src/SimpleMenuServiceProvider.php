@@ -18,6 +18,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
 {
     protected $packagesSP = [
         \Baum\Providers\BaumServiceProvider::class,
+        \ctf0\PackageChangeLog\PackageChangeLogServiceProvider::class,
     ];
 
     /**
