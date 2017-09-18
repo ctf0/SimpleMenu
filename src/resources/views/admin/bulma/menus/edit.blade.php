@@ -3,7 +3,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route($crud_prefix.'.menus.index') }}">Go Back</a>
+        <a href="{{ url()->previous() }}">Go Back</a>
     </h3>
 
     <menu-comp inline-template
@@ -80,4 +80,4 @@
         {{ Form::close() }}
     </div>
 </menu-comp>
-@stop
+@endsection

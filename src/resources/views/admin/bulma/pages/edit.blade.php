@@ -2,14 +2,13 @@
 @section('title')
     Edit "{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}"
 @endsection
-
 @php
     $locales = SimpleMenu::AppLocales();
 @endphp
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route($crud_prefix.'.pages.index') }}">Go Back</a>
+        <a href="{{ url()->previous() }}">Go Back</a>
     </h3>
     <hr>
 
@@ -250,4 +249,4 @@
             {{ Form::close() }}
         </div>
     </page-comp>
-@stop
+@endsection

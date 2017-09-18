@@ -3,7 +3,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route($crud_prefix.'.permissions.index') }}">Go Back</a>
+        <a href="{{ url()->previous() }}">Go Back</a>
     </h3>
 
     {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.permissions.store']) }}
@@ -27,4 +27,4 @@
         </div>
 
     {{ Form::close() }}
-@stop
+@endsection

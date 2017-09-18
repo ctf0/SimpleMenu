@@ -53,4 +53,4 @@
             </table>
         </div>
     </index-comp>
-@stop
+@endsection

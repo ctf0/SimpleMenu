@@ -3,7 +3,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route($crud_prefix.'.roles.index') }}">Go Back</a>
+        <a href="{{ url()->previous() }}">Go Back</a>
     </h3>
 
     {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
@@ -36,4 +36,4 @@
 
         {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
     {{ Form::close() }}
-@stop
+@endsection

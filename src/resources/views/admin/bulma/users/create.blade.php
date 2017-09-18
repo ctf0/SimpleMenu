@@ -3,7 +3,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ route($crud_prefix.'.users.index') }}">Go Back</a>
+        <a href="{{ url()->previous() }}">Go Back</a>
     </h3>
     <hr>
 
@@ -99,4 +99,4 @@
             </div>
         </div>
     {{ Form::close() }}
-@stop
+@endsection
