@@ -172,7 +172,7 @@ export default {
         IsVisible(index) {
             let dur = this.notif_group[index].duration
 
-            if (dur !== undefined) {
+            if (dur) {
                 setTimeout(() => {
                     this.closeNotif(index)
                 }, dur * 1000)
