@@ -172,7 +172,7 @@ export default {
         IsVisible(index) {
             let dur = this.notif_group[index].duration
 
-            if (dur) {
+            if (dur != undefined || dur != null) {
                 setTimeout(() => {
                     this.closeNotif(index)
                 }, dur * 1000)
@@ -183,7 +183,7 @@ export default {
         closeNotif(index) {
             this.notif_group[index].show = false
 
-            if (typeof this.notif_group[index].onClose != 'undefined' && typeof this.notif_group[index].onClose === 'function') {
+            if (typeof this.notif_group[index].onClose !== 'undefined' && typeof this.notif_group[index].onClose === 'function') {
                 this.notif_group[index].onClose()
             }
         },
