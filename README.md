@@ -34,9 +34,9 @@
 - install JS dependencies
 
 ```bash
-yarn add vue vuemit vuedraggable
+yarn add vue vuemit vuedraggable vue-notif
 # or
-npm install vue vuemit vuedraggable
+npm install vue vuemit vuedraggable vue-notif --save
 ```
 
 ## Config
