@@ -4,6 +4,7 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.menus.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
     <menu-comp inline-template
@@ -21,12 +22,12 @@
                 <div class="field has-addons">
                     <div class="control is-expanded">
                         {{ Form::text('name', $menu->name, ['class' => 'input']) }}
+                        @if($errors->has('name'))
+                            <p class="help is-danger">
+                                {{ $errors->first('name') }}
+                            </p>
+                        @endif
                     </div>
-                    @if($errors->has('name'))
-                        <p class="help is-danger">
-                            {{ $errors->first('name') }}
-                        </p>
-                    @endif
                     <div class="control">
                         {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
                     </div>

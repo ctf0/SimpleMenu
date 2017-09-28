@@ -9,6 +9,7 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.pages.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
     <hr>
 

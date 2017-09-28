@@ -4,6 +4,7 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
+        <a href="{{ route($crud_prefix.'.permissions.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
     {{ Form::model($permission, ['method' => 'PUT', 'route' => [$crud_prefix.'.permissions.update', $permission->id]]) }}
