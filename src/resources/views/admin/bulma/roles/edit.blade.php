@@ -4,7 +4,7 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
-        <a href="{{ route($crud_prefix.'.roles.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.roles.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
     </h3>
 
     {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}

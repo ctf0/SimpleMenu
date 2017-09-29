@@ -2,12 +2,11 @@
 @section('title', 'Permissions')
 
 @section('sub')
-
     <index-comp inline-template :count="{{ count($permissions) }}">
         <div>
             <h3 class="title">
                 @lang('SimpleMenu::messages.permissions.title') "<span>@{{ itemsCount }}</span>"
-                <a href="{{ route($crud_prefix.'.permissions.create') }}" class="button is-success">@lang('SimpleMenu::messages.app_add_new')</a>
+                <a href="{{ route($crud_prefix.'.permissions.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
             </h3>
 
             <table class="table is-narrow is-fullwidth is-bordered">

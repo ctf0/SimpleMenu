@@ -6,10 +6,10 @@
     <title>@yield('title', '')</title>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.5.2/css/bulma.min.css" rel="stylesheet" />
 
     {{-- jquery --}}
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     {{-- select2 --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     {{-- tinymce --}}
