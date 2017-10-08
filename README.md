@@ -41,6 +41,7 @@ npm install vue vuemit vuedraggable vue-notif --save
 
 ## Config
 **config/simpleMenu.php**
+
 ```php
 return [
     /*
