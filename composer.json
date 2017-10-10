@@ -1,6 +1,6 @@
 {
     "name": "ctf0/simple-menu",
-    "description": "create a menu that support page (multiLocal 'title/ url/ prefix', nesting, template, static/dynamic, roles & permissions).",
+    "description": "create a menu that support page (multiLocale 'title/ url/ prefix', nesting, template, static/dynamic, roles & permissions).",
     "homepage": "https://github.com/ctf0/SimpleMenu",
     "license": "MIT",
     "keywords": [
