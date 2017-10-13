@@ -24,13 +24,13 @@
                             <td>{{ $role->name }}</td>
                             <td>
                                 @foreach ($role->permissions as $perm)
-                                    <span class="tag is-medium is-medium is-info">
+                                    <span class="tag is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                                <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="button is-link is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
 
                                 @php
                                     $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray());

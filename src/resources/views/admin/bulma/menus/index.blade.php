@@ -22,7 +22,7 @@
                         <tr id="menu-{{ $menu->id }}">
                             <td>{{ $menu->name }}</td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-info is-inline-block">
+                                <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-link is-inline-block">
                                     @lang('SimpleMenu::messages.app_edit')
                                 </a>
                                 <a class="is-inline-block">

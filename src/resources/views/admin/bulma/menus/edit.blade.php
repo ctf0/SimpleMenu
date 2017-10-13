@@ -45,7 +45,7 @@
                         @end="dragEnd">
                         <li v-for="item in pages" :key="item.id">
                             {{-- main --}}
-                            <div class="notification is-info menu-item" :class="classObj(item)">
+                            <div class="notification is-link menu-item" :class="classObj(item)">
                                 <span>@{{ getTitle(item.title) }}</span>
 
                                 {{-- ops --}}
@@ -71,7 +71,7 @@
                         :options="{group:{name:'pages', put:false}, chosenClass:'is-warning', sort: false}"
                         @start="dragStart"
                         @end="dragEnd">
-                        <li v-for="item in allPages" :key="item.id" class="notification is-info menu-item">
+                        <li v-for="item in allPages" :key="item.id" class="notification is-link menu-item">
                             <span>@{{ getTitle(item.title) }}</span>
                         </li>
                     </draggable>

@@ -22,7 +22,7 @@
                         <tr id="item-{{ $permission->id }}">
                             <td>{{ $permission->name }}</td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.permissions.edit',[$permission->id]) }}" class="button is-info is-inline-block">
+                                <a href="{{ route($crud_prefix.'.permissions.edit',[$permission->id]) }}" class="button is-link is-inline-block">
                                     @lang('SimpleMenu::messages.app_edit')
                                 </a>
 

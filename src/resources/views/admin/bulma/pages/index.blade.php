@@ -40,21 +40,21 @@
                             </td>
                             <td>
                                 @foreach ($page->roles as $role)
-                                    <span class="tag is-medium is-info">
+                                    <span class="tag is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($page->permissions as $perm)
-                                    <span class="tag is-medium is-info">
+                                    <span class="tag is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($page->menus as $menu)
-                                    <span class="tag is-medium is-info">
+                                    <span class="tag is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
                                     </span>
                                 @endforeach
@@ -66,7 +66,7 @@
                             </td>
                             <td><span class="tag is-medium is-primary">{{ $page->template }}</span></td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}" class="button is-info is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                                <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}" class="button is-link is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
                                 <a class="is-inline-block">
                                     @if (config('simpleMenu.deletePageAndNests'))
                                         {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) }}
