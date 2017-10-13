@@ -17,9 +17,6 @@ export default {
     created() {
         this.getPages()
     },
-    updated() {
-        admin_sticky_sidebar()
-    },
     methods: {
         getPages() {
             $.get(this.getMenuPages, (res) => {
