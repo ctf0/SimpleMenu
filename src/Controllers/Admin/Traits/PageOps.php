@@ -17,12 +17,6 @@ trait PageOps
      */
     protected function sT_uP_Validaiton($request, $id = null)
     {
-        $routename = 'required|unique:pages,route_name';
-
-        if ($id) {
-            $routename = 'required|unique:pages,route_name,' . $id;
-        }
-
         $customMessages = [
             'template.required_without' => __('validation.required_without', [
                 'attribute' => __('SimpleMenu::validation.template'),
@@ -30,23 +24,47 @@ trait PageOps
             ]),
             'route_name.required' => __('validation.required', ['attribute' => __('SimpleMenu::validation.route_name')]),
             'url.required'        => __('validation.required', ['attribute' => __('SimpleMenu::validation.url')]),
+            'url.unique'          => __('validation.unique', ['attribute' => __('SimpleMenu::validation.url')]),
             'title.required'      => __('validation.required', ['attribute' => __('SimpleMenu::validation.title')]),
+            'title.unique'        => __('validation.unique', ['attribute' => __('SimpleMenu::validation.title')]),
         ];
 
+        // main
         $validator = Validator::make($request->all(), [
             'template'   => 'required_without:action',
-            'route_name' => $routename,
+            'route_name' => 'required|unique:pages,route_name,' . $id ?: '',
         ], $customMessages);
 
-        $validator->after(function ($validator) use ($request, $customMessages) {
+        // extra
+        $validator->after(function ($validator) use ($request, $customMessages, $id) {
             // url
             if (!array_filter($request->url)) {
                 $validator->errors()->add('url', $customMessages['url.required']);
             }
 
+            foreach (app('simplemenu')->AppLocales() as $code) {
+                $v = Validator::make($request->all(), [
+                    "url.$code" => "unique:pages,url->$code," . $id ?: '',
+                ], $customMessages);
+
+                if ($v->fails()) {
+                    $validator->errors()->add('url', $customMessages['url.unique']);
+                }
+            }
+
             // title
             if (!array_filter($request->title)) {
                 $validator->errors()->add('title', $customMessages['title.required']);
+            }
+
+            foreach (app('simplemenu')->AppLocales() as $code) {
+                $v = Validator::make($request->all(), [
+                    "title.$code" => "unique:pages,title->$code," . $id ?: '',
+                ], $customMessages);
+
+                if ($v->fails()) {
+                    $validator->errors()->add('title', $customMessages['title.unique']);
+                }
             }
         });
 

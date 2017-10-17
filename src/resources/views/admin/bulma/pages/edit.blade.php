@@ -83,7 +83,7 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="title[{{ $code }}]" class="input" v-show="showTitle('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('title',$code) }}" placeholder="Some Title">
+                                    <input type="text" name="title[{{ $code }}]" class="input toggle-pad" v-show="showTitle('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('title',$code) }}" placeholder="Some Title">
                                 @endforeach
                             </div>
                             @if($errors->has('title'))
@@ -158,7 +158,7 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="prefix[{{ $code }}]" class="input" v-show="showPrefix('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('prefix',$code) }}" placeholder="abc">
+                                    <input type="text" name="prefix[{{ $code }}]" class="input toggle-pad" v-show="showPrefix('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('prefix',$code) }}" placeholder="abc">
                                 @endforeach
                             </div>
                             @if($errors->has('prefix'))
@@ -180,7 +180,7 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="url[{{ $code }}]" class="input" v-show="showUrl('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('url',$code) }}" placeholder="xyz/{someParam}">
+                                    <input type="text" name="url[{{ $code }}]" class="input toggle-pad" v-show="showUrl('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('url',$code) }}" placeholder="xyz/{someParam}">
                                 @endforeach
                             </div>
                             @if($errors->has('url'))
