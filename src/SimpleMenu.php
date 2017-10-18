@@ -4,7 +4,6 @@ namespace ctf0\SimpleMenu;
 
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\File;
 use ctf0\SimpleMenu\Traits\MenusTrait;
 use ctf0\SimpleMenu\Traits\RoutesTrait;
 use ctf0\SimpleMenu\Traits\NavigationTrait;
@@ -83,8 +82,8 @@ class SimpleMenu
     {
         $dir_name = dirname($dir);
 
-        if (!File::exists($dir_name)) {
-            return File::makeDirectory($dir_name, 0755, true);
+        if (!app('files')->exists($dir_name)) {
+            return app('files')->makeDirectory($dir_name, 0755, true);
         }
     }
 }

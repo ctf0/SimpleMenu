@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Traits;
 
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -30,7 +29,7 @@ trait RoutesTrait
 
     protected function utilCheck()
     {
-        if (!File::exists($this->listFileDir)) {
+        if (!app('files')->exists($this->listFileDir)) {
             $this->listFileFound = false;
 
             $this->utilLoop();
@@ -152,7 +151,7 @@ trait RoutesTrait
         $data = str_replace(')', ']', $data);
         $data = preg_replace('/=>\s+\[/', '=> [', $data);
 
-        return File::put($this->listFileDir, $data);
+        return app('files')->put($this->listFileDir, $data);
     }
 
     protected function clearExtraSlash($url)

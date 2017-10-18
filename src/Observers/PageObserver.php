@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Observers;
 
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\File;
 
 class PageObserver extends BaseObserver
 {
@@ -38,7 +37,7 @@ class PageObserver extends BaseObserver
         session()->forget($route_name);
 
         // remove the route file
-        File::delete(config('simpleMenu.routeListPath'));
+        app('files')->delete(config('simpleMenu.routeListPath'));
 
         // clear all cache
         $this->cache->tags('sm')->flush();
