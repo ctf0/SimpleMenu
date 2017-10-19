@@ -1,2 +1,0 @@
-- fix page validation
-- add create new btn to edit pages

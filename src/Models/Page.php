@@ -19,7 +19,7 @@ class Page extends Node
         'menus', 'pivot', 'parent_id',
         'lft', 'rgt', 'depth',
     ];
-    public $translatable  = ['title', 'body', 'desc', 'prefix', 'url'];
+    public $translatable  = ['title', 'body', 'desc', 'prefix', 'url', 'meta'];
 
     public function menus()
     {

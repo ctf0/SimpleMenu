@@ -4,7 +4,10 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
-        <a href="{{ route($crud_prefix.'.roles.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.roles.create') }}"
+            class="button is-success is-pulled-right">
+            @lang('SimpleMenu::messages.app_add_new')
+        </a>
     </h3>
 
     {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
@@ -26,7 +29,12 @@
         <div class="field">
             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
             <div class="control">
-                {{ Form::select('permissions[]', $permissions, $role->permissions->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                {{ Form::select(
+                    'permissions[]',
+                    $permissions,
+                    $role->permissions->pluck('name', 'name'),
+                    ['class' => 'select2', 'multiple' => 'multiple']
+                ) }}
             </div>
             @if($errors->has('permissions'))
                 <p class="help is-danger">

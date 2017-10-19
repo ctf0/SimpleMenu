@@ -66,14 +66,22 @@
                             </td>
                             <td><span class="tag is-medium is-primary">{{ $page->template }}</span></td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}" class="button is-link is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                                <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}"
+                                    class="button is-link is-inline-block">
+                                    @lang('SimpleMenu::messages.app_edit')
+                                </a>
                                 <a class="is-inline-block">
                                     @if (config('simpleMenu.deletePageAndNests'))
                                         {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) }}
                                             {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
                                         {{ Form::close() }}
                                     @else
-                                        {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id], 'data-id'=>'item-'.$page->id ,'@submit.prevent'=>'DelItem($event,"'.$page->title.'")']) }}
+                                        {{ Form::open([
+                                            'method' => 'DELETE',
+                                            'route' => [$crud_prefix.'.pages.destroy', $page->id],
+                                            'data-id'=>'item-'.$page->id,
+                                            '@submit.prevent'=>'DelItem($event,"'.$page->title.'")'
+                                        ]) }}
                                             {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
                                         {{ Form::close() }}
                                     @endif

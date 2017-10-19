@@ -6,7 +6,10 @@
         <div>
             <h3 class="title">
                 @lang('SimpleMenu::messages.users.title') "<span>@{{ itemsCount }}</span>"
-                <a href="{{ route($crud_prefix.'.users.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+                <a href="{{ route($crud_prefix.'.users.create') }}"
+                    class="button is-success is-pulled-right">
+                    @lang('SimpleMenu::messages.app_add_new')
+                </a>
             </h3>
 
             <table class="table is-narrow is-fullwidth is-bordered">
@@ -40,15 +43,26 @@
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.users.edit',[$user->id]) }}" class="button is-link is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                                <a href="{{ route($crud_prefix.'.users.edit',[$user->id]) }}"
+                                    class="button is-link is-inline-block">
+                                    @lang('SimpleMenu::messages.app_edit')
+                                </a>
 
                                 @php
                                     $check = $user->id == auth()->user()->id;
                                 @endphp
 
                                 <a class="is-inline-block">
-                                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.users.destroy', $user->id],'data-id'=>'item-'.$user->id ,'@submit.prevent'=>'DelItem($event,"'.$user->name.'")']) }}
-                                        {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger', 'disabled' => $check ? true : false]) }}
+                                    {{ Form::open([
+                                        'method' => 'DELETE',
+                                        'route' => [$crud_prefix.'.users.destroy', $user->id],
+                                        'data-id'=>'item-'.$user->id,
+                                        '@submit.prevent'=>'DelItem($event,"'.$user->name.'")'
+                                    ]) }}
+                                        {{ Form::submit(
+                                            trans('SimpleMenu::messages.app_delete'),
+                                            ['class' => 'button is-danger', 'disabled' => $check ? true : false]
+                                        ) }}
                                     {{ Form::close() }}
                                 </a>
                             </td>

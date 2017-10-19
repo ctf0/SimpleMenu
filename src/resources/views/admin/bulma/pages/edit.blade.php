@@ -9,13 +9,46 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
-        <a href="{{ route($crud_prefix.'.pages.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.pages.create') }}"
+            class="button is-success is-pulled-right">
+            @lang('SimpleMenu::messages.app_add_new')
+        </a>
     </h3>
     <hr>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id]]) }}
+
+                {{-- Meta --}}
+                <div class="columns">
+                    <div class="column is-2">
+                        <h3 class="title">Meta Keywords</h3>
+                    </div>
+                    <div class="column is-10">
+                        {{-- key --}}
+                        <div class="field">
+                            <div class="control input-box">
+                                <div class="select toggle-locale">
+                                    <select v-model="meta">
+                                        @foreach ($locales as $code)
+                                            <option value="{{ $code }}">{{ $code }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @foreach ($locales as $code)
+                                    <input type="text"
+                                        name="meta[{{ $code }}]"
+                                        class="input toggle-pad"
+                                        v-show="showMeta('{{ $code }}')"
+                                        value="{{ $page->getTranslationWithoutFallback('meta',$code) }}"
+                                        placeholder="keyword1, etc..">
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
 
                 {{-- Control --}}
                 <div class="columns">
@@ -27,20 +60,24 @@
                         <div class="field">
                             {{ Form::label('action', 'Action', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('action', $page->action, ['class' => 'input', 'placeholder'=>"SomeController@index"]) }}
+                                {{ Form::text(
+                                    'action',
+                                    $page->action,
+                                    ['class' => 'input',
+                                    'placeholder'=>"SomeController@index"])
+                                }}
                             </div>
-                            @if($errors->has('action'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('action') }}
-                                </p>
-                            @endif
                         </div>
 
                         {{-- template --}}
                         <div class="field">
                             {{ Form::label('template', 'Template', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('template', $page->template, ['class' => 'input','placeholder'=>"hero"]) }}
+                                {{ Form::text(
+                                    'template',
+                                    $page->template,
+                                    ['class' => 'input','placeholder'=>"hero"])
+                                }}
                             </div>
                             @if($errors->has('template'))
                                 <p class="help is-danger">
@@ -53,7 +90,11 @@
                         <div class="field">
                             {{ Form::label('route_name', 'Route Name', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('route_name', $page->route_name, ['class' => 'input','placeholder'=>"route-name"]) }}
+                                {{ Form::text(
+                                    'route_name',
+                                    $page->route_name,
+                                    ['class' => 'input','placeholder'=>"route-name"])
+                                }}
                             </div>
                             @if($errors->has('route_name'))
                                 <p class="help is-danger">
@@ -83,7 +124,11 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="title[{{ $code }}]" class="input toggle-pad" v-show="showTitle('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('title',$code) }}" placeholder="Some Title">
+                                    <input type="text" name="title[{{ $code }}]"
+                                        class="input toggle-pad"
+                                        v-show="showTitle('{{ $code }}')"
+                                        value="{{ $page->getTranslationWithoutFallback('title',$code) }}"
+                                        placeholder="Some Title">
                                 @endforeach
                             </div>
                             @if($errors->has('title'))
@@ -105,14 +150,14 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <textarea id="body-{{ $code }}" name="body[{{ $code }}]" class="textarea" v-show="showBody('{{ $code }}')">{{ $page->getTranslationWithoutFallback('body',$code) }}</textarea>
+                                    <textarea id="body-{{ $code }}"
+                                        name="body[{{ $code }}]"
+                                        class="textarea"
+                                        v-show="showBody('{{ $code }}')">
+                                        {{ $page->getTranslationWithoutFallback('body',$code) }}
+                                    </textarea>
                                 @endforeach
                             </div>
-                            @if($errors->has('body'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('body') }}
-                                </p>
-                            @endif
                         </div>
 
                         {{-- desc --}}
@@ -127,14 +172,14 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <textarea id="desc-{{ $code }}" name="desc[{{ $code }}]" class="textarea" v-show="showDesc('{{ $code }}')">{{ $page->getTranslationWithoutFallback('desc',$code) }}</textarea>
+                                    <textarea id="desc-{{ $code }}"
+                                        name="desc[{{ $code }}]"
+                                        class="textarea"
+                                        v-show="showDesc('{{ $code }}')">
+                                        {{ $page->getTranslationWithoutFallback('desc',$code) }}
+                                    </textarea>
                                 @endforeach
                             </div>
-                            @if($errors->has('desc'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('desc') }}
-                                </p>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -158,14 +203,14 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="prefix[{{ $code }}]" class="input toggle-pad" v-show="showPrefix('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('prefix',$code) }}" placeholder="abc">
+                                    <input type="text"
+                                        name="prefix[{{ $code }}]"
+                                        class="input toggle-pad"
+                                        v-show="showPrefix('{{ $code }}')"
+                                        value="{{ $page->getTranslationWithoutFallback('prefix',$code) }}"
+                                        placeholder="abc">
                                 @endforeach
                             </div>
-                            @if($errors->has('prefix'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('prefix') }}
-                                </p>
-                            @endif
                         </div>
 
                         {{-- url --}}
@@ -180,7 +225,12 @@
                                     </select>
                                 </div>
                                 @foreach ($locales as $code)
-                                    <input type="text" name="url[{{ $code }}]" class="input toggle-pad" v-show="showUrl('{{ $code }}')" value="{{ $page->getTranslationWithoutFallback('url',$code) }}" placeholder="xyz/{someParam}">
+                                    <input type="text"
+                                        name="url[{{ $code }}]"
+                                        class="input toggle-pad"
+                                        v-show="showUrl('{{ $code }}')"
+                                        value="{{ $page->getTranslationWithoutFallback('url',$code) }}"
+                                        placeholder="xyz/{someParam}">
                                 @endforeach
                             </div>
                             @if($errors->has('url'))
@@ -194,13 +244,13 @@
                         <div class="field">
                             {{ Form::label('menus', 'Menus', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::select('menus[]', $menus, $page->menus->pluck('id', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                                {{ Form::select(
+                                    'menus[]',
+                                    $menus,
+                                    $page->menus->pluck('id', 'name'),
+                                    ['class' => 'select2', 'multiple' => 'multiple'])
+                                }}
                             </div>
-                            @if($errors->has('menus'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('menus') }}
-                                </p>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -216,26 +266,26 @@
                         <div class="field">
                             {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::select('roles[]', $roles, $page->roles->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                                {{ Form::select(
+                                    'roles[]',
+                                    $roles,
+                                    $page->roles->pluck('name', 'name'),
+                                    ['class' => 'select2', 'multiple' => 'multiple'])
+                                }}
                             </div>
-                            @if($errors->has('roles'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('roles') }}
-                                </p>
-                            @endif
                         </div>
 
                         {{-- permissions --}}
                         <div class="field">
                             {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::select('permissions[]', $permissions, $page->permissions->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                                {{ Form::select(
+                                    'permissions[]',
+                                    $permissions,
+                                    $page->permissions->pluck('name', 'name'),
+                                    ['class' => 'select2', 'multiple' => 'multiple'])
+                                }}
                             </div>
-                            @if($errors->has('permissions'))
-                                <p class="help is-danger">
-                                    {{ $errors->first('permissions') }}
-                                </p>
-                            @endif
                         </div>
                     </div>
                 </div>

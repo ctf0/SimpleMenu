@@ -7,20 +7,35 @@ export default {
             body: '',
             desc: '',
             prefix: '',
+            meta: '',
             url: '',
             hideOther: false
         }
     },
     mounted() {
         this.title = this.SelectFirst
+        this.meta = this.SelectFirst
         this.body = this.SelectFirst
         this.desc = this.SelectFirst
         this.prefix = this.SelectFirst
         this.url = this.SelectFirst
+
+        tinymce.overrideDefaults({
+            menubar: false,
+            branding: false,
+            height : '120',
+            skin_url: '/assets/vendor/voyager',
+            skin:'voyager',
+            plugins: 'lists link image spellchecker fullscreen media table preview contextmenu autoresize',
+            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen'
+        })
     },
     methods: {
         showTitle(code) {
             return this.title == code
+        },
+        showMeta(code) {
+            return this.meta == code
         },
         showBody(code) {
             return this.body == code

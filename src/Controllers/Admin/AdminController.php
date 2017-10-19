@@ -15,7 +15,7 @@ class AdminController extends BaseController
     {
         return view("{$this->adminPath}.admin")->with([
             'title' => 'DashBoard',
-            'desc'  => 'Admin Description',
+            'desc'  => 'Admin DashBoard',
         ]);
     }
 }

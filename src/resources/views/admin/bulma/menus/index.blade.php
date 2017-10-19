@@ -6,7 +6,10 @@
         <div>
             <h3 class="title">
                 @lang('SimpleMenu::messages.menus.title') "<span>@{{ itemsCount }}</span>"
-                <a href="{{ route($crud_prefix.'.menus.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+                <a href="{{ route($crud_prefix.'.menus.create') }}"
+                    class="button is-success is-pulled-right">
+                    @lang('SimpleMenu::messages.app_add_new')
+                </a>
             </h3>
 
             <table class="table is-narrow is-fullwidth is-bordered">
@@ -26,7 +29,12 @@
                                     @lang('SimpleMenu::messages.app_edit')
                                 </a>
                                 <a class="is-inline-block">
-                                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.menus.destroy', $menu->id], 'data-id'=>'menu-'.$menu->id ,'@submit.prevent'=>'DelItem($event,"'.$menu->name.'")']) }}
+                                    {{ Form::open([
+                                        'method' => 'DELETE',
+                                        'route' => [$crud_prefix.'.menus.destroy', $menu->id],
+                                        'data-id'=>'menu-'.$menu->id,
+                                        '@submit.prevent'=>'DelItem($event,"'.$menu->name.'")'
+                                    ]) }}
                                         {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
                                     {{ Form::close() }}
                                 </a>

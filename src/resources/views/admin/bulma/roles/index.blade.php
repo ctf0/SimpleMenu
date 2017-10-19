@@ -6,7 +6,10 @@
         <div>
             <h3 class="title">
                 @lang('SimpleMenu::messages.roles.title') "<span>@{{ itemsCount }}</span>"
-                <a href="{{ route($crud_prefix.'.roles.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+                <a href="{{ route($crud_prefix.'.roles.create') }}"
+                    class="button is-success is-pulled-right">
+                    @lang('SimpleMenu::messages.app_add_new')
+                </a>
             </h3>
 
             <table class="table is-narrow is-fullwidth is-bordered">
@@ -30,15 +33,26 @@
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="button is-link is-inline-block">@lang('SimpleMenu::messages.app_edit')</a>
+                                <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}"
+                                    class="button is-link is-inline-block">
+                                    @lang('SimpleMenu::messages.app_edit')
+                                </a>
 
                                 @php
                                     $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray());
                                 @endphp
 
                                 <a class="is-inline-block">
-                                    {{ Form::open(['method' => 'DELETE','route' => [$crud_prefix.'.roles.destroy', $role->id],'data-id'=>'item-'.$role->id ,'@submit.prevent'=>'DelItem($event,"'.$role->name.'")']) }}
-                                        {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger', 'disabled' => $check ? true : false]) }}
+                                    {{ Form::open([
+                                        'method' => 'DELETE',
+                                        'route' => [$crud_prefix.'.roles.destroy', $role->id],
+                                        'data-id'=>'item-'.$role->id,
+                                        '@submit.prevent'=>'DelItem($event,"'.$role->name.'")'
+                                    ]) }}
+                                        {{ Form::submit(
+                                            trans('SimpleMenu::messages.app_delete'),
+                                            ['class' => 'button is-danger', 'disabled' => $check ? true : false]
+                                        ) }}
                                     {{ Form::close() }}
                                 </a>
                             </td>

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreatePagesTable extends Migration
 {
@@ -22,10 +22,11 @@ class CreatePagesTable extends Migration
             $table->string('template')->nullable();
             $table->string('route_name')->nullable();
             $table->json('prefix')->nullable();
-            $table->json('url')->nullable();
+            $table->json('url');
             $table->json('title');
             $table->json('body')->nullable();
             $table->json('desc')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,10 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
-        <a href="{{ route($crud_prefix.'.menus.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.menus.create') }}"
+            class="button is-success is-pulled-right">
+            @lang('SimpleMenu::messages.app_add_new')
+        </a>
     </h3>
 
     <menu-comp inline-template

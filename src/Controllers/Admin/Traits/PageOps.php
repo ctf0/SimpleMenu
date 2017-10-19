@@ -87,12 +87,9 @@ trait PageOps
         $result = $request->except(['roles', 'permissions', 'menus']);
 
         foreach ($result as $k => $v) {
-            if (null == $v) {
-                unset($result[$k]);
-            }
             if (is_array($v)) {
                 if (empty(array_filter($v))) {
-                    unset($result[$k]);
+                    $result[$k] = '';
                 } else {
                     $result[$k] = array_filter($v);
                 }

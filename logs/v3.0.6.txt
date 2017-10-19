@@ -1,0 +1,4 @@
+- fix not updating columns with empty value
+- add meta column to pages so you can use it with <meta name=“keywords”>
+- update wiki
+- update resources

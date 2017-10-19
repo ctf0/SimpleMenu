@@ -4,7 +4,10 @@
 @section('sub')
     <h3 class="title">
         <a href="{{ url()->previous() }}">Go Back</a>
-        <a href="{{ route($crud_prefix.'.users.create') }}" class="button is-success is-pulled-right">@lang('SimpleMenu::messages.app_add_new')</a>
+        <a href="{{ route($crud_prefix.'.users.create') }}"
+            class="button is-success is-pulled-right">
+            @lang('SimpleMenu::messages.app_add_new')
+        </a>
     </h3>
     <hr>
 
@@ -68,7 +71,12 @@
                 <div class="field">
                     {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('roles[]', $roles, $user->roles->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select(
+                            'roles[]',
+                            $roles,
+                            $user->roles->pluck('name', 'name'),
+                            ['class' => 'select2', 'multiple' => 'multiple']
+                        ) }}
                     </div>
                     @if($errors->has('roles'))
                         <p class="help is-danger">
@@ -81,7 +89,12 @@
                 <div class="field">
                     {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::select('permissions[]', $permissions, $user->permissions->pluck('name', 'name'), ['class' => 'select2', 'multiple' => 'multiple']) }}
+                        {{ Form::select(
+                            'permissions[]',
+                            $permissions,
+                            $user->permissions->pluck('name', 'name'),
+                            ['class' => 'select2', 'multiple' => 'multiple']
+                        ) }}
                     </div>
                     @if($errors->has('permissions'))
                         <p class="help is-danger">
