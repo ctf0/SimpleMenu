@@ -6,6 +6,7 @@ return [
     'app_edit'                => 'Edit',
     'app_add_new'             => 'Add new',
     'app_delete'              => 'Delete',
+    'go_back'                 => 'Go Back',
     'app_no_entries_in_table' => 'No entries in table',
     'ops'                     => 'Operations',
     'menus'                   => [
@@ -22,7 +23,7 @@ return [
             'roles'       => 'Roles',
             'permissions' => 'Permissions',
             'menus'       => 'Menus',
-            'locals'      => 'Available In',
+            'locals'      => 'Title Available In',
             'template'    => 'Template',
         ],
     ],
@@ -42,10 +43,10 @@ return [
     'users' => [
         'title'  => 'Users',
         'fields' => [
-            'name'           => 'Name',
-            'email'          => 'Email',
-            'roles'          => 'Roles',
-            'permissions'    => 'Permissions',
+            'name'        => 'Name',
+            'email'       => 'Email',
+            'roles'       => 'Roles',
+            'permissions' => 'Permissions',
         ],
     ],
 ];

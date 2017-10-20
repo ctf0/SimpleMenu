@@ -152,7 +152,7 @@ trait NavigationTrait
         $routesListFile = include $this->listFileDir;
 
         // check if we have a link according to that "routeName & code"
-        return array_get($routesListFile, "$name.$code") ?? false;
+        return $routesListFile[$name][$code] ?? false;
     }
 
     /**

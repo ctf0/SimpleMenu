@@ -15,11 +15,13 @@ class Page extends Node
     protected $appends    = ['nests'];
     protected $guard_name = 'web';
     protected $hidden     = [
-        'children', 'roles', 'permissions',
-        'menus', 'pivot', 'parent_id',
-        'lft', 'rgt', 'depth',
+        'children', 'roles', 'permissions', 'menus',
+        'pivot', 'parent_id', 'lft', 'rgt', 'depth',
     ];
-    public $translatable  = ['title', 'body', 'desc', 'prefix', 'url', 'meta'];
+    public $translatable  = [
+        'title', 'body', 'desc', 'prefix',
+        'url', 'meta',
+    ];
 
     public function menus()
     {

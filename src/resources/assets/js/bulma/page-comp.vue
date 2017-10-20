@@ -8,8 +8,7 @@ export default {
             desc: '',
             prefix: '',
             meta: '',
-            url: '',
-            hideOther: false
+            url: ''
         }
     },
     mounted() {
