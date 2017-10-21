@@ -14,7 +14,6 @@
             @lang('SimpleMenu::messages.app_add_new')
         </a>
     </h3>
-    <hr>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>

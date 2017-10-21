@@ -43,9 +43,7 @@ trait PageOps
             }
 
             foreach (app('simplemenu')->AppLocales() as $code) {
-                $v = Validator::make($request->all(), [
-                    "url.$code" => "unique:pages,url->$code," . $id ?: '',
-                ], $customMessages);
+                $v = Validator::make($request->all(), ["url.$code" => "unique:pages,url->$code," . $id ?: '']);
 
                 if ($v->fails()) {
                     $validator->errors()->add('url', $customMessages['url.unique']);
@@ -58,9 +56,7 @@ trait PageOps
             }
 
             foreach (app('simplemenu')->AppLocales() as $code) {
-                $v = Validator::make($request->all(), [
-                    "title.$code" => "unique:pages,title->$code," . $id ?: '',
-                ], $customMessages);
+                $v = Validator::make($request->all(), ["title.$code" => "unique:pages,title->$code," . $id ?: '']);
 
                 if ($v->fails()) {
                     $validator->errors()->add('title', $customMessages['title.unique']);
@@ -89,7 +85,7 @@ trait PageOps
         foreach ($result as $k => $v) {
             if (is_array($v)) {
                 if (empty(array_filter($v))) {
-                    $result[$k] = '';
+                    $result[$k] = null;
                 } else {
                     $result[$k] = array_filter($v);
                 }

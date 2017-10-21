@@ -5,7 +5,6 @@
     <h3 class="title">
         <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
-    <hr>
 
     {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.users.store']) }}
 

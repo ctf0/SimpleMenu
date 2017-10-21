@@ -9,7 +9,6 @@
     <h3 class="title">
         <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
-    <hr>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>

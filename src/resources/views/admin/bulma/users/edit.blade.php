@@ -9,7 +9,6 @@
             @lang('SimpleMenu::messages.app_add_new')
         </a>
     </h3>
-    <hr>
 
     {{ Form::model($user, ['method' => 'PUT', 'route' => [$crud_prefix.'.users.update', $user->id]]) }}
 

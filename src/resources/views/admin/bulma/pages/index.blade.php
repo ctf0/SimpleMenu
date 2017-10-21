@@ -38,9 +38,7 @@
                                     {{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}
                                 @endif
                             </td>
-                            <td>
-                                {{ $page->route_name }}
-                            </td>
+                            <td>{{ $page->route_name }}</td>
                             <td>
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-medium is-link">
@@ -67,7 +65,11 @@
                                     <span class="tag is-medium is-warning">{{ $locale }}</span>
                                 @endforeach
                             </td>
-                            <td><span class="tag is-medium is-primary">{{ $page->template }}</span></td>
+                            <td>
+                                @if ($page->template)
+                                    <span class="tag is-medium is-primary">{{ $page->template }}</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}"
                                     class="button is-link is-inline-block">
