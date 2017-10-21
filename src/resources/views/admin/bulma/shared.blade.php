@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/SimpleMenu/style.css') }}"/>
 
     {{-- jquery --}}
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
