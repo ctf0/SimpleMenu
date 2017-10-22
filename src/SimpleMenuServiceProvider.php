@@ -5,7 +5,6 @@ namespace ctf0\SimpleMenu;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
@@ -25,9 +24,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
     /**
      * Perform post-registration booting of services.
      */
-    public function boot(Filesystem $file)
+    public function boot()
     {
-        $this->file = $file;
+        $this->file = app('files');
 
         $this->packagePublish();
 
