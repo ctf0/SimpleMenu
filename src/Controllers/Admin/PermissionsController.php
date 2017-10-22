@@ -18,7 +18,7 @@ class PermissionsController extends BaseController
      */
     public function index()
     {
-        $permissions = $this->cache->get('spatie.permission.cache');
+        $permissions = Permission::get();
 
         return view("{$this->adminPath}.permissions.index", compact('permissions'));
     }
@@ -60,7 +60,7 @@ class PermissionsController extends BaseController
      */
     public function edit($id)
     {
-        $permission = $this->cache->get('spatie.permission.cache')->find($id);
+        $permission = Permission::find($id);
 
         return view("{$this->adminPath}.permissions.edit", compact('permission'));
     }

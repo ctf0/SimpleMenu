@@ -5,6 +5,7 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 
 class UsersController extends BaseController
@@ -29,7 +30,7 @@ class UsersController extends BaseController
     public function create()
     {
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::get()->pluck('name', 'name');
 
         return view("{$this->adminPath}.users.create", compact('roles', 'permissions'));
     }
@@ -70,7 +71,7 @@ class UsersController extends BaseController
     {
         $user        = $this->cache->get('sm-users')->find($id);
         $roles       = Role::get()->pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::get()->pluck('name', 'name');
 
         return view("{$this->adminPath}.users.edit", compact('user', 'roles', 'permissions'));
     }

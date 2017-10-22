@@ -5,6 +5,7 @@ namespace ctf0\SimpleMenu;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
@@ -24,9 +25,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
     /**
      * Perform post-registration booting of services.
      */
-    public function boot()
+    public function boot(Filesystem $file)
     {
-        $this->file = app('files');
+        $this->file = $file;
 
         $this->packagePublish();
 
@@ -215,7 +216,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         }
 
         // run check once
-        app('cache')->store('file')->rememberForever('ct-mm', function () {
+        app('cache')->store('file')->rememberForever('ct-sm', function () {
             return 'added';
         });
     }
