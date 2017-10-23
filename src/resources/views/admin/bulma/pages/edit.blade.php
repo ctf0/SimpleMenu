@@ -7,13 +7,19 @@
 @endphp
 
 @section('sub')
-    <h3 class="title">
-        <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
-        <a href="{{ route($crud_prefix.'.pages.create') }}"
-            class="button is-success is-pulled-right">
-            @lang('SimpleMenu::messages.app_add_new')
-        </a>
-    </h3>
+    <div class="level">
+        <div class="level-left">
+            <h3 class="title">
+                <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
+            </h3>
+        </div>
+        <div class="level-right">
+            <a href="{{ route($crud_prefix.'.pages.create') }}"
+                class="button is-success">
+                @lang('SimpleMenu::messages.app_add_new')
+            </a>
+        </div>
+    </div>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
@@ -52,9 +58,9 @@
                 {{-- Control --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Control</h3>
+                        <h3 class="title link" @click="toggleControl = !toggleControl">Control</h3>
                     </div>
-                    <div class="column is-10">
+                    <div class="column is-10" v-show="toggleControl">
                         {{-- action --}}
                         <div class="field">
                             {{ Form::label('action', 'Action', ['class' => 'label']) }}
@@ -108,9 +114,9 @@
                 {{-- Content --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Content</h3>
+                        <h3 class="title link" @click="toggleContent = !toggleContent">Content</h3>
                     </div>
-                    <div class="column is-10">
+                    <div class="column is-10" v-show="toggleContent">
                         {{-- title --}}
                         <div class="field">
                             {{ Form::label('title', 'Title', ['class' => 'label']) }}
@@ -187,9 +193,9 @@
                 {{-- Access --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Access</h3>
+                        <h3 class="title link" @click="toggleAccess = !toggleAccess">Access</h3>
                     </div>
-                    <div class="column is-10">
+                    <div class="column is-10" v-show="toggleAccess">
                         {{-- prefix --}}
                         <div class="field">
                             {{ Form::label('prefix', 'Url Prefix', ['class' => 'label']) }}
@@ -258,9 +264,9 @@
                 {{-- Guards --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Guards</h3>
+                        <h3 class="title link" @click="toggleGuards = !toggleGuards">Guards</h3>
                     </div>
-                    <div class="column is-10">
+                    <div class="column is-10" v-show="toggleGuards">
                         {{-- roles --}}
                         <div class="field">
                             {{ Form::label('roles', 'Roles', ['class' => 'label']) }}

@@ -1,3 +1,7 @@
+.link {
+    cursor: pointer;
+}
+
 // select2
 .select2 {
     width: 100% !important;
@@ -9,11 +13,11 @@
 }
 
 .toggle-locale {
-    opacity: 0.3;
     position: absolute;
-    right: 0;
-    top: 0;
     z-index: 1;
+    top: 0;
+    right: 0;
+    opacity: 0.3;
 
     &:hover {
         opacity: 1;
@@ -24,11 +28,11 @@
     }
 
     select {
-        background-color: transparent;
-        border: none;
         font-weight: bold;
         padding: 0.4rem 0.5rem 0.5rem !important;
         text-transform: capitalize;
+        border: none;
+        background-color: transparent;
     }
 }
 

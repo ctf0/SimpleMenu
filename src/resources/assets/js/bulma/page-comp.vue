@@ -3,6 +3,10 @@ export default {
     props: ['SelectFirst'],
     data() {
         return {
+            toggleControl: true,
+            toggleContent: true,
+            toggleAccess: true,
+            toggleGuards: true,
             title: '',
             body: '',
             desc: '',

@@ -2,13 +2,19 @@
 @section('title', "Edit '$permission->name'")
 
 @section('sub')
-    <h3 class="title">
-        <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
-        <a href="{{ route($crud_prefix.'.permissions.create') }}"
-            class="button is-success is-pulled-right">
-            @lang('SimpleMenu::messages.app_add_new')
-        </a>
-    </h3>
+    <div class="level">
+        <div class="level-left">
+            <h3 class="title">
+                <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
+            </h3>
+        </div>
+        <div class="level-right">
+            <a href="{{ route($crud_prefix.'.permissions.create') }}"
+                class="button is-success">
+                @lang('SimpleMenu::messages.app_add_new')
+            </a>
+        </div>
+    </div>
 
     {{ Form::model($permission, ['method' => 'PUT', 'route' => [$crud_prefix.'.permissions.update', $permission->id]]) }}
 

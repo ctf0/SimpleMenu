@@ -4,13 +4,19 @@
 @section('sub')
     <index-comp inline-template :count="{{ count($users) }}">
         <div>
-            <h3 class="title">
-                @lang('SimpleMenu::messages.users.title') "<span>@{{ itemsCount }}</span>"
-                <a href="{{ route($crud_prefix.'.users.create') }}"
-                    class="button is-success is-pulled-right">
-                    @lang('SimpleMenu::messages.app_add_new')
-                </a>
-            </h3>
+            <div class="level">
+                <div class="level-left">
+                    <h3 class="title">
+                        @lang('SimpleMenu::messages.users.title') "<span>@{{ itemsCount }}</span>"
+                    </h3>
+                </div>
+                <div class="level-right">
+                    <a href="{{ route($crud_prefix.'.users.create') }}"
+                        class="button is-success">
+                        @lang('SimpleMenu::messages.app_add_new')
+                    </a>
+                </div>
+            </div>
 
             <table class="table is-narrow is-fullwidth is-bordered">
                 <thead>
