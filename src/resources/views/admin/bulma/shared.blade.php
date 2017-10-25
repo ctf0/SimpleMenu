@@ -18,12 +18,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/lists/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/link/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/image/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/spellchecker/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/fullscreen/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/media/plugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/table/plugin.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/preview/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/contextmenu/plugin.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.4/plugins/autoresize/plugin.min.js"></script>
 </head>
 

@@ -26,11 +26,11 @@ export default {
         tinymce.overrideDefaults({
             menubar: false,
             branding: false,
+            browser_spellcheck: true,
+            contextmenu: false,
             height : '120',
-            skin_url: '/assets/vendor/voyager',
-            skin:'voyager',
-            plugins: 'lists link image spellchecker fullscreen media table preview contextmenu autoresize',
-            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | spellchecker preview fullscreen'
+            plugins: 'lists link image fullscreen media table preview autoresize',
+            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | preview fullscreen'
         })
     },
     methods: {
