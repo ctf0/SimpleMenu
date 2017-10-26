@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\sharedOps;
 
 class UsersController extends BaseController
 {
+    use sharedOps;
+
     /**
      * Display a listing of User.
      *
@@ -45,12 +48,13 @@ class UsersController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'        => 'required',
-            'email'       => 'required|email|unique:users,email',
-            'password'    => 'required',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required',
         ]);
 
-        $user        = $this->userModel->create($request->except(['roles', 'permissions']));
+        $img         = $this->getImage($request->avatar);
+        $user        = $this->userModel->create(array_merge(['avatar'=>$img], $request->except(['roles', 'permissions'])));
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
 
@@ -87,15 +91,16 @@ class UsersController extends BaseController
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'name'        => 'required',
-            'email'       => 'required|email|unique:users,email,' . $id,
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         $user        = $this->userModel->find($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
+        $img         = $this->getImage($request->avatar);
 
-        $user->update($request->except(['roles', 'permissions']));
+        $user->update(array_merge(['avatar'=>$img], $request->except(['roles', 'permissions'])));
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 

@@ -121,11 +121,10 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function viewComp()
     {
         view()->composer('SimpleMenu::admin.*', function ($view) {
-            $view->with(['crud_prefix' => config('simpleMenu.crud_prefix')]);
-        });
-
-        view()->composer('SimpleMenu::admin.*', function ($view) {
-            $view->with(['css_fw' => config('simpleMenu.framework')]);
+            $view->with([
+                'crud_prefix' => config('simpleMenu.crud_prefix'),
+                'css_fw'      => config('simpleMenu.framework'),
+            ]);
         });
     }
 

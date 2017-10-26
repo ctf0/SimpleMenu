@@ -23,7 +23,7 @@
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id]]) }}
+            {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id], 'files'=>true]) }}
 
                 {{-- Meta --}}
                 <div class="columns">
@@ -117,6 +117,19 @@
                         <h3 class="title link" @click="toggleContent = !toggleContent">Content</h3>
                     </div>
                     <div class="column is-10" v-show="toggleContent">
+                        {{-- cover --}}
+                        {{-- preview --}}
+                        @if ($page->cover)
+                            <img src="{{ $page->cover }}">
+                        @endif
+                        {{-- upload --}}
+                        <div class="field">
+                            {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
+                            <div class="control">
+                                <input type="file" name="cover">
+                            </div>
+                        </div>
+
                         {{-- title --}}
                         <div class="field">
                             {{ Form::label('title', 'Title', ['class' => 'label']) }}

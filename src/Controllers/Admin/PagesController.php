@@ -8,10 +8,11 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\sharedOps;
 
 class PagesController extends BaseController
 {
-    use PageOps;
+    use PageOps, sharedOps;
 
     /**
      * Display a listing of Page.
@@ -50,7 +51,8 @@ class PagesController extends BaseController
     {
         $this->sT_uP_Validaiton($request);
 
-        $page        = Page::create($this->cleanEmptyTranslations($request));
+        $img         = $this->getImage($request->cover);
+        $page        = Page::create(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $menus       = $request->input('menus') ?: [];
@@ -91,12 +93,13 @@ class PagesController extends BaseController
     {
         $this->sT_uP_Validaiton($request, $id);
 
+        $img         = $this->getImage($request->cover);
         $page        = Page::find($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $menus       = $request->input('menus') ?: [];
 
-        $page->update($this->cleanEmptyTranslations($request));
+        $page->update(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
         $page->syncRoles($roles);
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);

@@ -12,7 +12,7 @@
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store']) }}
+            {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store', 'files'=>true]) }}
 
                 {{-- Meta --}}
                 <div class="columns">
@@ -93,6 +93,14 @@
                         <h3 class="title link" @click="toggleContent = !toggleContent">Content</h3>
                     </div>
                     <div class="column is-10" v-show="toggleContent">
+                        {{-- cover --}}
+                        <div class="field">
+                            {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
+                            <div class="control">
+                                <input type="file" name="cover">
+                            </div>
+                        </div>
+
                         {{-- title --}}
                         <div class="field">
                             {{ Form::label('title', 'Title', ['class' => 'label']) }}

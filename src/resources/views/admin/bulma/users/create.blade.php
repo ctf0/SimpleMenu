@@ -6,7 +6,7 @@
         <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
-    {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.users.store']) }}
+    {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.users.store', 'files'=>true]) }}
 
         {{-- Account --}}
         <div class="columns">
@@ -14,6 +14,14 @@
                 <h3 class="title">Account</h3>
             </div>
             <div class="column is-10">
+                {{-- avatar --}}
+                <div class="field">
+                    {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
+                    <div class="control">
+                        <input type="file" name="cover">
+                    </div>
+                </div>
+
                 {{-- name --}}
                 <div class="field">
                     {{ Form::label('name', 'Name', ['class' => 'label']) }}

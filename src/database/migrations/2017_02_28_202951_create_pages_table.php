@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
 
+            $table->string('cover')->nullable();
             $table->string('action')->nullable();
             $table->string('template')->nullable();
             $table->string('route_name')->nullable();

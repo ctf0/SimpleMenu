@@ -5,21 +5,15 @@ namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Builder;
 
-trait Users
+trait SMUsers
 {
     use HasRoles;
 
-    public static function bootUsers()
+    public static function bootSMUsers()
     {
         static::addGlobalScope('relations', function (Builder $builder) {
             $builder->with(['roles', 'permissions']);
         });
-    }
-
-    // Accessor for Avatar
-    public function getAvatarAttribute($value)
-    {
-        return null != $value ?: 'https://www.svgrepo.com/show/13656/user.svg';
     }
 
     // Mutator for Password

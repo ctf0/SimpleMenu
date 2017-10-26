@@ -80,7 +80,7 @@ trait PageOps
      */
     protected function cleanEmptyTranslations($request)
     {
-        $result = $request->except(['roles', 'permissions', 'menus']);
+        $result = $request->except(['roles', 'permissions', 'menus', 'cover']);
 
         foreach ($result as $k => $v) {
             if (is_array($v)) {
