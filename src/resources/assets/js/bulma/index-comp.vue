@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'index-comp',
     props: ['count'],
     data() {
         return {

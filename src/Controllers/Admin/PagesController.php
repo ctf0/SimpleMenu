@@ -8,11 +8,11 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
-use ctf0\SimpleMenu\Controllers\Admin\Traits\sharedOps;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\UserPageOps;
 
 class PagesController extends BaseController
 {
-    use PageOps, sharedOps;
+    use PageOps, UserPageOps;
 
     /**
      * Display a listing of Page.

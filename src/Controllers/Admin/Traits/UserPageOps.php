@@ -2,7 +2,7 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 
-trait sharedOps
+trait UserPageOps
 {
     protected function getImage($img)
     {

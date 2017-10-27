@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'page-comp',
     props: ['SelectFirst'],
     data() {
         return {

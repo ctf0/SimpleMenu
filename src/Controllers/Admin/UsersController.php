@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
-use ctf0\SimpleMenu\Controllers\Admin\Traits\sharedOps;
+use ctf0\SimpleMenu\Controllers\Admin\Traits\UserPageOps;
 
 class UsersController extends BaseController
 {
-    use sharedOps;
+    use UserPageOps;
 
     /**
      * Display a listing of User.

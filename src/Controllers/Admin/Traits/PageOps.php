@@ -33,6 +33,8 @@ trait PageOps
         $validator = Validator::make($request->all(), [
             'template'   => 'required_without:action',
             'route_name' => 'required|unique:pages,route_name,' . $id ?: '',
+            'url.*'      => 'unique_translation:pages,url,' . $id ?: '',
+            'title.*'    => 'unique_translation:pages,title,' . $id ?: '',
         ], $customMessages);
 
         // extra
@@ -42,25 +44,9 @@ trait PageOps
                 $validator->errors()->add('url', $customMessages['url.required']);
             }
 
-            foreach (app('simplemenu')->AppLocales() as $code) {
-                $v = Validator::make($request->all(), ["url.$code" => "unique:pages,url->$code," . $id ?: '']);
-
-                if ($v->fails()) {
-                    $validator->errors()->add('url', $customMessages['url.unique']);
-                }
-            }
-
             // title
             if (!array_filter($request->title)) {
                 $validator->errors()->add('title', $customMessages['title.required']);
-            }
-
-            foreach (app('simplemenu')->AppLocales() as $code) {
-                $v = Validator::make($request->all(), ["title.$code" => "unique:pages,title->$code," . $id ?: '']);
-
-                if ($v->fails()) {
-                    $validator->errors()->add('title', $customMessages['title.unique']);
-                }
             }
         });
 
@@ -84,7 +70,7 @@ trait PageOps
 
         foreach ($result as $k => $v) {
             if (is_array($v)) {
-                if (empty(array_filter($v))) {
+                if (!array_filter($v)) {
                     $result[$k] = null;
                 } else {
                     $result[$k] = array_filter($v);

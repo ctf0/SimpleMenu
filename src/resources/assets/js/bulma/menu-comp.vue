@@ -5,6 +5,7 @@ import menu from './mixins/menu'
 
 export default {
     components: {draggable, MenuChild},
+    name: 'menu-comp',
     mixins: [menu],
     props: ['getMenuPages', 'delPage'],
     data() {

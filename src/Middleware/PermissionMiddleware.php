@@ -17,7 +17,7 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, ...$permissions)
     {
-        if (empty(array_filter($permissions))) {
+        if (!array_filter($permissions)) {
             return $next($request);
         }
 
