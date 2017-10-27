@@ -36,6 +36,18 @@
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
     - also check the **Dependencies** packages for "configuration/options/migrations".
 
+- add `SMUsers` trait to your **User Model**
+```php
+use ctf0\SimpleMenu\Models\Traits\SMUsers;
+
+// ...
+
+class User extends Authenticatable
+{
+    use Notifiable, SMUsers;
+}
+```
+
 - install JS dependencies
 
 ```bash

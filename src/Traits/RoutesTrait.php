@@ -55,12 +55,13 @@ trait RoutesTrait
     protected function pageComp($page)
     {
         // page data
-        $title      = $page->title;
-        $body       = $page->body;
-        $desc       = $page->desc;
-        $meta       = $page->meta;
-        $template   = $page->template;
-        $breadCrumb = $page->getAncestors();
+        $title       = $page->title;
+        $body        = $page->body;
+        $desc        = $page->desc;
+        $meta        = $page->meta;
+        $cover       = $page->cover;
+        $template    = $page->template;
+        $breadCrumb  = $page->getAncestors();
 
         // route data
         $url       = $page->url;
@@ -73,7 +74,21 @@ trait RoutesTrait
         $permissions = 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
         // make route
-        $this->routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $meta, $breadCrumb);
+        $this->routeGen(
+            $routeName,
+            $url,
+            $prefix,
+            $action,
+            $roles,
+            $permissions,
+            $template,
+            $title,
+            $body,
+            $desc,
+            $meta,
+            $cover,
+            $breadCrumb
+        );
 
         // create route list
         if (!$this->listFileFound) {
@@ -81,16 +96,31 @@ trait RoutesTrait
         }
     }
 
-    protected function routeGen($routeName, $url, $prefix, $action, $roles, $permissions, $template, $title, $body, $desc, $meta, $breadCrumb)
-    {
+    protected function routeGen(
+        $routeName,
+        $url,
+        $prefix,
+        $action,
+        $roles,
+        $permissions,
+        $template,
+        $title,
+        $body,
+        $desc,
+        $meta,
+        $cover,
+        $breadCrumb
+    ) {
         if ($this->escapeEmptyRoute($url)) {
             return;
         }
 
         // cache the page so we can pass the page params to the controller@method
-        $this->cache->tags('sm')->rememberForever($this->getCrntLocale() . "-$routeName", function () use ($template, $title, $body, $desc, $meta, $breadCrumb) {
-            return compact('template', 'title', 'body', 'desc', 'meta', 'breadCrumb');
-        });
+        $this->cache->tags('sm')->rememberForever(
+            $this->getCrntLocale() . "-$routeName",
+            function () use ($template, $title, $body, $desc, $meta, $cover, $breadCrumb) {
+                return compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb');
+            });
 
         $route = $this->getRouteUrl($url, $prefix);
 

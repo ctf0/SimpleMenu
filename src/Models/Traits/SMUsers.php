@@ -1,6 +1,6 @@
 <?php
 
-namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
+namespace ctf0\SimpleMenu\Models\Traits;
 
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Builder;
