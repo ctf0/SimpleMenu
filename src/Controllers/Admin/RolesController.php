@@ -54,7 +54,7 @@ class RolesController extends BaseController
 
         $role->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix . '.roles.index');
+        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Created!');
     }
 
     /**
@@ -94,7 +94,7 @@ class RolesController extends BaseController
 
         $this->clearCache();
 
-        return redirect()->route($this->crud_prefix . '.roles.index');
+        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Updated!');
     }
 
     /**
@@ -114,6 +114,6 @@ class RolesController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.roles.index');
+        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Deleted!');
     }
 }

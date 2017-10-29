@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', "Edit '$menu->name'")
+@section('title'){{ trans('SimpleMenu::messages.app_edit') }} "{{ $menu->name }}"@endsection
 
 @section('sub')
     <h3 class="title">
@@ -12,7 +12,7 @@
             <div class="level-right">
                 <a href="{{ route($crud_prefix.'.menus.create') }}"
                     class="button is-success">
-                    @lang('SimpleMenu::messages.app_add_new')
+                    {{ trans('SimpleMenu::messages.app_add_new') }}
                 </a>
             </div>
         </div>
@@ -28,7 +28,7 @@
 
                 {{-- name --}}
                 <div class="field">
-                    {{ Form::label('name', 'Name', ['class' => 'label']) }}
+                    {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
                 </div>
                 <div class="field has-addons">
                     <div class="control is-expanded">

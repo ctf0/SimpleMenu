@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Create new Page')
+@section('title'){{ trans('SimpleMenu::messages.create_new') }} {{ trans('SimpleMenu::messages.pages') }}@endsection
 
 @php
     $locales = SimpleMenu::AppLocales();
@@ -17,7 +17,7 @@
                 {{-- Meta --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title">Meta Keywords</h3>
+                        <h3 class="title">{{ trans('SimpleMenu::messages.meta') }}</h3>
                     </div>
                     <div class="column is-10">
                         {{-- key --}}
@@ -47,12 +47,14 @@
                 {{-- Control --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title link" @click="toggleControl = !toggleControl">Control</h3>
+                        <h3 class="title link" @click="toggleControl = !toggleControl">
+                            {{ trans('SimpleMenu::messages.control') }}
+                        </h3>
                     </div>
                     <div class="column is-10" v-show="toggleControl">
                         {{-- action --}}
                         <div class="field">
-                            {{ Form::label('action', 'Action', ['class' => 'label']) }}
+                            {{ Form::label('action', trans('SimpleMenu::messages.action'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text('action', null, ['class' => 'input', 'placeholder'=>"SomeController@index"]) }}
                             </div>
@@ -60,7 +62,7 @@
 
                         {{-- template --}}
                         <div class="field">
-                            {{ Form::label('template', 'Template', ['class' => 'label']) }}
+                            {{ Form::label('template', trans('SimpleMenu::messages.template'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text('template', null, ['class' => 'input','placeholder'=>"hero"]) }}
                             </div>
@@ -73,7 +75,7 @@
 
                         {{-- route_name --}}
                         <div class="field">
-                            {{ Form::label('route_name', 'Route Name', ['class' => 'label']) }}
+                            {{ Form::label('route_name', trans('SimpleMenu::messages.route_name'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text('route_name', null, ['class' => 'input','placeholder'=>"route-name"]) }}
                             </div>
@@ -89,21 +91,29 @@
 
                 {{-- Content --}}
                 <div class="columns">
+                    {{-- cover --}}
                     <div class="column is-2">
-                        <h3 class="title link" @click="toggleContent = !toggleContent">Content</h3>
+                        <h3 class="title link" @click="toggleCover = !toggleCover">
+                            {{ trans('SimpleMenu::messages.cover') }}
+                        </h3>
+                    </div>
+                    <div class="column is-10" v-show="toggleCover">
+                        {{-- upload --}}
+                        <div class="field">
+                            <input type="file" name="cover">
+                        </div>
+                    </div>
+
+                    {{-- data --}}
+                    <div class="column is-2">
+                        <h3 class="title link" @click="toggleContent = !toggleContent">
+                            {{ trans('SimpleMenu::messages.content') }}
+                        </h3>
                     </div>
                     <div class="column is-10" v-show="toggleContent">
-                        {{-- cover --}}
-                        <div class="field">
-                            {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
-                            <div class="control">
-                                <input type="file" name="cover">
-                            </div>
-                        </div>
-
                         {{-- title --}}
                         <div class="field">
-                            {{ Form::label('title', 'Title', ['class' => 'label']) }}
+                            {{ Form::label('title', trans('SimpleMenu::messages.title'), ['class' => 'label']) }}
                             <div class="control input-box">
                                 <div class="select toggle-locale">
                                     <select v-model="title">
@@ -130,7 +140,7 @@
 
                         {{-- body --}}
                         <div class="field">
-                            {{ Form::label('body', 'Body', ['class' => 'label']) }}
+                            {{ Form::label('body', trans('SimpleMenu::messages.body'), ['class' => 'label']) }}
                             <div class="control input-box">
                                 <div class="select toggle-locale">
                                     <select v-model="body">
@@ -152,7 +162,7 @@
 
                         {{-- desc --}}
                         <div class="field">
-                            {{ Form::label('desc', 'Description', ['class' => 'label']) }}
+                            {{ Form::label('desc', trans('SimpleMenu::messages.desc'), ['class' => 'label']) }}
                             <div class="control input-box">
                                 <div class="select toggle-locale">
                                     <select v-model="desc">
@@ -178,12 +188,14 @@
                 {{-- Access --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title link" @click="toggleAccess = !toggleAccess">Access</h3>
+                        <h3 class="title link" @click="toggleAccess = !toggleAccess">
+                            {{ trans('SimpleMenu::messages.access') }}
+                        </h3>
                     </div>
                     <div class="column is-10" v-show="toggleAccess">
                         {{-- prefix --}}
                         <div class="field">
-                            {{ Form::label('prefix', 'Url Prefix', ['class' => 'label']) }}
+                            {{ Form::label('prefix', trans('SimpleMenu::messages.url_prefix'), ['class' => 'label']) }}
                             <div class="control input-box">
                                 <div class="select toggle-locale">
                                     <select v-model="prefix">
@@ -205,7 +217,7 @@
 
                         {{-- url --}}
                         <div class="field">
-                            {{ Form::label('url', 'Url', ['class' => 'label']) }}
+                            {{ Form::label('url', trans('SimpleMenu::messages.url'), ['class' => 'label']) }}
                             <div class="control input-box">
                                 <div class="select toggle-locale">
                                     <select v-model="url">
@@ -232,7 +244,7 @@
 
                         {{-- menus --}}
                         <div class="field">
-                            {{ Form::label('menus', 'Menus', ['class' => 'label']) }}
+                            {{ Form::label('menus', trans('SimpleMenu::messages.menus'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select('menus[]', $menus, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
                             </div>
@@ -244,12 +256,14 @@
                 {{-- Guards --}}
                 <div class="columns">
                     <div class="column is-2">
-                        <h3 class="title link" @click="toggleGuards = !toggleGuards">Guards</h3>
+                        <h3 class="title link" @click="toggleGuards = !toggleGuards">
+                            {{ trans('SimpleMenu::messages.guards') }}
+                        </h3>
                     </div>
                     <div class="column is-10" v-show="toggleGuards">
                         {{-- roles --}}
                         <div class="field">
-                            {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
+                            {{ Form::label('roles', trans('SimpleMenu::messages.roles'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select('roles[]', $roles, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
                             </div>
@@ -257,7 +271,7 @@
 
                         {{-- permissions --}}
                         <div class="field">
-                            {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
+                            {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select('permissions[]', $permissions, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
                             </div>

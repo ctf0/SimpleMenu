@@ -48,7 +48,7 @@ class PermissionsController extends BaseController
 
         Permission::create($request->all());
 
-        return redirect()->route($this->crud_prefix . '.permissions.index');
+        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Created!');
     }
 
     /**
@@ -83,7 +83,7 @@ class PermissionsController extends BaseController
 
         $this->clearCache();
 
-        return redirect()->route($this->crud_prefix . '.permissions.index');
+        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Updated!');
     }
 
     /**
@@ -103,6 +103,6 @@ class PermissionsController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.permissions.index');
+        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Deleted!');
     }
 }

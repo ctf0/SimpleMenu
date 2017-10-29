@@ -61,7 +61,7 @@ class UsersController extends BaseController
         $user->assignRole($roles);
         $user->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix . '.users.index');
+        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Created!');
     }
 
     /**
@@ -104,7 +104,7 @@ class UsersController extends BaseController
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 
-        return redirect()->route($this->crud_prefix . '.users.index');
+        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Updated!');
     }
 
     /**
@@ -126,6 +126,6 @@ class UsersController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.users.index');
+        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Deleted!');
     }
 }

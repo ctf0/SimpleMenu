@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', "Edit '$role->name'")
+@section('title'){{ trans('SimpleMenu::messages.app_edit') }} "{{ $role->name }}"@endsection
 
 @section('sub')
     <div class="level">
@@ -11,7 +11,7 @@
         <div class="level-right">
             <a href="{{ route($crud_prefix.'.roles.create') }}"
                 class="button is-success">
-                @lang('SimpleMenu::messages.app_add_new')
+                {{ trans('SimpleMenu::messages.app_add_new') }}
             </a>
         </div>
     </div>
@@ -20,7 +20,7 @@
 
         {{-- name --}}
         <div class="field">
-            {{ Form::label('name', 'Name', ['class' => 'label']) }}
+            {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
             <div class="control">
                 {{ Form::text('name', $role->name, ['class' => 'input']) }}
             </div>
@@ -33,7 +33,7 @@
 
         {{-- permissions --}}
         <div class="field">
-            {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
+            {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
             <div class="control">
                 {{ Form::select(
                     'permissions[]',

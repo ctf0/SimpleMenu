@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Create new Menu')
+@section('title'){{ trans('SimpleMenu::messages.create_new') }} {{ trans('SimpleMenu::messages.menus') }}@endsection
 
 @section('sub')
     <h3 class="title">
@@ -10,7 +10,7 @@
 
         {{-- name --}}
         <div class="field">
-            {{ Form::label('name', 'Name', ['class' => 'label']) }}
+            {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
         </div>
         <div class="field has-addons">
             <div class="control is-expanded">

@@ -61,7 +61,7 @@ class PagesController extends BaseController
         $page->givePermissionTo($permissions);
         $page->assignToMenus($menus);
 
-        return redirect()->route($this->crud_prefix . '.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Created!');
     }
 
     /**
@@ -104,7 +104,7 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
-        return redirect()->route($this->crud_prefix . '.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Updated!');
     }
 
     /**
@@ -123,6 +123,6 @@ class PagesController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.pages.index');
+        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Deleted!');
     }
 }

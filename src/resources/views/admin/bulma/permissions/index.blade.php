@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Permissions')
+@section('title', trans('SimpleMenu::messages.permissions'))
 
 @section('sub')
     <index-comp inline-template :count="{{ count($permissions) }}">
@@ -7,13 +7,13 @@
             <div class="level">
                 <div class="level-left">
                     <h3 class="title">
-                        @lang('SimpleMenu::messages.permissions.title') "<span>@{{ itemsCount }}</span>"
+                        {{ trans('SimpleMenu::messages.permissions') }} "<span>@{{ itemsCount }}</span>"
                     </h3>
                 </div>
                 <div class="level-right">
                     <a href="{{ route($crud_prefix.'.permissions.create') }}"
                         class="button is-success">
-                        @lang('SimpleMenu::messages.app_add_new')
+                        {{ trans('SimpleMenu::messages.app_add_new') }}
                     </a>
                 </div>
             </div>
@@ -21,8 +21,8 @@
             <table class="table is-narrow is-fullwidth is-bordered">
                 <thead>
                     <tr>
-                        <th>@lang('SimpleMenu::messages.permissions.fields.name')</th>
-                        <th>@lang('SimpleMenu::messages.ops')</th>
+                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
@@ -33,7 +33,7 @@
                             <td>
                                 <a href="{{ route($crud_prefix.'.permissions.edit',[$permission->id]) }}"
                                     class="button is-link is-inline-block">
-                                    @lang('SimpleMenu::messages.app_edit')
+                                    {{ trans('SimpleMenu::messages.app_edit') }}
                                 </a>
 
                                 @php
@@ -58,7 +58,7 @@
                     @endforeach
 
                     <tr v-show="itemsCount == 0">
-                        <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                        <td colspan="2">{{ trans('SimpleMenu::messages.app_no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

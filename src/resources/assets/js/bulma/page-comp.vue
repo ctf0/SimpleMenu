@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             toggleControl: true,
+            toggleCover: true,
             toggleContent: true,
             toggleAccess: true,
             toggleGuards: true,

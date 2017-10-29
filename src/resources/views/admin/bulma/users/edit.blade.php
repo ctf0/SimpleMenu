@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', "Edit '$user->name'")
+@section('title'){{ trans('SimpleMenu::messages.app_edit') }} "{{ $user->name }}"@endsection
 
 @section('sub')
     <div class="level">
@@ -11,7 +11,7 @@
         <div class="level-right">
             <a href="{{ route($crud_prefix.'.users.create') }}"
                 class="button is-success">
-                @lang('SimpleMenu::messages.app_add_new')
+                {{ trans('SimpleMenu::messages.app_add_new') }}
             </a>
         </div>
     </div>
@@ -20,26 +20,29 @@
 
         {{-- Account --}}
         <div class="columns">
+            {{-- avatar --}}
             <div class="column is-2">
-                <h3 class="title">Account</h3>
+                <h3 class="title">{{ trans('SimpleMenu::messages.avatar') }}</h3>
             </div>
             <div class="column is-10">
-                {{-- avatar --}}
                 {{-- preview --}}
                 @if ($user->avatar)
                     <img src="{{ $user->avatar }}">
                 @endif
                 {{-- upload --}}
                 <div class="field">
-                    {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
-                    <div class="control">
-                        <input type="file" name="cover">
-                    </div>
+                    <input type="file" name="avatar">
                 </div>
+            </div>
 
+            {{-- data --}}
+            <div class="column is-2">
+                <h3 class="title">{{ trans('SimpleMenu::messages.account') }}</h3>
+            </div>
+            <div class="column is-10">
                 {{-- name --}}
                 <div class="field">
-                    {{ Form::label('name', 'Name', ['class' => 'label']) }}
+                    {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::text('name', $user->name, ['class' => 'input']) }}
                     </div>
@@ -52,7 +55,7 @@
 
                 {{-- email --}}
                 <div class="field">
-                    {{ Form::label('email', 'Email', ['class' => 'label']) }}
+                    {{ Form::label('email', trans('SimpleMenu::messages.email'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::email('email', $user->email, ['class' => 'input']) }}
                     </div>
@@ -65,7 +68,7 @@
 
                 {{-- password --}}
                 <div class="field">
-                    {{ Form::label('password', 'Password', ['class' => 'label']) }}
+                    {{ Form::label('password', trans('SimpleMenu::messages.password'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::password('password', ['class' => 'input', 'placeholder'=>'******']) }}
                     </div>
@@ -82,12 +85,12 @@
         {{-- Guards --}}
         <div class="columns">
             <div class="column is-2">
-                <h3 class="title">Guards</h3>
+                <h3 class="title">{{ trans('SimpleMenu::messages.guards') }}</h3>
             </div>
             <div class="column is-10">
                 {{-- roles --}}
                 <div class="field">
-                    {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
+                    {{ Form::label('roles', trans('SimpleMenu::messages.roles'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
                             'roles[]',
@@ -105,7 +108,7 @@
 
                 {{-- permissions --}}
                 <div class="field">
-                    {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
+                    {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
                             'permissions[]',

@@ -19,14 +19,14 @@ trait PageOps
     {
         $customMessages = [
             'template.required_without' => __('validation.required_without', [
-                'attribute' => __('SimpleMenu::validation.template'),
-                'values'    => __('SimpleMenu::validation.action'),
+                'attribute' => __('SimpleMenu::messages.template'),
+                'values'    => __('SimpleMenu::messages.action'),
             ]),
-            'route_name.required' => __('validation.required', ['attribute' => __('SimpleMenu::validation.route_name')]),
-            'url.required'        => __('validation.required', ['attribute' => __('SimpleMenu::validation.url')]),
-            'url.unique'          => __('validation.unique', ['attribute' => __('SimpleMenu::validation.url')]),
-            'title.required'      => __('validation.required', ['attribute' => __('SimpleMenu::validation.title')]),
-            'title.unique'        => __('validation.unique', ['attribute' => __('SimpleMenu::validation.title')]),
+            'route_name.required' => __('validation.required', ['attribute' => __('SimpleMenu::messages.route_name')]),
+            'url.required'        => __('validation.required', ['attribute' => __('SimpleMenu::messages.url')]),
+            'url.unique'          => __('validation.unique', ['attribute' => __('SimpleMenu::messages.url')]),
+            'title.required'      => __('validation.required', ['attribute' => __('SimpleMenu::messages.title')]),
+            'title.unique'        => __('validation.unique', ['attribute' => __('SimpleMenu::messages.title')]),
         ];
 
         // main

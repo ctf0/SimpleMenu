@@ -19,6 +19,16 @@
 
         {{-- notif --}}
         <div class="notif-container">
+            {{-- Status --}}
+            @if (session('status'))
+                <my-notification
+                    title="Success"
+                    body="{{ session('status') }}"
+                    type="success"
+                    duration="2">
+                </my-notification>
+            @endif
+
             <my-notification></my-notification>
         </div>
 

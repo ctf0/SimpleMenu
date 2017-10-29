@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Pages')
+@section('title', trans('SimpleMenu::messages.pages'))
 
 @section('sub')
     <index-comp inline-template :count="{{ count($pages) }}">
@@ -7,13 +7,13 @@
             <div class="level">
                 <div class="level-left">
                     <h3 class="title">
-                        @lang('SimpleMenu::messages.pages.title') "<span>@{{ itemsCount }}</span>"
+                        {{ trans('SimpleMenu::messages.pages') }} "<span>@{{ itemsCount }}</span>"
                     </h3>
                 </div>
                 <div class="level-right">
                     <a href="{{ route($crud_prefix.'.pages.create') }}"
                         class="button is-success">
-                        @lang('SimpleMenu::messages.app_add_new')
+                        {{ trans('SimpleMenu::messages.app_add_new') }}
                     </a>
                 </div>
             </div>
@@ -21,14 +21,14 @@
             <table class="table is-narrow is-fullwidth is-bordered">
                 <thead>
                     <tr>
-                        <th>@lang('SimpleMenu::messages.pages.fields.title')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.route')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.roles')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.permissions')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.menus')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.locals')</th>
-                        <th>@lang('SimpleMenu::messages.pages.fields.template')</th>
-                        <th>@lang('SimpleMenu::messages.ops')</th>
+                        <th>{{ trans('SimpleMenu::messages.title') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.route') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.roles') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.permissions') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.menus') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.locals') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.template') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
@@ -79,7 +79,7 @@
                             <td>
                                 <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}"
                                     class="button is-link is-inline-block">
-                                    @lang('SimpleMenu::messages.app_edit')
+                                    {{ trans('SimpleMenu::messages.app_edit') }}
                                 </a>
                                 <a class="is-inline-block">
                                     @if (config('simpleMenu.deletePageAndNests'))
@@ -102,7 +102,7 @@
                     @endforeach
 
                     <tr v-show="itemsCount == 0">
-                        <td colspan="7">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                        <td colspan="7">{{ trans('SimpleMenu::messages.app_no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

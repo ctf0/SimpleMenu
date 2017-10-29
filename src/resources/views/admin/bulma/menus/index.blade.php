@@ -1,17 +1,17 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Menus')
+@section('title', trans('SimpleMenu::messages.menus'))
 
 @section('sub')
     <index-comp inline-template :count="{{ count($menus) }}">
         <div>
             <div class="level">
                 <div class="level-left">
-                    <h3 class="title">@lang('SimpleMenu::messages.menus.title') "<span>@{{ itemsCount }}</span>"</h3>
+                    <h3 class="title">{{ trans('SimpleMenu::messages.menus') }} "<span>@{{ itemsCount }}</span>"</h3>
                 </div>
                 <div class="level-right">
                     <a href="{{ route($crud_prefix.'.menus.create') }}"
                         class="button is-success">
-                        @lang('SimpleMenu::messages.app_add_new')
+                        {{ trans('SimpleMenu::messages.app_add_new') }}
                     </a>
                 </div>
             </div>
@@ -19,8 +19,8 @@
             <table class="table is-narrow is-fullwidth is-bordered">
                 <thead>
                     <tr>
-                        <th>@lang('SimpleMenu::messages.menus.fields.name')</th>
-                        <th>@lang('SimpleMenu::messages.ops')</th>
+                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
@@ -30,7 +30,7 @@
                             <td>{{ $menu->name }}</td>
                             <td>
                                 <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-link is-inline-block">
-                                    @lang('SimpleMenu::messages.app_edit')
+                                    {{ trans('SimpleMenu::messages.app_edit') }}
                                 </a>
                                 <a class="is-inline-block">
                                     {{ Form::open([
@@ -47,7 +47,7 @@
                     @endforeach
 
                     <tr v-show="itemsCount == 0">
-                        <td colspan="2">@lang('SimpleMenu::messages.app_no_entries_in_table')</td>
+                        <td colspan="2">{{ trans('SimpleMenu::messages.app_no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

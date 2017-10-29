@@ -49,7 +49,7 @@ class MenusController extends BaseController
 
         $menu = Menu::create($request->all());
 
-        return redirect()->route($this->crud_prefix . '.menus.index');
+        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Model Created!');
     }
 
     /**
@@ -104,7 +104,7 @@ class MenusController extends BaseController
         // update and trigger events
         $menu->update($request->except('saveList'));
 
-        return back();
+        return back()->with('status', 'Model Updated!');
     }
 
     /**
@@ -124,6 +124,6 @@ class MenusController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.menus.index');
+        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Model Deleted!');
     }
 }

@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Create new Role')
+@section('title'){{ trans('SimpleMenu::messages.create_new') }} {{ trans('SimpleMenu::messages.roles') }}@endsection
 
 @section('sub')
     <h3 class="title">
@@ -10,7 +10,7 @@
 
         {{-- name --}}
         <div class="field">
-            {{ Form::label('name', 'Name', ['class' => 'label']) }}
+            {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
             <div class="control">
                 {{ Form::text('name', null, ['class' => 'input']) }}
             </div>
@@ -23,7 +23,7 @@
 
         {{-- permissions --}}
         <div class="field">
-            {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
+            {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
             <div class="control">
                 {{ Form::select('permissions[]', $permissions, null, ['class' => 'select2', 'multiple' => 'multiple']) }}
             </div>

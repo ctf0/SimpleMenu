@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title', 'Create new User')
+@section('title'){{ trans('SimpleMenu::messages.create_new') }} {{ trans('SimpleMenu::messages.users') }}@endsection
 
 @section('sub')
     <h3 class="title">
@@ -10,21 +10,22 @@
 
         {{-- Account --}}
         <div class="columns">
+            {{-- avatar --}}
             <div class="column is-2">
-                <h3 class="title">Account</h3>
+                <h3 class="title">{{ trans('SimpleMenu::messages.avatar') }}</h3>
             </div>
             <div class="column is-10">
-                {{-- avatar --}}
-                <div class="field">
-                    {{ Form::label('cover', 'Cover', ['class' => 'label']) }}
-                    <div class="control">
-                        <input type="file" name="cover">
-                    </div>
-                </div>
+                <input type="file" name="avatar">
+            </div>
 
+            {{-- data --}}
+            <div class="column is-2">
+                <h3 class="title">{{ trans('SimpleMenu::messages.account') }}</h3>
+            </div>
+            <div class="column is-10">
                 {{-- name --}}
                 <div class="field">
-                    {{ Form::label('name', 'Name', ['class' => 'label']) }}
+                    {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::text('name', null, ['class' => 'input']) }}
                     </div>
@@ -37,7 +38,7 @@
 
                 {{-- email --}}
                 <div class="field">
-                    {{ Form::label('email', 'Email', ['class' => 'label']) }}
+                    {{ Form::label('email', trans('SimpleMenu::messages.email'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::email('email', null, ['class' => 'input']) }}
                     </div>
@@ -50,7 +51,7 @@
 
                 {{-- password --}}
                 <div class="field">
-                    {{ Form::label('password', 'Password', ['class' => 'label']) }}
+                    {{ Form::label('password', trans('SimpleMenu::messages.password'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::password('password', ['class' => 'input','placeholder'=>'******']) }}
                     </div>
@@ -67,12 +68,14 @@
         {{-- Guards --}}
         <div class="columns">
             <div class="column is-2">
-                <h3 class="title">Guards</h3>
+                <h3 class="title">
+                    {{ trans('SimpleMenu::messages.guards') }}
+                </h3>
             </div>
             <div class="column is-10">
                 {{-- roles --}}
                 <div class="field">
-                    {{ Form::label('roles', 'Roles', ['class' => 'label']) }}
+                    {{ Form::label('roles', trans('SimpleMenu::messages.roles'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
                             'roles[]',
@@ -90,7 +93,7 @@
 
                 {{-- permissions --}}
                 <div class="field">
-                    {{ Form::label('permissions', 'Permissions', ['class' => 'label']) }}
+                    {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
                             'permissions[]',
