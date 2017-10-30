@@ -6,8 +6,11 @@
     "keywords": [
         "ctf0",
         "SimpleMenu",
-        "menu maker",
-        "laravel"
+        "menu",
+        "manager",
+        "laravel",
+        "gui",
+        "multi-locale"
     ],
     "authors": [
         {
