@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <section id="app">
+    <section id="app" v-cloak>
 
         {{-- notif --}}
         <div class="notif-container">

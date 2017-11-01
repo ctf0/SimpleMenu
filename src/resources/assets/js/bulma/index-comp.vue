@@ -11,6 +11,7 @@ export default {
         DelItem(event, name) {
 
             let that = this
+            let id = event.target.dataset.id
 
             $.ajax({
                 url: event.target.action,
@@ -25,11 +26,11 @@ export default {
                             icon: false
                         })
 
-                        $(`#${event.target.dataset.id}`).remove()
+                        $(`#${id}`).remove()
 
                         // for sidebar menu
-                        if ($(`li[data-id="${event.target.dataset.id}"]`)) {
-                            $(`li[data-id="${event.target.dataset.id}"]`).remove()
+                        if ($(`li[data-id="${id}"]`)) {
+                            $(`li[data-id="${id}"]`).remove()
                         }
 
                         that.itemsCount = --that.itemsCount
