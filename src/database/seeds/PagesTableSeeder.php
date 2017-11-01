@@ -1,8 +1,8 @@
 <?php
 
-use ctf0\SimpleMenu\Models\Page;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use ctf0\SimpleMenu\Models\Page;
 
 class PagesTableSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class PagesTableSeeder extends Seeder
         Page::create([
             'template'  => 'hero',
             'route_name'=> str_slug('Home'),
-            'action'    => 'PageController@'.camel_case('Home'),
+            'action'    => 'PageController@' . camel_case('Home'),
             'title'     => [
                 'en' => title_case('Home'),
                 'fr' => title_case('Home'),
@@ -40,7 +40,7 @@ class PagesTableSeeder extends Seeder
             Page::create([
                 'template'  => 'hero',
                 'route_name'=> str_slug($one),
-                'action'    => 'PageController@'.camel_case($one),
+                'action'    => 'PageController@' . camel_case($one),
                 'title'     => [
                     'en' => title_case($one),
                     'fr' => title_case($one),

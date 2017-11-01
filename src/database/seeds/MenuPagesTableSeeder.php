@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
 use ctf0\SimpleMenu\Models\Menu;
 use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Database\Seeder;
 
 class MenuPagesTableSeeder extends Seeder
 {
