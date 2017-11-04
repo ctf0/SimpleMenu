@@ -104,7 +104,7 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
-        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Updated!');
+        return back()->with('status', 'Model Updated!');
     }
 
     /**

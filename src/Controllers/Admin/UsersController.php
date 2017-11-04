@@ -104,7 +104,7 @@ class UsersController extends BaseController
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 
-        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Updated!');
+        return back()->with('status', 'Model Updated!');
     }
 
     /**

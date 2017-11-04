@@ -94,7 +94,7 @@ class RolesController extends BaseController
 
         $this->clearCache();
 
-        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Updated!');
+        return back()->with('status', 'Model Updated!');
     }
 
     /**
