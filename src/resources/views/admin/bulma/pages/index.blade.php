@@ -23,6 +23,7 @@
                     <tr>
                         <th>{{ trans('SimpleMenu::messages.title') }}</th>
                         <th>{{ trans('SimpleMenu::messages.route') }}</th>
+                        <th>{{ trans('SimpleMenu::messages.url') }}</th>
                         <th>{{ trans('SimpleMenu::messages.roles') }}</th>
                         <th>{{ trans('SimpleMenu::messages.permissions') }}</th>
                         <th>{{ trans('SimpleMenu::messages.menus') }}</th>
@@ -45,6 +46,7 @@
                                 @endif
                             </td>
                             <td>{{ $page->route_name }}</td>
+                            <td>{{ $page->prefix ? "$page->prefix/$page->url" : $page->url }}</td>
                             <td>
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-medium is-link">
