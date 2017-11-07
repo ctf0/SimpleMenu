@@ -48,12 +48,28 @@ trait RoutesTrait
     protected function utilLoop()
     {
         foreach ($this->cache->tags('sm')->get('pages') as $page) {
-            $this->pageComp($page);
+            // make route
+            $this->routeGen($page);
+
+            // create route list
+            if (!$this->listFileFound) {
+                $this->createRoutesList($page);
+            }
         }
     }
 
-    protected function pageComp($page)
+    protected function routeGen($page)
     {
+        if ($this->escapeEmptyRoute($page->url)) {
+            return;
+        }
+
+        // route data
+        $url       = $page->url;
+        $action    = $page->action;
+        $prefix    = $page->prefix;
+        $routeName = $page->route_name;
+
         // page data
         $title       = $page->title;
         $body        = $page->body;
@@ -63,85 +79,34 @@ trait RoutesTrait
         $template    = $page->template;
         $breadCrumb  = $page->getAncestors();
 
-        // route data
-        $url       = $page->url;
-        $action    = $page->action;
-        $prefix    = $page->prefix;
-        $routeName = $page->route_name;
-
         // middlewares
         $roles       = 'role:' . implode(',', $page->roles->pluck('name')->toArray());
         $permissions = 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
-        // make route
-        $this->routeGen(
-            $routeName,
-            $url,
-            $prefix,
-            $action,
-            $roles,
-            $permissions,
-            $template,
-            $title,
-            $body,
-            $desc,
-            $meta,
-            $cover,
-            $breadCrumb
-        );
-
-        // create route list
-        if (!$this->listFileFound) {
-            $this->createRoutesList($action, $page, $routeName);
-        }
-    }
-
-    protected function routeGen(
-        $routeName,
-        $url,
-        $prefix,
-        $action,
-        $roles,
-        $permissions,
-        $template,
-        $title,
-        $body,
-        $desc,
-        $meta,
-        $cover,
-        $breadCrumb
-    ) {
-        if ($this->escapeEmptyRoute($url)) {
-            return;
-        }
-
         // cache the page so we can pass the page params to the controller@method
-        $this->cache->tags('sm')->rememberForever(
-            $this->getCrntLocale() . "-$routeName",
-            function () use ($template, $title, $body, $desc, $meta, $cover, $breadCrumb) {
-                return compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb');
-            });
+        $compact = compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb', 'roles', 'permissions');
+
+        $this->cache->tags('sm')->rememberForever($this->getCrntLocale() . "-$routeName", function () use ($compact) {
+            return $compact;
+        });
 
         $route = $this->getRouteUrl($url, $prefix);
 
+        $uses = $action
+            ? config('simpleMenu.pagesControllerNS') . '\\' . $action
+            : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
+
         // dynamic
-        if ($action) {
-            Route::get($route)
-                ->uses(config('simpleMenu.pagesControllerNS') . '\\' . $action)
-                ->name($routeName)
-                ->middleware([$roles, $permissions]);
-        }
-        // static
-        else {
-            Route::get($route)
-                ->uses('\ctf0\SimpleMenu\Controllers\DummyController@handle')
-                ->name($routeName)
-                ->middleware([$roles, $permissions]);
-        }
+        Route::get($route)
+            ->uses($uses)
+            ->name($routeName)
+            ->middleware([$roles, $permissions]);
     }
 
-    protected function createRoutesList($action, $page, $routeName)
+    protected function createRoutesList($page)
     {
+        $routeName = $page->route_name;
+
         foreach ($this->AppLocales() as $code) {
             $url    = $page->getTranslationWithoutFallback('url', $code);
             $prefix = $page->getTranslationWithoutFallback('prefix', $code);
