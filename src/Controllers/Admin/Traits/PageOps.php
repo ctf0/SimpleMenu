@@ -18,15 +18,15 @@ trait PageOps
     protected function sT_uP_Validaiton($request, $id = null)
     {
         $customMessages = [
-            'template.required_without' => __('validation.required_without', [
-                'attribute' => __('SimpleMenu::messages.template'),
-                'values'    => __('SimpleMenu::messages.action'),
+            'template.required_without' => trans('validation.required_without', [
+                'attribute' => trans('SimpleMenu::messages.template'),
+                'values'    => trans('SimpleMenu::messages.action'),
             ]),
-            'route_name.required' => __('validation.required', ['attribute' => __('SimpleMenu::messages.route_name')]),
-            'url.required'        => __('validation.required', ['attribute' => __('SimpleMenu::messages.url')]),
-            'url.unique'          => __('validation.unique', ['attribute' => __('SimpleMenu::messages.url')]),
-            'title.required'      => __('validation.required', ['attribute' => __('SimpleMenu::messages.title')]),
-            'title.unique'        => __('validation.unique', ['attribute' => __('SimpleMenu::messages.title')]),
+            'route_name.required' => trans('validation.required', ['attribute' => trans('SimpleMenu::messages.route_name')]),
+            'url.required'        => trans('validation.required', ['attribute' => trans('SimpleMenu::messages.url')]),
+            'url.unique'          => trans('validation.unique', ['attribute' => trans('SimpleMenu::messages.url')]),
+            'title.required'      => trans('validation.required', ['attribute' => trans('SimpleMenu::messages.title')]),
+            'title.unique'        => trans('validation.unique', ['attribute' => trans('SimpleMenu::messages.title')]),
         ];
 
         // main
