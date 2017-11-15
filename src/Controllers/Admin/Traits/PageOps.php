@@ -18,6 +18,7 @@ trait PageOps
     protected function sT_uP_Validaiton($request, $id = null)
     {
         $customMessages = [
+            'action.regex'              => trans('SimpleMenu::messages.regex', ['attribute' => trans('SimpleMenu::messages.action')]),
             'template.required_without' => trans('validation.required_without', [
                 'attribute' => trans('SimpleMenu::messages.template'),
                 'values'    => trans('SimpleMenu::messages.action'),
@@ -31,6 +32,7 @@ trait PageOps
 
         // main
         $validator = Validator::make($request->all(), [
+            'action'     => 'nullable|regex:/@/ius',
             'template'   => 'required_without:action',
             'route_name' => 'required|unique:pages,route_name,' . $id ?: '',
             'url.*'      => 'unique_translation:pages,url,' . $id ?: '',

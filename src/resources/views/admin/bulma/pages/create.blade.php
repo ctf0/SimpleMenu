@@ -58,6 +58,11 @@
                             <div class="control">
                                 {{ Form::text('action', null, ['class' => 'input', 'placeholder'=>"SomeController@index"]) }}
                             </div>
+                            @if($errors->has('action'))
+                                <p class="help is-danger">
+                                    {{ $errors->first('action') }}
+                                </p>
+                            @endif
                         </div>
 
                         {{-- template --}}
