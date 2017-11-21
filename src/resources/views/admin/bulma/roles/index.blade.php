@@ -45,7 +45,7 @@
                                 </a>
 
                                 @php
-                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray());
+                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? true : false;
                                 @endphp
 
                                 <a class="is-inline-block">
@@ -57,7 +57,7 @@
                                     ]) }}
                                         {{ Form::submit(
                                             trans('SimpleMenu::messages.app_delete'),
-                                            ['class' => 'button is-danger', 'disabled' => $check ? true : false]
+                                            ['class' => 'button is-danger', 'disabled' => $check]
                                         ) }}
                                     {{ Form::close() }}
                                 </a>

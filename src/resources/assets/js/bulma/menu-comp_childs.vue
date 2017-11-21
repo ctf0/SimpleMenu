@@ -51,15 +51,7 @@ export default {
             }, (res) => {
                 if (res.done) {
                     this.childs.splice(this.childs.indexOf(item), 1)
-
-                    EventHub.fire('showNotif', {
-                        title: 'Success',
-                        body: `"${this.getTitle(item.title)}" was removed`,
-                        type: 'success',
-                        duration: 3,
-                        icon: false
-                    })
-
+                    this.showNotif(`"${this.getTitle(item.title)}" was removed`)
                     EventHub.fire('updateAllPages')
                     EventHub.fire('updatePagesHierarchy')
                 }

@@ -40,6 +40,17 @@ export default {
             }
         },
 
+        // notif
+        showNotif(msg) {
+            EventHub.fire('showNotif', {
+                title: 'Success',
+                body: msg,
+                type: 'success',
+                duration: 2,
+                icon: false
+            })
+        },
+
         // nests
         dragStart() {
             this.isDragging = true

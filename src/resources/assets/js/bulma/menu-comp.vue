@@ -32,14 +32,7 @@ export default {
                 if (res.done) {
                     this.pages.splice(this.pages.indexOf(item), 1)
                     this.pushBackToList(item)
-
-                    EventHub.fire('showNotif', {
-                        title: 'Success',
-                        body: `"${this.getTitle(item.title)}" was removed`,
-                        type: 'success',
-                        duration: 1,
-                        icon: false
-                    })
+                    this.showNotif(`"${this.getTitle(item.title)}" was removed`)
                 }
             })
         },
