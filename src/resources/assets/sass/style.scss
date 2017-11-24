@@ -1,3 +1,7 @@
+td {
+    vertical-align: middle !important;
+}
+
 .link {
     cursor: pointer;
 }
@@ -45,8 +49,8 @@
     display: none !important;
 }
 
-div.mce-edit-area {
-    border-right-width: 1px !important;
+.mce-statusbar {
+    border: none !important;
 }
 
 // nest
