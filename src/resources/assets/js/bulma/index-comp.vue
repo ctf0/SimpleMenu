@@ -10,32 +10,34 @@ export default {
     methods: {
         DelItem(event, name) {
 
-            let that = this
             let id = event.target.dataset.id
 
-            $.ajax({
-                url: event.target.action,
-                type: 'DELETE',
-                success(res) {
-                    if (res.done) {
-                        EventHub.fire('showNotif', {
-                            title: 'Success',
-                            body: `"${name}" was removed`,
-                            type: 'success',
-                            duration: 1,
-                            icon: false
-                        })
+            axios({
+                method: 'DELETE',
+                url: event.target.action
+            }).then(({data}) => {
+                if (data.done) {
+                    EventHub.fire('showNotif', {
+                        title: 'Success',
+                        body: `"${name}" was removed`,
+                        type: 'success',
+                        duration: 2,
+                        icon: false
+                    })
 
-                        $(`#${id}`).remove()
+                    // remove item
+                    document.getElementById(`${id}`).remove()
 
-                        // for sidebar menu
-                        if ($(`li[data-id="${id}"]`)) {
-                            $(`li[data-id="${id}"]`).remove()
-                        }
-
-                        that.itemsCount = --that.itemsCount
+                    // for sidebar menu
+                    let item = document.querySelector(`li[data-id="${id}"]`)
+                    if (item) {
+                        item.remove()
                     }
+
+                    this.itemsCount = --this.itemsCount
                 }
+            }).catch((err) => {
+                console.log(err)
             })
         }
     },

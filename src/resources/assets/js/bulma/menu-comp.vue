@@ -20,20 +20,25 @@ export default {
     },
     methods: {
         getPages() {
-            $.get(this.getMenuPages, (res) => {
-                this.pages = res.pages
-                this.allPages = res.allPages
-            })
+            axios.get(this.getMenuPages)
+                .then(({data}) => {
+                    this.pages = data.pages
+                    this.allPages = data.allPages
+                }).catch((err) => {
+                    console.log(err)
+                })
         },
         deletePage(item) {
-            $.post(this.delPage, {
+            axios.post(this.delPage, {
                 page_id: item.id
-            }, (res) => {
-                if (res.done) {
+            }).then(({data}) => {
+                if (data.done) {
                     this.pages.splice(this.pages.indexOf(item), 1)
                     this.pushBackToList(item)
                     this.showNotif(`"${this.getTitle(item.title)}" was removed`)
                 }
+            }).catch((err) => {
+                console.log(err)
             })
         },
 
@@ -51,9 +56,12 @@ export default {
         },
         eventsListeners() {
             EventHub.listen('updateAllPages', () => {
-                $.get(this.getMenuPages, (res) => {
-                    this.allPages = res.allPages.filter((x) => this.pages.indexOf(x) < 0 )
-                })
+                axios.get(this.getMenuPages)
+                    .then(({data}) => {
+                        this.allPages = data.allPages.filter((x) => this.pages.indexOf(x) < 0 )
+                    }).catch((err) => {
+                        console.log(err)
+                    })
             })
         },
 

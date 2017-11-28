@@ -1,29 +1,37 @@
 <template>
     <draggable :list="childs"
-        :class="{dragArea: isDragging}"
-        :options="{group:'pages', ghostClass: 'ghost'}"
-        :element="'ul'"
-        @change="updateList"
-        @start="dragStart"
-        @end="dragEnd">
+               :class="{dragArea: isDragging}"
+               :options="{group:'pages', ghostClass: 'ghost'}"
+               :element="'ul'"
+               @change="updateList"
+               @start="dragStart"
+               @end="dragEnd">
+
         <li v-for="item in childs" :key="item.id">
             <!-- main -->
             <div class="notification is-dark menu-item" :class="classObj(item)">
                 <span>{{ getTitle(item.title) }}</span>
 
                 <!-- ops -->
-                <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
-                <button type="button" v-else class="delete" @click.prevent="deleteChild(item)" title="remove child"></button>
+                <button type="button"
+                        v-if="checkFrom(item)"
+                        class="delete"
+                        @click="undoItem(item)"
+                        title="undo"/>
+                <button type="button"
+                        v-else
+                        class="delete"
+                        @click.prevent="deleteChild(item)"
+                        title="remove child"/>
             </div>
 
             <!-- childs -->
             <menu-child :locale="locale"
-                :class="{dragArea: isDragging}"
-                :pages="pages"
-                :all-pages="allPages"
-                :del-child="delChild"
-                :childs="item.nests">
-            </menu-child>
+                        :class="{dragArea: isDragging}"
+                        :pages="pages"
+                        :all-pages="allPages"
+                        :del-child="delChild"
+                        :childs="item.nests"/>
         </li>
     </draggable>
 </template>
@@ -46,15 +54,17 @@ export default {
     props: ['pages', 'allPages', 'childs'],
     methods: {
         deleteChild(item) {
-            $.post(this.delChild, {
+            axios.post(this.delChild, {
                 child_id: item.id
-            }, (res) => {
-                if (res.done) {
+            }).then(({data}) => {
+                if (data.done) {
                     this.childs.splice(this.childs.indexOf(item), 1)
                     this.showNotif(`"${this.getTitle(item.title)}" was removed`)
                     EventHub.fire('updateAllPages')
                     EventHub.fire('updatePagesHierarchy')
                 }
+            }).catch((err) => {
+                console.log(err)
             })
         },
 
