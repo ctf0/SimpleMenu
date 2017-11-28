@@ -68,28 +68,34 @@ trait Ops
 
         Route::group([
             'prefix'=> $prefix,
-            'as'    => "$prefix.",
-        ], function () use ($controllers) {
+        ], function () use ($prefix, $controllers) {
             /*                Home                */
-            Route::get('/', $controllers['admin'] . '@index')->name('index');
+            if (isset($controllers['admin'])) {
+                Route::get('/', $controllers['admin'])->name($prefix);
+            }
 
-            /*               Roles               */
-            Route::resource('roles', $controllers['roles'], ['except'=>'show']);
+            /*                Everything Else                */
+            Route::group([
+                'as'=> "$prefix.",
+            ], function () use ($controllers) {
+                /*               Roles               */
+                Route::resource('roles', $controllers['roles'], ['except'=>'show']);
 
-            /*               Perms               */
-            Route::resource('permissions', $controllers['permissions'], ['except'=>'show']);
+                /*               Perms               */
+                Route::resource('permissions', $controllers['permissions'], ['except'=>'show']);
 
-            /*               Menus               */
-            Route::post('menus/removechild', $controllers['menus'] . '@removeChild')->name('menus.removeChild');
-            Route::post('menus/removepage/{id}', $controllers['menus'] . '@removePage')->name('menus.removePage');
-            Route::get('menus/getmenupages/{id}', $controllers['menus'] . '@getMenuPages')->name('menus.getMenuPages');
-            Route::resource('menus', $controllers['menus'], ['except'=>'show']);
+                /*               Menus               */
+                Route::post('menus/removechild', $controllers['menus'] . '@removeChild')->name('menus.removeChild');
+                Route::post('menus/removepage/{id}', $controllers['menus'] . '@removePage')->name('menus.removePage');
+                Route::get('menus/getmenupages/{id}', $controllers['menus'] . '@getMenuPages')->name('menus.getMenuPages');
+                Route::resource('menus', $controllers['menus'], ['except'=>'show']);
 
-            /*               Users               */
-            Route::resource('users', $controllers['users'], ['except'=>'show']);
+                /*               Users               */
+                Route::resource('users', $controllers['users'], ['except'=>'show']);
 
-            /*               Pages               */
-            Route::resource('pages', $controllers['pages'], ['except'=>'show']);
+                /*               Pages               */
+                Route::resource('pages', $controllers['pages'], ['except'=>'show']);
+            });
         });
     }
 }

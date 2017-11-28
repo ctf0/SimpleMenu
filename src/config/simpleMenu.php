@@ -85,13 +85,19 @@ return [
     'crud_prefix' => 'admin',
 
     /*
-     * all the package controllers
+     * package controllers
+     *
+     * all the controllers are https://laravel.com/docs/5.5/controllers#resource-controllers
+     * except admin which is using a single method "index" to return the admin page
+     *
      * if you need to change anything, just create new controller
      * and extend from the below original
      * ex. "class ExampleController extends PagesController"
+     *
+     * for admin, the route name will be == "crud_prefix"
      */
     'controllers'=> [
-        'admin'       => '\ctf0\SimpleMenu\Controllers\Admin\AdminController',
+        'admin'       => '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index',
         'users'       => '\ctf0\SimpleMenu\Controllers\Admin\UsersController',
         'pages'       => '\ctf0\SimpleMenu\Controllers\Admin\PagesController',
         'roles'       => '\ctf0\SimpleMenu\Controllers\Admin\RolesController',

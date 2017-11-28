@@ -141,7 +141,7 @@ return [
      * ex. "class ExampleController extends PagesController"
      */
     'controllers'=> [
-        'admin'       => '\ctf0\SimpleMenu\Controllers\Admin\AdminController',
+        'admin'       => '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index',
         'users'       => '\ctf0\SimpleMenu\Controllers\Admin\UsersController',
         'pages'       => '\ctf0\SimpleMenu\Controllers\Admin\PagesController',
         'roles'       => '\ctf0\SimpleMenu\Controllers\Admin\RolesController',
