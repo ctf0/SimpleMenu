@@ -45,12 +45,42 @@ td {
 }
 
 // tinymce
-.mce-path {
-    display: none !important;
-}
-
 .mce-statusbar {
     border: none !important;
+}
+
+.mce-path {
+    visibility: hidden !important;
+}
+
+.mce-panel {
+    border-color: #eee !important;
+    border-radius: 3px !important;
+}
+
+.mce-tinymce,
+.mce-top-part::before {
+    box-shadow: none !important;
+}
+
+.mce-btn {
+    &:hover,
+    &:active {
+        border-color: transparent !important;
+    }
+
+    button {
+        padding: 4px 8px !important;
+    }
+}
+
+.mce-btn-group:not(:first-child) {
+    border-left: none !important;
+}
+
+.mce-btn,
+.mce-ico {
+    color: #a3afb7 !important;
 }
 
 // nest

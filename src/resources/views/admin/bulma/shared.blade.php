@@ -10,7 +10,7 @@
 
     {{-- styles --}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/SimpleMenu/style.css') }}"/>
 </head>
 
