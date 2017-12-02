@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <table class="table is-narrow is-fullwidth is-bordered">
+            <table class="table is-hoverable is-narrow is-fullwidth is-bordered">
                 <thead>
                     <tr>
                         <th>{{ trans('SimpleMenu::messages.name') }}</th>
@@ -33,7 +33,7 @@
                             <td>{{ $role->name }}</td>
                             <td>
                                 @foreach ($role->permissions as $perm)
-                                    <span class="tag is-medium is-link">
+                                    <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach

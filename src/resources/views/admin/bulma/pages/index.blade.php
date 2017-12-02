@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <table class="table is-narrow is-fullwidth is-bordered">
+            <table class="table is-hoverable is-narrow is-fullwidth is-bordered">
                 <thead>
                     <tr>
                         <th>{{ trans('SimpleMenu::messages.title') }}</th>
@@ -49,33 +49,33 @@
                             <td>{{ $page->prefix ? "$page->prefix/$page->url" : $page->url }}</td>
                             <td>
                                 @foreach ($page->roles as $role)
-                                    <span class="tag is-medium is-link">
+                                    <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($page->permissions as $perm)
-                                    <span class="tag is-medium is-link">
+                                    <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($page->menus as $menu)
-                                    <span class="tag is-medium is-link">
+                                    <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($page->getTranslatedLocales('title') as $locale)
-                                    <span class="tag is-medium is-warning">{{ $locale }}</span>
+                                    <span class="tag is-rounded is-medium is-warning">{{ $locale }}</span>
                                 @endforeach
                             </td>
                             <td>
                                 @if ($page->template)
-                                    <span class="tag is-medium is-primary">{{ $page->template }}</span>
+                                    <span class="tag is-rounded is-medium is-primary">{{ $page->template }}</span>
                                 @endif
                             </td>
                             <td>
