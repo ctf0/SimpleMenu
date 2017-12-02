@@ -25,7 +25,7 @@ export default {
                     this.pages = data.pages
                     this.allPages = data.allPages
                 }).catch((err) => {
-                    console.log(err)
+                    console.error(err)
                 })
         },
         deletePage(item) {
@@ -38,7 +38,7 @@ export default {
                     this.showNotif(`"${this.getTitle(item.title)}" was removed`)
                 }
             }).catch((err) => {
-                console.log(err)
+                console.error(err)
             })
         },
 
@@ -60,7 +60,7 @@ export default {
                     .then(({data}) => {
                         this.allPages = data.allPages.filter((x) => this.pages.indexOf(x) < 0 )
                     }).catch((err) => {
-                        console.log(err)
+                        console.error(err)
                     })
             })
         },

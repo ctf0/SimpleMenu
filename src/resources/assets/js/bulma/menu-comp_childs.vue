@@ -64,7 +64,7 @@ export default {
                     EventHub.fire('updatePagesHierarchy')
                 }
             }).catch((err) => {
-                console.log(err)
+                console.error(err)
             })
         },
 

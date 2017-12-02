@@ -37,7 +37,7 @@ export default {
                     this.itemsCount = --this.itemsCount
                 }
             }).catch((err) => {
-                console.log(err)
+                console.error(err)
             })
         }
     },
