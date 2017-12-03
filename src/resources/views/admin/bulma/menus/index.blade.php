@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-narrow is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered">
                 <thead>
                     <tr>
                         <th>{{ trans('SimpleMenu::messages.name') }}</th>
