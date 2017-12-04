@@ -32,8 +32,8 @@ class UsersController extends BaseController
      */
     public function create()
     {
-        $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $roles       = Role::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.users.create", compact('roles', 'permissions'));
     }
@@ -74,8 +74,8 @@ class UsersController extends BaseController
     public function edit($id)
     {
         $user        = $this->cache->get('sm-users')->find($id);
-        $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $roles       = Role::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.users.edit", compact('user', 'roles', 'permissions'));
     }

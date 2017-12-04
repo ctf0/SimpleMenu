@@ -33,11 +33,12 @@ class PagesController extends BaseController
      */
     public function create()
     {
-        $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $roles       = Role::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
+        $templates   = Page::groupBy('template')->pluck('template')->filter()->all();
 
-        return view("{$this->adminPath}.pages.create", compact('roles', 'permissions', 'menus'));
+        return view("{$this->adminPath}.pages.create", compact('roles', 'permissions', 'menus', 'templates'));
     }
 
     /**
@@ -73,12 +74,13 @@ class PagesController extends BaseController
      */
     public function edit($id)
     {
-        $roles       = Role::get()->pluck('name', 'name');
-        $permissions = Permission::get()->pluck('name', 'name');
+        $roles       = Role::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
         $page        = $this->cache->tags('sm')->get('pages')->find($id);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
+        $templates   = Page::groupBy('template')->pluck('template')->filter()->all();
 
-        return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus'));
+        return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus', 'templates'));
     }
 
     /**

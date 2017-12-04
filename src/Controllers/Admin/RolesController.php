@@ -31,7 +31,7 @@ class RolesController extends BaseController
      */
     public function create()
     {
-        $permissions = Permission::get()->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.create", compact('permissions'));
     }
@@ -67,7 +67,7 @@ class RolesController extends BaseController
     public function edit($id)
     {
         $role        = Role::find($id);
-        $permissions = Permission::get()->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.edit", compact('role', 'permissions'));
     }

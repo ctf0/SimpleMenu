@@ -87,9 +87,21 @@
                                 {{ Form::text(
                                     'template',
                                     $page->template,
-                                    ['class' => 'input','placeholder'=>"hero"])
+                                    ['class' => 'input','placeholder'=>"hero", 'ref'=>'template'])
                                 }}
                             </div>
+                            @if (count($templates))
+                                <span class="help">
+                                    <code>in-Use:</code>
+                                    @foreach ($templates as $one)
+                                        <small class="link"
+                                            @click="$refs.template.value = $event.target.dataset.value"
+                                            data-value="{{ $one }}">
+                                            {{ $one }}&nbsp;
+                                        </small>
+                                    @endforeach
+                                </span>
+                            @endif
                             @if($errors->has('template'))
                                 <p class="help is-danger">
                                     {{ $errors->first('template') }}
