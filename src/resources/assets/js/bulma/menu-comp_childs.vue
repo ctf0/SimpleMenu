@@ -17,12 +17,14 @@
                         v-if="checkFrom(item)"
                         class="delete"
                         @click="undoItem(item)"
-                        title="undo"/>
+                        title="undo"
+                        v-tippy="{arrow: true}"/>
                 <button type="button"
                         v-else
                         class="delete"
                         @click.prevent="deleteChild(item)"
-                        title="remove child"/>
+                        title="remove child"
+                        v-tippy="{arrow: true}"/>
             </div>
 
             <!-- childs -->

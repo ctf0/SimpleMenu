@@ -60,8 +60,20 @@
                                 <span>@{{ getTitle(item.title) }}</span>
 
                                 {{-- ops --}}
-                                <button type="button" v-if="checkFrom(item)" class="delete" @click="undoItem(item)" title="undo"></button>
-                                <button type="button" v-else class="delete" @click.prevent="deletePage(item)" title="remove page"></button>
+                                <button type="button"
+                                    v-if="checkFrom(item)"
+                                    class="delete"
+                                    @click="undoItem(item)"
+                                    title="{{ trans('SimpleMenu::messages.undo') }}"
+                                    v-tippy="{arrow: true}">
+                                </button>
+                                <button type="button"
+                                    v-else
+                                    class="delete"
+                                    @click.prevent="deletePage(item)"
+                                    title="{{ trans('SimpleMenu::messages.remove_page') }}"
+                                    v-tippy="{arrow: true}">
+                                </button>
                             </div>
 
                             {{-- childs --}}
