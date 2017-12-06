@@ -18,13 +18,13 @@
                         class="delete"
                         @click="undoItem(item)"
                         title="undo"
-                        v-tippy="{arrow: true}"/>
+                        v-tippy/>
                 <button type="button"
                         v-else
                         class="delete"
                         @click.prevent="deleteChild(item)"
                         title="remove child"
-                        v-tippy="{arrow: true}"/>
+                        v-tippy/>
             </div>
 
             <!-- childs -->

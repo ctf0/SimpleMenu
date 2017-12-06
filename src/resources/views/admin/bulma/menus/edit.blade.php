@@ -65,14 +65,14 @@
                                     class="delete"
                                     @click="undoItem(item)"
                                     title="{{ trans('SimpleMenu::messages.undo') }}"
-                                    v-tippy="{arrow: true}">
+                                    v-tippy>
                                 </button>
                                 <button type="button"
                                     v-else
                                     class="delete"
                                     @click.prevent="deletePage(item)"
                                     title="{{ trans('SimpleMenu::messages.remove_page') }}"
-                                    v-tippy="{arrow: true}">
+                                    v-tippy>
                                 </button>
                             </div>
 
