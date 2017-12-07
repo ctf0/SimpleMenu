@@ -5,7 +5,7 @@
     <div class="level">
         <div class="level-left">
             <h3 class="title">
-                <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
+                <a href="{{ route($crud_prefix.'.roles.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
             </h3>
         </div>
         <div class="level-right">

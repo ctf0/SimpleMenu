@@ -3,7 +3,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
+        <a href="{{ route($crud_prefix.'.menus.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
     {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.menus.store']) }}

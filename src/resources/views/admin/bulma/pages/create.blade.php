@@ -7,7 +7,7 @@
 
 @section('sub')
     <h3 class="title">
-        <a href="{{ url()->previous() }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
+        <a href="{{ route($crud_prefix.'.pages.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
     <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
