@@ -1,13 +1,10 @@
-- Dependencies
-    > - Permissions
-    >   - https://github.com/spatie/laravel-permission
+# SimpleMenu
 
-    > - MultiLocale
-    >   - https://github.com/spatie/laravel-translatable
-    >   - https://github.com/mcamara/laravel-localization
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/simple-menu)
 
-    > - Menu Nested Set
-    >   - https://github.com/gazsp/baum
+Create menus & pages that support (multiLocale "title, url, body, ...", nesting, template, static & dynamic data, roles & permissions).
+
+<br>
 
 ## Installation
 
@@ -34,9 +31,19 @@
 
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
-    - also check the **Dependencies** packages for "configuration/options/migrations".
+    - also check the below **Dependencies** for extra "configuration/options/migrations".
+        > - Permissions
+        >   - https://github.com/spatie/laravel-permission
+
+        > - MultiLocale
+        >   - https://github.com/spatie/laravel-translatable
+        >   - https://github.com/mcamara/laravel-localization
+
+        > - Menu Nested Set
+        >   - https://github.com/gazsp/baum
 
 - add `SMUsers` trait to your **User Model**
+
 ```php
 use ctf0\SimpleMenu\Models\Traits\SMUsers;
 
@@ -55,6 +62,19 @@ yarn add vue axios vue-tippy vuemit vuedraggable vue-notif
 # or
 npm install vue axios vue-tippy vuemit vuedraggable vue-notif --save
 ```
+
+- add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.
+    + if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/).
+
+```js
+require('./../vendor/SimpleMenu/js/manager')
+
+new Vue({
+    el: '#app'
+})
+```
+
+<br>
 
 ## Config
 **config/simpleMenu.php**
@@ -156,8 +176,12 @@ return [
 ];
 ```
 
+<br>
+
 ## Usage
 [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
-### Crud Views
+<br>
+
+## Crud Views
 [Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)

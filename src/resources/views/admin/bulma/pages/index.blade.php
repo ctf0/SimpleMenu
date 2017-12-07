@@ -2,7 +2,7 @@
 @section('title', trans('SimpleMenu::messages.pages'))
 
 @section('sub')
-    <index-comp inline-template :count="{{ count($pages) }}">
+    <sm-index inline-template :count="{{ count($pages) }}">
         <div>
             <div class="level">
                 <div class="level-left">
@@ -109,5 +109,5 @@
                 </tbody>
             </table>
         </div>
-    </index-comp>
+    </sm-index>
 @endsection

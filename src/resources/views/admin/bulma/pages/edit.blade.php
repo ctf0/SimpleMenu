@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id], 'files'=>true]) }}
 
@@ -346,5 +346,5 @@
                 </div>
             {{ Form::close() }}
         </div>
-    </page-comp>
+    </sm-page>
 @endsection

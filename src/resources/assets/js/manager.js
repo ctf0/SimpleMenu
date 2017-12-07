@@ -21,7 +21,7 @@ axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 }
 
-Vue.component('PageComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/page-comp.vue'))
-Vue.component('MenuComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu-comp.vue'))
-Vue.component('IndexComp', require('./' + process.env.MIX_SM_FRAMEWORK + '/index-comp.vue'))
+Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page-comp.vue'))
+Vue.component('SmMenu', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu-comp.vue'))
+Vue.component('SmIndex', require('./' + process.env.MIX_SM_FRAMEWORK + '/index-comp.vue'))
 Vue.component('MyNotification', require('vue-notif'))

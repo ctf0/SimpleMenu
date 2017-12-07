@@ -18,7 +18,7 @@
         </div>
     </h3>
 
-    <menu-comp inline-template
+    <sm-menu inline-template
         get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages',['id'=>$menu->id]) }}"
         del-page="{{ route($crud_prefix.'.menus.removePage',['id'=>$menu->id]) }}"
         del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
@@ -100,8 +100,8 @@
                     </draggable>
                 </div>
 
-                <input type="hidden" name="saveList" v-model="JSON.stringify(saveList)">
+                <input type="hidden" name="saveList" :value="finalList">
             {{ Form::close() }}
         </div>
-    </menu-comp>
+    </sm-menu>
 @endsection

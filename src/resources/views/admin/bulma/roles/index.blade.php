@@ -2,7 +2,7 @@
 @section('title', trans('SimpleMenu::messages.roles'))
 
 @section('sub')
-    <index-comp inline-template :count="{{ count($roles) }}">
+    <sm-index inline-template :count="{{ count($roles) }}">
         <div>
             <div class="level">
                 <div class="level-left">
@@ -71,5 +71,5 @@
                 </tbody>
             </table>
         </div>
-    </index-comp>
+    </sm-index>
 @endsection

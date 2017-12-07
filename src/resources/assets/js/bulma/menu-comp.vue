@@ -15,6 +15,11 @@ export default {
             saveList: []
         }
     },
+    computed: {
+        finalList() {
+            return JSON.stringify(this.saveList)
+        }
+    },
     created() {
         this.getPages()
     },

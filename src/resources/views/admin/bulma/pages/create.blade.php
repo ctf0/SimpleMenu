@@ -10,7 +10,7 @@
         <a href="{{ route($crud_prefix.'.pages.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
-    <page-comp inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store', 'files'=>true]) }}
 
@@ -306,5 +306,5 @@
 
             {{ Form::close() }}
         </div>
-    </page-comp>
+    </sm-page>
 @endsection

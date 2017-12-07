@@ -2,7 +2,7 @@
 @section('title', trans('SimpleMenu::messages.permissions'))
 
 @section('sub')
-    <index-comp inline-template :count="{{ count($permissions) }}">
+    <sm-index inline-template :count="{{ count($permissions) }}">
         <div>
             <div class="level">
                 <div class="level-left">
@@ -63,5 +63,5 @@
                 </tbody>
             </table>
         </div>
-    </index-comp>
+    </sm-index>
 @endsection
