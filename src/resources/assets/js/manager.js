@@ -2,7 +2,21 @@ window.Vue = require('vue')
 window.EventHub = require('vuemit')
 Vue.use(require('vue-tippy'), {
     arrow: true,
-    touchHold: true
+    touchHold: true,
+    inertia: true,
+    performance: true
+})
+window.addEventListener('scroll', function () {
+    const poppers = document.querySelectorAll('.tippy-popper')
+
+    for (const popper of poppers) {
+        const tooltip = popper._reference._tippy
+
+        if (tooltip.state.visible) {
+            tooltip.popperInstance.disableEventListeners()
+            tooltip.hide()
+        }
+    }
 })
 
 // axios
