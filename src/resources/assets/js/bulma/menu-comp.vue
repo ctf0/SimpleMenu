@@ -23,9 +23,6 @@ export default {
     created() {
         this.getPages()
     },
-    mounted() {
-        this.$tippy.forceUpdateHtml()
-    },
     methods: {
         getPages() {
             axios.get(this.getMenuPages)
