@@ -58,9 +58,9 @@ class User extends Authenticatable
 - install JS dependencies
 
 ```bash
-yarn add vue axios vue-tippy@v1 vuemit vuedraggable vue-notif
+yarn add vue axios vue-tippy@v1 vuedraggable vue-notif
 # or
-npm install vue axios vue-tippy@v1 vuemit vuedraggable vue-notif --save
+npm install vue axios vue-tippy@v1 vuedraggable vue-notif --save
 ```
 
 - add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.

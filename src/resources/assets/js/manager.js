@@ -4,17 +4,16 @@ Vue.use(require('vue-tippy'), {
     arrow: true,
     touchHold: true,
     inertia: true,
-    performance: true
-})
-window.addEventListener('scroll', function () {
-    const poppers = document.querySelectorAll('.tippy-popper')
-
-    for (const popper of poppers) {
-        const tooltip = popper._reference._tippy
-
-        if (tooltip.state.visible) {
-            tooltip.popperInstance.disableEventListeners()
-            tooltip.hide()
+    performance: true,
+    flipDuration: 0,
+    popperOptions: {
+        modifiers: {
+            preventOverflow: {
+                enabled: false
+            },
+            hide: {
+                enabled: false
+            }
         }
     }
 })
@@ -25,6 +24,11 @@ axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     'X-Requested-With': 'XMLHttpRequest'
 }
+axios.interceptors.response.use((response) => {
+    return response
+}, (error) => {
+    return Promise.reject(error.response)
+})
 
 Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page-comp.vue'))
 Vue.component('SmMenu', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu-comp.vue'))
