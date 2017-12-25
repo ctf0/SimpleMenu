@@ -18,62 +18,62 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th>{{ trans('SimpleMenu::messages.title') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.route') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.url') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.roles') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.permissions') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.menus') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.locals') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.template') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-title">{{ trans('SimpleMenu::messages.title') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-route">{{ trans('SimpleMenu::messages.route') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-url">{{ trans('SimpleMenu::messages.url') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-roles">{{ trans('SimpleMenu::messages.roles') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-permissions">{{ trans('SimpleMenu::messages.permissions') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-menus">{{ trans('SimpleMenu::messages.menus') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-locals">{{ trans('SimpleMenu::messages.locals') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-template">{{ trans('SimpleMenu::messages.template') }}</th>
+                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="list">
                     @foreach ($pages as $page)
                         @include('SimpleMenu::menu.partials.r_params')
 
                         <tr id="item-{{ $page->id }}">
                             <td>
                                 @if (in_array(LaravelLocalization::getCurrentLocale(), $page->getTranslatedLocales('title')))
-                                    <a href="{{ SimpleMenu::routeUrl() }}">{{ $page->title }}</a>
+                                    <a class="data-sort-title" href="{{ SimpleMenu::routeUrl() }}">{{ $page->title }}</a>
                                 @else
-                                    {{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}
+                                    <span class="data-sort-title">{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}</span>
                                 @endif
                             </td>
-                            <td>{{ $page->route_name }}</td>
-                            <td>{{ $page->prefix ? "$page->prefix/$page->url" : $page->url }}</td>
-                            <td>
+                            <td class="data-sort-route">{{ $page->route_name }}</td>
+                            <td class="data-sort-url">{{ $page->prefix ? "$page->prefix/$page->url" : $page->url }}</td>
+                            <td class="data-sort-roles">
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
-                            <td>
+                            <td class="data-sort-permissions">
                                 @foreach ($page->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
-                            <td>
+                            <td class="data-sort-menus">
                                 @foreach ($page->menus as $menu)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
-                            <td>
+                            <td class="data-sort-locals">
                                 @foreach ($page->getTranslatedLocales('title') as $locale)
                                     <span class="tag is-rounded is-medium is-warning">{{ $locale }}</span>
                                 @endforeach
                             </td>
-                            <td>
+                            <td class="data-sort-template">
                                 @if ($page->template)
                                     <span class="tag is-rounded is-medium is-primary">{{ $page->template }}</span>
                                 @endif
@@ -86,7 +86,9 @@
                                 <a class="is-inline-block">
                                     @if (config('simpleMenu.deletePageAndNests'))
                                         {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) }}
-                                            {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
+                                            <button type="submit" class="button is-danger">
+                                                {{ trans('SimpleMenu::messages.app_delete') }}
+                                            </button>
                                         {{ Form::close() }}
                                     @else
                                         {{ Form::open([
@@ -95,7 +97,9 @@
                                             'data-id'=>'item-'.$page->id,
                                             '@submit.prevent'=>'DelItem($event,"'.$page->title.'")'
                                         ]) }}
-                                            {{ Form::submit(trans('SimpleMenu::messages.app_delete'), ['class' => 'button is-danger']) }}
+                                            <button type="submit" class="button is-danger">
+                                                {{ trans('SimpleMenu::messages.app_delete') }}
+                                            </button>
                                         {{ Form::close() }}
                                     @endif
                                 </a>

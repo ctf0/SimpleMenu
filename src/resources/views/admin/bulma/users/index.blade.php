@@ -18,30 +18,30 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.email') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.roles') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.permissions') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-email">{{ trans('SimpleMenu::messages.email') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-roles">{{ trans('SimpleMenu::messages.roles') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-permissions">{{ trans('SimpleMenu::messages.permissions') }}</th>
+                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="list">
                     @foreach ($users as $user)
                         <tr id="item-{{ $user->id }}">
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
+                            <td class="data-sort-name">{{ $user->name }}</td>
+                            <td class="data-sort-email">{{ $user->email }}</td>
+                            <td class="data-sort-roles">
                                 @foreach ($user->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
-                            <td>
+                            <td class="data-sort-permissions">
                                 @foreach ($user->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
@@ -55,7 +55,7 @@
                                 </a>
 
                                 @php
-                                    $check = $user->id == auth()->user()->id ? true : false;
+                                    $check = $user->id == auth()->user()->id ? 'disabled' : '';
                                 @endphp
 
                                 <a class="is-inline-block">
@@ -65,10 +65,9 @@
                                         'data-id'=>'item-'.$user->id,
                                         '@submit.prevent'=>'DelItem($event,"'.$user->name.'")'
                                     ]) }}
-                                        {{ Form::submit(
-                                            trans('SimpleMenu::messages.app_delete'),
-                                            ['class' => 'button is-danger', 'disabled' => $check]
-                                        ) }}
+                                        <button type="submit" class="button is-danger" {{ $check }}>
+                                            {{ trans('SimpleMenu::messages.app_delete') }}
+                                        </button>
                                     {{ Form::close() }}
                                 </a>
                             </td>

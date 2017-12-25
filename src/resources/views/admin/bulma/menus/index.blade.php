@@ -16,18 +16,18 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="list">
                     @foreach ($menus as $menu)
                         <tr id="menu-{{ $menu->id }}">
-                            <td>{{ $menu->name }}</td>
+                            <td class="data-sort-name">{{ $menu->name }}</td>
                             <td>
                                 <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.app_edit') }}

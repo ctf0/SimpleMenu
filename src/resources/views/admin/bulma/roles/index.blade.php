@@ -18,20 +18,20 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.permissions') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-permissions">{{ trans('SimpleMenu::messages.permissions') }}</th>
+                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="list">
                     @foreach ($roles as $role)
                         <tr id="item-{{ $role->id }}">
-                            <td>{{ $role->name }}</td>
-                            <td>
+                            <td class="data-sort-name">{{ $role->name }}</td>
+                            <td class="data-sort-permissions">
                                 @foreach ($role->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
@@ -45,7 +45,7 @@
                                 </a>
 
                                 @php
-                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? true : false;
+                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? 'disabled' : '';
                                 @endphp
 
                                 <a class="is-inline-block">
@@ -55,10 +55,9 @@
                                         'data-id'=>'item-'.$role->id,
                                         '@submit.prevent'=>'DelItem($event,"'.$role->name.'")'
                                     ]) }}
-                                        {{ Form::submit(
-                                            trans('SimpleMenu::messages.app_delete'),
-                                            ['class' => 'button is-danger', 'disabled' => $check]
-                                        ) }}
+                                        <button type="submit" class="button is-danger" {{ $check }}>
+                                            {{ trans('SimpleMenu::messages.app_delete') }}
+                                        </button>
                                     {{ Form::close() }}
                                 </a>
                             </td>

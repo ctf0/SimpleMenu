@@ -7,6 +7,22 @@ export default {
             itemsCount: this.count
         }
     },
+    mounted() {
+        new ListJS('table', {
+            valueNames: [
+                'data-sort-name',
+                'data-sort-email',
+                'data-sort-roles',
+                'data-sort-permissions',
+                'data-sort-title',
+                'data-sort-route',
+                'data-sort-url',
+                'data-sort-menus',
+                'data-sort-locals',
+                'data-sort-template'
+            ]
+        })
+    },
     methods: {
         DelItem(event, name) {
 

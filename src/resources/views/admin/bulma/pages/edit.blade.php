@@ -93,11 +93,7 @@
                             @if (count($templates))
                                 <span class="help">
                                     @foreach ($templates as $one)
-                                        <code class="link"
-                                            @click="$refs.template.value = $event.target.dataset.value"
-                                            data-value="{{ $one }}">
-                                            {{ $one }}
-                                        </code>
+                                        <code class="link" data-value="{{ $one }}" @click="$refs.template.value = $event.target.dataset.value">{{ $one }}</code>
                                     @endforeach
                                 </span>
                             @endif

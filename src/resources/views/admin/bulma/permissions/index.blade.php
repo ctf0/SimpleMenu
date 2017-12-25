@@ -18,18 +18,18 @@
                 </div>
             </div>
 
-            <table class="table is-hoverable is-fullwidth is-bordered">
+            <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th>{{ trans('SimpleMenu::messages.name') }}</th>
-                        <th>{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.name') }}</th>
+                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="list">
                     @foreach ($permissions as $permission)
                         <tr id="item-{{ $permission->id }}">
-                            <td>{{ $permission->name }}</td>
+                            <td class="data-sort-name">{{ $permission->name }}</td>
                             <td>
                                 <a href="{{ route($crud_prefix.'.permissions.edit',[$permission->id]) }}"
                                     class="button is-link is-inline-block">
@@ -37,7 +37,7 @@
                                 </a>
 
                                 @php
-                                    $check = in_array($permission->name, auth()->user()->permissions->pluck('name')->toArray()) ? true : false;
+                                    $check = in_array($permission->name, auth()->user()->permissions->pluck('name')->toArray()) ? 'disabled' : '';
                                 @endphp
 
                                 <a class="is-inline-block">
@@ -47,10 +47,9 @@
                                         'data-id'=>'item-'.$permission->id,
                                         '@submit.prevent'=>'DelItem($event,"'.$permission->name.'")'
                                     ]) }}
-                                        {{ Form::submit(
-                                            trans('SimpleMenu::messages.app_delete'),
-                                            ['class' => 'button is-danger', 'disabled' => $check])
-                                        }}
+                                        <button type="submit" class="button is-danger" {{ $check }}>
+                                            {{ trans('SimpleMenu::messages.app_delete') }}
+                                        </button>
                                     {{ Form::close() }}
                                 </a>
                             </td>
