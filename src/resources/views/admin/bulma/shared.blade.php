@@ -9,7 +9,7 @@
     <title>@yield('title', '')</title>
 
     {{-- styles --}}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/styles/css/choices.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/SimpleMenu/style.css') }}"/>
 </head>
@@ -67,22 +67,23 @@
 
     {{-- Footer --}}
     {{-- Scripts --}}
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/choices.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/jquery.tinymce.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/tinymce.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/autoresize/plugin.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/preview/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/fullscreen/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/image/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/link/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/lists/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/media/plugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/table/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/fullscreen/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/image/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/link/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/lists/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/media/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/table/plugin.min.js"></script>
     <script>
-        // role & perm
-        $('.select2').select2({
-            placeholder: 'Select an option',
-            allowClear: true
+        new Choices('.select2', {
+            duplicateItems: false,
+            removeItemButton: true,
+            paste: false,
+            placeholderValue: 'Select an option'
         })
     </script>
 </body>

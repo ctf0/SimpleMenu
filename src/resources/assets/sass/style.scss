@@ -13,9 +13,37 @@ thead th {
     background-color: white;
 }
 
-// select2
-.select2 {
-    width: 100% !important;
+// select
+.choices {
+    font-size: 1rem;
+}
+
+.choices__inner {
+    font-size: 1rem;
+    min-height: 29px;
+    padding: 0.5rem;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+.choices__input {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.choices__list--multiple .choices__item {
+    margin-bottom: 0;
+    border: none;
+    border-radius: 100vw;
+    background-color: #3273dc;
+}
+
+.choices__button {
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 1.5rem !important;
+    border: none !important;
 }
 
 // input locales
