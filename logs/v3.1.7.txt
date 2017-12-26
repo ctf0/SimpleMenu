@@ -1,0 +1,5 @@
+- add support for table sorting
+- make table header sticky
+- show sensible error for axios
+- update readme
+- update assets

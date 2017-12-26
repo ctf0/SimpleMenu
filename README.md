@@ -101,14 +101,14 @@ return [
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
+     * dynamic pages controller namespace
+     */
+    'pagesControllerNS' => 'App\Http\Controllers',
+
+    /*
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      */
     'unFoundLocalizedRoute' => 'home',
-
-    /*
-     * pages action controller namespace
-     */
-    'pagesControllerNS' => 'App\Http\Controllers',
 
     /*
      * the user model we are going to use for the admin page
@@ -116,7 +116,7 @@ return [
     'userModel' => App\User::class,
 
     /*
-     * when adding a page which is a nest of a nother to a menu
+     * when adding a page which is a nest of a nother to a menu, ex.
      *
      * root
      *   | child 1
@@ -139,23 +139,38 @@ return [
      */
     'clearRootDescendants' => false,
 
-    /**
-     * when removing a nest from a list, do you want to reset its hierarchy ?
+    /*
+     * when removing a nest from a list, ex.
+     *
+     * root
+     *   | child 1
+     *     | child 2 "remove"
+     *       | child 3
+     *
+     * do you want to reset its hierarchy ?
      */
-    'clearNestDescendants' => false,
+    'clearNestDescendants'=> false,
 
     /*
-     * when deleteing a page "from the db", do you also want to delete all of its childrens ?
+     * when deleting a page "from the db", ex.
+     *
+     * page "delete/destroy"
+     *   | nested child 1
+     *     | nested child 2
+     *       | nested child 3
+     *
+     * do you also want to delete all of its children ?
      */
     'deletePageAndNests' => false,
 
     /*
-     * package routes url & name prefix
+     * package routes url & route name prefix
      */
     'crud_prefix' => 'admin',
 
     /*
      * all the package controllers
+     *
      * if you need to change anything, just create new controller
      * and extend from the below original
      * ex. "class ExampleController extends PagesController"

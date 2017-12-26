@@ -1,7 +1,0 @@
-- add support for images in user & pages
-- changed user trait to `SMUsers`
-- add new key to config “controllers” so now you can extend package functionality with ease.
-- cleanup
-- update assets
-- update migrations
-- update wiki
