@@ -4,7 +4,8 @@ export default {
     props: ['count'],
     data() {
         return {
-            itemsCount: this.count
+            itemsCount: this.count,
+            ids: []
         }
     },
     mounted() {
@@ -24,6 +25,17 @@ export default {
         })
     },
     methods: {
+        selectAll() {
+            // clear
+            if (this.ids.length) {
+                return this.ids = []
+            }
+
+            // add
+            this.$refs['sm-ids'].map((e) => {
+                this.ids.push(e.value)
+            })
+        },
         DelItem(event, name) {
 
             let id = event.target.dataset.id
@@ -52,6 +64,7 @@ export default {
 
                     this.itemsCount = --this.itemsCount
                 }
+
             }).catch((err) => {
                 console.error(err)
             })

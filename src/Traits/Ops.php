@@ -80,21 +80,26 @@ trait Ops
             ], function () use ($controllers) {
                 /*               Roles               */
                 Route::resource('roles', $controllers['roles'], ['except'=>'show']);
+                Route::post('roles/remove-multi', $controllers['roles'] . '@destroyMulti')->name('roles.destroy_multi');
 
                 /*               Perms               */
                 Route::resource('permissions', $controllers['permissions'], ['except'=>'show']);
+                Route::post('permissions/remove-multi', $controllers['permissions'] . '@destroyMulti')->name('permissions.destroy_multi');
 
                 /*               Menus               */
                 Route::post('menus/removechild', $controllers['menus'] . '@removeChild')->name('menus.removeChild');
                 Route::post('menus/removepage/{id}', $controllers['menus'] . '@removePage')->name('menus.removePage');
                 Route::get('menus/getmenupages/{id}', $controllers['menus'] . '@getMenuPages')->name('menus.getMenuPages');
                 Route::resource('menus', $controllers['menus'], ['except'=>'show']);
+                Route::post('menus/remove-multi', $controllers['menus'] . '@destroyMulti')->name('menus.destroy_multi');
 
                 /*               Users               */
                 Route::resource('users', $controllers['users'], ['except'=>'show']);
+                Route::post('users/remove-multi', $controllers['users'] . '@destroyMulti')->name('users.destroy_multi');
 
                 /*               Pages               */
                 Route::resource('pages', $controllers['pages'], ['except'=>'show']);
+                Route::post('pages/remove-multi', $controllers['pages'] . '@destroyMulti')->name('pages.destroy_multi');
             });
         });
     }

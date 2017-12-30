@@ -106,7 +106,7 @@ class RolesController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        Role::find($id)->delete();
+        Role::destroy($id);
 
         $this->clearCache();
 
@@ -115,5 +115,16 @@ class RolesController extends BaseController
         }
 
         return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Deleted!');
+    }
+
+    public function destroyMulti(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+
+        foreach ($ids as $one) {
+            Role::destroy($one);
+        }
+
+        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Models Deleted!');
     }
 }

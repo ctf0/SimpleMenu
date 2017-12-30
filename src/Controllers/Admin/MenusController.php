@@ -126,4 +126,17 @@ class MenusController extends BaseController
 
         return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Model Deleted!');
     }
+
+    public function destroyMulti(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+
+        foreach ($ids as $one) {
+            $menu = Menu::find($one);
+            $menu->pages()->detach();
+            $menu->delete();
+        }
+
+        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Models Deleted!');
+    }
 }

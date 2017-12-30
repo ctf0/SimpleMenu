@@ -120,12 +120,23 @@ class UsersController extends BaseController
             abort(403);
         }
 
-        $this->userModel->find($id)->delete();
+        $this->userModel->destroy($id);
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);
         }
 
         return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Deleted!');
+    }
+
+    public function destroyMulti(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+
+        foreach ($ids as $one) {
+            User::destroy($one);
+        }
+
+        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Models Deleted!');
     }
 }

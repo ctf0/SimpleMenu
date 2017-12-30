@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title'){{ trans('SimpleMenu::messages.app_edit') }} "{{ $permission->name }}"@endsection
+@section('title'){{ trans('SimpleMenu::messages.edit') }} "{{ $permission->name }}"@endsection
 
 @section('sub')
     <div class="level">
@@ -11,7 +11,7 @@
         <div class="level-right">
             <a href="{{ route($crud_prefix.'.permissions.create') }}"
                 class="button is-success">
-                {{ trans('SimpleMenu::messages.app_add_new') }}
+                {{ trans('SimpleMenu::messages.add_new') }}
             </a>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 @endif
             </div>
             <div class="control">
-                {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
+                {{ Form::submit(trans('SimpleMenu::messages.update'), ['class' => 'button is-warning']) }}
             </div>
         </div>
 

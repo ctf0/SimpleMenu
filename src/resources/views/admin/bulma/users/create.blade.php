@@ -115,7 +115,7 @@
         <div class="columns">
             <div class="column is-2"></div>
             <div class="column is-2">
-                {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success is-fullwidth']) }}
+                {{ Form::submit(trans('SimpleMenu::messages.save'), ['class' => 'button is-success is-fullwidth']) }}
             </div>
         </div>
     {{ Form::close() }}

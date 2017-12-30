@@ -118,13 +118,23 @@ class PagesController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        $page = Page::find($id);
-        $page->delete();
+        Page::destroy($id);
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);
         }
 
         return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Deleted!');
+    }
+
+    public function destroyMulti(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+
+        foreach ($ids as $one) {
+            Page::destroy($one);
+        }
+
+        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Models Deleted!');
     }
 }

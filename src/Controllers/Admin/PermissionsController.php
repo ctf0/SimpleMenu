@@ -95,7 +95,7 @@ class PermissionsController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        Permission::find($id)->delete();
+        Permission::destroy($id);
 
         $this->clearCache();
 
@@ -104,5 +104,16 @@ class PermissionsController extends BaseController
         }
 
         return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Deleted!');
+    }
+
+    public function destroyMulti(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+
+        foreach ($ids as $one) {
+            Permission::destroy($one);
+        }
+
+        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Models Deleted!');
     }
 }

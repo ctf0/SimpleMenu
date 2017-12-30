@@ -1,5 +1,5 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
-@section('title'){{ trans('SimpleMenu::messages.app_edit') }} "{{ $role->name }}"@endsection
+@section('title'){{ trans('SimpleMenu::messages.edit') }} "{{ $role->name }}"@endsection
 
 @section('sub')
     <div class="level">
@@ -11,7 +11,7 @@
         <div class="level-right">
             <a href="{{ route($crud_prefix.'.roles.create') }}"
                 class="button is-success">
-                {{ trans('SimpleMenu::messages.app_add_new') }}
+                {{ trans('SimpleMenu::messages.add_new') }}
             </a>
         </div>
     </div>
@@ -49,6 +49,6 @@
             @endif
         </div>
 
-        {{ Form::submit(trans('SimpleMenu::messages.app_update'), ['class' => 'button is-warning']) }}
+        {{ Form::submit(trans('SimpleMenu::messages.update'), ['class' => 'button is-warning']) }}
     {{ Form::close() }}
 @endsection

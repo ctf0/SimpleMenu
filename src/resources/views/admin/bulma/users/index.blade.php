@@ -11,16 +11,36 @@
                     </h3>
                 </div>
                 <div class="level-right">
-                    <a href="{{ route($crud_prefix.'.users.create') }}"
-                        class="button is-success">
-                        {{ trans('SimpleMenu::messages.app_add_new') }}
-                    </a>
+                    {{-- delete multi --}}
+                    <div class="level-item">
+                        <template v-if="ids.length > 1">
+                            {{ Form::open(['route' => $crud_prefix.'.users.destroy_multi']) }}
+                                <input type="hidden" name="ids" :value="ids">
+                                <button type="submit" class="button is-danger">
+                                    {{ trans('SimpleMenu::messages.delete_selected') }} "<span>@{{ ids.length }}</span>"
+                                </button>
+                            {{ Form::close() }}
+                        </template>
+                    </div>
+
+                    {{-- add new --}}
+                    <div class="level-item">
+                        <a href="{{ route($crud_prefix.'.users.create') }}"
+                            class="button is-success">
+                            {{ trans('SimpleMenu::messages.add_new') }}
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
+                        <th width="1%" nowrap class="is-dark link"
+                            @click="selectAll()"
+                            v-text="ids.length > 0
+                            ? '{{ trans('SimpleMenu::messages.select_non') }}'
+                            : '{{ trans('SimpleMenu::messages.select_all') }}'"></th>
                         <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.name') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-email">{{ trans('SimpleMenu::messages.email') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-roles">{{ trans('SimpleMenu::messages.roles') }}</th>
@@ -32,6 +52,16 @@
                 <tbody class="list">
                     @foreach ($users as $user)
                         <tr id="item-{{ $user->id }}">
+                            <td style="text-align: center;">
+                                <input type="checkbox" id="sm-{{ $user->id }}"
+                                    v-model="ids"
+                                    class="cbx-checkbox"
+                                    value="{{ $user->id }}"
+                                    v-multi-ref="'sm-ids'">
+                                <label for="sm-{{ $user->id }}" class="cbx is-marginless">
+                                    <svg width="14px" height="12px" viewBox="0 0 14 12"><polyline points="1 7.6 5 11 13 1"></polyline></svg>
+                                </label>
+                            </td>
                             <td class="data-sort-name">{{ $user->name }}</td>
                             <td class="data-sort-email">{{ $user->email }}</td>
                             <td class="data-sort-roles">
@@ -51,7 +81,7 @@
                             <td>
                                 <a href="{{ route($crud_prefix.'.users.edit',[$user->id]) }}"
                                     class="button is-link is-inline-block">
-                                    {{ trans('SimpleMenu::messages.app_edit') }}
+                                    {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
 
                                 @php
@@ -66,7 +96,7 @@
                                         '@submit.prevent'=>'DelItem($event,"'.$user->name.'")'
                                     ]) }}
                                         <button type="submit" class="button is-danger" {{ $check }}>
-                                            {{ trans('SimpleMenu::messages.app_delete') }}
+                                            {{ trans('SimpleMenu::messages.delete') }}
                                         </button>
                                     {{ Form::close() }}
                                 </a>
@@ -75,7 +105,7 @@
                     @endforeach
 
                     <tr v-show="itemsCount == 0">
-                        <td colspan="5">{{ trans('SimpleMenu::messages.app_no_entries') }}</td>
+                        <td colspan="5">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

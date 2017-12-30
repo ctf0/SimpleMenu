@@ -22,7 +22,7 @@
                 @endif
             </div>
             <div class="control">
-                {{ Form::submit(trans('SimpleMenu::messages.app_save'), ['class' => 'button is-success']) }}
+                {{ Form::submit(trans('SimpleMenu::messages.save'), ['class' => 'button is-success']) }}
             </div>
         </div>
 
