@@ -69,15 +69,15 @@
     {{-- Scripts --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/choices.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/jquery.tinymce.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/tinymce.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/autoresize/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/preview/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/fullscreen/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/image/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/link/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/lists/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/media/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.3/plugins/table/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/autoresize/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/preview/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/fullscreen/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/image/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/link/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/lists/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/media/plugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/table/plugin.min.js"></script>
     <script>
         new Choices('.select2', {
             duplicateItems: false,

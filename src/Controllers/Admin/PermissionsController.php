@@ -48,7 +48,9 @@ class PermissionsController extends BaseController
 
         Permission::create($request->all());
 
-        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Created!');
+        return redirect()
+            ->route($this->crud_prefix . '.permissions.index')
+            ->with('status', trans('SimpleMenu::messages.model_created'));
     }
 
     /**
@@ -83,7 +85,7 @@ class PermissionsController extends BaseController
 
         $this->clearCache();
 
-        return back()->with('status', 'Model Updated!');
+        return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }
 
     /**
@@ -103,7 +105,9 @@ class PermissionsController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Model Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.permissions.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted'));
     }
 
     public function destroyMulti(Request $request)
@@ -114,6 +118,8 @@ class PermissionsController extends BaseController
             Permission::destroy($one);
         }
 
-        return redirect()->route($this->crud_prefix . '.permissions.index')->with('status', 'Models Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.permissions.index')
+            ->with('status', trans('SimpleMenu::messages.models_deleted'));
     }
 }

@@ -49,7 +49,9 @@ class MenusController extends BaseController
 
         $menu = Menu::create($request->all());
 
-        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Model Created!');
+        return redirect()
+            ->route($this->crud_prefix . '.menus.index')
+            ->with('status', trans('SimpleMenu::messages.model_created'));
     }
 
     /**
@@ -104,7 +106,7 @@ class MenusController extends BaseController
         // update and trigger events
         $menu->update($request->except('saveList'));
 
-        return back()->with('status', 'Model Updated!');
+        return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }
 
     /**
@@ -124,7 +126,9 @@ class MenusController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Model Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.menus.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted'));
     }
 
     public function destroyMulti(Request $request)
@@ -137,6 +141,8 @@ class MenusController extends BaseController
             $menu->delete();
         }
 
-        return redirect()->route($this->crud_prefix . '.menus.index')->with('status', 'Models Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.menus.index')
+            ->with('status', trans('SimpleMenu::messages.models_deleted'));
     }
 }

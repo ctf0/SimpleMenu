@@ -62,7 +62,9 @@ class PagesController extends BaseController
         $page->givePermissionTo($permissions);
         $page->assignToMenus($menus);
 
-        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Created!');
+        return redirect()
+            ->route($this->crud_prefix . '.pages.index')
+            ->with('status', trans('SimpleMenu::messages.model_created'));
     }
 
     /**
@@ -106,7 +108,7 @@ class PagesController extends BaseController
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
 
-        return back()->with('status', 'Model Updated!');
+        return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }
 
     /**
@@ -124,7 +126,9 @@ class PagesController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Model Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.pages.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted'));
     }
 
     public function destroyMulti(Request $request)
@@ -135,6 +139,8 @@ class PagesController extends BaseController
             Page::destroy($one);
         }
 
-        return redirect()->route($this->crud_prefix . '.pages.index')->with('status', 'Models Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.pages.index')
+            ->with('status', trans('SimpleMenu::messages.models_deleted'));
     }
 }

@@ -54,7 +54,9 @@ class RolesController extends BaseController
 
         $role->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Created!');
+        return redirect()
+            ->route($this->crud_prefix . '.roles.index')
+            ->with('status', trans('SimpleMenu::messages.model_created'));
     }
 
     /**
@@ -94,7 +96,7 @@ class RolesController extends BaseController
 
         $this->clearCache();
 
-        return back()->with('status', 'Model Updated!');
+        return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }
 
     /**
@@ -114,7 +116,9 @@ class RolesController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Model Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.roles.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted'));
     }
 
     public function destroyMulti(Request $request)
@@ -125,6 +129,8 @@ class RolesController extends BaseController
             Role::destroy($one);
         }
 
-        return redirect()->route($this->crud_prefix . '.roles.index')->with('status', 'Models Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.roles.index')
+            ->with('status', trans('SimpleMenu::messages.models_deleted'));
     }
 }

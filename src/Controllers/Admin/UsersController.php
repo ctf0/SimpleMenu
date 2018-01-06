@@ -61,7 +61,9 @@ class UsersController extends BaseController
         $user->assignRole($roles);
         $user->givePermissionTo($permissions);
 
-        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Created!');
+        return redirect()
+            ->route($this->crud_prefix . '.users.index')
+            ->with('status', trans('SimpleMenu::messages.model_created'));
     }
 
     /**
@@ -104,7 +106,7 @@ class UsersController extends BaseController
         $user->syncRoles($roles);
         $user->syncPermissions($permissions);
 
-        return back()->with('status', 'Model Updated!');
+        return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }
 
     /**
@@ -126,7 +128,9 @@ class UsersController extends BaseController
             return response()->json(['done'=>true]);
         }
 
-        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Model Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.users.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted'));
     }
 
     public function destroyMulti(Request $request)
@@ -137,6 +141,8 @@ class UsersController extends BaseController
             User::destroy($one);
         }
 
-        return redirect()->route($this->crud_prefix . '.users.index')->with('status', 'Models Deleted!');
+        return redirect()
+            ->route($this->crud_prefix . '.users.index')
+            ->with('status', trans('SimpleMenu::messages.models_deleted'));
     }
 }
