@@ -56,7 +56,16 @@
                         <div class="field">
                             {{ Form::label('action', trans('SimpleMenu::messages.action'), ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('action', null, ['class' => 'input', 'placeholder'=>"SomeController@index"]) }}
+                                {{ Form::text(
+                                    'action',
+                                    null,
+                                    ['class' => 'input',
+                                    'placeholder'=>"App\Http\Controllers\SomeController@index",
+                                    'ref'=>'action'])
+                                }}
+                                <span class="help">
+                                    <code class="link" data-value="App\Http\Controllers\" @click="$refs.action.value = $event.target.dataset.value">App\Http\Controllers\</code>
+                                </span>
                             </div>
                             @if($errors->has('action'))
                                 <p class="help is-danger">

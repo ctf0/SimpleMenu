@@ -93,7 +93,7 @@ trait RoutesTrait
         $route = $this->getRouteUrl($url, $prefix);
 
         $uses = $action
-            ? config('simpleMenu.pagesControllerNS') . '\\' . $action
+            ? $action
             : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
 
         // dynamic

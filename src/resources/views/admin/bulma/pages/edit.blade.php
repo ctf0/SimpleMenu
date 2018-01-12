@@ -70,8 +70,12 @@
                                     'action',
                                     $page->action,
                                     ['class' => 'input',
-                                    'placeholder'=>"SomeController@index"])
+                                    'placeholder'=>"App\Http\Controllers\SomeController@index",
+                                    'ref'=>'action'])
                                 }}
+                                <span class="help">
+                                    <code class="link" data-value="App\Http\Controllers\" @click="$refs.action.value = $event.target.dataset.value">App\Http\Controllers\</code>
+                                </span>
                             </div>
                             @if($errors->has('action'))
                                 <p class="help is-danger">

@@ -23,11 +23,6 @@ return [
     'routeListPath' => storage_path('logs/simpleMenu.php'),
 
     /*
-     * dynamic pages controller namespace
-     */
-    'pagesControllerNS' => 'App\Http\Controllers',
-
-    /*
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      *
      * add
