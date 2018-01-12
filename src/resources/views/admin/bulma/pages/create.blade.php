@@ -64,7 +64,7 @@
                                     'ref'=>'action'])
                                 }}
                                 <span class="help">
-                                    <code class="link" data-value="App\Http\Controllers\" @click="$refs.action.value = $event.target.dataset.value">App\Http\Controllers\</code>
+                                    <code class="link" data-value="App\Http\Controllers\" @click="updateValue($event, 'action')">App\Http\Controllers\</code>
                                 </span>
                             </div>
                             @if($errors->has('action'))
@@ -83,7 +83,7 @@
                             @if (count($templates))
                                 <span class="help">
                                     @foreach ($templates as $one)
-                                        <code class="link" data-value="{{ $one }}" @click="$refs.template.value = $event.target.dataset.value">{{ $one }}</code>
+                                        <code class="link" data-value="{{ $one }}" @click="updateValue($event, 'template')">{{ $one }}</code>
                                     @endforeach
                                 </span>
                             @endif

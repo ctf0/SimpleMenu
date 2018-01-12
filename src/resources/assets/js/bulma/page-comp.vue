@@ -65,6 +65,11 @@ export default {
                     $(`#${input}-${newVal}`).hide().closest('div').find('.mce-tinymce').fadeToggle('fast')
                 })
             }
+        },
+        updateValue(event, item) {
+            this.$refs[item].focus()
+            document.execCommand('selectAll')
+            document.execCommand('insertText', false, event.target.dataset.value)
         }
     },
     watch: {
