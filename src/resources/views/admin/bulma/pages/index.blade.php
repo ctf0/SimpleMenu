@@ -5,11 +5,7 @@
     <sm-index inline-template :count="{{ count($pages) }}">
         <div>
             <div class="level">
-                <div class="level-left">
-                    <h3 class="title">
-                        {{ trans('SimpleMenu::messages.pages') }} "<span>@{{ itemsCount }}</span>"
-                    </h3>
-                </div>
+                <div class="level-left"></div>
                 <div class="level-right">
                     {{-- delete multi --}}
                     <div class="level-item">
@@ -33,6 +29,36 @@
                 </div>
             </div>
 
+            <div class="level">
+                <div class="level-left">
+                    <h3 class="title">
+                        {{ trans('SimpleMenu::messages.pages') }} "<span>@{{ itemsCount }}</span>"
+                    </h3>
+                </div>
+                <div class="level-right">
+                {{-- search --}}
+                <div class="level-right">
+                   <div class="field has-addons">
+                       <p class="control has-icons-left">
+                           <input class="input"
+                               type="text"
+                               v-model="searchFor"
+                               placeholder="{{ trans('SimpleMenu::messages.find') }}">
+                           <span class="icon is-left">
+                               <icon name="search"></icon>
+                           </span>
+                       </p>
+                       <p class="control">
+                           <button class="button is-black" :disabled="!searchFor"
+                               @click="resetSearch()">
+                               <span class="icon"><icon name="times"></icon></span>
+                           </button>
+                       </p>
+                   </div>
+                </div>
+                </div>
+            </div>
+
             <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
@@ -41,7 +67,7 @@
                             v-text="ids.length > 0
                             ? '{{ trans('SimpleMenu::messages.select_non') }}'
                             : '{{ trans('SimpleMenu::messages.select_all') }}'"></th>
-                        <th class="is-dark sort link" data-sort="data-sort-title">{{ trans('SimpleMenu::messages.title') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.title') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-route">{{ trans('SimpleMenu::messages.route') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-url">{{ trans('SimpleMenu::messages.url') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-roles">{{ trans('SimpleMenu::messages.roles') }}</th>
@@ -70,9 +96,9 @@
                             </td>
                             <td>
                                 @if (in_array(LaravelLocalization::getCurrentLocale(), $page->getTranslatedLocales('title')))
-                                    <a class="data-sort-title" href="{{ SimpleMenu::routeUrl() }}">{{ $page->title }}</a>
+                                    <a class="data-sort-name" href="{{ SimpleMenu::routeUrl() }}">{{ $page->title }}</a>
                                 @else
-                                    <span class="data-sort-title">{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}</span>
+                                    <span class="data-sort-name">{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}</span>
                                 @endif
                             </td>
                             <td class="data-sort-route">{{ $page->route_name }}</td>
@@ -137,7 +163,7 @@
                         </tr>
                     @endforeach
 
-                    <tr v-show="itemsCount == 0">
+                    <tr v-if="itemsCount == 0">
                         <td colspan="7">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>

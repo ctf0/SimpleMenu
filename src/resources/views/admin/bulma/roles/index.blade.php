@@ -5,11 +5,7 @@
     <sm-index inline-template :count="{{ count($roles) }}">
         <div>
             <div class="level">
-                <div class="level-left">
-                    <h3 class="title">
-                        {{ trans('SimpleMenu::messages.roles') }} "<span>@{{ itemsCount }}</span>"
-                    </h3>
-                </div>
+                <div class="level-left"></div>
                 <div class="level-right">
                     {{-- delete multi --}}
                     <div class="level-item">
@@ -30,6 +26,36 @@
                             {{ trans('SimpleMenu::messages.add_new') }}
                         </a>
                     </div>
+                </div>
+            </div>
+
+            <div class="level">
+                <div class="level-left">
+                    <h3 class="title">
+                        {{ trans('SimpleMenu::messages.roles') }} "<span>@{{ itemsCount }}</span>"
+                    </h3>
+                </div>
+                <div class="level-right">
+                {{-- search --}}
+                <div class="level-right">
+                   <div class="field has-addons">
+                       <p class="control has-icons-left">
+                           <input class="input"
+                               type="text"
+                               v-model="searchFor"
+                               placeholder="{{ trans('SimpleMenu::messages.find') }}">
+                           <span class="icon is-left">
+                               <icon name="search"></icon>
+                           </span>
+                       </p>
+                       <p class="control">
+                           <button class="button is-black" :disabled="!searchFor"
+                               @click="resetSearch()">
+                               <span class="icon"><icon name="times"></icon></span>
+                           </button>
+                       </p>
+                   </div>
+                </div>
                 </div>
             </div>
 
@@ -94,7 +120,7 @@
                         </tr>
                     @endforeach
 
-                    <tr v-show="itemsCount == 0">
+                    <tr v-if="itemsCount == 0">
                         <td colspan="3">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>

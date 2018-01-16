@@ -1,27 +1,36 @@
 <script>
+import 'vue-awesome/icons/search'
+import 'vue-awesome/icons/times'
+Vue.component('icon', require('vue-awesome/components/Icon'))
+
+import Search from './mixins/search'
+
 export default {
     name: 'index-comp',
     props: ['count'],
+    mixins: [Search],
     data() {
         return {
             itemsCount: this.count,
-            ids: []
-        }
-    },
-    mounted() {
-        new ListJS('table', {
-            valueNames: [
+            ids: [],
+            sorter: null,
+            searchColName: 'data-sort-name',
+            sortableList: [
                 'data-sort-name',
                 'data-sort-email',
                 'data-sort-roles',
                 'data-sort-permissions',
-                'data-sort-title',
                 'data-sort-route',
                 'data-sort-url',
                 'data-sort-menus',
                 'data-sort-locals',
                 'data-sort-template'
             ]
+        }
+    },
+    mounted() {
+        this.sorter = new ListJS('table', {
+            valueNames: this.sortableList
         })
     },
     methods: {
@@ -32,10 +41,14 @@ export default {
             }
 
             // add
-            this.$refs['sm-ids'].map((e) => {
-                this.ids.push(e.value)
+            this.$refs['sm-ids'].filter((e) => {
+                document.getElementById(e.id) ? this.ids.push(e.value) : false
             })
         },
+        updateCounter(val) {
+            return this.itemsCount = val
+        },
+
         DelItem(event, name) {
 
             let id = event.target.dataset.id
@@ -55,6 +68,7 @@ export default {
 
                     // remove item
                     document.getElementById(`${id}`).remove()
+                    this.sorter.remove(this.searchColName, name)
 
                     // for sidebar menu
                     let item = document.querySelector(`li[data-id="${id}"]`)
