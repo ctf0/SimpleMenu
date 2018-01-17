@@ -6,7 +6,7 @@
         <a href="{{ route($crud_prefix.'.users.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
-    {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.users.store', 'files'=>true]) }}
+    {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.users.store', 'files' => true]) }}
 
         {{-- Account --}}
         <div class="columns">
@@ -53,7 +53,7 @@
                 <div class="field">
                     {{ Form::label('password', trans('SimpleMenu::messages.password'), ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::password('password', ['class' => 'input','placeholder'=>'******']) }}
+                        {{ Form::password('password', ['class' => 'input','placeholder' => '******']) }}
                     </div>
                     @if($errors->has('password'))
                         <p class="help is-danger">

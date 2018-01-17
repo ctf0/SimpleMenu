@@ -1,0 +1,7 @@
+- make page controller fully dynamic
+- make page template fully dynamic
+- fix menu list not taking full height
+- cleanup pages seeder
+- add search
+- update readme
+- update resources

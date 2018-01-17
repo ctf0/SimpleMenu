@@ -22,7 +22,7 @@
 
     <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id], 'files'=>true]) }}
+            {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id], 'files' => true]) }}
 
                 {{-- Meta --}}
                 <div class="columns">
@@ -70,8 +70,8 @@
                                     'action',
                                     $page->action,
                                     ['class' => 'input',
-                                    'placeholder'=>"App\Http\Controllers\SomeController@index",
-                                    'ref'=>'action'])
+                                    'placeholder' => "Any\Name\Space\SomeController@methodName",
+                                    'ref' => 'action'])
                                 }}
                                 <span class="help">
                                     <code class="link" data-value="App\Http\Controllers\" @click="updateValue($event, 'action')">App\Http\Controllers\</code>
@@ -91,7 +91,9 @@
                                 {{ Form::text(
                                     'template',
                                     $page->template,
-                                    ['class' => 'input','placeholder'=>"hero", 'ref'=>'template'])
+                                    ['class' => 'input',
+                                    'placeholder' => "ex.'folder.hero' or 'Vendor::xyz'",
+                                    'ref' => 'template'])
                                 }}
                             </div>
                             @if (count($templates))
@@ -115,7 +117,7 @@
                                 {{ Form::text(
                                     'route_name',
                                     $page->route_name,
-                                    ['class' => 'input','placeholder'=>"route-name"])
+                                    ['class' => 'input','placeholder' => "route-name"])
                                 }}
                             </div>
                             @if($errors->has('route_name'))

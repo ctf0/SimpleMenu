@@ -150,8 +150,8 @@
                                         {{ Form::open([
                                             'method' => 'DELETE',
                                             'route' => [$crud_prefix.'.pages.destroy', $page->id],
-                                            'data-id'=>'item-'.$page->id,
-                                            '@submit.prevent'=>'DelItem($event,"'.$page->title.'")'
+                                            'data-id' => 'item-'.$page->id,
+                                            '@submit.prevent' => 'DelItem($event,"'.$page->title.'")'
                                         ]) }}
                                             <button type="submit" class="button is-danger">
                                                 {{ trans('SimpleMenu::messages.delete') }}

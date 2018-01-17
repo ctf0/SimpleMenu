@@ -20,7 +20,7 @@ class PagesTableSeeder extends Seeder
             $fr = $faker->unique()->city;
 
             Page::create([
-                'template'  => 'hero',
+                'template'  => 'SimpleMenu::template-example',
                 'route_name'=> str_slug($en),
                 'title'     => [
                      'en' => title_case($en),

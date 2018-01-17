@@ -14,7 +14,7 @@
         </div>
         <div class="field has-addons">
             <div class="control is-expanded">
-                {{ Form::text('name', null, ['class' => 'input', 'placeholder'=>'name']) }}
+                {{ Form::text('name', null, ['class' => 'input', 'placeholder' => 'name']) }}
                 @if($errors->has('name'))
                     <p class="help is-danger">
                         {{ $errors->first('name') }}

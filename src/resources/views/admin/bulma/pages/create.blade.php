@@ -12,7 +12,7 @@
 
     <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
-            {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store', 'files'=>true]) }}
+            {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.pages.store', 'files' => true]) }}
 
                 {{-- Meta --}}
                 <div class="columns">
@@ -60,8 +60,8 @@
                                     'action',
                                     null,
                                     ['class' => 'input',
-                                    'placeholder'=>"App\Http\Controllers\SomeController@index",
-                                    'ref'=>'action'])
+                                    'placeholder' => "Any\Name\Space\SomeController@methodName",
+                                    'ref' => 'action'])
                                 }}
                                 <span class="help">
                                     <code class="link" data-value="App\Http\Controllers\" @click="updateValue($event, 'action')">App\Http\Controllers\</code>
@@ -78,7 +78,13 @@
                         <div class="field">
                             {{ Form::label('template', trans('SimpleMenu::messages.template'), ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('template', null, ['class' => 'input','placeholder'=>"hero", 'ref'=>'template']) }}
+                                {{ Form::text(
+                                    'template',
+                                    null,
+                                    ['class' => 'input',
+                                    'placeholder' => "ex.'folder.abc' or 'Vendor::xyz'",
+                                    'ref' => 'template'])
+                                }}
                             </div>
                             @if (count($templates))
                                 <span class="help">
@@ -98,7 +104,7 @@
                         <div class="field">
                             {{ Form::label('route_name', trans('SimpleMenu::messages.route_name'), ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('route_name', null, ['class' => 'input','placeholder'=>"route-name"]) }}
+                                {{ Form::text('route_name', null, ['class' => 'input','placeholder' => "route-name"]) }}
                             </div>
                             @if($errors->has('route_name'))
                                 <p class="help is-danger">

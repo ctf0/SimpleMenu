@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    {{ Form::model($user, ['method' => 'PUT', 'route' => [$crud_prefix.'.users.update', $user->id], 'files'=>true]) }}
+    {{ Form::model($user, ['method' => 'PUT', 'route' => [$crud_prefix.'.users.update', $user->id], 'files' => true]) }}
 
         {{-- Account --}}
         <div class="columns">
@@ -70,7 +70,7 @@
                 <div class="field">
                     {{ Form::label('password', trans('SimpleMenu::messages.password'), ['class' => 'label']) }}
                     <div class="control">
-                        {{ Form::password('password', ['class' => 'input', 'placeholder'=>'******']) }}
+                        {{ Form::password('password', ['class' => 'input', 'placeholder' => '******']) }}
                     </div>
                     @if($errors->has('password'))
                         <p class="help is-danger">

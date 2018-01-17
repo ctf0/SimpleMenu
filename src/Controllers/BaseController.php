@@ -8,7 +8,6 @@ class BaseController extends Controller
 {
     protected $cache;
     protected $adminPath;
-    protected $templatePath;
     protected $crud_prefix;
     protected $userModel;
 
@@ -20,7 +19,6 @@ class BaseController extends Controller
 
         $this->cache        = app('cache');
         $this->adminPath    = 'SimpleMenu::admin.' . config('simpleMenu.framework');
-        $this->templatePath = config('simpleMenu.templatePath');
         $this->crud_prefix  = config('simpleMenu.crud_prefix');
         $this->userModel    = app(config('simpleMenu.userModel'));
     }

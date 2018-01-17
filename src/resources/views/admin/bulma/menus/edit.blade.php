@@ -19,8 +19,8 @@
     </h3>
 
     <sm-menu inline-template
-        get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages',['id'=>$menu->id]) }}"
-        del-page="{{ route($crud_prefix.'.menus.removePage',['id'=>$menu->id]) }}"
+        get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages',['id' => $menu->id]) }}"
+        del-page="{{ route($crud_prefix.'.menus.removePage',['id' => $menu->id]) }}"
         del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
         locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>

@@ -11,16 +11,14 @@ return [
     ],
 
     /*
-     * where to search for the template views ?
-     * (relative to "resources\views" folder)
-     * ex."resources\views\pages"
-     */
-    'templatePath' => 'pages',
-
-    /*
      * the path where we will save the routes list
      */
     'routeListPath' => storage_path('logs/simpleMenu.php'),
+
+    /*
+     * dynamic pages controller namespace
+     */
+    'pagesControllerNS' => 'App\Http\Controllers',
 
     /*
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?

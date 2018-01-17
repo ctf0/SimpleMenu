@@ -99,8 +99,8 @@
                                     {{ Form::open([
                                         'method' => 'DELETE',
                                         'route' => [$crud_prefix.'.permissions.destroy', $permission->id],
-                                        'data-id'=>'item-'.$permission->id,
-                                        '@submit.prevent'=>'DelItem($event,"'.$permission->name.'")'
+                                        'data-id' => 'item-'.$permission->id,
+                                        '@submit.prevent' => 'DelItem($event,"'.$permission->name.'")'
                                     ]) }}
                                         <button type="submit" class="button is-danger" {{ $check }}>
                                             {{ trans('SimpleMenu::messages.delete') }}

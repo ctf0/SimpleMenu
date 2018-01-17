@@ -92,8 +92,8 @@
                                     {{ Form::open([
                                         'method' => 'DELETE',
                                         'route' => [$crud_prefix.'.menus.destroy', $menu->id],
-                                        'data-id'=>'menu-'.$menu->id,
-                                        '@submit.prevent'=>'DelItem($event,"'.$menu->name.'")'
+                                        'data-id' => 'menu-'.$menu->id,
+                                        '@submit.prevent' => 'DelItem($event,"'.$menu->name.'")'
                                     ]) }}
                                         {{ Form::submit(trans('SimpleMenu::messages.delete'), ['class' => 'button is-danger']) }}
                                     {{ Form::close() }}

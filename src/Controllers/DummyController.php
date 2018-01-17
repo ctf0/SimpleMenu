@@ -11,6 +11,6 @@ class DummyController extends BaseController
     {
         extract(SimpleMenu::getRouteData(Route::currentRouteName()));
 
-        return view("$this->templatePath.$template", compact('title', 'body', 'desc', 'meta', 'cover', 'breadCrumb'));
+        return view($template, compact('title', 'body', 'desc', 'meta', 'cover', 'breadCrumb'));
     }
 }
