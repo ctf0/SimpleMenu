@@ -18,6 +18,7 @@ return array (
   'desc' => 'Description',
   'edit' => 'Edit',
   'email' => 'Email',
+  'find' => 'Find',
   'go_back' => 'Go Back',
   'guards' => 'Guards',
   'locals' => 'Title Available In',
@@ -50,5 +51,5 @@ return array (
   'url' => 'Url',
   'url_prefix' => 'Url Prefix',
   'users' => 'Users',
-  'find' => 'Find',
+  'middlewares' => 'MiddleWares',
 );

@@ -126,6 +126,18 @@
                                 </p>
                             @endif
                         </div>
+
+                        {{-- middleware --}}
+                        <div class="field">
+                            {{ Form::label('middlewares', trans('SimpleMenu::messages.middlewares'), ['class' => 'label']) }}
+                            <div class="control">
+                                {{ Form::text(
+                                    'middlewares',
+                                    $page->middlewares,
+                                    ['class' => 'input','placeholder' => "some, other, middleware"])
+                                }}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>

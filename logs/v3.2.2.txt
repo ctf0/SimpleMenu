@@ -1,0 +1,5 @@
+- some cleanup
+- use spatie exception for middlewares
+- add the option to add extra middlewares
+- update wiki
+- update resources

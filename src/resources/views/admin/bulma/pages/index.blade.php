@@ -70,6 +70,7 @@
                         <th class="is-dark sort link" data-sort="data-sort-name">{{ trans('SimpleMenu::messages.title') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-route">{{ trans('SimpleMenu::messages.route') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-url">{{ trans('SimpleMenu::messages.url') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-middlwares">{{ trans('SimpleMenu::messages.middlewares') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-roles">{{ trans('SimpleMenu::messages.roles') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-permissions">{{ trans('SimpleMenu::messages.permissions') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-menus">{{ trans('SimpleMenu::messages.menus') }}</th>
@@ -103,6 +104,11 @@
                             </td>
                             <td class="data-sort-route">{{ $page->route_name }}</td>
                             <td class="data-sort-url">{{ $page->prefix ? "$page->prefix/$page->url" : $page->url }}</td>
+                            <td class="data-sort-middlewares">
+                                @if ($page->middlewares)
+                                    <span class="tag is-rounded is-medium is-link">{{ $page->middlewares }}</span>
+                                @endif
+                            </td>
                             <td class="data-sort-roles">
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">

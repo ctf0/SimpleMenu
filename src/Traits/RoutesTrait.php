@@ -65,10 +65,10 @@ trait RoutesTrait
         }
 
         // route data
-        $url       = $page->url;
-        $action    = $page->action;
-        $prefix    = $page->prefix;
-        $routeName = $page->route_name;
+        $url         = $page->url;
+        $action      = $page->action;
+        $prefix      = $page->prefix;
+        $routeName   = $page->route_name;
 
         // page data
         $title       = $page->title;
@@ -80,11 +80,12 @@ trait RoutesTrait
         $breadCrumb  = $page->getAncestors();
 
         // middlewares
+        $middlewares = $page->middlewares;
         $roles       = 'role:' . implode(',', $page->roles->pluck('name')->toArray());
         $permissions = 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
         // cache the page so we can pass the page params to the controller@method
-        $compact = compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb', 'roles', 'permissions');
+        $compact = compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb', 'middlewares', 'roles', 'permissions');
 
         $this->cache->tags('sm')->rememberForever($this->getCrntLocale() . "-$routeName", function () use ($compact) {
             return $compact;
@@ -96,11 +97,12 @@ trait RoutesTrait
             ? $action
             : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
 
-        // dynamic
+        $mds = is_null($middlewares) ? [$roles, $permissions] : [$middlewares, $roles, $permissions];
+
         Route::get($route)
             ->uses($uses)
             ->name($routeName)
-            ->middleware([$roles, $permissions]);
+            ->middleware($mds);
     }
 
     protected function createRoutesList($page)

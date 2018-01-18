@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Middleware;
 
 use Closure;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class RoleMiddleware
 {
@@ -21,8 +22,12 @@ class RoleMiddleware
             return $next($request);
         }
 
-        if (!$request->user()->hasAnyRole(...$roles)) {
-            abort(403);
+        if (auth()->guest()) {
+            throw UnauthorizedException::notLoggedIn();
+        }
+
+        if (!$request->user()->hasAnyRole($roles)) {
+            throw UnauthorizedException::forRoles($roles);
         }
 
         return $next($request);

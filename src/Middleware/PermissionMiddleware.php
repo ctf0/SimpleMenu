@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Middleware;
 
 use Closure;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class PermissionMiddleware
 {
@@ -21,8 +22,12 @@ class PermissionMiddleware
             return $next($request);
         }
 
-        if (!$request->user()->hasAnyPermission(...$permissions)) {
-            abort(403);
+        if (auth()->guest()) {
+            throw UnauthorizedException::notLoggedIn();
+        }
+
+        if (!$request->user()->hasAnyPermission($permissions)) {
+            throw UnauthorizedException::forPermissions($permissions);
         }
 
         return $next($request);

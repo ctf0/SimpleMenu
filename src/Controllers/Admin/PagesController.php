@@ -36,7 +36,7 @@ class PagesController extends BaseController
         $roles       = Role::pluck('name', 'name');
         $permissions = Permission::pluck('name', 'name');
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
-        $templates   = Page::groupBy('template')->pluck('template')->filter()->all();
+        $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
         return view("{$this->adminPath}.pages.create", compact('roles', 'permissions', 'menus', 'templates'));
     }
@@ -80,7 +80,7 @@ class PagesController extends BaseController
         $permissions = Permission::pluck('name', 'name');
         $page        = $this->cache->tags('sm')->get('pages')->find($id);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
-        $templates   = Page::groupBy('template')->pluck('template')->filter()->all();
+        $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
         return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus', 'templates'));
     }
