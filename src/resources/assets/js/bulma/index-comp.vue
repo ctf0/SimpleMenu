@@ -1,8 +1,4 @@
 <script>
-import 'vue-awesome/icons/search'
-import 'vue-awesome/icons/times'
-Vue.component('icon', require('vue-awesome/components/Icon'))
-
 import Search from './mixins/search'
 
 export default {
@@ -24,7 +20,8 @@ export default {
                 'data-sort-url',
                 'data-sort-menus',
                 'data-sort-locals',
-                'data-sort-template'
+                'data-sort-template',
+                {name: 'data-sort-ops', attr: 'data-ops'}
             ]
         }
     },

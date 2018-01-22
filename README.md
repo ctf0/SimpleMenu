@@ -101,9 +101,13 @@ return [
     'unFoundLocalizedRoute' => 'home',
 
     /*
-     * the user model we are going to use for the admin page
+     * package models
      */
-    'userModel' => App\User::class,
+    'models'=> [
+        'user' => App\User::class,
+        'page' => \ctf0\SimpleMenu\Models\Page::class,
+        'menu' => \ctf0\SimpleMenu\Models\Menu::class,
+    ],
 
     /*
      * when adding a page which is a nest of a nother to a menu, ex.

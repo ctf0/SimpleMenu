@@ -29,6 +29,8 @@ class CreatePagesTable extends Migration
             $table->json('body')->nullable();
             $table->json('desc')->nullable();
             $table->json('meta')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

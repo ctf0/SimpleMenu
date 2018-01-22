@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use ctf0\SimpleMenu\Models\Menu;
 
 class MenusTableSeeder extends Seeder
 {
@@ -10,9 +9,11 @@ class MenusTableSeeder extends Seeder
      */
     public function run()
     {
-        $names = ['top', 'hero', 'side', 'footer'];
+        $menuModel = app(config('simpleMenu.models.menu'));
+        $names     = ['top', 'hero', 'side', 'footer'];
+
         foreach ($names as $one) {
-            Menu::create(['name'=>$one]);
+            $menuModel->create(['name'=>$one]);
         }
     }
 }

@@ -125,9 +125,7 @@ class RolesController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        foreach ($ids as $one) {
-            Role::destroy($one);
-        }
+        Role::destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.roles.index')

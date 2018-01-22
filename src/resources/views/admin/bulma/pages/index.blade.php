@@ -76,7 +76,7 @@
                         <th class="is-dark sort link" data-sort="data-sort-menus">{{ trans('SimpleMenu::messages.menus') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-locals">{{ trans('SimpleMenu::messages.locals') }}</th>
                         <th class="is-dark sort link" data-sort="data-sort-template">{{ trans('SimpleMenu::messages.template') }}</th>
-                        <th class="is-dark">{{ trans('SimpleMenu::messages.ops') }}</th>
+                        <th class="is-dark sort link" data-sort="data-sort-ops">{{ trans('SimpleMenu::messages.ops') }}</th>
                     </tr>
                 </thead>
 
@@ -112,21 +112,21 @@
                             <td class="data-sort-roles">
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.roles.edit', [$role->id]) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td class="data-sort-permissions">
                                 @foreach ($page->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.permissions.edit', [$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td class="data-sort-menus">
                                 @foreach ($page->menus as $menu)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.menus.edit', [$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
@@ -140,31 +140,44 @@
                                     <span class="tag is-rounded is-medium is-primary">{{ $page->template }}</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route($crud_prefix.'.pages.edit',[$page->id]) }}"
+                            <td class="data-sort-ops" data-ops="{{ $page->trashed() ? 'false' : 'true' }}">
+                                <a href="{{ route($crud_prefix.'.pages.edit', [$page->id]) }}"
                                     class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
-                                <a class="is-inline-block">
-                                    @if (config('simpleMenu.deletePageAndNests'))
+
+                                {{-- soft delete --}}
+                                @if ($page->trashed())
+                                    <a class="is-inline-block">
+                                        {{ Form::open(['method' => 'PUT', 'route' => [$crud_prefix.'.pages.restore', $page->id]]) }}
+                                            <button type="submit" class="button is-success" {{ $check }}>
+                                                {{ trans('SimpleMenu::messages.restore') }}
+                                            </button>
+                                        {{ Form::close() }}
+                                    </a>
+
+                                    <a class="is-inline-block">
+                                        {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy_force', $page->id]]) }}
+                                            <button type="submit" class="button is-danger is-outlined" {{ $check }}>
+                                                {{ trans('SimpleMenu::messages.perm_delete') }}
+                                            </button>
+                                        {{ Form::close() }}
+                                    </a>
+
+                                {{-- delete --}}
+                                @else
+                                    @php
+                                        $check = $page->route_name == $crud_prefix ? 'disabled' : '';
+                                    @endphp
+
+                                    <a class="is-inline-block">
                                         {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) }}
-                                            <button type="submit" class="button is-danger">
+                                            <button type="submit" class="button is-danger" {{ $check }}>
                                                 {{ trans('SimpleMenu::messages.delete') }}
                                             </button>
                                         {{ Form::close() }}
-                                    @else
-                                        {{ Form::open([
-                                            'method' => 'DELETE',
-                                            'route' => [$crud_prefix.'.pages.destroy', $page->id],
-                                            'data-id' => 'item-'.$page->id,
-                                            '@submit.prevent' => 'DelItem($event,"'.$page->title.'")'
-                                        ]) }}
-                                            <button type="submit" class="button is-danger">
-                                                {{ trans('SimpleMenu::messages.delete') }}
-                                            </button>
-                                        {{ Form::close() }}
-                                    @endif
-                                </a>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

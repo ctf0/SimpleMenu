@@ -5,11 +5,12 @@ namespace ctf0\SimpleMenu\Models;
 use Baum\Node;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Page extends Node
 {
-    use HasRoles, HasTranslations;
+    use HasRoles, HasTranslations, SoftDeletes;
 
     protected $with       = ['roles', 'permissions', 'menus'];
     protected $appends    = ['nests'];
@@ -18,7 +19,12 @@ class Page extends Node
         'children', 'roles', 'permissions', 'menus',
         'pivot', 'parent_id', 'lft', 'rgt', 'depth',
     ];
-    public $translatable  = [
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+    public $translatable = [
         'title', 'body', 'desc', 'prefix',
         'url', 'meta',
     ];

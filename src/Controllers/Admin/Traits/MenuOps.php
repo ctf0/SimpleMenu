@@ -3,8 +3,6 @@
 namespace ctf0\SimpleMenu\Controllers\Admin\Traits;
 
 use Illuminate\Http\Request;
-use ctf0\SimpleMenu\Models\Menu;
-use ctf0\SimpleMenu\Models\Page;
 
 trait MenuOps
 {
@@ -17,7 +15,8 @@ trait MenuOps
      */
     public function getMenuPages($id)
     {
-        $pages = collect($this->cache->tags('sm')->get('menus')->find($id)->pages)
+        $menu  = $this->cache->tags('sm')->get('menus')->find($id) ?: abort(404);
+        $pages = collect($menu->pages)
                 ->sortBy('pivot_order')
                 ->each(function ($item) {
                     $item['from'] = 'pages';
@@ -41,7 +40,7 @@ trait MenuOps
     public function removePage($id, Request $request)
     {
         // remove page from menu
-        $menu = Menu::find($id);
+        $menu = $this->menuModel->find($id) ?: abort(404);
         $menu->pages()->detach($request->page_id);
         $menu->touch();
 
@@ -122,6 +121,6 @@ trait MenuOps
 
     protected function findPage($id)
     {
-        return Page::find($id);
+        return $this->pageModel->find($id) ?: abort(404);
     }
 }

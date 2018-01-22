@@ -114,9 +114,7 @@ class PermissionsController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        foreach ($ids as $one) {
-            Permission::destroy($one);
-        }
+        Permission::destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.permissions.index')

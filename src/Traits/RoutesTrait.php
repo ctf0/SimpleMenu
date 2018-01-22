@@ -2,8 +2,6 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
-use ctf0\SimpleMenu\Models\Page;
-use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
@@ -15,7 +13,7 @@ trait RoutesTrait
 
     public function createRoutes()
     {
-        Route::group([
+        app('router')->group([
             'prefix'     => LaravelLocalization::setLocale(),
             'middleware' => [
                 'web',
@@ -99,7 +97,7 @@ trait RoutesTrait
 
         $mds = is_null($middlewares) ? [$roles, $permissions] : [$middlewares, $roles, $permissions];
 
-        Route::get($route)
+        app('router')->get($route)
             ->uses($uses)
             ->name($routeName)
             ->middleware($mds);

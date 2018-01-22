@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use ctf0\SimpleMenu\Models\Page;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
@@ -53,7 +52,7 @@ class PagesController extends BaseController
         $this->sT_uP_Validaiton($request);
 
         $img         = $this->getImage($request->cover);
-        $page        = Page::create(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
+        $page        = $this->pageModel->create(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $menus       = $request->input('menus') ?: [];
@@ -78,7 +77,7 @@ class PagesController extends BaseController
     {
         $roles       = Role::pluck('name', 'name');
         $permissions = Permission::pluck('name', 'name');
-        $page        = $this->cache->tags('sm')->get('pages')->find($id);
+        $page        = $this->cache->tags('sm')->get('pages')->find($id) ?: abort(404);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
@@ -98,7 +97,7 @@ class PagesController extends BaseController
         $this->sT_uP_Validaiton($request, $id);
 
         $img         = $this->getImage($request->cover);
-        $page        = Page::find($id);
+        $page        = $this->getItem($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $menus       = $request->input('menus') ?: [];
@@ -112,7 +111,7 @@ class PagesController extends BaseController
     }
 
     /**
-     * Remove Page from storage.
+     * Remove Page.
      *
      * @param int $id
      *
@@ -120,7 +119,7 @@ class PagesController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        Page::destroy($id);
+        $this->pageModel->destroy($id);
 
         if ($request->expectsJson()) {
             return response()->json(['done'=>true]);
@@ -135,12 +134,54 @@ class PagesController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        foreach ($ids as $one) {
-            Page::destroy($one);
-        }
+        $this->pageModel->destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.pages.index')
             ->with('status', trans('SimpleMenu::messages.models_deleted'));
+    }
+
+    /**
+     * restore model.
+     *
+     * @param [type] $id [description]
+     *
+     * @return [type] [description]
+     */
+    public function restore($id)
+    {
+        $this->getItem($id)->restore();
+
+        return redirect()
+            ->route($this->crud_prefix . '.pages.index')
+            ->with('status', trans('SimpleMenu::messages.model_updated'));
+    }
+
+    /**
+     * Remove Page Permanently.
+     *
+     * @param [type] $id [description]
+     *
+     * @return [type] [description]
+     */
+    public function forceDelete($id)
+    {
+        $this->getItem($id)->forceDelete();
+
+        return redirect()
+            ->route($this->crud_prefix . '.pages.index')
+            ->with('status', trans('SimpleMenu::messages.model_deleted_perm'));
+    }
+
+    /**
+     * helper.
+     *
+     * @param [type] $id [description]
+     *
+     * @return [type] [description]
+     */
+    protected function getItem($id)
+    {
+        return $this->pageModel->withTrashed()->find($id) ?: abort(404);
     }
 }

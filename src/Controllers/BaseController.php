@@ -10,6 +10,8 @@ class BaseController extends Controller
     protected $adminPath;
     protected $crud_prefix;
     protected $userModel;
+    protected $pageModel;
+    protected $menuModel;
 
     public function __construct()
     {
@@ -17,9 +19,11 @@ class BaseController extends Controller
             parent::__construct();
         }
 
-        $this->cache        = app('cache');
-        $this->adminPath    = 'SimpleMenu::admin.' . config('simpleMenu.framework');
-        $this->crud_prefix  = config('simpleMenu.crud_prefix');
-        $this->userModel    = app(config('simpleMenu.userModel'));
+        $this->cache       = app('cache');
+        $this->adminPath   = 'SimpleMenu::admin.' . config('simpleMenu.framework');
+        $this->crud_prefix = config('simpleMenu.crud_prefix');
+        $this->userModel   = app(config('simpleMenu.models.user'));
+        $this->pageModel   = app(config('simpleMenu.models.page'));
+        $this->menuModel   = app(config('simpleMenu.models.menu'));
     }
 }

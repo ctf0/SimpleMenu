@@ -2,8 +2,6 @@
 
 namespace ctf0\SimpleMenu;
 
-use ctf0\SimpleMenu\Models\Menu;
-use ctf0\SimpleMenu\Models\Page;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
@@ -86,9 +84,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function observers()
     {
         if (!app()->runningInConsole()) {
-            Page::observe(PageObserver::class);
-            Menu::observe(MenuObserver::class);
-            app(config('simpleMenu.userModel'))->observe(UserObserver::class);
+            app(config('simpleMenu.models.page'))->observe(PageObserver::class);
+            app(config('simpleMenu.models.menu'))->observe(MenuObserver::class);
+            app(config('simpleMenu.models.user'))->observe(UserObserver::class);
         }
     }
 

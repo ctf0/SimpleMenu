@@ -1,8 +1,6 @@
 <?php
 
-use App\User;
 use Illuminate\Database\Seeder;
-use ctf0\SimpleMenu\Models\Page;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -13,7 +11,10 @@ class RolePermSeeder extends Seeder
      */
     public function run()
     {
-        $roles = ['guest', 'admin', 'user'];
+        $userModel = app(config('simpleMenu.models.user'));
+        $pageModel = app(config('simpleMenu.models.page'));
+        $roles     = ['guest', 'admin', 'user'];
+
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
@@ -23,13 +24,12 @@ class RolePermSeeder extends Seeder
             Permission::create(['name' => $perm]);
         }
 
-        // $pages = Page::all();
-        // foreach ($pages as $page) {
+        // foreach ($pageModel->all() as $page) {
         //     $page->givePermissionTo('guest');
         //     $page->assignRole('guest');
         // }
 
-        User::first()->assignRole('admin');
-        User::first()->givePermissionTo('access_backend');
+        $userModel->first()->assignRole('admin');
+        $userModel->first()->givePermissionTo('access_backend');
     }
 }

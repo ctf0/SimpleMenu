@@ -2,7 +2,6 @@
 
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
-use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -75,7 +74,7 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user        = $this->cache->get('sm-users')->find($id);
+        $user        = $this->cache->get('sm-users')->find($id) ?: abort(404);
         $roles       = Role::pluck('name', 'name');
         $permissions = Permission::pluck('name', 'name');
 
@@ -97,7 +96,7 @@ class UsersController extends BaseController
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $user        = $this->userModel->find($id);
+        $user        = $this->userModel->find($id) ?: abort(404);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $img         = $this->getImage($request->avatar);
@@ -118,9 +117,10 @@ class UsersController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        if (auth()->user()->id == $id) {
-            abort(403);
-        }
+        // dont remove self
+        // if (auth()->user()->id == $id) {
+        //     abort(403);
+        // }
 
         $this->userModel->destroy($id);
 
@@ -137,9 +137,7 @@ class UsersController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        foreach ($ids as $one) {
-            User::destroy($one);
-        }
+        $this->userModel->destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.users.index')

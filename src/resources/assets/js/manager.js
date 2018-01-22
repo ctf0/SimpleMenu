@@ -19,6 +19,11 @@ Vue.use(require('vue-tippy'), {
     }
 })
 
+// icons
+import 'vue-awesome/icons/search'
+import 'vue-awesome/icons/times'
+Vue.component('icon', require('vue-awesome/components/Icon'))
+
 // table sort
 window.ListJS = require('list.js')
 

@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use ctf0\SimpleMenu\Models\Menu;
-use ctf0\SimpleMenu\Models\Page;
 
 class MenuPagesTableSeeder extends Seeder
 {
@@ -11,16 +9,18 @@ class MenuPagesTableSeeder extends Seeder
      */
     public function run()
     {
-        $pages = Page::all();
-        foreach ($pages as $key => $val) {
-            $menu = Menu::inRandomOrder()->first();
+        $pageModel = app(config('simpleMenu.models.page'));
+        $menuModel = app(config('simpleMenu.models.menu'));
+
+        foreach ($pageModel->all() as $key => $val) {
+            $menu = $menuModel->inRandomOrder()->first();
             $menu->pages()->attach($val->id);
         }
 
-        Page::find(4)->makeChildOf(Page::find(3));
-        Page::find(5)->makeChildOf(Page::find(4));
-        Page::find(6)->makeChildOf(Page::find(5));
-        Page::find(7)->makeChildOf(Page::find(6));
-        Page::find(8)->makeChildOf(Page::find(7));
+        $pageModel->find(4)->makeChildOf($pageModel->find(3));
+        $pageModel->find(5)->makeChildOf($pageModel->find(4));
+        $pageModel->find(6)->makeChildOf($pageModel->find(5));
+        $pageModel->find(7)->makeChildOf($pageModel->find(6));
+        $pageModel->find(8)->makeChildOf($pageModel->find(7));
     }
 }

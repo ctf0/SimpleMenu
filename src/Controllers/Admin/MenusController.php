@@ -3,8 +3,6 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use ctf0\SimpleMenu\Models\Menu;
-use ctf0\SimpleMenu\Models\Page;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\MenuOps;
 
@@ -47,7 +45,7 @@ class MenusController extends BaseController
             'name' => 'required|unique:menus,name',
         ]);
 
-        $menu = Menu::create($request->all());
+        $menu = $this->menuModel->create($request->all());
 
         return redirect()
             ->route($this->crud_prefix . '.menus.index')
@@ -63,7 +61,7 @@ class MenusController extends BaseController
      */
     public function edit($id)
     {
-        $menu = $this->cache->tags('sm')->get('menus')->find($id);
+        $menu = $this->cache->tags('sm')->get('menus')->find($id) ?: abort(404);
 
         return view("{$this->adminPath}.menus.edit", compact('menu'));
     }
@@ -82,7 +80,7 @@ class MenusController extends BaseController
             'name' => 'required|unique:menus,name,' . $id,
         ]);
 
-        $menu = Menu::find($id);
+        $menu = $this->menuModel->find($id) ?: abort(404);
 
         // clear prev records
         $menu->pages()->detach();
@@ -118,7 +116,7 @@ class MenusController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        $menu = Menu::find($id);
+        $menu = $this->menuModel->find($id) ?: abort(404);
         $menu->pages()->detach();
         $menu->delete();
 
@@ -136,7 +134,7 @@ class MenusController extends BaseController
         $ids = explode(',', $request->ids);
 
         foreach ($ids as $one) {
-            $menu = Menu::find($one);
+            $menu = $this->menuModel->find($one);
             $menu->pages()->detach();
             $menu->delete();
         }

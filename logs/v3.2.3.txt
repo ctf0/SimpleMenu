@@ -1,0 +1,6 @@
+- more cleanup
+- pages now have soft delete support
+- models are now dynamic incase you want to add support for something like “https://github.com/ctf0/Odin”
+- update wiki
+- update readme
+- update resources

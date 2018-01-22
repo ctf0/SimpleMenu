@@ -2,7 +2,6 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
-use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait NavigationTrait
@@ -19,7 +18,7 @@ trait NavigationTrait
      */
     public function getUrl($code)
     {
-        $name = Route::currentRouteName();
+        $name = app('router')->currentRouteName();
 
         // redir to '/' if the first item in "bc" is in diff locale
         $bc = $this->getRouteData($name)['breadCrumb'];
@@ -58,7 +57,7 @@ trait NavigationTrait
     public function getRoute($crntRouteName, array $params = null)
     {
         // where route is available under one locale but not the other
-        if (!Route::has($crntRouteName)) {
+        if (!app('router')->has($crntRouteName)) {
             return;
         }
 
@@ -112,7 +111,7 @@ trait NavigationTrait
 
     public function getBC()
     {
-        $name = Route::currentRouteName();
+        $name = app('router')->currentRouteName();
         $bc   = $this->getRouteData($name)['breadCrumb'];
 
         if (isset($bc) && count($bc)) {

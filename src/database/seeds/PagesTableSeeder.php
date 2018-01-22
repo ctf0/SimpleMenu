@@ -2,7 +2,6 @@
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-use ctf0\SimpleMenu\Models\Page;
 
 class PagesTableSeeder extends Seeder
 {
@@ -11,7 +10,8 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
+        $pageModel = app(config('simpleMenu.models.page'));
+        $faker     = Factory::create();
 
         $i = 1;
 
@@ -19,7 +19,7 @@ class PagesTableSeeder extends Seeder
             $en = $faker->unique()->city;
             $fr = $faker->unique()->city;
 
-            Page::create([
+            $pageModel->create([
                 'template'  => 'SimpleMenu::template-example',
                 'route_name'=> str_slug($en),
                 'title'     => [
