@@ -9,10 +9,26 @@
             </h3>
         </div>
         <div class="level-right">
-            <a href="{{ route($crud_prefix.'.permissions.create') }}"
-                class="button is-success">
-                {{ trans('SimpleMenu::messages.add_new') }}
-            </a>
+            {{-- create new --}}
+            <div class="level-item">
+                <a href="{{ route($crud_prefix.'.permissions.create') }}"
+                    class="button is-success">
+                    {{ trans('SimpleMenu::messages.add_new') }}
+                </a>
+            </div>
+
+            {{-- delete --}}
+            <div class="level-item">
+                @php
+                    $check = in_array($permission->name, auth()->user()->permissions->pluck('name')->toArray()) ? 'disabled' : '';
+                @endphp
+
+                {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.permissions.destroy', $permission->id]]) }}
+                    <button type="submit" class="button is-danger" {{ $check }}>
+                        {{ trans('SimpleMenu::messages.delete') }}
+                    </button>
+                {{ Form::close() }}
+            </div>
         </div>
     </div>
 

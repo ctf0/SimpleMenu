@@ -13,10 +13,46 @@
             </h3>
         </div>
         <div class="level-right">
-            <a href="{{ route($crud_prefix.'.pages.create') }}"
-                class="button is-success">
-                {{ trans('SimpleMenu::messages.add_new') }}
-            </a>
+            {{-- create new --}}
+            <div class="level-item">
+                <a href="{{ route($crud_prefix.'.pages.create') }}"
+                    class="button is-success">
+                    {{ trans('SimpleMenu::messages.add_new') }}
+                </a>
+            </div>
+
+            @if ($page->trashed())
+                {{-- restore --}}
+                <div class="level-item">
+                    {{ Form::open(['method' => 'PUT', 'route' => [$crud_prefix.'.pages.restore', $page->id]]) }}
+                        <button type="submit" class="button is-link">
+                            {{ trans('SimpleMenu::messages.restore') }}
+                        </button>
+                    {{ Form::close() }}
+                </div>
+
+                {{-- soft delete --}}
+                <div class="level-item">
+                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy_force', $page->id]]) }}
+                        <button type="submit" class="button is-danger">
+                            {{ trans('SimpleMenu::messages.perm_delete') }}
+                        </button>
+                    {{ Form::close() }}
+                </div>
+            @else
+                <div class="level-item">
+                    {{-- delete --}}
+                    @php
+                        $check = $page->route_name == $crud_prefix ? 'disabled' : '';
+                    @endphp
+
+                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.pages.destroy', $page->id]]) }}
+                        <button type="submit" class="button is-danger" {{ $check }}>
+                            {{ trans('SimpleMenu::messages.delete') }}
+                        </button>
+                    {{ Form::close() }}
+                </div>
+            @endif
         </div>
     </div>
 
@@ -45,7 +81,7 @@
                                         name="meta[{{ $code }}]"
                                         class="input toggle-pad"
                                         v-show="showMeta('{{ $code }}')"
-                                        value="{{ $page->getTranslationWithoutFallback('meta',$code) }}"
+                                        value="{{ $page->getTranslationWithoutFallback('meta', $code) }}"
                                         placeholder="keyword1, etc..">
                                 @endforeach
                             </div>
@@ -67,10 +103,10 @@
                             {{ Form::label('action', trans('SimpleMenu::messages.action'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'action',
-                                    $page->action,
-                                    ['class' => 'input',
-                                    'placeholder' => "Any\Name\Space\SomeController@methodName",
+                                    'action', 
+                                    $page->action, 
+                                    ['class' => 'input', 
+                                    'placeholder' => "Any\Name\Space\SomeController@methodName", 
                                     'ref' => 'action'])
                                 }}
                                 <span class="help">
@@ -89,10 +125,10 @@
                             {{ Form::label('template', trans('SimpleMenu::messages.template'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'template',
-                                    $page->template,
-                                    ['class' => 'input',
-                                    'placeholder' => "ex.'folder.hero' or 'Vendor::xyz'",
+                                    'template', 
+                                    $page->template, 
+                                    ['class' => 'input', 
+                                    'placeholder' => "ex.'folder.hero' or 'Vendor::xyz'", 
                                     'ref' => 'template'])
                                 }}
                             </div>
@@ -115,9 +151,9 @@
                             {{ Form::label('route_name', trans('SimpleMenu::messages.route_name'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'route_name',
-                                    $page->route_name,
-                                    ['class' => 'input','placeholder' => "route-name"])
+                                    'route_name', 
+                                    $page->route_name, 
+                                    ['class' => 'input', 'placeholder' => "route-name"])
                                 }}
                             </div>
                             @if($errors->has('route_name'))
@@ -132,9 +168,9 @@
                             {{ Form::label('middlewares', trans('SimpleMenu::messages.middlewares'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'middlewares',
-                                    $page->middlewares,
-                                    ['class' => 'input','placeholder' => "some, other, middleware"])
+                                    'middlewares', 
+                                    $page->middlewares, 
+                                    ['class' => 'input', 'placeholder' => "some, other, middleware"])
                                 }}
                             </div>
                         </div>
@@ -183,7 +219,7 @@
                                     <input type="text" name="title[{{ $code }}]"
                                         class="input toggle-pad"
                                         v-show="showTitle('{{ $code }}')"
-                                        value="{{ $page->getTranslationWithoutFallback('title',$code) }}"
+                                        value="{{ $page->getTranslationWithoutFallback('title', $code) }}"
                                         placeholder="Some Title">
                                 @endforeach
                             </div>
@@ -210,7 +246,7 @@
                                         name="body[{{ $code }}]"
                                         class="textarea"
                                         v-show="showBody('{{ $code }}')">
-                                        {{ $page->getTranslationWithoutFallback('body',$code) }}
+                                        {{ $page->getTranslationWithoutFallback('body', $code) }}
                                     </textarea>
                                 @endforeach
                             </div>
@@ -232,7 +268,7 @@
                                         name="desc[{{ $code }}]"
                                         class="textarea"
                                         v-show="showDesc('{{ $code }}')">
-                                        {{ $page->getTranslationWithoutFallback('desc',$code) }}
+                                        {{ $page->getTranslationWithoutFallback('desc', $code) }}
                                     </textarea>
                                 @endforeach
                             </div>
@@ -265,7 +301,7 @@
                                         name="prefix[{{ $code }}]"
                                         class="input toggle-pad"
                                         v-show="showPrefix('{{ $code }}')"
-                                        value="{{ $page->getTranslationWithoutFallback('prefix',$code) }}"
+                                        value="{{ $page->getTranslationWithoutFallback('prefix', $code) }}"
                                         placeholder="abc">
                                 @endforeach
                             </div>
@@ -287,7 +323,7 @@
                                         name="url[{{ $code }}]"
                                         class="input toggle-pad"
                                         v-show="showUrl('{{ $code }}')"
-                                        value="{{ $page->getTranslationWithoutFallback('url',$code) }}"
+                                        value="{{ $page->getTranslationWithoutFallback('url', $code) }}"
                                         placeholder="xyz/{someParam}">
                                 @endforeach
                             </div>
@@ -303,9 +339,9 @@
                             {{ Form::label('menus', trans('SimpleMenu::messages.menus'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select(
-                                    'menus[]',
-                                    $menus,
-                                    $page->menus->pluck('id', 'name'),
+                                    'menus[]', 
+                                    $menus, 
+                                    $page->menus->pluck('id', 'name'), 
                                     ['class' => 'select2', 'multiple' => 'multiple'])
                                 }}
                             </div>
@@ -327,9 +363,9 @@
                             {{ Form::label('roles', trans('SimpleMenu::messages.roles'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select(
-                                    'roles[]',
-                                    $roles,
-                                    $page->roles->pluck('name', 'name'),
+                                    'roles[]', 
+                                    $roles, 
+                                    $page->roles->pluck('name', 'name'), 
                                     ['class' => 'select2', 'multiple' => 'multiple'])
                                 }}
                             </div>
@@ -340,9 +376,9 @@
                             {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::select(
-                                    'permissions[]',
-                                    $permissions,
-                                    $page->permissions->pluck('name', 'name'),
+                                    'permissions[]', 
+                                    $permissions, 
+                                    $page->permissions->pluck('name', 'name'), 
                                     ['class' => 'select2', 'multiple' => 'multiple'])
                                 }}
                             </div>

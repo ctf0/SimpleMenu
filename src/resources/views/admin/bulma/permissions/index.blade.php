@@ -86,7 +86,7 @@
                             </td>
                             <td class="data-sort-name">{{ $permission->name }}</td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.permissions.edit',[$permission->id]) }}"
+                                <a href="{{ route($crud_prefix.'.permissions.edit', $permission->id) }}"
                                     class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
@@ -97,10 +97,10 @@
 
                                 <a class="is-inline-block">
                                     {{ Form::open([
-                                        'method' => 'DELETE',
-                                        'route' => [$crud_prefix.'.permissions.destroy', $permission->id],
-                                        'data-id' => 'item-'.$permission->id,
-                                        '@submit.prevent' => 'DelItem($event,"'.$permission->name.'")'
+                                        'method' => 'DELETE', 
+                                        'route' => [$crud_prefix.'.permissions.destroy', $permission->id], 
+                                        'data-id' => 'item-'.$permission->id, 
+                                        '@submit.prevent' => 'DelItem($event, "'.$permission->name.'")'
                                     ]) }}
                                         <button type="submit" class="button is-danger" {{ $check }}>
                                             {{ trans('SimpleMenu::messages.delete') }}
@@ -112,7 +112,7 @@
                     @endforeach
 
                     <tr v-if="itemsCount == 0">
-                        <td colspan="2">{{ trans('SimpleMenu::messages.no_entries') }}</td>
+                        <td colspan="3" style="text-align: center">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

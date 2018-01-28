@@ -9,10 +9,25 @@
             </h3>
         </div>
         <div class="level-right">
-            <a href="{{ route($crud_prefix.'.roles.create') }}"
-                class="button is-success">
-                {{ trans('SimpleMenu::messages.add_new') }}
-            </a>
+            {{-- create new --}}
+            <div class="level-item">
+                <a href="{{ route($crud_prefix.'.roles.create') }}"
+                    class="button is-success">
+                    {{ trans('SimpleMenu::messages.add_new') }}
+                </a>
+            </div>
+            {{-- delete --}}
+            <div class="level-item">
+                @php
+                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? 'disabled' : '';
+                @endphp
+
+                {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.roles.destroy', $role->id]]) }}
+                    <button type="submit" class="button is-danger" {{ $check }}>
+                        {{ trans('SimpleMenu::messages.delete') }}
+                    </button>
+                {{ Form::close() }}
+            </div>
         </div>
     </div>
 
@@ -36,9 +51,9 @@
             {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
             <div class="control">
                 {{ Form::select(
-                    'permissions[]',
-                    $permissions,
-                    $role->permissions->pluck('name', 'name'),
+                    'permissions[]', 
+                    $permissions, 
+                    $role->permissions->pluck('name', 'name'), 
                     ['class' => 'select2', 'multiple' => 'multiple']
                 ) }}
             </div>

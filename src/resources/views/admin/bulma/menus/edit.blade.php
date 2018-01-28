@@ -10,17 +10,27 @@
                 </h3>
             </div>
             <div class="level-right">
-                <a href="{{ route($crud_prefix.'.menus.create') }}"
-                    class="button is-success">
-                    {{ trans('SimpleMenu::messages.add_new') }}
-                </a>
+                {{-- create new --}}
+                <div class="level-item">
+                    <a href="{{ route($crud_prefix.'.menus.create') }}"
+                        class="button is-success">
+                        {{ trans('SimpleMenu::messages.add_new') }}
+                    </a>
+                </div>
+
+                {{-- delete --}}
+                <div class="level-item">
+                    {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.menus.destroy', $menu->id]]) }}
+                        <button type="submit" class="button is-danger">{{ trans('SimpleMenu::messages.delete') }}</button>
+                    {{ Form::close() }}
+                </div>
             </div>
         </div>
     </h3>
 
     <sm-menu inline-template
-        get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages',['id' => $menu->id]) }}"
-        del-page="{{ route($crud_prefix.'.menus.removePage',['id' => $menu->id]) }}"
+        get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages', ['id' => $menu->id]) }}"
+        del-page="{{ route($crud_prefix.'.menus.removePage', ['id' => $menu->id]) }}"
         del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
         locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>

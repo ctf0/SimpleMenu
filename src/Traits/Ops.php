@@ -35,7 +35,7 @@ trait Ops
         });
 
         $this->cache->rememberForever('sm-users', function () {
-            return app(config('simpleMenu.models.user'))->get();
+            return app(config('simpleMenu.models.user'))->with(['roles', 'permissions'])->get();
         });
     }
 

@@ -3,18 +3,10 @@
 namespace ctf0\SimpleMenu\Models\Traits;
 
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Builder;
 
 trait SMUsers
 {
     use HasRoles;
-
-    public static function bootSMUsers()
-    {
-        static::addGlobalScope('relations', function (Builder $builder) {
-            $builder->with(['roles', 'permissions']);
-        });
-    }
 
     // Mutator for Password
     public function setPasswordAttribute($value)

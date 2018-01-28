@@ -93,19 +93,19 @@
                             <td class="data-sort-roles">
                                 @foreach ($user->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.roles.edit',[$role->id]) }}" class="is-white">{{ $role->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.roles.edit', $role->id) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td class="data-sort-permissions">
                                 @foreach ($user->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.permissions.edit',[$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.permissions.edit', $perm->id) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.users.edit',[$user->id]) }}"
+                                <a href="{{ route($crud_prefix.'.users.edit', $user->id) }}"
                                     class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
@@ -116,10 +116,10 @@
 
                                 <a class="is-inline-block">
                                     {{ Form::open([
-                                        'method' => 'DELETE',
-                                        'route' => [$crud_prefix.'.users.destroy', $user->id],
-                                        'data-id' => 'item-'.$user->id,
-                                        '@submit.prevent' => 'DelItem($event,"'.$user->name.'")'
+                                        'method' => 'DELETE', 
+                                        'route' => [$crud_prefix.'.users.destroy', $user->id], 
+                                        'data-id' => 'item-'.$user->id, 
+                                        '@submit.prevent' => 'DelItem($event, "'.$user->name.'")'
                                     ]) }}
                                         <button type="submit" class="button is-danger" {{ $check }}>
                                             {{ trans('SimpleMenu::messages.delete') }}
@@ -131,7 +131,7 @@
                     @endforeach
 
                     <tr v-if="itemsCount == 0">
-                        <td colspan="5">{{ trans('SimpleMenu::messages.no_entries') }}</td>
+                        <td colspan="6" style="text-align: center">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

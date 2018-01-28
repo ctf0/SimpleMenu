@@ -9,10 +9,25 @@
             </h3>
         </div>
         <div class="level-right">
-            <a href="{{ route($crud_prefix.'.users.create') }}"
-                class="button is-success">
-                {{ trans('SimpleMenu::messages.add_new') }}
-            </a>
+            {{-- create new --}}
+            <div class="level-item">
+                <a href="{{ route($crud_prefix.'.users.create') }}"
+                    class="button is-success">
+                    {{ trans('SimpleMenu::messages.add_new') }}
+                </a>
+            </div>
+            {{-- delete --}}
+            <div class="level-item">
+                @php
+                    $check = $user->id == auth()->user()->id ? 'disabled' : '';
+                @endphp
+
+                {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.users.destroy', $user->id]]) }}
+                    <button type="submit" class="button is-danger" {{ $check }}>
+                        {{ trans('SimpleMenu::messages.delete') }}
+                    </button>
+                {{ Form::close() }}
+            </div>
         </div>
     </div>
 
@@ -93,9 +108,9 @@
                     {{ Form::label('roles', trans('SimpleMenu::messages.roles'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
-                            'roles[]',
-                            $roles,
-                            $user->roles->pluck('name', 'name'),
+                            'roles[]', 
+                            $roles, 
+                            $user->roles->pluck('name', 'name'), 
                             ['class' => 'select2', 'multiple' => 'multiple']
                         ) }}
                     </div>
@@ -111,9 +126,9 @@
                     {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
                     <div class="control">
                         {{ Form::select(
-                            'permissions[]',
-                            $permissions,
-                            $user->permissions->pluck('name', 'name'),
+                            'permissions[]', 
+                            $permissions, 
+                            $user->permissions->pluck('name', 'name'), 
                             ['class' => 'select2', 'multiple' => 'multiple']
                         ) }}
                     </div>

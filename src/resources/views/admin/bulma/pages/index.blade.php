@@ -112,21 +112,21 @@
                             <td class="data-sort-roles">
                                 @foreach ($page->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.roles.edit', [$role->id]) }}" class="is-white">{{ $role->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.roles.edit', $role->id) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td class="data-sort-permissions">
                                 @foreach ($page->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.permissions.edit', [$perm->id]) }}" class="is-white">{{ $perm->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.permissions.edit', $perm->id) }}" class="is-white">{{ $perm->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
                             <td class="data-sort-menus">
                                 @foreach ($page->menus as $menu)
                                     <span class="tag is-rounded is-medium is-link">
-                                        <a href="{{ route($crud_prefix.'.menus.edit', [$menu->id]) }}" class="is-white">{{ $menu->name }}</a>
+                                        <a href="{{ route($crud_prefix.'.menus.edit', $menu->id) }}" class="is-white">{{ $menu->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
@@ -141,7 +141,7 @@
                                 @endif
                             </td>
                             <td class="data-sort-ops" data-ops="{{ $page->trashed() ? 'false' : 'true' }}">
-                                <a href="{{ route($crud_prefix.'.pages.edit', [$page->id]) }}"
+                                <a href="{{ route($crud_prefix.'.pages.edit', $page->id) }}"
                                     class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
@@ -183,7 +183,7 @@
                     @endforeach
 
                     <tr v-if="itemsCount == 0">
-                        <td colspan="7">{{ trans('SimpleMenu::messages.no_entries') }}</td>
+                        <td colspan="11" style="text-align: center">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>

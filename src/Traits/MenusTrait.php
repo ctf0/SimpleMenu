@@ -54,7 +54,7 @@ trait MenusTrait
                 return collect($this->cache->tags('sm')->get('menus')->where('name', $name)->first()->pages)
                     ->sortBy('pivot_order')
                     ->filter(function ($item) {
-                        return '' != $item->url;
+                        return $item->url != '';
                     });
             });
         }

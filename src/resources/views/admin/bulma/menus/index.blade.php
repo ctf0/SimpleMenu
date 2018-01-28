@@ -85,15 +85,15 @@
                             </td>
                             <td class="data-sort-name">{{ $menu->name }}</td>
                             <td>
-                                <a href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}" class="button is-link is-inline-block">
+                                <a href="{{ route($crud_prefix.'.menus.edit', $menu->id) }}" class="button is-link is-inline-block">
                                     {{ trans('SimpleMenu::messages.edit') }}
                                 </a>
                                 <a class="is-inline-block">
                                     {{ Form::open([
-                                        'method' => 'DELETE',
-                                        'route' => [$crud_prefix.'.menus.destroy', $menu->id],
-                                        'data-id' => 'menu-'.$menu->id,
-                                        '@submit.prevent' => 'DelItem($event,"'.$menu->name.'")'
+                                        'method' => 'DELETE', 
+                                        'route' => [$crud_prefix.'.menus.destroy', $menu->id], 
+                                        'data-id' => 'menu-'.$menu->id, 
+                                        '@submit.prevent' => 'DelItem($event, "'.$menu->name.'")'
                                     ]) }}
                                         {{ Form::submit(trans('SimpleMenu::messages.delete'), ['class' => 'button is-danger']) }}
                                     {{ Form::close() }}
@@ -103,7 +103,7 @@
                     @endforeach
 
                     <tr v-if="itemsCount == 0">
-                        <td colspan="2">{{ trans('SimpleMenu::messages.no_entries') }}</td>
+                        <td colspan="3" style="text-align: center">{{ trans('SimpleMenu::messages.no_entries') }}</td>
                     </tr>
                 </tbody>
             </table>
