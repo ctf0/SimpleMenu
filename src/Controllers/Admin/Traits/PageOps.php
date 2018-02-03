@@ -68,7 +68,7 @@ trait PageOps
      */
     protected function cleanEmptyTranslations($request)
     {
-        $result = $request->except(['roles', 'permissions', 'menus', 'cover']);
+        $result = $request->except(['roles', 'permissions', 'menus', 'cover', 'controllerFile']);
 
         foreach ($result as $k => $v) {
             if (is_array($v)) {
@@ -81,5 +81,17 @@ trait PageOps
         }
 
         return $result;
+    }
+
+    protected function actionFileContent($action, $type, $data = null)
+    {
+        $class = substr($action, 0, strpos($action, '@'));
+        $file  = (new \ReflectionClass($class))->getFileName();
+
+        if ($type == 'get') {
+            return file_get_contents($file);
+        }
+
+        return file_put_contents($file, $data);
     }
 }

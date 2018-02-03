@@ -120,6 +120,12 @@
                             @endif
                         </div>
 
+                        {{-- controller file --}}
+                        @if ($controllerFile)
+                            <div id="ace-editor">{{{ $controllerFile }}}</div>
+                            <input type="hidden" name="controllerFile" ref="controllerFile">
+                        @endif
+
                         {{-- template --}}
                         <div class="field">
                             {{ Form::label('template', trans('SimpleMenu::messages.template'), ['class' => 'label']) }}

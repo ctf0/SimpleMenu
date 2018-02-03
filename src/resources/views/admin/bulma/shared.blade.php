@@ -63,8 +63,8 @@
                                 <ul>
                                     @foreach (app('cache')->tags('sm')->get('menus') as $menu)
                                         <li data-id="menu-{{ $menu->id }}">
-                                            <a class="{{ URL::is($crud_prefix.'.menus.edit',['id' => $menu->id]) ? 'is-active' : '' }}"
-                                                href="{{ route($crud_prefix.'.menus.edit',[$menu->id]) }}">
+                                            <a class="{{ URL::is($crud_prefix.'.menus.edit', ['id' => $menu->id]) ? 'is-active' : '' }}"
+                                                href="{{ route($crud_prefix.'.menus.edit', $menu->id) }}">
                                                 {{ $menu->name }}
                                             </a>
                                         </li>
@@ -84,25 +84,8 @@
     </section>
 
     {{-- Footer --}}
-    {{-- Scripts --}}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/choices.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/jquery.tinymce.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/autoresize/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/preview/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/fullscreen/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/image/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/link/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/lists/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/media/plugin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/table/plugin.min.js"></script>
-    <script>
-        new Choices('.select2', {
-            duplicateItems: false,
-            removeItemButton: true,
-            paste: false,
-            placeholderValue: 'Select an option'
-        })
-    </script>
+    @include("SimpleMenu::admin.$css_fw.editors")
+    {{-- app --}}
+    <script src="{{ asset("path/to/app.js") }}"></script>
 </body>
 </html>

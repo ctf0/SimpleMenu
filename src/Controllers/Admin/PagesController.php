@@ -81,7 +81,9 @@ class PagesController extends BaseController
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
-        return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus', 'templates'));
+        $controllerFile = $page->action ? $this->actionFileContent($page->action, 'get') : null;
+
+        return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus', 'templates', 'controllerFile'));
     }
 
     /**
@@ -106,6 +108,10 @@ class PagesController extends BaseController
         $page->syncRoles($roles);
         $page->syncPermissions($permissions);
         $page->syncMenus($menus);
+
+        if (!is_null($request->controllerFile)) {
+            $this->actionFileContent($request->action, 'update', $request->controllerFile);
+        }
 
         return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }

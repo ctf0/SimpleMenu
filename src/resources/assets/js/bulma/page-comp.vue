@@ -25,17 +25,61 @@ export default {
         this.prefix = this.SelectFirst
         this.url = this.SelectFirst
 
-        tinymce.overrideDefaults({
-            menubar: false,
-            branding: false,
-            browser_spellcheck: true,
-            contextmenu: false,
-            height : '120',
-            plugins: 'lists link image fullscreen media table preview autoresize',
-            toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | preview fullscreen'
-        })
+        this.initTMC()
+        this.initAce()
+        this.initChoice()
     },
     methods: {
+        // editors
+        initTMC() {
+            tinymce.overrideDefaults({
+                menubar: false,
+                branding: false,
+                browser_spellcheck: true,
+                contextmenu: false,
+                height : '120',
+                plugins: 'lists link image fullscreen media table preview autoresize',
+                toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | preview fullscreen'
+            })
+        },
+        initAce() {
+            let item = document.getElementById('ace-editor')
+
+            if (item) {
+                ace.require('ace/ext/language_tools')
+                let editor = ace.edit('ace-editor')
+                item.style.lineHeight = '2'
+                editor.setOptions({
+                    enableBasicAutocompletion:true,
+                    enableLiveAutocompletion:true,
+                    enableSnippets:true
+                })
+                editor.renderer.setOptions({
+                    animatedScroll:true,
+                    showInvisibles:true,
+                    showPrintMargin:false,
+                    fontSize: 14,
+                    theme: 'ace/theme/monokai'
+                })
+                editor.session.setOptions({
+                    mode: 'ace/mode/php'
+                })
+
+                editor.getSession().on('change', () => {
+                    this.$refs.controllerFile.value = editor.getSession().getValue()
+                })
+            }
+        },
+        initChoice() {
+            new Choices('.select2', {
+                duplicateItems: false,
+                removeItemButton: true,
+                paste: false,
+                placeholderValue: 'Select an option'
+            })
+        },
+
+        // toggle
         showTitle(code) {
             return this.title == code
         },
