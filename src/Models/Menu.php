@@ -10,6 +10,6 @@ class Menu extends Model
 
     public function pages()
     {
-        return $this->belongsToMany(Page::class)->withPivot('order');
+        return $this->belongsToMany(config('simpleMenu.models.page'))->withPivot('order');
     }
 }

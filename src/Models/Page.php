@@ -31,7 +31,7 @@ class Page extends Node
 
     public function menus()
     {
-        return $this->belongsToMany(Menu::class);
+        return $this->belongsToMany(config('simpleMenu.models.menu'));
     }
 
     protected function getCrntLocale()
