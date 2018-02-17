@@ -1,6 +1,7 @@
 # SimpleMenu
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg?style=for-the-badge)](https://packagist.org/packages/ctf0/simple-menu)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu)
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
 
 Create menus & pages that support (multiLocale "title, url, body, ...", nesting, template, static & dynamic data, roles & permissions).
 
