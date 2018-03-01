@@ -4,6 +4,7 @@ namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use ctf0\SimpleMenu\Facade\SimpleMenu;
 use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
@@ -32,12 +33,13 @@ class PagesController extends BaseController
      */
     public function create()
     {
+        $locales     = SimpleMenu::AppLocales();
         $roles       = Role::pluck('name', 'name');
         $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
-        return view("{$this->adminPath}.pages.create", compact('roles', 'permissions', 'menus', 'templates'));
+        return view("{$this->adminPath}.pages.create", compact('locales', 'roles', 'permissions', 'menus', 'templates'));
     }
 
     /**
@@ -75,6 +77,7 @@ class PagesController extends BaseController
      */
     public function edit($id)
     {
+        $locales     = SimpleMenu::AppLocales();
         $roles       = Role::pluck('name', 'name');
         $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
         $page        = $this->cache->tags('sm')->get('pages')->find($id) ?: abort(404);
@@ -83,7 +86,7 @@ class PagesController extends BaseController
 
         $controllerFile = $page->action ? $this->actionFileContent($page->action, 'get') : null;
 
-        return view("{$this->adminPath}.pages.edit", compact('roles', 'permissions', 'page', 'menus', 'templates', 'controllerFile'));
+        return view("{$this->adminPath}.pages.edit", compact('locales', 'roles', 'permissions', 'page', 'menus', 'templates', 'controllerFile'));
     }
 
     /**

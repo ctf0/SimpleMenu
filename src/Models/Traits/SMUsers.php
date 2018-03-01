@@ -15,6 +15,8 @@ trait SMUsers
             $value = $this->password;
         }
 
-        $this->attributes['password'] = app('hash')->needsRehash($value) ? bcrypt($value) : $value;
+        $this->attributes['password'] = app('hash')->needsRehash($value) 
+        	? app('hash')->make($value) 
+        	: $value;
     }
 }

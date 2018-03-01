@@ -1,10 +1,6 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
 @section('title'){{ trans('SimpleMenu::messages.edit') }} "{{ empty($page->title) ? collect($page->getTranslations('title'))->first() : $page->title }}"@endsection
 
-@php
-    $locales = SimpleMenu::AppLocales();
-@endphp
-
 @section('sub')
     <div class="level">
         <div class="level-left">
@@ -109,9 +105,11 @@
                                     'placeholder' => "Any\Name\Space\SomeController@methodName", 
                                     'ref' => 'action'])
                                 }}
-                                <span class="help">
-                                    <code class="link" data-value="App\Http\Controllers\" @click="updateValue($event, 'action')">App\Http\Controllers\</code>
-                                </span>
+                            </div>
+                            <div class="tag link is-primary m-t-5"
+                                data-value="App\Http\Controllers\"
+                                @click="updateValue($event, 'action')">
+                                App\Http\Controllers\
                             </div>
                             @if($errors->has('action'))
                                 <p class="help is-danger">
@@ -139,11 +137,15 @@
                                 }}
                             </div>
                             @if (count($templates))
-                                <span class="help">
+                                <div class="tags m-t-5">
                                     @foreach ($templates as $one)
-                                        <code class="link" data-value="{{ $one }}" @click="updateValue($event, 'template')">{{ $one }}</code>
+                                        <div class="tag link is-primary"
+                                            data-value="{{ $one }}"
+                                            @click="updateValue($event, 'template')">
+                                            {{ $one }}
+                                        </div>
                                     @endforeach
-                                </span>
+                                </div>
                             @endif
                             @if($errors->has('template'))
                                 <p class="help is-danger">

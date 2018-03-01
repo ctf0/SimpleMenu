@@ -37,7 +37,7 @@ export default {
                 branding: false,
                 browser_spellcheck: true,
                 contextmenu: false,
-                height : '120',
+                height: '120',
                 plugins: 'lists link image fullscreen media table preview autoresize',
                 toolbar: 'undo redo | link unlink | media image | styleselect removeformat | outdent indent | numlist bullist table | preview fullscreen'
             })
@@ -50,14 +50,14 @@ export default {
                 let editor = ace.edit('ace-editor')
                 item.style.lineHeight = '2'
                 editor.setOptions({
-                    enableBasicAutocompletion:true,
-                    enableLiveAutocompletion:true,
-                    enableSnippets:true
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true,
+                    enableSnippets: true
                 })
                 editor.renderer.setOptions({
-                    animatedScroll:true,
-                    showInvisibles:true,
-                    showPrintMargin:false,
+                    animatedScroll: true,
+                    showInvisibles: true,
+                    showPrintMargin: false,
                     fontSize: 14,
                     theme: 'ace/theme/monokai'
                 })
@@ -123,7 +123,6 @@ export default {
         desc(newVal, oldVal) {
             this.toggleTinyMce('desc', newVal, oldVal)
         }
-    },
-    render () {}
+    }
 }
 </script>

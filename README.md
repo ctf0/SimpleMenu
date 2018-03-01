@@ -35,11 +35,11 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
     - also check the below **Dependencies** for extra "configuration/options/migrations".
         > - Permissions
         >   - https://github.com/spatie/laravel-permission
-
+        >
         > - MultiLocale
         >   - https://github.com/spatie/laravel-translatable
         >   - https://github.com/mcamara/laravel-localization
-
+        >
         > - Menu Nested Set
         >   - https://github.com/gazsp/baum
 

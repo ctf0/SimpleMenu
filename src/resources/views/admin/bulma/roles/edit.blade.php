@@ -19,7 +19,9 @@
             {{-- delete --}}
             <div class="level-item">
                 @php
-                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? 'disabled' : '';
+                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray())
+                        ? 'disabled'
+                        : '';
                 @endphp
 
                 {{ Form::open(['method' => 'DELETE', 'route' => [$crud_prefix.'.roles.destroy', $role->id]]) }}

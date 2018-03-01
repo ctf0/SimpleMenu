@@ -72,17 +72,22 @@ trait PageOps
 
         foreach ($result as $k => $v) {
             if (is_array($v)) {
-                if (!array_filter($v)) {
-                    $result[$k] = null;
-                } else {
-                    $result[$k] = array_filter($v);
-                }
+                $result[$k] = !array_filter($v) ? null : array_filter($v);
             }
         }
 
         return $result;
     }
 
+    /**
+     * save or get controller content.
+     *
+     * @param [type] $action [description]
+     * @param [type] $type   [description]
+     * @param [type] $data   [description]
+     *
+     * @return [type] [description]
+     */
     protected function actionFileContent($action, $type, $data = null)
     {
         $class = substr($action, 0, strpos($action, '@'));

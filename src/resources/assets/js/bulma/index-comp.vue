@@ -80,7 +80,6 @@ export default {
                 console.error(err)
             })
         }
-    },
-    render () {}
+    }
 }
 </script>

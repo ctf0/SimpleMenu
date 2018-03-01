@@ -1,10 +1,6 @@
 @extends("SimpleMenu::admin.$css_fw.shared")
 @section('title'){{ trans('SimpleMenu::messages.create_new') }} {{ trans('SimpleMenu::messages.pages') }}@endsection
 
-@php
-    $locales = SimpleMenu::AppLocales();
-@endphp
-
 @section('sub')
     <h3 class="title">
         <a href="{{ route($crud_prefix.'.pages.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
@@ -57,15 +53,17 @@
                             {{ Form::label('action', trans('SimpleMenu::messages.action'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'action',
-                                    null,
-                                    ['class' => 'input',
-                                    'placeholder' => "Any\Name\Space\SomeController@methodName",
+                                    'action', 
+                                    null, 
+                                    ['class' => 'input', 
+                                    'placeholder' => "Any\Name\Space\SomeController@methodName", 
                                     'ref' => 'action'])
                                 }}
-                                <span class="help">
-                                    <code class="link" data-value="App\Http\Controllers\" @click="updateValue($event, 'action')">App\Http\Controllers\</code>
-                                </span>
+                            </div>
+                            <div class="tag link is-primary m-t-5"
+                                data-value="App\Http\Controllers\"
+                                @click="updateValue($event, 'action')">
+                                App\Http\Controllers\
                             </div>
                             @if($errors->has('action'))
                                 <p class="help is-danger">
@@ -79,19 +77,23 @@
                             {{ Form::label('template', trans('SimpleMenu::messages.template'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'template',
-                                    null,
-                                    ['class' => 'input',
-                                    'placeholder' => "ex.'folder.abc' or 'Vendor::xyz'",
+                                    'template', 
+                                    null, 
+                                    ['class' => 'input', 
+                                    'placeholder' => "ex.'folder.abc' or 'Vendor::xyz'", 
                                     'ref' => 'template'])
                                 }}
                             </div>
                             @if (count($templates))
-                                <span class="help">
+                                <div class="tags m-t-5">
                                     @foreach ($templates as $one)
-                                        <code class="link" data-value="{{ $one }}" @click="updateValue($event, 'template')">{{ $one }}</code>
+                                        <div class="tag link is-primary"
+                                            data-value="{{ $one }}"
+                                            @click="updateValue($event, 'template')">
+                                            {{ $one }}
+                                        </div>
                                     @endforeach
-                                </span>
+                                </div>
                             @endif
                             @if($errors->has('template'))
                                 <p class="help is-danger">
@@ -104,7 +106,7 @@
                         <div class="field">
                             {{ Form::label('route_name', trans('SimpleMenu::messages.route_name'), ['class' => 'label']) }}
                             <div class="control">
-                                {{ Form::text('route_name', null, ['class' => 'input','placeholder' => "route-name"]) }}
+                                {{ Form::text('route_name', null, ['class' => 'input', 'placeholder' => "route-name"]) }}
                             </div>
                             @if($errors->has('route_name'))
                                 <p class="help is-danger">
@@ -118,9 +120,9 @@
                             {{ Form::label('middlewares', trans('SimpleMenu::messages.middlewares'), ['class' => 'label']) }}
                             <div class="control">
                                 {{ Form::text(
-                                    'middlewares',
-                                    null,
-                                    ['class' => 'input','placeholder' => "some, other, middleware"])
+                                    'middlewares', 
+                                    null, 
+                                    ['class' => 'input', 'placeholder' => "some, other, middleware"])
                                 }}
                             </div>
                         </div>

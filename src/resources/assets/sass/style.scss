@@ -15,6 +15,14 @@ thead th {
     background-color: white;
 }
 
+.m-t-5 {
+    margin-top: 5px;
+}
+
+.tags .tag:not(:last-child) {
+    margin-right: 5px;
+}
+
 // select
 .choices {
     font-size: 1rem;

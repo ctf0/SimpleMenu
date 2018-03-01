@@ -31,10 +31,11 @@ return array (
   'model_updated' => 'Model Updated !',
   'models_deleted' => 'Models Deleted !',
   'name' => 'Name',
-  'no_entries' => 'No entries in table',
+  'no_entries' => 'No Data To Display',
   'ops' => 'Operations',
   'pages' => 'Pages',
   'password' => 'Password',
+  'perm_delete' => 'Permanently Delete',
   'permissions' => 'Permissions',
   'regex' => 'The :attribute must have an "@"',
   'remove_child' => 'Remove Child',
@@ -54,5 +55,4 @@ return array (
   'url' => 'Url',
   'url_prefix' => 'Url Prefix',
   'users' => 'Users',
-  'perm_delete' => 'Permanently Delete',
 );

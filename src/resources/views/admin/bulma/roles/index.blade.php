@@ -101,7 +101,9 @@
                                 </a>
 
                                 @php
-                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray()) ? 'disabled' : '';
+                                    $check = in_array($role->name, auth()->user()->roles->pluck('name')->toArray())
+                                        ? 'disabled'
+                                        : '';
                                 @endphp
 
                                 <a class="is-inline-block">

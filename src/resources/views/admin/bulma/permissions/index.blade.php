@@ -92,7 +92,9 @@
                                 </a>
 
                                 @php
-                                    $check = in_array($permission->name, auth()->user()->permissions->pluck('name')->toArray()) ? 'disabled' : '';
+                                    $check = in_array($permission->name, auth()->user()->permissions->pluck('name')->toArray())
+                                        ? 'disabled'
+                                        : '';
                                 @endphp
 
                                 <a class="is-inline-block">

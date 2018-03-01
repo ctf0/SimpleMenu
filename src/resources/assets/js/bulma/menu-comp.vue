@@ -153,7 +153,6 @@ export default {
                 this.updatePages(val)
             })
         }
-    },
-    render () {}
+    }
 }
 </script>
