@@ -35,7 +35,7 @@ class PagesController extends BaseController
     {
         $locales     = SimpleMenu::AppLocales();
         $roles       = Role::pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
@@ -79,7 +79,7 @@ class PagesController extends BaseController
     {
         $locales     = SimpleMenu::AppLocales();
         $roles       = Role::pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
         $page        = $this->cache->tags('sm')->get('pages')->find($id) ?: abort(404);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());

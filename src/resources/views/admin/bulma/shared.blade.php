@@ -33,10 +33,10 @@
         </div>
 
         {{-- Body --}}
-        <div class="container">
+        <div class="container is-fluid">
             <div class="columns">
                 {{-- Sidebar --}}
-                <div class="column is-2">
+                <div class="column is-narrow">
                     <aside class="menu">
                         <ul class="menu-list">
                             <li><a class="{{ URL::has("$crud_prefix/users") ? 'is-active' : '' }}"
@@ -76,7 +76,7 @@
                 </div>
 
                 {{-- Pages --}}
-                <div class="column is-10">
+                <div class="column">
                     @yield('sub')
                 </div>
             </div>

@@ -22,7 +22,9 @@ class SimpleMenu
         $this->listFileDir  = config('simpleMenu.routeListPath');
         $this->localeCodes  = array_keys(LaravelLocalization::getSupportedLocales());
 
-        static::create_LFD($this->listFileDir);
+        if ($this->listFileDir !== '') {
+            static::create_LFD($this->listFileDir);
+        }
 
         if (!app()->runningInConsole()) {
             // create caches

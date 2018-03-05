@@ -1,6 +1,6 @@
 <script>
 import draggable from 'vuedraggable'
-import MenuChild from './menu-comp_childs.vue'
+import MenuChild from './menu_childs.vue'
 import menu from './mixins/menu'
 
 export default {

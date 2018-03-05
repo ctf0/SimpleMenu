@@ -9,6 +9,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Cache::flush();
+
         $this->call(PagesTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(MenuPagesTableSeeder::class);

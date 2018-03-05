@@ -3,8 +3,8 @@ import Search from './mixins/search'
 
 export default {
     name: 'index-comp',
-    props: ['count'],
     mixins: [Search],
+    props: ['count'],
     data() {
         return {
             itemsCount: this.count,

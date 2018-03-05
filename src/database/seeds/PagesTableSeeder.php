@@ -17,30 +17,30 @@ class PagesTableSeeder extends Seeder
 
         while ($i <= 20) {
             $en = $faker->unique()->city;
-            $fr = $faker->unique()->city;
+            $es = $faker->unique()->city;
 
             $pageModel->create([
                 'template'  => 'SimpleMenu::template-example',
                 'route_name'=> str_slug($en),
                 'title'     => [
                      'en' => title_case($en),
-                     'fr' => title_case($fr),
+                     'es' => title_case($es),
                 ],
                 'body' => [
                     'en' => $faker->text(),
-                    'fr' => $faker->text(),
+                    'es' => $faker->text(),
                 ],
                 'desc' => [
                     'en' => $faker->text(),
-                    'fr' => $faker->text(),
+                    'es' => $faker->text(),
                 ],
                 'prefix' => [
                     'en' => str_slug($faker->unique()->country),
-                    'fr' => str_slug($faker->unique()->country),
+                    'es' => str_slug($faker->unique()->country),
                 ],
                 'url' => [
                     'en' => str_slug($en),
-                    'fr' => str_slug($fr),
+                    'es' => str_slug($es),
                 ],
             ]);
 

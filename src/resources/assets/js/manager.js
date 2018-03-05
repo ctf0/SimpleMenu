@@ -20,6 +20,7 @@ Vue.use(require('vue-tippy'), {
 })
 
 // icons
+require('vue-multi-ref')
 import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'
 Vue.component('icon', require('vue-awesome/components/Icon'))
@@ -33,14 +34,10 @@ axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     'X-Requested-With': 'XMLHttpRequest'
 }
-axios.interceptors.response.use((response) => {
-    return response
-}, (error) => {
-    return Promise.reject(error.response)
-})
+axios.interceptors.response.use((response) => {return response}, (error) => {return Promise.reject(error.response)})
 
 /*                Component                */
-Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page-comp.vue'))
-Vue.component('SmMenu', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu-comp.vue'))
-Vue.component('SmIndex', require('./' + process.env.MIX_SM_FRAMEWORK + '/index-comp.vue'))
+Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page.vue'))
+Vue.component('SmMenu', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu.vue'))
+Vue.component('SmIndex', require('./' + process.env.MIX_SM_FRAMEWORK + '/index.vue'))
 Vue.component('MyNotification', require('vue-notif'))

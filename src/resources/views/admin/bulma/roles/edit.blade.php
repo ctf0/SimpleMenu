@@ -33,39 +33,41 @@
         </div>
     </div>
 
-    {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
+    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+        {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
 
-        {{-- name --}}
-        <div class="field">
-            {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
-            <div class="control">
-                {{ Form::text('name', $role->name, ['class' => 'input']) }}
+            {{-- name --}}
+            <div class="field">
+                {{ Form::label('name', trans('SimpleMenu::messages.name'), ['class' => 'label']) }}
+                <div class="control">
+                    {{ Form::text('name', $role->name, ['class' => 'input']) }}
+                </div>
+                @if($errors->has('name'))
+                    <p class="help is-danger">
+                        {{ $errors->first('name') }}
+                    </p>
+                @endif
             </div>
-            @if($errors->has('name'))
-                <p class="help is-danger">
-                    {{ $errors->first('name') }}
-                </p>
-            @endif
-        </div>
 
-        {{-- permissions --}}
-        <div class="field">
-            {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
-            <div class="control">
-                {{ Form::select(
-                    'permissions[]', 
-                    $permissions, 
-                    $role->permissions->pluck('name', 'name'), 
-                    ['class' => 'select2', 'multiple' => 'multiple']
-                ) }}
+            {{-- permissions --}}
+            <div class="field">
+                {{ Form::label('permissions', trans('SimpleMenu::messages.permissions'), ['class' => 'label']) }}
+                <div class="control">
+                    {{ Form::select(
+                        'permissions[]', 
+                        $permissions, 
+                        $role->permissions->pluck('name', 'name'), 
+                        ['class' => 'select2', 'multiple' => 'multiple']
+                    ) }}
+                </div>
+                @if($errors->has('permissions'))
+                    <p class="help is-danger">
+                        {{ $errors->first('permissions') }}
+                    </p>
+                @endif
             </div>
-            @if($errors->has('permissions'))
-                <p class="help is-danger">
-                    {{ $errors->first('permissions') }}
-                </p>
-            @endif
-        </div>
 
-        {{ Form::submit(trans('SimpleMenu::messages.update'), ['class' => 'button is-warning']) }}
-    {{ Form::close() }}
+            {{ Form::submit(trans('SimpleMenu::messages.update'), ['class' => 'button is-warning']) }}
+        {{ Form::close() }}
+    </sm-page>
 @endsection

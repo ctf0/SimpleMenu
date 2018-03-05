@@ -68,7 +68,7 @@ npm install vue axios vue-tippy@v1 vuedraggable vue-notif vue-multi-ref vue-awes
     + if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/).
 
 ```js
-require('./../vendor/SimpleMenu/js/manager')
+require('../vendor/SimpleMenu/js/manager')
 
 new Vue({
     el: '#app'
@@ -189,7 +189,8 @@ return [
 <br>
 
 ## Usage
-[Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
+- visit `localhost:8000/admin`
+- [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
 
 <br>
 

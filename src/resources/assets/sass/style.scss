@@ -1,11 +1,15 @@
+[v-cloak] {
+    display: none;
+}
+
 @import 'checkbox';
+
+html {
+    font-size: 14px;
+}
 
 td {
     vertical-align: middle !important;
-}
-
-.link {
-    cursor: pointer;
 }
 
 thead th {
@@ -15,12 +19,21 @@ thead th {
     background-color: white;
 }
 
+.link {
+    cursor: pointer;
+}
+
 .m-t-5 {
     margin-top: 5px;
 }
 
+// bulma
 .tags .tag:not(:last-child) {
     margin-right: 5px;
+}
+
+.title {
+    font-size: 1.5rem;
 }
 
 // select

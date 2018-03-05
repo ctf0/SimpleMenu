@@ -32,7 +32,7 @@ class UsersController extends BaseController
     public function create()
     {
         $roles       = Role::pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.users.create", compact('roles', 'permissions'));
     }
@@ -76,7 +76,7 @@ class UsersController extends BaseController
     {
         $user        = $this->cache->get('sm-users')->find($id) ?: abort(404);
         $roles       = Role::pluck('name', 'name');
-        $permissions = $this->cache->get('spatie.permission.cache')->pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.users.edit", compact('user', 'roles', 'permissions'));
     }

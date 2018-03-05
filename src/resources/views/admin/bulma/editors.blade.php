@@ -1,7 +1,7 @@
 {{-- choices --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/choices.min.js"></script>
 {{-- tinymce --}}
-<script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/jquery.tinymce.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/autoresize/plugin.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/plugins/preview/plugin.min.js"></script>

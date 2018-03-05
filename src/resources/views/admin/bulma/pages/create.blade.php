@@ -130,9 +130,8 @@
                 </div>
                 <hr>
 
-                {{-- Content --}}
+                {{-- cover --}}
                 <div class="columns">
-                    {{-- cover --}}
                     <div class="column is-2">
                         <h3 class="title link" @click="toggleCover = !toggleCover">
                             {{ trans('SimpleMenu::messages.cover') }}
@@ -144,7 +143,10 @@
                             <input type="file" name="cover">
                         </div>
                     </div>
+                </div>
 
+                {{-- Content --}}
+                <div class="columns">
                     {{-- data --}}
                     <div class="column is-2">
                         <h3 class="title link" @click="toggleContent = !toggleContent">
