@@ -33,15 +33,11 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
     - also check the below **Dependencies** for extra "configuration/options/migrations".
-        > - Permissions
-        >   - https://github.com/spatie/laravel-permission
+        > - [Permissions](https://github.com/spatie/laravel-permission#laravel)
         >
         > - MultiLocale
-        >   - https://github.com/spatie/laravel-translatable
-        >   - https://github.com/mcamara/laravel-localization
-        >
-        > - Menu Nested Set
-        >   - https://github.com/gazsp/baum
+        >   - [laravel-translatable](https://github.com/spatie/laravel-translatable#installation)
+        >   - [laravel-localization](https://github.com/mcamara/laravel-localization#config)
 
 - add `SMUsers` trait to your **User Model**
 
