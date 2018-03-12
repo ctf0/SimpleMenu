@@ -95,7 +95,7 @@ return [
     /*
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      */
-    'unFoundLocalizedRoute' => 'home',
+    'unFoundLocalizedRoute' => 'root',
 
     /*
      * package models

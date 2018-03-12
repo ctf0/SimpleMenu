@@ -3,8 +3,6 @@
 namespace ctf0\SimpleMenu\Traits;
 
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
-use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 
 trait RoutesTrait
 {
@@ -17,8 +15,8 @@ trait RoutesTrait
             'prefix'     => LaravelLocalization::setLocale(),
             'middleware' => [
                 'web',
-                LocaleSessionRedirect::class,
-                LaravelLocalizationRedirectFilter::class,
+                'localeSessionRedirect',
+                'localizationRedirect',
             ],
         ], function () {
             $this->utilCheck();
@@ -78,9 +76,9 @@ trait RoutesTrait
         $breadCrumb  = $page->getAncestors();
 
         // middlewares
-        $middlewares = $page->middlewares;
-        $roles       = 'role:' . implode(',', $page->roles->pluck('name')->toArray());
-        $permissions = 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
+        $middlewares = is_null($page->middlewares) ? null : preg_split('/[\s,]+/', $page->middlewares);
+        $roles       = empty($page->roles->pluck('name')->toArray()) ? null : 'role:' . implode(',', $page->roles->pluck('name')->toArray());
+        $permissions = empty($page->permissions->pluck('name')->toArray()) ? null : 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
         // cache the page so we can pass the page params to the controller@method
         $compact = compact('template', 'title', 'body', 'desc', 'meta', 'cover', 'breadCrumb', 'middlewares', 'roles', 'permissions');
@@ -95,7 +93,7 @@ trait RoutesTrait
             ? $action
             : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
 
-        $mds = is_null($middlewares) ? [$roles, $permissions] : [$middlewares, $roles, $permissions];
+        $mds = array_filter(array_flatten([$middlewares, $roles, $permissions]));
 
         app('router')->get($route)
             ->uses($uses)

@@ -24,9 +24,10 @@ return [
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      *
      * add
-     * 'home' = '/' (or) 'error' = '404'
+     * 'root' = '/'
+     * 'error' = '404'
      */
-    'unFoundLocalizedRoute' => 'home',
+    'unFoundLocalizedRoute' => 'root',
 
     /*
      * package models
