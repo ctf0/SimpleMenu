@@ -33,11 +33,9 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 - publish the packages assets with `php artisan vendor:publish`
     - for simpleMenu [Wiki](https://github.com/ctf0/simple-menu/wiki/Publish)
     - also check the below **Dependencies** for extra "configuration/options/migrations".
-        > - [Permissions](https://github.com/spatie/laravel-permission#laravel)
-        >
-        > - MultiLocale
-        >   - [laravel-translatable](https://github.com/spatie/laravel-translatable#installation)
-        >   - [laravel-localization](https://github.com/mcamara/laravel-localization#config)
+        > - [laravel-permission](https://github.com/spatie/laravel-permission#laravel)
+        > - [laravel-translatable](https://github.com/spatie/laravel-translatable#installation)
+        > - [laravel-localization](https://github.com/mcamara/laravel-localization#config)
 
 - add `SMUsers` trait to your **User Model**
 
@@ -95,7 +93,7 @@ return [
     /*
      * where to redirect when a route is available in one locale "en" but not in another "fr" ?
      */
-    'unFoundLocalizedRoute' => 'home',
+    'unFoundLocalizedRoute' => 'root',
 
     /*
      * package models

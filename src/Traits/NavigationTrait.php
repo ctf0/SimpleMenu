@@ -61,8 +61,9 @@ trait NavigationTrait
             return;
         }
 
-        $locale = $this->getCrntLocale();
-        $url    = $this->routeLink($crntRouteName, $locale);
+        $locale               = $this->getCrntLocale();
+        $url                  = $this->routeLink($crntRouteName, $locale);
+        $forceDefaultLocation = LaravelLocalization::hideDefaultLocaleInURL() && $locale == LaravelLocalization::getDefaultLocale() ? false : true;
 
         // resolve route params
         if ($params) {
@@ -71,12 +72,7 @@ trait NavigationTrait
                     session([$key => $value]);
 
                     // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
-                    if (LaravelLocalization::hideDefaultLocaleInURL() && $locale == LaravelLocalization::getDefaultLocale()) {
-                        $finalUrl = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), []);
-                    } else {
-                        $finalUrl = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), [], true);
-                    }
-
+                    $finalUrl       = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), [], $forceDefaultLocation);
                     $this->urlRoute = $finalUrl;
 
                     return $finalUrl;
@@ -131,15 +127,14 @@ trait NavigationTrait
     {
         $searchCode = $this->searchForRoute($name, $code);
 
-        // if notFound, then either redir to home or abort
+        // if notFound, then either redir to home or show 404
         if (!$searchCode) {
             switch (config('simpleMenu.unFoundLocalizedRoute')) {
-                case 'home':
-                    return '/';
-                    break;
                 case 'error':
-                    return '404';
+                    return $name;
                     break;
+                default:
+                    return '/';
             }
         }
 
