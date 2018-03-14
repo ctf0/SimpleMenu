@@ -72,7 +72,7 @@ trait PageOps
 
         foreach ($result as $k => $v) {
             if (is_array($v)) {
-                $result[$k] = !array_filter($v) ? null : array_filter($v);
+                $result[$k] = array_filter($v) ?: null;
             }
         }
 

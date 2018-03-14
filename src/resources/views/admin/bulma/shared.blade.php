@@ -9,8 +9,8 @@
     <title>@yield('title', '')</title>
 
     {{-- styles --}}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.2/styles/css/choices.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.3/styles/css/choices.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/SimpleMenu/style.css') }}"/>
 </head>
 

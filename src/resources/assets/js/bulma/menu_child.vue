@@ -10,20 +10,23 @@
         <li v-for="item in childs" :key="item.id">
             <!-- main -->
             <div class="notification is-dark menu-item" :class="classObj(item)">
-                <span>{{ getTitle(item.title) }}</span>
+                <p>
+                    {{ getTitle(item.title) }}
+                    <span class="icon is-medium link" @click="goTo($event, item.id)"><icon name="pencil"/></span>
+                </p>
 
                 <!-- ops -->
                 <button type="button"
                         v-if="checkFrom(item)"
                         class="delete"
                         @click="undoItem(item)"
-                        title="undo"
+                        :title="trans('undo')"
                         v-tippy/>
                 <button type="button"
                         v-else
                         class="delete"
                         @click.prevent="deleteChild(item)"
-                        title="remove child"
+                        :title="trans('remove_child')"
                         v-tippy/>
             </div>
 
@@ -33,6 +36,8 @@
                         :pages="pages"
                         :all-pages="allPages"
                         :del-child="delChild"
+                        :edit-page="editPage"
+                        :translation="translation"
                         :childs="item.nests"/>
         </li>
     </draggable>

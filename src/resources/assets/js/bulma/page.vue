@@ -106,7 +106,9 @@ export default {
             if (oldVal) {
                 tinymce.remove(`#${input}-${oldVal}`)
                 this.$nextTick(() => {
-                    $(`#${input}-${newVal}`).hide().closest('div').find('.mce-tinymce').fadeToggle('fast')
+                    let el = document.getElementById(`${input}-${newVal}`)
+                    el.classList.add('hide')
+                    el.closest('div').getElementsByClassName('mce-tinymce')[0].classList.toggle('show')
                 })
             }
         },
@@ -123,6 +125,7 @@ export default {
         desc(newVal, oldVal) {
             this.toggleTinyMce('desc', newVal, oldVal)
         }
-    }
+    },
+    render() {}
 }
 </script>

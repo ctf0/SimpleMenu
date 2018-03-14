@@ -80,7 +80,7 @@ class MenusController extends BaseController
             'name' => 'required|unique:menus,name,' . $id,
         ]);
 
-        $menu = $this->menuModel->find($id) ?: abort(404);
+        $menu = $this->menuModel->findOrFail($id);
 
         // clear prev records
         $menu->pages()->detach();
@@ -116,7 +116,7 @@ class MenusController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        $menu = $this->menuModel->find($id) ?: abort(404);
+        $menu = $this->menuModel->findOrFail($id);
         $menu->pages()->detach();
         $menu->delete();
 
@@ -134,7 +134,7 @@ class MenusController extends BaseController
         $ids = explode(',', $request->ids);
 
         foreach ($ids as $one) {
-            $menu = $this->menuModel->find($one);
+            $menu = $this->menuModel->findOrFail($one);
             $menu->pages()->detach();
             $menu->delete();
         }

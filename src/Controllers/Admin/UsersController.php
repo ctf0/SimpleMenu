@@ -96,7 +96,7 @@ class UsersController extends BaseController
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $user        = $this->userModel->find($id) ?: abort(404);
+        $user        = $this->userModel->findOrFail($id);
         $roles       = $request->input('roles') ?: [];
         $permissions = $request->input('permissions') ?: [];
         $img         = $this->getImage($request->avatar);

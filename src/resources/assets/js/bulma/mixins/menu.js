@@ -1,5 +1,5 @@
 export default {
-    props: ['locale', 'delChild'],
+    props: ['locale', 'delChild', 'editPage', 'translation'],
     data() {
         return {
             isDragging: false
@@ -14,6 +14,18 @@ export default {
             let v = Object.keys(title).indexOf(locale)
 
             return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
+        },
+        goTo(e, id) {
+            let url = this.editPage.replace(0, id)
+
+            if (e.altKey || e.metaKey) {
+                return window.open(url, '_blank')
+            }
+
+            window.location.assign(url)
+        },
+        trans(key) {
+            return this.translation[key]
         },
 
         // ops

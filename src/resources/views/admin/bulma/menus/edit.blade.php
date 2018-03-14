@@ -32,6 +32,7 @@
         get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages', ['id' => $menu->id]) }}"
         del-page="{{ route($crud_prefix.'.menus.removePage', ['id' => $menu->id]) }}"
         del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
+        edit-page="{{ route($crud_prefix.'.pages.edit', 0) }}"
         locale="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($menu, ['method' => 'PUT', 'route' => [$crud_prefix.'.menus.update', $menu->id]]) }}
@@ -67,7 +68,12 @@
                         <li v-for="item in pages" :key="item.id">
                             {{-- main --}}
                             <div class="notification is-link menu-item" :class="classObj(item)">
-                                <span>@{{ getTitle(item.title) }}</span>
+                                <p>
+                                    {{-- title --}}
+                                    @{{ getTitle(item.title) }}
+                                    {{-- edit --}}
+                                    <span class="icon is-medium link" @click="goTo($event, item.id)"><icon name="pencil"/></span>
+                                </p>
 
                                 {{-- ops --}}
                                 <button type="button"
@@ -92,7 +98,12 @@
                                 :pages="pages"
                                 :all-pages="allPages"
                                 :del-child="delChild"
-                                :childs="item.nests">
+                                :edit-page="editPage"
+                                :childs="item.nests"
+                                :translation="{{ json_encode([
+                                    'undo' => trans('SimpleMenu::messages.undo'), 
+                                    'remove_child' => trans('SimpleMenu::messages.remove_child')
+                                ]) }}">
                             </menu-child>
                         </li>
                     </draggable>
@@ -105,7 +116,12 @@
                         @start="dragStart"
                         @end="dragEnd">
                         <li v-for="item in allPages" :key="item.id" class="notification is-link menu-item">
-                            <span>@{{ getTitle(item.title) }}</span>
+                            <p>
+                                {{-- title --}}
+                                @{{ getTitle(item.title) }}
+                                {{-- edit --}}
+                                <span class="icon is-medium link" @click="goTo($event, item.id)"><icon name="pencil"/></span>
+                            </p>
                         </li>
                     </draggable>
                 </div>

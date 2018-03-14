@@ -40,7 +40,7 @@ trait MenuOps
     public function removePage($id, Request $request)
     {
         // remove page from menu
-        $menu = $this->menuModel->find($id) ?: abort(404);
+        $menu = $this->menuModel->findOrFail($id);
         $menu->pages()->detach($request->page_id);
         $menu->touch();
 
@@ -121,6 +121,6 @@ trait MenuOps
 
     protected function findPage($id)
     {
-        return $this->pageModel->find($id) ?: abort(404);
+        return $this->pageModel->findOrFail($id);
     }
 }

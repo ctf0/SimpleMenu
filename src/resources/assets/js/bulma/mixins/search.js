@@ -11,8 +11,11 @@ export default {
     },
     watch: {
         searchFor(val) {
-            let res = this.sorter.search(val, this.searchColName)
-            this.updateCounter(res.length)
+            let res = this.sorter.search(val, [this.searchColName])
+
+            if (typeof this.updateCounter == 'function') {
+                this.updateCounter(res.length)
+            }
         }
     }
 }

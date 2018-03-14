@@ -1,11 +1,11 @@
 <script>
 import draggable from 'vuedraggable'
-import MenuChild from './menu_childs.vue'
+import MenuChild from './menu_child.vue'
 import menu from './mixins/menu'
 
 export default {
     components: {draggable, MenuChild},
-    name: 'menu-comp',
+    name: 'sm-menu',
     mixins: [menu],
     props: ['getMenuPages', 'delPage'],
     data() {
@@ -153,6 +153,7 @@ export default {
                 this.updatePages(val)
             })
         }
-    }
+    },
+    render() {}
 }
 </script>

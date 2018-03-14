@@ -191,6 +191,6 @@ class PagesController extends BaseController
      */
     protected function getItem($id)
     {
-        return $this->pageModel->withTrashed()->find($id) ?: abort(404);
+        return $this->pageModel->withTrashed()->findOrFail($id);
     }
 }

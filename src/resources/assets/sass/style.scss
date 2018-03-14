@@ -19,12 +19,21 @@ thead th {
     background-color: white;
 }
 
+// helpers
+.m-t-5 {
+    margin-top: 5px;
+}
+
 .link {
     cursor: pointer;
 }
 
-.m-t-5 {
-    margin-top: 5px;
+.hide {
+    display: none;
+}
+
+.show {
+    display: block !important;
 }
 
 // bulma
@@ -34,6 +43,10 @@ thead th {
 
 .title {
     font-size: 1.5rem;
+}
+
+.icon.is-medium {
+    height: unset;
 }
 
 // select
@@ -148,7 +161,7 @@ thead th {
     height: 500px;
 }
 
-// nest
+// menu
 .menu-item {
     margin-bottom: 0.5em !important;
     padding: 0.5em;
@@ -163,11 +176,6 @@ thead th {
 .dragArea {
     display: block;
     min-height: 25px;
-}
-
-.notification > .delete {
-    top: 0.5rem;
-    right: 0.5rem;
 }
 
 .ghost {

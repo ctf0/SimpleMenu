@@ -19,7 +19,7 @@ class RolesController extends BaseController
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::with('permissions')->get();
 
         return view("{$this->adminPath}.roles.index", compact('roles'));
     }
@@ -68,7 +68,7 @@ class RolesController extends BaseController
      */
     public function edit($id)
     {
-        $role        = Role::find($id);
+        $role        = Role::findOrFail($id);
         $permissions = Permission::pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.edit", compact('role', 'permissions'));
@@ -88,7 +88,7 @@ class RolesController extends BaseController
             'name' => 'required|unique:roles,name,' . $id,
         ]);
 
-        $role        = Role::find($id);
+        $role        = Role::findOrFail($id);
         $permissions = $request->input('permissions') ?: [];
 
         $role->update($request->except('permissions'));
