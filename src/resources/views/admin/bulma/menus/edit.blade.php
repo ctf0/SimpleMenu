@@ -72,7 +72,9 @@
                                     {{-- title --}}
                                     @{{ getTitle(item.title) }}
                                     {{-- edit --}}
-                                    <span class="icon is-medium link" @click="goTo($event, item.id)"><icon name="pencil"/></span>
+                                    <a :href="goTo(item.id)" class="is-inline-block is-paddingless">
+                                        <span class="icon is-medium"><icon name="pencil"/></span>
+                                    </a>
                                 </p>
 
                                 {{-- ops --}}
@@ -120,7 +122,9 @@
                                 {{-- title --}}
                                 @{{ getTitle(item.title) }}
                                 {{-- edit --}}
-                                <span class="icon is-medium link" @click="goTo($event, item.id)"><icon name="pencil"/></span>
+                                <a :href="goTo(item.id)" class="is-inline-block is-paddingless">
+                                    <span class="icon is-medium"><icon name="pencil"/></span>
+                                </a>
                             </p>
                         </li>
                     </draggable>

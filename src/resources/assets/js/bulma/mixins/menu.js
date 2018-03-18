@@ -15,14 +15,8 @@ export default {
 
             return title.hasOwnProperty(locale) ? Object.values(title)[v] : Object.values(title)[0].concat(` "${Object.keys(title)[0]}"`)
         },
-        goTo(e, id) {
-            let url = this.editPage.replace(0, id)
-
-            if (e.altKey || e.metaKey) {
-                return window.open(url, '_blank')
-            }
-
-            window.location.assign(url)
+        goTo(id) {
+            return this.editPage.replace(0, id)
         },
         trans(key) {
             return this.translation[key]
