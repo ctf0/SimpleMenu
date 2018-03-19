@@ -35,7 +35,10 @@ axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     'X-Requested-With': 'XMLHttpRequest'
 }
-axios.interceptors.response.use((response) => {return response}, (error) => {return Promise.reject(error.response)})
+axios.interceptors.response.use(
+    (response) => {return response},
+    (error) => {return Promise.reject(error.response)}
+)
 
 /*                Component                */
 Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page.vue'))

@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu;
 
 use Illuminate\Support\Facades\URL;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
@@ -15,6 +14,7 @@ use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 
 class SimpleMenuServiceProvider extends ServiceProvider
 {
+    protected $file;
     protected $packagesSP = [
         \Baum\Providers\BaumServiceProvider::class,
         \ctf0\PackageChangeLog\PackageChangeLogServiceProvider::class,
@@ -23,9 +23,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
     /**
      * Perform post-registration booting of services.
      */
-    public function boot(Filesystem $file)
+    public function boot()
     {
-        $this->file = $file;
+        $this->file = app('files');
 
         $this->packagePublish();
 
