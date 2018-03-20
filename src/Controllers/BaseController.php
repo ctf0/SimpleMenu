@@ -20,7 +20,7 @@ class BaseController extends Controller
         }
 
         $this->cache       = app('cache');
-        $this->adminPath   = 'SimpleMenu::admin.' . config('simpleMenu.framework');
+        $this->adminPath   = 'SimpleMenu::admin';
         $this->crud_prefix = config('simpleMenu.crud_prefix');
         $this->userModel   = app(config('simpleMenu.models.user'));
         $this->pageModel   = app(config('simpleMenu.models.page'));

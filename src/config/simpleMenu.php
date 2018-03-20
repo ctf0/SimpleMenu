@@ -116,11 +116,4 @@ return [
         'permissions' => '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController',
         'menus'       => '\ctf0\SimpleMenu\Controllers\Admin\MenusController',
     ],
-
-    /*
-     * css farmework for admin pages
-     * ex.
-     * MIX_SM_FRAMEWORK=bulma
-     */
-    'framework'=> env('MIX_SM_FRAMEWORK'),
 ];

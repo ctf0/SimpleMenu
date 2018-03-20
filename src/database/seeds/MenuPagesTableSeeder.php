@@ -17,10 +17,10 @@ class MenuPagesTableSeeder extends Seeder
             $menu->pages()->attach($val->id);
         }
 
-        $pageModel->find(4)->makeChildOf($pageModel->find(3));
-        $pageModel->find(5)->makeChildOf($pageModel->find(4));
-        $pageModel->find(6)->makeChildOf($pageModel->find(5));
-        $pageModel->find(7)->makeChildOf($pageModel->find(6));
-        $pageModel->find(8)->makeChildOf($pageModel->find(7));
+        $pageModel->findOrFail(4)->makeChildOf($pageModel->findOrFail(3));
+        $pageModel->findOrFail(5)->makeChildOf($pageModel->findOrFail(4));
+        $pageModel->findOrFail(6)->makeChildOf($pageModel->findOrFail(5));
+        $pageModel->findOrFail(7)->makeChildOf($pageModel->findOrFail(6));
+        $pageModel->findOrFail(8)->makeChildOf($pageModel->findOrFail(7));
     }
 }

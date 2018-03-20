@@ -26,7 +26,7 @@ class PermissionMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        if (!$request->user()->hasAnyPermission($permissions)) {
+        if (!$request->user()->load('permissions')->hasAnyPermission($permissions)) {
             throw UnauthorizedException::forPermissions($permissions);
         }
 

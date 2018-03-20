@@ -41,7 +41,7 @@ axios.interceptors.response.use(
 )
 
 /*                Component                */
-Vue.component('SmPage', require('./' + process.env.MIX_SM_FRAMEWORK + '/page.vue'))
-Vue.component('SmMenu', require('./' + process.env.MIX_SM_FRAMEWORK + '/menu.vue'))
-Vue.component('SmIndex', require('./' + process.env.MIX_SM_FRAMEWORK + '/index.vue'))
+Vue.component('SmPage', require('./page.vue'))
+Vue.component('SmMenu', require('./menu.vue'))
+Vue.component('SmIndex', require('./index.vue'))
 Vue.component('MyNotification', require('vue-notif'))

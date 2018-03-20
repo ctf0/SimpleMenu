@@ -84,7 +84,7 @@
     </section>
 
     {{-- Footer --}}
-    @include("SimpleMenu::admin.$css_fw.editors")
+    @include("SimpleMenu::admin.editors")
     {{-- app --}}
     <script src="{{ asset("path/to/app.js") }}"></script>
 </body>

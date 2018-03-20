@@ -1,4 +1,4 @@
-@extends("SimpleMenu::admin.$css_fw.shared")
+@extends("SimpleMenu::admin.shared")
 @section('title'){{ trans('SimpleMenu::messages.edit') }} "{{ $user->name }}"@endsection
 
 @section('sub')

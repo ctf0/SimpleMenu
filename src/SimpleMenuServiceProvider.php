@@ -121,7 +121,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
         view()->composer('SimpleMenu::admin.*', function ($view) {
             $view->with([
                 'crud_prefix' => config('simpleMenu.crud_prefix'),
-                'css_fw'      => config('simpleMenu.framework'),
             ]);
         });
     }
@@ -200,16 +199,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
             $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
 
             $this->file->append($mix_file, $data);
-        }
-
-        // fw
-        $env_file = base_path('.env');
-        $search   = 'MIX_SM_FRAMEWORK';
-
-        if ($this->checkExist($env_file, $search)) {
-            $data = "\nMIX_SM_FRAMEWORK=bulma";
-
-            $this->file->append($env_file, $data);
         }
 
         // run check once

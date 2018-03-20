@@ -26,7 +26,7 @@ class RoleMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        if (!$request->user()->hasAnyRole($roles)) {
+        if (!$request->user()->load('roles')->hasAnyRole($roles)) {
             throw UnauthorizedException::forRoles($roles);
         }
 

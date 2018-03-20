@@ -26,7 +26,6 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 - after installation, package will auto-add
     + package routes to `routes/web.php`
     + package assets compiling to `webpack.mix.js`
-    + `MIX_SM_FRAMEWORK=bulma` to `.env`
 
 - the package rely heavily on caching through **Redis**, so make sure to check the [docs](https://laravel.com/docs/5.4/redis) for installation & configuration.
 
@@ -172,11 +171,6 @@ return [
         'permissions' => '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController',
         'menus'       => '\ctf0\SimpleMenu\Controllers\Admin\MenusController',
     ],
-
-    /*
-     * css farmework for admin pages
-     */
-    'framework' => env('MIX_SM_FRAMEWORK'),
 ];
 ```
 
