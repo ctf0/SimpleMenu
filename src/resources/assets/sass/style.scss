@@ -1,11 +1,7 @@
+@import './checkbox';
+
 [v-cloak] {
     display: none;
-}
-
-@import 'checkbox';
-
-html {
-    font-size: 14px;
 }
 
 td {
