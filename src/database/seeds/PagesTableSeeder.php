@@ -13,9 +13,7 @@ class PagesTableSeeder extends Seeder
         $pageModel = app(config('simpleMenu.models.page'));
         $faker     = Factory::create();
 
-        $i = 1;
-
-        while ($i <= 20) {
+        for ($i=0; $i < 20; ++$i) {
             $en = $faker->unique()->city;
             $es = $faker->unique()->city;
 
@@ -43,8 +41,6 @@ class PagesTableSeeder extends Seeder
                     'es' => str_slug($es),
                 ],
             ]);
-
-            ++$i;
         }
     }
 }

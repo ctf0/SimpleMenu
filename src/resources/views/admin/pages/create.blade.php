@@ -85,7 +85,7 @@
                                 }}
                             </div>
                             @if (count($templates))
-                                <div class="tags m-t-5">
+                                <div class="tags m-t-5 m-b-0">
                                     @foreach ($templates as $one)
                                         <div class="tag link is-primary"
                                             data-value="{{ $one }}"

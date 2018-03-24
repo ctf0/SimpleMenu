@@ -40,7 +40,7 @@ trait PageOps
         ], $customMessages);
 
         // extra
-        $validator->after(function ($validator) use ($request, $customMessages, $id) {
+        $validator->after(function ($validator) use ($request, $customMessages) {
             // url
             if (!array_filter($request->url)) {
                 $validator->errors()->add('url', $customMessages['url.required']);
