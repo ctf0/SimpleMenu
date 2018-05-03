@@ -10,7 +10,7 @@
     <title>{{ $title }}</title>
 
     {{-- styles --}}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 </head>
 <body>
     <div class="columns">

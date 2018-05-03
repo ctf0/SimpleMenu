@@ -90,7 +90,7 @@ trait RoutesTrait
         $route = $this->getRouteUrl($url, $prefix);
 
         $uses = $action
-            ? $action
+            ? starts_with($action, '\\') ? $action : "\\$action"
             : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
 
         $mds = array_filter(array_flatten([$middlewares, $roles, $permissions]));

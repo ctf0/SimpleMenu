@@ -15,10 +15,6 @@ use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 class SimpleMenuServiceProvider extends ServiceProvider
 {
     protected $file;
-    protected $packagesSP = [
-        \Baum\Providers\BaumServiceProvider::class,
-        \ctf0\PackageChangeLog\PackageChangeLogServiceProvider::class,
-    ];
 
     /**
      * Perform post-registration booting of services.
@@ -72,8 +68,52 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->observers();
         $this->macros();
         $this->viewComp();
+    }
 
-        $this->app['simplemenu'];
+    /**
+     * [autoReg description].
+     *
+     * @return [type] [description]
+     */
+    protected function autoReg()
+    {
+        // routes
+        $route_file = base_path('routes/web.php');
+        $search     = 'SimpleMenu';
+
+        if ($this->checkExist($route_file, $search)) {
+            $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
+
+            $this->file->append($route_file, $data);
+        }
+
+        // mix
+        $mix_file = base_path('webpack.mix.js');
+        $search   = 'SimpleMenu';
+
+        if ($this->checkExist($mix_file, $search)) {
+            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
+
+            $this->file->append($mix_file, $data);
+        }
+
+        // run check once
+        app('cache')->store('file')->rememberForever('ct-sm', function () {
+            return 'added';
+        });
+    }
+
+    /**
+     * [checkExist description].
+     *
+     * @param [type] $file   [description]
+     * @param [type] $search [description]
+     *
+     * @return [type] [description]
+     */
+    protected function checkExist($file, $search)
+    {
+        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
     }
 
     /**
@@ -83,10 +123,12 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     protected function observers()
     {
-        if (!app()->runningInConsole()) {
-            app(config('simpleMenu.models.page'))->observe(PageObserver::class);
-            app(config('simpleMenu.models.menu'))->observe(MenuObserver::class);
-            app(config('simpleMenu.models.user'))->observe(UserObserver::class);
+        $config = config('simpleMenu.models');
+
+        if (!app()->runningInConsole() && $config) {
+            app(array_get($config, 'page'))->observe(PageObserver::class);
+            app(array_get($config, 'menu'))->observe(MenuObserver::class);
+            app(array_get($config, 'user'))->observe(UserObserver::class);
         }
     }
 
@@ -135,7 +177,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
         });
 
         $this->regPSP();
-        $this->regPA();
         $this->regPMW();
     }
 
@@ -146,19 +187,14 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     protected function regPSP()
     {
-        foreach ($this->packagesSP as $one) {
+        $packagesSP = [
+            \Baum\Providers\BaumServiceProvider::class,
+            \ctf0\PackageChangeLog\PackageChangeLogServiceProvider::class,
+        ];
+
+        foreach ($packagesSP as $one) {
             $this->app->register($one);
         }
-    }
-
-    /**
-     * packages aliases.
-     *
-     * @return [type] [description]
-     */
-    protected function regPA()
-    {
-        $this->app->alias('simplemenu', SimpleMenu::class);
     }
 
     /**
@@ -172,51 +208,5 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('role', RoleMiddleware::class);
         $this->app['router']->aliasMiddleware('localizationRedirect', LaravelLocalizationRedirectFilter::class);
         $this->app['router']->aliasMiddleware('localeSessionRedirect', LocaleSessionRedirect::class);
-    }
-
-    /**
-     * [autoReg description].
-     *
-     * @return [type] [description]
-     */
-    protected function autoReg()
-    {
-        // routes
-        $route_file = base_path('routes/web.php');
-        $search     = 'SimpleMenu';
-
-        if ($this->checkExist($route_file, $search)) {
-            $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
-
-            $this->file->append($route_file, $data);
-        }
-
-        // mix
-        $mix_file = base_path('webpack.mix.js');
-        $search   = 'SimpleMenu';
-
-        if ($this->checkExist($mix_file, $search)) {
-            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
-
-            $this->file->append($mix_file, $data);
-        }
-
-        // run check once
-        app('cache')->store('file')->rememberForever('ct-sm', function () {
-            return 'added';
-        });
-    }
-
-    /**
-     * [checkExist description].
-     *
-     * @param [type] $file   [description]
-     * @param [type] $search [description]
-     *
-     * @return [type] [description]
-     */
-    protected function checkExist($file, $search)
-    {
-        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
     }
 }

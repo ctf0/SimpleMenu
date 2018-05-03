@@ -12,17 +12,13 @@ class Page extends Node
 {
     use HasRoles, HasTranslations, SoftDeletes;
 
+    protected $dates      = ['deleted_at'];
     protected $with       = ['roles', 'permissions', 'menus'];
     protected $appends    = ['nests'];
     protected $guard_name = 'web';
     protected $hidden     = [
         'children', 'roles', 'permissions', 'menus',
         'pivot', 'parent_id', 'lft', 'rgt', 'depth',
-    ];
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
     public $translatable = [
         'title', 'body', 'desc', 'prefix',
