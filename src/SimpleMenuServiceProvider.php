@@ -24,6 +24,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->file = app('files');
 
         $this->packagePublish();
+        $this->app['simplemenu'];
 
         // append extra data
         if (!app('cache')->store('file')->has('ct-sm')) {
