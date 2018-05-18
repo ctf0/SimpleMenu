@@ -24,6 +24,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->file = app('files');
 
         $this->packagePublish();
+        $this->observers();
+        $this->macros();
+        $this->viewComp();
         $this->app['simplemenu'];
 
         // append extra data
@@ -65,56 +68,6 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/SimpleMenu'),
         ], 'views');
-
-        $this->observers();
-        $this->macros();
-        $this->viewComp();
-    }
-
-    /**
-     * [autoReg description].
-     *
-     * @return [type] [description]
-     */
-    protected function autoReg()
-    {
-        // routes
-        $route_file = base_path('routes/web.php');
-        $search     = 'SimpleMenu';
-
-        if ($this->checkExist($route_file, $search)) {
-            $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
-
-            $this->file->append($route_file, $data);
-        }
-
-        // mix
-        $mix_file = base_path('webpack.mix.js');
-        $search   = 'SimpleMenu';
-
-        if ($this->checkExist($mix_file, $search)) {
-            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
-
-            $this->file->append($mix_file, $data);
-        }
-
-        // run check once
-        app('cache')->store('file')->rememberForever('ct-sm', function () {
-            return 'added';
-        });
-    }
-
-    /**
-     * [checkExist description].
-     *
-     * @param [type] $file   [description]
-     * @param [type] $search [description]
-     *
-     * @return [type] [description]
-     */
-    protected function checkExist($file, $search)
-    {
-        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
     }
 
     /**
@@ -166,6 +119,52 @@ class SimpleMenuServiceProvider extends ServiceProvider
                 'crud_prefix' => config('simpleMenu.crud_prefix'),
             ]);
         });
+    }
+
+     /**
+     * [autoReg description].
+     *
+     * @return [type] [description]
+     */
+    protected function autoReg()
+    {
+        // routes
+        $route_file = base_path('routes/web.php');
+        $search     = 'SimpleMenu';
+
+        if ($this->checkExist($route_file, $search)) {
+            $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
+
+            $this->file->append($route_file, $data);
+        }
+
+        // mix
+        $mix_file = base_path('webpack.mix.js');
+        $search   = 'SimpleMenu';
+
+        if ($this->checkExist($mix_file, $search)) {
+            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
+
+            $this->file->append($mix_file, $data);
+        }
+
+        // run check once
+        app('cache')->store('file')->rememberForever('ct-sm', function () {
+            return 'added';
+        });
+    }
+
+    /**
+     * [checkExist description].
+     *
+     * @param [type] $file   [description]
+     * @param [type] $search [description]
+     *
+     * @return [type] [description]
+     */
+    protected function checkExist($file, $search)
+    {
+        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
     }
 
     /**
