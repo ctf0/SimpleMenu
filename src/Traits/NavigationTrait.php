@@ -131,7 +131,7 @@ trait NavigationTrait
         if (!$searchCode) {
             switch (config('simpleMenu.unFoundLocalizedRoute')) {
                 case 'error':
-                    return $name;
+                    return '404';
                     break;
                 default:
                     return '/';
@@ -146,7 +146,7 @@ trait NavigationTrait
         $routesListFile = include $this->listFileDir;
 
         // check if we have a link according to that "routeName & code"
-        return $routesListFile[$name][$code] ?: false;
+        return array_get($routesListFile, "$name.$code", false);
     }
 
     /**
