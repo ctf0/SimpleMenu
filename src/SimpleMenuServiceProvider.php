@@ -2,7 +2,6 @@
 
 namespace ctf0\SimpleMenu;
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
@@ -79,7 +78,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         $config = config('simpleMenu.models');
 
-        if (!app()->runningInConsole() && $config) {
+        if ($config) {
             app(array_get($config, 'page'))->observe(PageObserver::class);
             app(array_get($config, 'menu'))->observe(MenuObserver::class);
             app(array_get($config, 'user'))->observe(UserObserver::class);
@@ -94,7 +93,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
     protected function macros()
     {
         // alias to "Route::is()" but with support for params
-        URL::macro('is', function ($route_name, $params = null) {
+        app('url')->macro('is', function ($route_name, $params = null) {
             if ($params) {
                 return request()->url() == route($route_name, $params);
             }
@@ -102,7 +101,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
             return request()->url() == route($route_name);
         });
 
-        URL::macro('has', function ($needle) {
+        app('url')->macro('has', function ($needle) {
             return str_contains($this->current(), $needle);
         });
     }
@@ -121,7 +120,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         });
     }
 
-     /**
+    /**
      * [autoReg description].
      *
      * @return [type] [description]

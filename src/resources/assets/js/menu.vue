@@ -1,3 +1,12 @@
+<style scoped lang="scss">
+    .menu-list {
+        a:hover {
+            color: unset !important;
+            background-color: unset !important;
+        }
+    }
+</style>
+
 <script>
 import draggable from 'vuedraggable'
 import MenuChild from './menu_child.vue'
@@ -15,13 +24,13 @@ export default {
             saveList: []
         }
     },
+    created() {
+        this.getPages()
+    },
     computed: {
         finalList() {
             return JSON.stringify(this.saveList)
         }
-    },
-    created() {
-        this.getPages()
     },
     methods: {
         getPages() {

@@ -9,7 +9,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Cache::flush();
+        app('cache')->flush();
+        app('files')->delete(config('simpleMenu.routeListPath'));
 
         $this->call(PagesTableSeeder::class);
         $this->call(MenusTableSeeder::class);

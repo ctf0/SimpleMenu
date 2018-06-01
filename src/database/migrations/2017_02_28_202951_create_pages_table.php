@@ -20,6 +20,7 @@ class CreatePagesTable extends Migration
 
             $table->string('cover')->nullable();
             $table->string('action')->nullable();
+            $table->string('icon')->nullable();
             $table->string('template')->nullable();
             $table->string('middlewares')->nullable();
             $table->string('route_name')->nullable();

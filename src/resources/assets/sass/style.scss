@@ -87,8 +87,8 @@ thead th {
 .toggle-locale {
     position: absolute;
     z-index: 1;
-    top: 0;
-    right: 0;
+    top: 1px;
+    right: 1px;
     opacity: 0.3;
 
     &:hover {

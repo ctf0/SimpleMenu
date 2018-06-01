@@ -1,12 +1,11 @@
 # SimpleMenu
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu)
-[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
 
 Create menus & pages that support (multiLocale "title, url, body, ...", nesting, template, static & dynamic data, roles & permissions).
 
 - package requires Laravel v5.5+
-- package rely heavily on caching through **Redis**, so make sure to check the [docs](https://laravel.com/docs/5.5/redis) for installation & configuration.
+- package rely heavily on caching  so make sure to install one of the tag enabled drivers [Memcached / Redis](https://laravel.com/docs/5.5/cache)
 
 <br>
 

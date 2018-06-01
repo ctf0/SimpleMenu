@@ -214,6 +214,18 @@
                         </h3>
                     </div>
                     <div class="column is-10" v-show="toggleContent">
+                        {{-- icon --}}
+                        <div class="field">
+                            {{ Form::label('icon', trans('SimpleMenu::messages.icon'), ['class' => 'label']) }}
+                            <div class="control">
+                                {{ Form::text(
+                                    'icon', 
+                                    $page->icon, 
+                                    ['class' => 'input', 'placeholder' => "icon-name or html"])
+                                }}
+                            </div>
+                        </div>
+
                         {{-- title --}}
                         <div class="field">
                             {{ Form::label('title', trans('SimpleMenu::messages.title'), ['class' => 'label']) }}
