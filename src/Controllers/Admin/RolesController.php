@@ -3,8 +3,6 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\RolePermOps;
 
@@ -19,7 +17,7 @@ class RolesController extends BaseController
      */
     public function index()
     {
-        $roles = Role::with('permissions')->get();
+        $roles = $this->roleModel->with('permissions')->get();
 
         return view("{$this->adminPath}.roles.index", compact('roles'));
     }
@@ -31,7 +29,7 @@ class RolesController extends BaseController
      */
     public function create()
     {
-        $permissions = Permission::pluck('name', 'name');
+        $permissions = $this->permissionModel->pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.create", compact('permissions'));
     }
@@ -49,7 +47,7 @@ class RolesController extends BaseController
             'name' => 'required|unique:roles,name',
         ]);
 
-        $role        = Role::create($request->except('permissions'));
+        $role        = $this->roleModel->create($request->except('permissions'));
         $permissions = $request->input('permissions') ?: [];
 
         $role->givePermissionTo($permissions);
@@ -68,8 +66,8 @@ class RolesController extends BaseController
      */
     public function edit($id)
     {
-        $role        = Role::findOrFail($id);
-        $permissions = Permission::pluck('name', 'name');
+        $role        = $this->roleModel->findOrFail($id);
+        $permissions = $this->permissionModel->pluck('name', 'name');
 
         return view("{$this->adminPath}.roles.edit", compact('role', 'permissions'));
     }
@@ -88,7 +86,7 @@ class RolesController extends BaseController
             'name' => 'required|unique:roles,name,' . $id,
         ]);
 
-        $role        = Role::findOrFail($id);
+        $role        = $this->roleModel->findOrFail($id);
         $permissions = $request->input('permissions') ?: [];
 
         $role->update($request->except('permissions'));
@@ -108,7 +106,7 @@ class RolesController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        Role::destroy($id);
+        $this->roleModel->destroy($id);
 
         $this->clearCache();
 
@@ -125,7 +123,7 @@ class RolesController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        Role::destroy($ids);
+        $this->roleModel->destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.roles.index')

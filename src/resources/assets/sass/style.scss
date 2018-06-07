@@ -1,4 +1,7 @@
 @import './checkbox';
+$blue: #3273dc;
+$mce-brdr: #eee;
+$mce-btn: #a3afb7;
 
 [v-cloak] {
     display: none;
@@ -15,34 +18,12 @@ thead th {
     background-color: white;
 }
 
-// helpers
 .m-t-5 {
     margin-top: 5px;
 }
 
 .link {
     cursor: pointer;
-}
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: block !important;
-}
-
-// bulma
-.tags .tag:not(:last-child) {
-    margin-right: 5px;
-}
-
-.title {
-    font-size: 1.5rem;
-}
-
-.icon.is-medium {
-    height: unset;
 }
 
 // select
@@ -69,7 +50,7 @@ thead th {
     margin-bottom: 0;
     border: none;
     border-radius: 100vw;
-    background-color: #3273dc;
+    background-color: $blue;
 }
 
 .choices__button {
@@ -87,7 +68,7 @@ thead th {
 .toggle-locale {
     position: absolute;
     z-index: 1;
-    top: 1px;
+    top: 0;
     right: 1px;
     opacity: 0.3;
 
@@ -122,7 +103,7 @@ thead th {
 }
 
 .mce-panel {
-    border-color: #eee !important;
+    border-color: $mce-brdr !important;
     border-radius: 3px !important;
 }
 
@@ -148,7 +129,7 @@ thead th {
 
 .mce-btn,
 .mce-ico {
-    color: #a3afb7 !important;
+    color: $mce-btn !important;
 }
 
 // ace
@@ -162,11 +143,6 @@ thead th {
     margin-bottom: 0.5em !important;
     padding: 0.5em;
     padding-left: 1em;
-}
-
-.menu-list {
-    line-height: inherit;
-    height: 100%;
 }
 
 .dragArea {

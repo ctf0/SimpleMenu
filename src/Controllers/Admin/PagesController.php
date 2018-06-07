@@ -3,9 +3,7 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use ctf0\SimpleMenu\Facade\SimpleMenu;
-use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\PageOps;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\UserPageOps;
@@ -34,8 +32,8 @@ class PagesController extends BaseController
     public function create()
     {
         $locales     = SimpleMenu::AppLocales();
-        $roles       = Role::pluck('name', 'name');
-        $permissions = Permission::pluck('name', 'name');
+        $roles       = $this->roleModel->pluck('name', 'name');
+        $permissions = $this->permissionModel->pluck('name', 'name');
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 
@@ -78,8 +76,8 @@ class PagesController extends BaseController
     public function edit($id)
     {
         $locales     = SimpleMenu::AppLocales();
-        $roles       = Role::pluck('name', 'name');
-        $permissions = Permission::pluck('name', 'name');
+        $roles       = $this->roleModel->pluck('name', 'name');
+        $permissions = $this->permissionModel->pluck('name', 'name');
         $page        = $this->cache->tags('sm')->get('pages')->find($id) ?: abort(404);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());

@@ -9,7 +9,7 @@
 
         <li v-for="item in childs" :key="item.id">
             <!-- main -->
-            <div class="notification is-dark menu-item" :class="classObj(item)">
+            <div :class="classObj(item)" class="notification is-dark menu-item">
                 <p>
                     {{ getTitle(item.title) }}
                     <a :href="goTo(item.id)" class="is-inline-block is-paddingless">
@@ -18,18 +18,18 @@
                 </p>
 
                 <!-- ops -->
-                <button type="button"
+                <button v-tippy
                         v-if="checkFrom(item)"
-                        class="delete"
-                        @click="undoItem(item)"
                         :title="trans('undo')"
-                        v-tippy/>
-                <button type="button"
-                        v-else
+                        type="button"
                         class="delete"
-                        @click.prevent="deleteChild(item)"
+                        @click="undoItem(item)"/>
+                <button v-tippy
+                        v-else
                         :title="trans('remove_child')"
-                        v-tippy/>
+                        type="button"
+                        class="delete"
+                        @click.prevent="deleteChild(item)"/>
             </div>
 
             <!-- childs -->
@@ -49,6 +49,10 @@
     ul {
         margin-right: 0 !important;
         /*border-left: none !important;*/
+    }
+
+    .icon.is-medium {
+        height: unset;
     }
 </style>
 

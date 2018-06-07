@@ -19,11 +19,14 @@ class BaseController extends Controller
             parent::__construct();
         }
 
-        $this->cache       = app('cache');
-        $this->adminPath   = 'SimpleMenu::admin';
-        $this->crud_prefix = config('simpleMenu.crud_prefix');
-        $this->userModel   = app(config('simpleMenu.models.user'));
-        $this->pageModel   = app(config('simpleMenu.models.page'));
-        $this->menuModel   = app(config('simpleMenu.models.menu'));
+        $this->cache           = app('cache');
+        $this->adminPath       = 'SimpleMenu::admin';
+        $this->crud_prefix     = config('simpleMenu.crud_prefix');
+
+        $this->userModel       = app(config('simpleMenu.models.user'));
+        $this->pageModel       = app(config('simpleMenu.models.page'));
+        $this->menuModel       = app(config('simpleMenu.models.menu'));
+        $this->roleModel       = app(config('permission.models.role'));
+        $this->permissionModel = app(config('permission.models.permission'));
     }
 }

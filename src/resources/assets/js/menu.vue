@@ -5,6 +5,10 @@
             background-color: unset !important;
         }
     }
+
+    .icon.is-medium {
+        height: unset;
+    }
 </style>
 
 <script>

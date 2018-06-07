@@ -46,10 +46,14 @@ trait Ops
      */
     protected static function create_LFD($dir)
     {
-        $dir_name = dirname($dir);
+        $files = app('files');
 
-        if (!app('files')->exists($dir_name)) {
-            return app('files')->makeDirectory($dir_name, 0755, true);
+        if ($files->exists(config_path('simpleMenu.php'))) {
+            $dir_name = dirname($dir);
+
+            if (!$files->exists($dir_name)) {
+                return $files->makeDirectory($dir_name, 0755, true);
+            }
         }
     }
 

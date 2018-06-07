@@ -3,7 +3,6 @@
 namespace ctf0\SimpleMenu\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use ctf0\SimpleMenu\Controllers\BaseController;
 use ctf0\SimpleMenu\Controllers\Admin\Traits\RolePermOps;
 
@@ -18,7 +17,7 @@ class PermissionsController extends BaseController
      */
     public function index()
     {
-        $permissions = Permission::get();
+        $permissions = $this->permissionModel->get();
 
         return view("{$this->adminPath}.permissions.index", compact('permissions'));
     }
@@ -46,7 +45,7 @@ class PermissionsController extends BaseController
             'name' => 'required|unique:permissions,name',
         ]);
 
-        Permission::create($request->all());
+        $this->permissionModel->create($request->all());
 
         return redirect()
             ->route($this->crud_prefix . '.permissions.index')
@@ -62,7 +61,7 @@ class PermissionsController extends BaseController
      */
     public function edit($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = $this->permissionModel->findOrFail($id);
 
         return view("{$this->adminPath}.permissions.edit", compact('permission'));
     }
@@ -81,7 +80,7 @@ class PermissionsController extends BaseController
             'name' => 'required|unique:permissions,name,' . $id,
         ]);
 
-        Permission::findOrFail($id)->update($request->all());
+        $this->permissionModel->findOrFail($id)->update($request->all());
 
         $this->clearCache();
 
@@ -97,7 +96,7 @@ class PermissionsController extends BaseController
      */
     public function destroy($id, Request $request)
     {
-        Permission::destroy($id);
+        $this->permissionModel->destroy($id);
 
         $this->clearCache();
 
@@ -114,7 +113,7 @@ class PermissionsController extends BaseController
     {
         $ids = explode(',', $request->ids);
 
-        Permission::destroy($ids);
+        $this->permissionModel->destroy($ids);
 
         return redirect()
             ->route($this->crud_prefix . '.permissions.index')
