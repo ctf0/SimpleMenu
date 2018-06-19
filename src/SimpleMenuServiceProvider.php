@@ -20,7 +20,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->file = app('files');
+        $this->file = $this->app['files'];
 
         $this->packagePublish();
         $this->observers();
@@ -29,7 +29,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $this->app['simplemenu'];
 
         // append extra data
-        if (!app('cache')->store('file')->has('ct-sm')) {
+        if (!$this->app['cache']->store('file')->has('ct-sm')) {
             $this->autoReg();
         }
     }
@@ -76,12 +76,12 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     protected function observers()
     {
-        $config = config('simpleMenu.models');
+        $models = $this->app['config']->get('simpleMenu.models');
 
-        if ($config) {
-            app(array_get($config, 'page'))->observe(PageObserver::class);
-            app(array_get($config, 'menu'))->observe(MenuObserver::class);
-            app(array_get($config, 'user'))->observe(UserObserver::class);
+        if ($models) {
+            $this->app->make(array_get($models, 'page'))->observe(PageObserver::class);
+            $this->app->make(array_get($models, 'menu'))->observe(MenuObserver::class);
+            $this->app->make(array_get($models, 'user'))->observe(UserObserver::class);
         }
     }
 
@@ -92,16 +92,14 @@ class SimpleMenuServiceProvider extends ServiceProvider
      */
     protected function macros()
     {
-        // alias to "Route::is()" but with support for params
-        app('url')->macro('is', function ($route_name, $params = null) {
-            if ($params) {
-                return request()->url() == route($route_name, $params);
-            }
-
-            return request()->url() == route($route_name);
+        // same as "Route::is()" but better
+        $this->app['url']->macro('is', function ($route_name, $params = null) {
+            return $params
+                ? request()->url() == route($route_name, $params)
+                : request()->url() == route($route_name);
         });
 
-        app('url')->macro('has', function ($needle) {
+        $this->app['url']->macro('has', function ($needle) {
             return str_contains($this->current(), $needle);
         });
     }
@@ -115,7 +113,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
     {
         view()->composer('SimpleMenu::admin.*', function ($view) {
             $view->with([
-                'crud_prefix' => config('simpleMenu.crud_prefix'),
+                'crud_prefix' => $this->app['config']->get('simpleMenu.crud_prefix'),
             ]);
         });
     }
@@ -148,7 +146,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         }
 
         // run check once
-        app('cache')->store('file')->rememberForever('ct-sm', function () {
+        $this->app['cache']->store('file')->rememberForever('ct-sm', function () {
             return 'added';
         });
     }

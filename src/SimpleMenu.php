@@ -24,9 +24,7 @@ class SimpleMenu
 
         if ($this->listFileDir !== '') {
             static::create_LFD($this->listFileDir);
-        }
 
-        if (!app()->runningInConsole()) {
             // create caches
             $this->createCaches();
 

@@ -72,7 +72,7 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user        = $this->cache->get('sm-users')->find($id) ?: abort(404);
+        $user        = $this->userModel->findOrFail($id);
         $roles       = $this->roleModel->pluck('name', 'name');
         $permissions = $this->permissionModel->pluck('name', 'name');
 

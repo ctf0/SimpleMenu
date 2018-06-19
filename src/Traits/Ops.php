@@ -26,16 +26,18 @@ trait Ops
      */
     protected function createCaches()
     {
-        $this->cache->tags('sm')->rememberForever('menus', function () {
-            return app(config('simpleMenu.models.menu'))->with('pages')->get();
+        $models = config('simpleMenu.models');
+
+        $this->cache->tags('sm')->rememberForever('menus', function () use ($models) {
+            return app(array_get($models, 'menu'))->with('pages')->get();
         });
 
-        $this->cache->tags('sm')->rememberForever('pages', function () {
-            return app(config('simpleMenu.models.page'))->withTrashed()->get();
+        $this->cache->tags('sm')->rememberForever('pages', function () use ($models) {
+            return app(array_get($models, 'page'))->withTrashed()->get();
         });
 
-        $this->cache->rememberForever('sm-users', function () {
-            return app(config('simpleMenu.models.user'))->with(['roles', 'permissions'])->get();
+        $this->cache->rememberForever('sm-users', function () use ($models) {
+            return app(array_get($models, 'user'))->with(['roles', 'permissions'])->get();
         });
     }
 

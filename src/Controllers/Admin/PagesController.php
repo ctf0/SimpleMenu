@@ -78,7 +78,7 @@ class PagesController extends BaseController
         $locales     = SimpleMenu::AppLocales();
         $roles       = $this->roleModel->pluck('name', 'name');
         $permissions = $this->permissionModel->pluck('name', 'name');
-        $page        = $this->cache->tags('sm')->get('pages')->find($id) ?: abort(404);
+        $page        = $this->pageModel->findOrFail($id);
         $menus       = $this->cache->tags('sm')->get('menus')->pluck('name', 'id');
         $templates   = array_unique($this->cache->tags('sm')->get('pages')->pluck('template')->filter()->all());
 

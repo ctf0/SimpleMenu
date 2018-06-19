@@ -182,19 +182,19 @@ trait NavigationTrait
     /**
      * generate menu html.
      *
-     * @param [type] $pages  [description]
-     * @param [type] $ul     [description]
-     * @param [type] $li     [description]
-     * @param [type] $a      [description]
-     * @param [type] $params [description]
-     * @param [type] $url    [description]
+     * @param [type] $pages        [description]
+     * @param [type] $params       [description]
+     * @param [type] $url          [description]
+     * @param mixed  $ul_ClassName
+     * @param mixed  $li_ClassName
+     * @param mixed  $a_ClassName
      *
      * @return [type] [description]
      */
-    protected function getHtml($pages, $ul, $li, $a, $params, $url)
+    protected function getHtml($pages, $ul_ClassName, $li_ClassName, $a_ClassName, $params, $url)
     {
         $html = '';
-        $html .= "<ul class=\"{$ul}\">";
+        $html .= "<ul class=\"{$ul_ClassName}\">";
 
         foreach ($pages as $page) {
             // escape empty url
@@ -203,13 +203,13 @@ trait NavigationTrait
             }
 
             $routeUrl = $this->getRoute($page->route_name, $params);
-            $isActive = ($url == $routeUrl ? 'is-active' : '');
+            $isActive = ($url == $routeUrl ? $a_ClassName : '');
 
-            $html .= "<li class=\"{$li}\">";
+            $html .= "<li class=\"{$li_ClassName}\">";
             $html .= "<a href=\"{$routeUrl}\" class=\"{$isActive}\">{$page->title}</a>";
 
             if ($childs = $page->nests) {
-                $html .= $this->getHtml($childs, $ul, $li, $a, $params, $url);
+                $html .= $this->getHtml($childs, $ul_ClassName, $li_ClassName, $a_ClassName, $params, $url);
             }
             $html .= '</li>';
         }

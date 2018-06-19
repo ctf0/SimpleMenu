@@ -1,0 +1,4 @@
+- use role & perm models from the config instead of spatie
+- fix anchor class in render() not using passed className
+- cleanup
+- fix not working with swoole
