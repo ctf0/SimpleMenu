@@ -18,9 +18,9 @@ Vue.use(require('vue-tippy'), {
         }
     }
 })
+require('vue-multi-ref')
 
 // icons
-require('vue-multi-ref')
 import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'
 import 'vue-awesome/icons/pencil'

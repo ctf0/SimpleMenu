@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template v-cloak select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         <div>
             {{ Form::model($page, ['method' => 'PUT', 'route' => [$crud_prefix.'.pages.update', $page->id], 'files' => true]) }}
 

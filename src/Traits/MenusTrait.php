@@ -26,8 +26,8 @@ trait MenusTrait
     public function viewComp($name)
     {
         $viewFile = view()->exists("SimpleMenu::menu.{$name}")
-        ? "SimpleMenu::menu.{$name}"
-        : 'SimpleMenu::menu.example';
+            ? "SimpleMenu::menu.{$name}"
+            : 'SimpleMenu::menu.example';
 
         return view()->composer($viewFile, function ($view) use ($name) {
             $view->with([

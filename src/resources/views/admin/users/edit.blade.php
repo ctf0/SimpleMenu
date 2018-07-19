@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template v-cloak select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         {{ Form::model($user, ['method' => 'PUT', 'route' => [$crud_prefix.'.users.update', $user->id], 'files' => true]) }}
 
             {{-- avatar --}}

@@ -1,6 +1,6 @@
 # SimpleMenu
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu)
 
 Create menus & pages that support (multiLocale "title, url, body, ...", nesting, template, static & dynamic data, roles & permissions).
 
@@ -151,6 +151,10 @@ return [
 <br>
 
 ## Usage
+> [Demo](https://github.com/ctf0/demos/tree/simple-menu)<br>
+> [Usage](https://github.com/ctf0/simple-menu/wiki/Usage)<br>
+> [Views](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
+
 - add `SMUsers` trait to your **User Model**
 
     ```php
@@ -165,9 +169,3 @@ return [
     ```
 
 - visit `localhost:8000/admin`
-- [Wiki](https://github.com/ctf0/simple-menu/wiki/Usage)
-
-<br>
-
-## Crud Views
-[Wiki](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)

@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template v-cloak select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         {{ Form::model($role, ['method' => 'PUT', 'route' => [$crud_prefix.'.roles.update', $role->id]]) }}
 
             {{-- name --}}

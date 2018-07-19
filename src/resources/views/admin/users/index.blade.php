@@ -2,7 +2,7 @@
 @section('title', trans('SimpleMenu::messages.users'))
 
 @section('sub')
-    <sm-index inline-template :count="{{ count($users) }}">
+    <sm-index inline-template v-cloak :count="{{ count($users) }}">
         <div>
             <div class="level">
                 <div class="level-left"></div>
@@ -35,27 +35,26 @@
                         {{ trans('SimpleMenu::messages.users') }} "<span>@{{ itemsCount }}</span>"
                     </h3>
                 </div>
-                <div class="level-right">
+
                 {{-- search --}}
                 <div class="level-right">
-                   <div class="field has-addons">
-                       <p class="control has-icons-left">
-                           <input class="input"
-                               type="text"
-                               v-model="searchFor"
-                               placeholder="{{ trans('SimpleMenu::messages.find') }}">
-                           <span class="icon is-left">
-                               <icon name="search"></icon>
-                           </span>
-                       </p>
-                       <p class="control">
-                           <button class="button is-black" :disabled="!searchFor"
-                               @click="resetSearch()">
-                               <span class="icon"><icon name="times"></icon></span>
-                           </button>
-                       </p>
-                   </div>
-                </div>
+                    <div class="field has-addons">
+                        <p class="control has-icons-left">
+                            <input class="input"
+                            type="text"
+                            v-model="searchFor"
+                            placeholder="{{ trans('SimpleMenu::messages.find') }}">
+                            <span class="icon is-left">
+                                <icon name="search"></icon>
+                            </span>
+                        </p>
+                        <p class="control">
+                            <button class="button is-black" :disabled="!searchFor"
+                                @click="resetSearch()">
+                                <span class="icon"><icon name="times"></icon></span>
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </div>
 

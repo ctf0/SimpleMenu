@@ -1,5 +1,7 @@
 <style scoped lang="scss">
     .menu-list {
+        height: 100%;
+
         a:hover {
             color: unset !important;
             background-color: unset !important;
@@ -30,6 +32,11 @@ export default {
     },
     created() {
         this.getPages()
+    },
+    mounted() {
+        EventHub.listen('updatePagesHierarchy', () => {
+            this.updatePages(this.pages)
+        })
     },
     computed: {
         finalList() {
@@ -161,10 +168,6 @@ export default {
     watch: {
         pages(val) {
             this.updatePages(val)
-
-            EventHub.listen('updatePagesHierarchy', () => {
-                this.updatePages(val)
-            })
         }
     },
     render() {}

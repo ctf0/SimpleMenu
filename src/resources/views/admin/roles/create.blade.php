@@ -6,7 +6,7 @@
         <a href="{{ route($crud_prefix.'.roles.index') }}">{{ trans('SimpleMenu::messages.go_back') }}</a>
     </h3>
 
-    <sm-page inline-template select-first="{{ LaravelLocalization::getCurrentLocale() }}">
+    <sm-page inline-template v-cloak select-first="{{ LaravelLocalization::getCurrentLocale() }}">
         {{ Form::open(['method' => 'POST', 'route' => $crud_prefix.'.roles.store']) }}
 
             {{-- name --}}

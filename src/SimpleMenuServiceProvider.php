@@ -65,7 +65,8 @@ class SimpleMenuServiceProvider extends ServiceProvider
         // views
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'SimpleMenu');
         $this->publishes([
-            __DIR__ . '/resources/views' => resource_path('views/vendor/SimpleMenu'),
+            __DIR__ . '/resources/views'      => resource_path('views/vendor/SimpleMenu'),
+            __DIR__ . '/resources/pagination' => resource_path('views/vendor/pagination'),
         ], 'views');
     }
 
@@ -140,7 +141,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $search   = 'SimpleMenu';
 
         if ($this->checkExist($mix_file, $search)) {
-            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css').version();";
+            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css')";
 
             $this->file->append($mix_file, $data);
         }

@@ -28,7 +28,7 @@
         </div>
     </h3>
 
-    <sm-menu inline-template
+    <sm-menu inline-template v-cloak
         get-menu-pages="{{ route($crud_prefix.'.menus.getMenuPages', ['id' => $menu->id]) }}"
         del-page="{{ route($crud_prefix.'.menus.removePage', ['id' => $menu->id]) }}"
         del-child="{{ route($crud_prefix.'.menus.removeChild') }}"
