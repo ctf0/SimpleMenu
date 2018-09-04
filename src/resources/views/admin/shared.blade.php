@@ -86,6 +86,6 @@
     {{-- Footer --}}
     @include("SimpleMenu::admin.editors")
     {{-- app --}}
-    <script src="{{ asset("path/to/app.js") }}"></script>
+    <script src="{{ asset("js/app.js") }}"></script>
 </body>
 </html>

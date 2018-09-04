@@ -81,6 +81,7 @@ class PermissionsController extends BaseController
         ]);
 
         $this->permissionModel->findOrFail($id)->update($request->all());
+        $this->permissionModel->touch();
 
         $this->clearCache();
 

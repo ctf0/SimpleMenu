@@ -53,9 +53,9 @@ class PagesController extends BaseController
 
         $img         = $this->getImage($request->cover);
         $page        = $this->pageModel->create(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
-        $roles       = $request->input('roles') ?: [];
-        $permissions = $request->input('permissions') ?: [];
-        $menus       = $request->input('menus') ?: [];
+        $roles       = $request->roles ?: [];
+        $permissions = $request->permissions ?: [];
+        $menus       = $request->menus ?: [];
 
         $page->assignRole($roles);
         $page->givePermissionTo($permissions);
@@ -101,18 +101,27 @@ class PagesController extends BaseController
 
         $img         = $this->getImage($request->cover);
         $page        = $this->getItem($id);
-        $roles       = $request->input('roles') ?: [];
-        $permissions = $request->input('permissions') ?: [];
-        $menus       = $request->input('menus') ?: [];
+        $roles       = $request->roles;
+        $permissions = $request->permissions;
+        $menus       = $request->menus ?: [];
 
         $page->update(array_merge(['cover'=>$img], $this->cleanEmptyTranslations($request)));
-        $page->syncRoles($roles);
-        $page->syncPermissions($permissions);
+
+        if (!$this->checkBeforeAssign($page->roles, $roles)) {
+            $page->syncRoles($roles ?: []);
+        }
+
+        if (!$this->checkBeforeAssign($page->permissions, $permissions)) {
+            $page->syncPermissions($permissions ?: []);
+        }
+
         $page->syncMenus($menus);
 
         if (!is_null($request->controllerFile)) {
             $this->actionFileContent($request->action, 'update', $request->controllerFile);
         }
+
+        $page->touch();
 
         return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }

@@ -4,7 +4,7 @@ namespace ctf0\SimpleMenu\Traits;
 
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-trait RoutesTrait
+trait Routes
 {
     protected $allRoutes     = [];
     protected $listFileFound = true;

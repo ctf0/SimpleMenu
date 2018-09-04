@@ -26,6 +26,11 @@ thead th {
     cursor: pointer;
 }
 
+.static-cell {
+    width: 1%;
+    white-space: nowrap;
+}
+
 // select
 .choices {
     font-size: 1rem;

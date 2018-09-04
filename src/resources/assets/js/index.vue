@@ -14,13 +14,14 @@ export default {
             sortableList: [
                 'data-sort-name',
                 'data-sort-email',
-                'data-sort-roles',
-                'data-sort-permissions',
+                'data-sort-middlewares',
                 'data-sort-route',
                 'data-sort-url',
-                'data-sort-menus',
-                'data-sort-locals',
                 'data-sort-template',
+                {name: 'data-sort-permissions', attr: 'data-permissions'},
+                {name: 'data-sort-roles', attr: 'data-roles'},
+                {name: 'data-sort-menus', attr: 'data-menus'},
+                {name: 'data-sort-locals', attr: 'data-locals'},
                 {name: 'data-sort-ops', attr: 'data-ops'}
             ]
         }
@@ -41,6 +42,9 @@ export default {
             this.$refs['sm-ids'].filter((e) => {
                 document.getElementById(e.id) ? this.ids.push(e.value) : false
             })
+        },
+        clickOnCkBox(id) {
+            document.querySelector(`#${id}`).click()
         },
         updateCounter(val) {
             return this.itemsCount = val

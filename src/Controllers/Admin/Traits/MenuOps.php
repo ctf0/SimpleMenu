@@ -20,7 +20,7 @@ trait MenuOps
                 ->sortBy('pivot_order')
                 ->each(function ($item) {
                     $item['from'] = 'pages';
-                });
+                })->values()->all();
 
         $allPages = $this->cache->tags('sm')->get('pages')->diff($pages)->each(function ($item) {
             $item['from'] = 'allPages';

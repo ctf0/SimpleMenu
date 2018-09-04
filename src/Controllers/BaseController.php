@@ -25,15 +25,17 @@ class BaseController extends Controller
             parent::__construct();
         }
 
-        $config                = config('simpleMenu');
-        $this->cache           = app('cache');
-        $this->adminPath       = 'SimpleMenu::admin';
-        $this->crud_prefix     = array_get($config, 'crud_prefix');
-        $this->userModel       = app(array_get($config, 'models.user'));
-        $this->pageModel       = app(array_get($config, 'models.page'));
-        $this->menuModel       = app(array_get($config, 'models.menu'));
+        $sm_config = config('simpleMenu');
+        $sp_config = config('permission');
 
-        $this->roleModel       = app(config('permission.models.role'));
-        $this->permissionModel = app(config('permission.models.permission'));
+        $this->cache       = app('cache');
+        $this->adminPath   = 'SimpleMenu::admin';
+        $this->crud_prefix = array_get($sm_config, 'crud_prefix');
+        $this->userModel   = app(array_get($sm_config, 'models.user'));
+        $this->pageModel   = app(array_get($sm_config, 'models.page'));
+        $this->menuModel   = app(array_get($sm_config, 'models.menu'));
+
+        $this->roleModel       = app(array_get($sp_config, 'models.role'));
+        $this->permissionModel = app(array_get($sp_config, 'models.permission'));
     }
 }

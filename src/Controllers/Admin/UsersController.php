@@ -52,8 +52,8 @@ class UsersController extends BaseController
 
         $img         = $this->getImage($request->avatar);
         $user        = $this->userModel->create(array_merge(['avatar'=>$img], $request->except(['roles', 'permissions'])));
-        $roles       = $request->input('roles') ?: [];
-        $permissions = $request->input('permissions') ?: [];
+        $roles       = $request->roles ?: [];
+        $permissions = $request->permissions ?: [];
 
         $user->assignRole($roles);
         $user->givePermissionTo($permissions);
@@ -95,13 +95,21 @@ class UsersController extends BaseController
         ]);
 
         $user        = $this->userModel->findOrFail($id);
-        $roles       = $request->input('roles') ?: [];
-        $permissions = $request->input('permissions') ?: [];
         $img         = $this->getImage($request->avatar);
+        $roles       = $request->roles;
+        $permissions = $request->permissions;
 
         $user->update(array_merge(['avatar'=>$img], $request->except(['roles', 'permissions'])));
-        $user->syncRoles($roles);
-        $user->syncPermissions($permissions);
+
+        if (!$this->checkBeforeAssign($user->roles, $roles)) {
+            $user->syncRoles($roles ?: []);
+        }
+
+        if (!$this->checkBeforeAssign($user->permissions, $permissions)) {
+            $user->syncPermissions($permissions ?: []);
+        }
+
+        $user->touch();
 
         return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }

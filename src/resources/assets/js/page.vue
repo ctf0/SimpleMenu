@@ -46,24 +46,28 @@ export default {
             let item = document.getElementById('ace-editor')
 
             if (item) {
+                item.style.lineHeight = '2'
+
                 ace.require('ace/ext/language_tools')
                 let editor = ace.edit('ace-editor')
-                item.style.lineHeight = '2'
                 editor.setOptions({
                     enableBasicAutocompletion: true,
                     enableLiveAutocompletion: true,
                     enableSnippets: true
                 })
-                editor.renderer.setOptions({
-                    animatedScroll: true,
-                    showInvisibles: true,
-                    showPrintMargin: false,
-                    fontSize: 14,
-                    theme: 'ace/theme/monokai'
-                })
                 editor.session.setOptions({
                     mode: 'ace/mode/php'
                 })
+
+                setTimeout(() => {
+                    editor.renderer.setOptions({
+                        animatedScroll: true,
+                        showInvisibles: true,
+                        showPrintMargin: false,
+                        fontSize: 14,
+                        theme: 'ace/theme/monokai'
+                    })
+                }, 250)
 
                 editor.getSession().on('change', () => {
                     this.$refs.controllerFile.value = editor.getSession().getValue()

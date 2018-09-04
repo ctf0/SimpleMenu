@@ -48,7 +48,7 @@ class RolesController extends BaseController
         ]);
 
         $role        = $this->roleModel->create($request->except('permissions'));
-        $permissions = $request->input('permissions') ?: [];
+        $permissions = $request->permissions ?: [];
 
         $role->givePermissionTo($permissions);
 
@@ -87,10 +87,11 @@ class RolesController extends BaseController
         ]);
 
         $role        = $this->roleModel->findOrFail($id);
-        $permissions = $request->input('permissions') ?: [];
+        $permissions = $request->permissions ?: [];
 
         $role->update($request->except('permissions'));
         $role->syncPermissions($permissions);
+        $role->touch();
 
         $this->clearCache();
 

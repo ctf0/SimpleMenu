@@ -3,14 +3,19 @@
 namespace ctf0\SimpleMenu;
 
 use ctf0\SimpleMenu\Traits\Ops;
-use ctf0\SimpleMenu\Traits\MenusTrait;
-use ctf0\SimpleMenu\Traits\RoutesTrait;
-use ctf0\SimpleMenu\Traits\NavigationTrait;
+use ctf0\SimpleMenu\Traits\Menus;
+use ctf0\SimpleMenu\Traits\Routes;
+use ctf0\SimpleMenu\Traits\Navigation;
+use ctf0\SimpleMenu\Traits\PackageRoutes;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class SimpleMenu
 {
-    use RoutesTrait, MenusTrait, NavigationTrait, Ops;
+    use Routes,
+        Menus,
+        Navigation,
+        Ops,
+        PackageRoutes;
 
     protected $listFileDir;
     protected $localeCodes;

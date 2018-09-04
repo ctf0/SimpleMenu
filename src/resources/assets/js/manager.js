@@ -1,5 +1,4 @@
 /*                Packages                */
-window.Vue = require('vue')
 window.EventHub = require('vuemit')
 Vue.use(require('vue-tippy'), {
     arrow: true,

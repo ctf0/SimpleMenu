@@ -2,7 +2,7 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
-trait MenusTrait
+trait Menus
 {
     /**
      * register routes for menu pages.

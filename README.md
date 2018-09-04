@@ -35,6 +35,10 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
     + if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/).
 
     ```js
+    // app.js
+
+    window.Vue = require('vue')
+
     require('../vendor/SimpleMenu/js/manager')
 
     new Vue({

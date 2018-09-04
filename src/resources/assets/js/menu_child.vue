@@ -45,7 +45,7 @@
     </draggable>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
     ul {
         margin-right: 0 !important;
         /*border-left: none !important;*/
@@ -53,6 +53,15 @@
 
     .icon.is-medium {
         height: unset;
+    }
+
+    .menu-list {
+        height: 100%;
+
+        a:hover {
+            color: unset !important;
+            background-color: unset !important;
+        }
     }
 </style>
 

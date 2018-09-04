@@ -103,6 +103,7 @@ class MenusController extends BaseController
 
         // update and trigger events
         $menu->update($request->except('saveList'));
+        $menu->touch();
 
         return back()->with('status', trans('SimpleMenu::messages.model_updated'));
     }

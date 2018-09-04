@@ -61,7 +61,7 @@
             <table class="table is-hoverable is-fullwidth is-bordered" id="table">
                 <thead>
                     <tr>
-                        <th width="1%" nowrap class="is-dark link"
+                        <th class="is-dark link static-cell"
                             @click="selectAll()"
                             v-text="ids.length > 0
                             ? '{{ trans('SimpleMenu::messages.select_non') }}'
@@ -77,26 +77,27 @@
                 <tbody class="list">
                     @foreach ($users as $user)
                         <tr id="item-{{ $user->id }}">
-                            <td style="text-align: center;">
-                                <input type="checkbox" id="sm-{{ $user->id }}"
+                            <td class="has-text-centered link" @click="clickOnCkBox('sm-{{ $user->id }}')">
+                                <input type="checkbox"
+                                    id="sm-{{ $user->id }}"
                                     v-model="ids"
                                     class="cbx-checkbox"
                                     value="{{ $user->id }}"
                                     v-multi-ref="'sm-ids'">
-                                <label for="sm-{{ $user->id }}" class="cbx is-marginless">
+                                <label for="sm-{{ $user->id }}" class="cbx is-marginless" @click.prevent>
                                     <svg width="14px" height="12px" viewBox="0 0 14 12"><polyline points="1 7.6 5 11 13 1"></polyline></svg>
                                 </label>
                             </td>
                             <td class="data-sort-name">{{ $user->name }}</td>
                             <td class="data-sort-email">{{ $user->email }}</td>
-                            <td class="data-sort-roles">
+                            <td class="data-sort-roles" data-roles="{{ $user->roles->count() }}">
                                 @foreach ($user->roles as $role)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.roles.edit', $role->id) }}" class="is-white">{{ $role->name }}</a>
                                     </span>
                                 @endforeach
                             </td>
-                            <td class="data-sort-permissions">
+                            <td class="data-sort-permissions" data-permissions="{{ $user->permissions->count() }}">
                                 @foreach ($user->permissions as $perm)
                                     <span class="tag is-rounded is-medium is-link">
                                         <a href="{{ route($crud_prefix.'.permissions.edit', $perm->id) }}" class="is-white">{{ $perm->name }}</a>
