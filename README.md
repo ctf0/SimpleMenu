@@ -1,6 +1,8 @@
-# SimpleMenu
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/simple-menu.svg)](https://packagist.org/packages/ctf0/simple-menu)
+<h1 align="center">
+    SimpleMenu
+    <br>
+    <a href="https://packagist.org/packages/ctf0/simple-menu"><img src="https://img.shields.io/packagist/v/ctf0/simple-menu.svg" alt="Latest Stable Version" /></a> <a href="https://packagist.org/packages/ctf0/simple-menu"><img src="https://img.shields.io/packagist/dt/ctf0/simple-menu.svg" alt="Total Downloads" /></a>
+</h1>
 
 Create menus & pages that support (multiLocale "title, url, body, ...", nesting, template, static & dynamic data, roles & permissions).
 
