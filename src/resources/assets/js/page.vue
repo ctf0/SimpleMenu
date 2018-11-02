@@ -76,7 +76,7 @@ export default {
         },
         initChoice() {
             new Choices('.select2', {
-                duplicateItems: false,
+                duplicateItemsAllowed: false,
                 removeItemButton: true,
                 paste: false,
                 placeholderValue: 'Select an option'

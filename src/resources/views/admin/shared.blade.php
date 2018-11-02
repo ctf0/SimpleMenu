@@ -9,7 +9,7 @@
     <title>@yield('title', '')</title>
 
     {{-- styles --}}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/choices.js/3.0.4/styles/css/choices.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/choices.js@4/public/assets/styles/css/choices.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/SimpleMenu/style.css') }}"/>
 </head>
