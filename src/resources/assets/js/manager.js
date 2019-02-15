@@ -23,7 +23,7 @@ require('vue-multi-ref')
 import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'
 import 'vue-awesome/icons/pencil'
-Vue.component('icon', require('vue-awesome/components/Icon'))
+Vue.component('icon', require('vue-awesome/components/Icon').default)
 
 // table sort
 window.ListJS = require('list.js')
@@ -40,7 +40,7 @@ axios.interceptors.response.use(
 )
 
 /*                Component                */
-Vue.component('SmPage', require('./page.vue'))
-Vue.component('SmMenu', require('./menu.vue'))
-Vue.component('SmIndex', require('./index.vue'))
-Vue.component('MyNotification', require('vue-notif'))
+Vue.component('SmPage', require('./page.vue').default)
+Vue.component('SmMenu', require('./menu.vue').default)
+Vue.component('SmIndex', require('./index.vue').default)
+Vue.component('MyNotification', require('vue-notif').default)
