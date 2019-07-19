@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu;
 
 use Illuminate\Support\ServiceProvider;
+use ctf0\SimpleMenu\Commands\PackageSetup;
 use ctf0\SimpleMenu\Observers\MenuObserver;
 use ctf0\SimpleMenu\Observers\PageObserver;
 use ctf0\SimpleMenu\Observers\UserObserver;
@@ -13,25 +14,17 @@ use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 
 class SimpleMenuServiceProvider extends ServiceProvider
 {
-    protected $file;
-
     /**
      * Perform post-registration booting of services.
      */
     public function boot()
     {
-        $this->file = $this->app['files'];
-
         $this->packagePublish();
         $this->observers();
         $this->macros();
         $this->viewComp();
+        $this->command();
         $this->app['simplemenu'];
-
-        // append extra data
-        if (!$this->app['cache']->store('file')->has('ct-sm')) {
-            $this->autoReg();
-        }
     }
 
     protected function packagePublish()
@@ -120,49 +113,15 @@ class SimpleMenuServiceProvider extends ServiceProvider
     }
 
     /**
-     * [autoReg description].
+     * package commands.
      *
      * @return [type] [description]
      */
-    protected function autoReg()
+    protected function command()
     {
-        // routes
-        $route_file = base_path('routes/web.php');
-        $search     = 'SimpleMenu';
-
-        if ($this->checkExist($route_file, $search)) {
-            $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
-
-            $this->file->append($route_file, $data);
-        }
-
-        // mix
-        $mix_file = base_path('webpack.mix.js');
-        $search   = 'SimpleMenu';
-
-        if ($this->checkExist($mix_file, $search)) {
-            $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css')";
-
-            $this->file->append($mix_file, $data);
-        }
-
-        // run check once
-        $this->app['cache']->store('file')->rememberForever('ct-sm', function () {
-            return 'added';
-        });
-    }
-
-    /**
-     * [checkExist description].
-     *
-     * @param [type] $file   [description]
-     * @param [type] $search [description]
-     *
-     * @return [type] [description]
-     */
-    protected function checkExist($file, $search)
-    {
-        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
+        $this->commands([
+            PackageSetup::class,
+        ]);
     }
 
     /**

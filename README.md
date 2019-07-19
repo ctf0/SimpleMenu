@@ -15,7 +15,7 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 
 - `composer require ctf0/simple-menu`
 
-- after installation, package will auto-add
+- after installation, run php artisan `sm:setup` to add
     + package routes to `routes/web.php`
     + package assets compiling to `webpack.mix.js`
 
@@ -61,7 +61,7 @@ return [
     'listClasses' => [
         'ul' => 'menu-list',
         'li' => 'list-item',
-        'a'  => 'is-active',
+        'a' => 'is-active',
     ],
 
     /*
@@ -144,12 +144,12 @@ return [
      * ex. "class ExampleController extends PagesController"
      */
     'controllers'=> [
-        'admin'       => '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index',
-        'users'       => '\ctf0\SimpleMenu\Controllers\Admin\UsersController',
-        'pages'       => '\ctf0\SimpleMenu\Controllers\Admin\PagesController',
-        'roles'       => '\ctf0\SimpleMenu\Controllers\Admin\RolesController',
         'permissions' => '\ctf0\SimpleMenu\Controllers\Admin\PermissionsController',
-        'menus'       => '\ctf0\SimpleMenu\Controllers\Admin\MenusController',
+        'admin' => '\ctf0\SimpleMenu\Controllers\Admin\AdminController@index',
+        'users' => '\ctf0\SimpleMenu\Controllers\Admin\UsersController',
+        'pages' => '\ctf0\SimpleMenu\Controllers\Admin\PagesController',
+        'roles' => '\ctf0\SimpleMenu\Controllers\Admin\RolesController',
+        'menus' => '\ctf0\SimpleMenu\Controllers\Admin\MenusController',
     ],
 ];
 ```
