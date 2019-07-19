@@ -15,7 +15,7 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 
 - `composer require ctf0/simple-menu`
 
-- after installation, run php artisan `sm:setup` to add
+- after installation, run `php artisan sm:setup` to add
     + package routes to `routes/web.php`
     + package assets compiling to `webpack.mix.js`
 
