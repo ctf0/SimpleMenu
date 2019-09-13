@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
+use Illuminate\Support\Arr;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait Navigation
@@ -22,6 +23,7 @@ trait Navigation
 
         // redir to '/' if the first item in "bc" is in diff locale
         $bc = $this->getRouteData($name)['breadCrumb'];
+
         if (isset($bc) && count($bc) && !$this->searchForRoute($bc->pluck('route_name')->first(), $code)) {
             return LaravelLocalization::getLocalizedURL($code, url('/'), [], true);
         }
@@ -29,7 +31,8 @@ trait Navigation
         // routeName is not saved in the db (ex.php artisan make:auth)
         // or only url
         $routesListFile = include $this->listFileDir;
-        if (is_null($name) || !array_get($routesListFile, $name)) {
+
+        if (is_null($name) || !isset($routesListFile[$name])) {
             return LaravelLocalization::getLocalizedURL($code, null, [], true);
         }
 
@@ -54,7 +57,7 @@ trait Navigation
      *
      * @return [type] [description]
      */
-    public function getRoute($crntRouteName, array $params = null)
+    public function getRoute($crntRouteName, $params = null)
     {
         // where route is available under one locale but not the other
         if (!app('router')->has($crntRouteName)) {
@@ -71,7 +74,7 @@ trait Navigation
                 if ($crntRouteName == $key) {
                     session([$key => $value]);
 
-                    // fix link not being 'is-active' when "hideDefaultLocaleInURL => true"
+                    // fix link not being 'is-active'when"hideDefaultLocaleInURL => true"
                     $finalUrl       = LaravelLocalization::getLocalizedURL($locale, url($this->getParams($url, $value)), [], $forceDefaultLocation);
                     $this->urlRoute = $finalUrl;
 
@@ -146,7 +149,7 @@ trait Navigation
         $routesListFile = include $this->listFileDir;
 
         // check if we have a link according to that "routeName & code"
-        return array_get($routesListFile, "$name.$code", false);
+        return Arr::get($routesListFile, "$name.$code", false);
     }
 
     /**
@@ -170,9 +173,9 @@ trait Navigation
                 $a  = config('simpleMenu.listClasses.a');
                 break;
             default:
-                $ul = array_get($classes, 'ul');
-                $li = array_get($classes, 'li');
-                $a  = array_get($classes, 'a');
+                $ul = $classes['ul'];
+                $li = $classes['li'];
+                $a  = $classes['a'];
                 break;
         }
 
@@ -194,7 +197,7 @@ trait Navigation
     protected function getHtml($pages, $ul_ClassName, $li_ClassName, $a_ClassName, $params, $url)
     {
         $html = '';
-        $html .= "<ul class=\"{$ul_ClassName}\">";
+        $html .= "<ul class = \"{$ul_ClassName}\">";
 
         foreach ($pages as $page) {
             // escape empty url
@@ -205,8 +208,8 @@ trait Navigation
             $routeUrl = $this->getRoute($page->route_name, $params);
             $isActive = ($url == $routeUrl ? $a_ClassName : '');
 
-            $html .= "<li class=\"{$li_ClassName}\">";
-            $html .= "<a href=\"{$routeUrl}\" class=\"{$isActive}\">{$page->title}</a>";
+            $html .= "<li class = \"{$li_ClassName}\">";
+            $html .= "<a href = \"{$routeUrl}\" class = \"{$isActive}\">{$page->title}</a>";
 
             if ($childs = $page->nests) {
                 $html .= $this->getHtml($childs, $ul_ClassName, $li_ClassName, $a_ClassName, $params, $url);

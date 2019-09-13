@@ -3,6 +3,7 @@
 namespace ctf0\SimpleMenu\Models;
 
 use Baum\Node;
+use Illuminate\Support\Arr;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -87,7 +88,7 @@ class Page extends Node
     public function getNestsAttribute()
     {
         return app('cache')->tags('sm')->rememberForever($this->getCrntLocale() . "-{$this->route_name}_nests", function () {
-            return array_flatten(current($this->getDescendants()->toHierarchy()));
+            return Arr::flatten(current($this->getDescendants()->toHierarchy()));
         });
     }
 

@@ -19,8 +19,8 @@
         }
     ],
     "require": {
-        "php" : "~7.0",
-        "illuminate/support": "5.4 - 5.8",
+        "php": "~7.0",
+        "illuminate/support": "5.4 - 6.0",
         "gazsp/baum": "*",
         "mcamara/laravel-localization": "*",
         "spatie/laravel-permission": "*",

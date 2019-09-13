@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu\Traits;
 
+use Illuminate\Support\Arr;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait Routes
@@ -93,7 +94,7 @@ trait Routes
             ? starts_with($action, '\\') ? $action : "\\$action"
             : '\ctf0\SimpleMenu\Controllers\DummyController@handle';
 
-        $mds = array_filter(array_flatten([$middlewares, $roles, $permissions]));
+        $mds = array_filter(Arr::flatten([$middlewares, $roles, $permissions]));
 
         app('router')->get($route)
             ->uses($uses)

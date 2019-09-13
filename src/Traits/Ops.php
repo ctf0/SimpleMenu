@@ -29,15 +29,15 @@ trait Ops
         $models = config('simpleMenu.models');
 
         $this->cache->tags('sm')->rememberForever('menus', function () use ($models) {
-            return app(array_get($models, 'menu'))->with('pages')->get();
+            return app($models['menu'])->with('pages')->get();
         });
 
         $this->cache->tags('sm')->rememberForever('pages', function () use ($models) {
-            return app(array_get($models, 'page'))->withTrashed()->get();
+            return app($models['page'])->withTrashed()->get();
         });
 
         $this->cache->rememberForever('sm-users', function () use ($models) {
-            return app(array_get($models, 'user'))->with(['roles', 'permissions'])->get();
+            return app($models['user'])->with(['roles', 'permissions'])->get();
         });
     }
 

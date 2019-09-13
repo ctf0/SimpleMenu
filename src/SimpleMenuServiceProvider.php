@@ -73,9 +73,9 @@ class SimpleMenuServiceProvider extends ServiceProvider
         $models = $this->app['config']->get('simpleMenu.models');
 
         if ($models) {
-            $this->app->make(array_get($models, 'page'))->observe(PageObserver::class);
-            $this->app->make(array_get($models, 'menu'))->observe(MenuObserver::class);
-            $this->app->make(array_get($models, 'user'))->observe(UserObserver::class);
+            $this->app->make($models['page'])->observe(PageObserver::class);
+            $this->app->make($models['menu'])->observe(MenuObserver::class);
+            $this->app->make($models['user'])->observe(UserObserver::class);
         }
     }
 
