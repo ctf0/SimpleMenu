@@ -2,12 +2,13 @@
 
 namespace ctf0\SimpleMenu\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 
 class PackageSetup extends Command
 {
     protected $file;
-    protected $signature   = 'sm:setup';
+    protected $signature = 'sm:setup';
     protected $description = 'setup package routes & assets compiling';
 
     /**
@@ -29,7 +30,7 @@ class PackageSetup extends Command
     {
         // routes
         $route_file = base_path('routes/web.php');
-        $search     = 'SimpleMenu';
+        $search = 'SimpleMenu';
 
         if ($this->checkExist($route_file, $search)) {
             $data = "\n// SimpleMenu\nSimpleMenu::menuRoutes();";
@@ -39,7 +40,7 @@ class PackageSetup extends Command
 
         // mix
         $mix_file = base_path('webpack.mix.js');
-        $search   = 'SimpleMenu';
+        $search = 'SimpleMenu';
 
         if ($this->checkExist($mix_file, $search)) {
             $data = "\n// SimpleMenu\nmix.sass('resources/assets/vendor/SimpleMenu/sass/style.scss', 'public/assets/vendor/SimpleMenu/style.css')";
@@ -60,6 +61,6 @@ class PackageSetup extends Command
      */
     protected function checkExist($file, $search)
     {
-        return $this->file->exists($file) && !str_contains($this->file->get($file), $search);
+        return $this->file->exists($file) && !Str::contains($this->file->get($file), $search);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ctf0\SimpleMenu;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 use ctf0\SimpleMenu\Commands\PackageSetup;
 use ctf0\SimpleMenu\Observers\MenuObserver;
@@ -58,7 +59,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         // views
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'SimpleMenu');
         $this->publishes([
-            __DIR__ . '/resources/views'      => resource_path('views/vendor/SimpleMenu'),
+            __DIR__ . '/resources/views' => resource_path('views/vendor/SimpleMenu'),
             __DIR__ . '/resources/pagination' => resource_path('views/vendor/pagination'),
         ], 'views');
     }
@@ -94,7 +95,7 @@ class SimpleMenuServiceProvider extends ServiceProvider
         });
 
         $this->app['url']->macro('has', function ($needle) {
-            return str_contains($this->current(), $needle);
+            return Str::contains($this->current(), $needle);
         });
     }
 

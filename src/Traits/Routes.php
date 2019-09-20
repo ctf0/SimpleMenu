@@ -7,13 +7,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait Routes
 {
-    protected $allRoutes     = [];
+    protected $allRoutes = [];
     protected $listFileFound = true;
 
     public function createRoutes()
     {
         app('router')->group([
-            'prefix'     => LaravelLocalization::setLocale(),
+            'prefix' => LaravelLocalization::setLocale(),
             'middleware' => [
                 'web',
                 'localeSessionRedirect',
@@ -62,23 +62,23 @@ trait Routes
         }
 
         // route data
-        $url         = $page->url;
-        $action      = $page->action;
-        $prefix      = $page->prefix;
-        $routeName   = $page->route_name;
+        $url = $page->url;
+        $action = $page->action;
+        $prefix = $page->prefix;
+        $routeName = $page->route_name;
 
         // page data
-        $title       = $page->title;
-        $body        = $page->body;
-        $desc        = $page->desc;
-        $meta        = $page->meta;
-        $cover       = $page->cover;
-        $template    = $page->template;
-        $breadCrumb  = $page->getAncestors();
+        $title = $page->title;
+        $body = $page->body;
+        $desc = $page->desc;
+        $meta = $page->meta;
+        $cover = $page->cover;
+        $template = $page->template;
+        $breadCrumb = $page->getAncestors();
 
         // middlewares
         $middlewares = is_null($page->middlewares) ? null : preg_split('/[\s,]+/', $page->middlewares);
-        $roles       = empty($page->roles->pluck('name')->toArray()) ? null : 'role:' . implode(',', $page->roles->pluck('name')->toArray());
+        $roles = empty($page->roles->pluck('name')->toArray()) ? null : 'role:' . implode(',', $page->roles->pluck('name')->toArray());
         $permissions = empty($page->permissions->pluck('name')->toArray()) ? null : 'perm:' . implode(',', $page->permissions->pluck('name')->toArray());
 
         // cache the page so we can pass the page params to the controller@method
@@ -107,7 +107,7 @@ trait Routes
         $routeName = $page->route_name;
 
         foreach ($this->AppLocales() as $code) {
-            $url    = $page->getTranslationWithoutFallback('url', $code);
+            $url = $page->getTranslationWithoutFallback('url', $code);
             $prefix = $page->getTranslationWithoutFallback('prefix', $code);
 
             if ($this->escapeEmptyRoute($url)) {
