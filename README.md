@@ -28,9 +28,7 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 - install JS dependencies
 
     ```bash
-    yarn add vue axios vue-tippy@v1 vuedraggable vue-notif vue-multi-ref vue-awesome@v2 list.js
-    # or
-    npm install vue axios vue-tippy@v1 vuedraggable vue-notif vue-multi-ref vue-awesome@v2 list.js --save
+    yarn add vue axios vue-tippy@v2 vuedraggable vue-notif vue-multi-ref vue-awesome@v2 list.js
     ```
 
 - add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.
@@ -51,6 +49,7 @@ Create menus & pages that support (multiLocale "title, url, body, ...", nesting,
 <br>
 
 ## Config
+
 **config/simpleMenu.php**
 
 ```php
@@ -157,6 +156,7 @@ return [
 <br>
 
 ## Usage
+
 > [Demo](https://github.com/ctf0/demos/tree/simple-menu)<br>
 > [Usage](https://github.com/ctf0/simple-menu/wiki/Usage)<br>
 > [Views](https://github.com/ctf0/SimpleMenu/wiki/Crud-Views)
